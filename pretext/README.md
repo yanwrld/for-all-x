@@ -41,9 +41,11 @@ npx wrangler deploy        # run in this directory; logs in with `npx wrangler l
 ```
 
 The GitHub Actions workflow `.github/workflows/pretext.yml` rebuilds everything
-(including the images) on each push to `master` and deploys it. It needs two
-repository secrets: `CLOUDFLARE_API_TOKEN` (made from the "Edit Cloudflare
-Workers" token template) and `CLOUDFLARE_ACCOUNT_ID`.
+(including the images) on each push to `master` and deploys it. It needs a GitHub
+environment named `cloudflare` (Settings → Environments), restricted to the
+`master` branch, holding two secrets: `CLOUDFLARE_API_TOKEN` and
+`CLOUDFLARE_ACCOUNT_ID`. Give the token only *Workers Scripts: Edit* on the
+account and *Workers Routes: Edit* on the `minegahara.net` zone.
 
 ## Layout
 
