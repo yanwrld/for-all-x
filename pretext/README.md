@@ -31,10 +31,19 @@ or proof in the LaTeX changes, and commit the updated `generated-assets/` and
 Open `output/web/index.html` through a local web server (for example
 `pretext view web`, or `python3 -m http.server -d output/web`).
 
+## Hosting
+
+The site is served at <https://fax.minegahara.net> as a static-assets
+Cloudflare Worker (`wrangler.jsonc`). To deploy by hand after `./build.sh`:
+
+```bash
+npx wrangler deploy        # run in this directory; logs in with `npx wrangler login`
+```
+
 The GitHub Actions workflow `.github/workflows/pretext.yml` rebuilds everything
-(including the images) on each push to `master` and publishes the site with
-GitHub Pages. To turn publishing on, set **Settings → Pages → Source** to
-**GitHub Actions** once.
+(including the images) on each push to `master` and deploys it. It needs two
+repository secrets: `CLOUDFLARE_API_TOKEN` (made from the "Edit Cloudflare
+Workers" token template) and `CLOUDFLARE_ACCOUNT_ID`.
 
 ## Layout
 
@@ -44,6 +53,7 @@ GitHub Pages. To turn publishing on, set **Settings → Pages → Source** to
 | `scripts/measure_images.py` | Records each tree/proof image's natural width, so it is shown at text size |
 | `source/main.ptx`, `docinfo.ptx`, `frontmatter.ptx`, `backmatter.ptx` | Hand-written book structure, notation macros, title and back matter |
 | `source/ch-*.ptx`, `app-*.ptx`, `preface.ptx`, `solutions-intro.ptx` | Generated from `Latex-Files/` |
+| `wrangler.jsonc` | Cloudflare Worker that serves `output/web` at fax.minegahara.net |
 | `latex/forallx-images.sty`, `latex/prooftrees.sty` | LaTeX support for the tree and proof images (from `forallx-ubc.sty`) |
 | `generated-assets/latex-image/` | The typeset trees and proofs (SVG) |
 | `assets/` | Cover and photo |

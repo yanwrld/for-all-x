@@ -1,8 +1,9 @@
 # Builds the interactive PreTeXt web edition from the LaTeX sources and,
-# on pushes to master, publishes it with GitHub Pages.
+# on pushes to master, deploys it to https://fax.minegahara.net as a
+# Cloudflare Worker (configuration in pretext/wrangler.jsonc).
 #
-# One-time setup for publishing: Settings -> Pages -> Build and deployment ->
-# Source: "GitHub Actions".
+# Needs two repository secrets: CLOUDFLARE_API_TOKEN (a token made from the
+# "Edit Cloudflare Workers" template) and CLOUDFLARE_ACCOUNT_ID.
 
 name: PreTeXt web edition
 
@@ -45,20 +46,11 @@ jobs:
       - name: Convert and build
         run: ./pretext/build.sh images
 
-      - uses: actions/upload-pages-artifact@v3
+      - name: Deploy to Cloudflare
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        uses: cloudflare/wrangler-action@v3
         with:
-          path: pretext/output/web
-
-  deploy:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: pretext
+          command: deploy
