@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<frontmatter xmlns:xi="http://www.w3.org/2001/XInclude" xml:id="frontmatter">
+  <bibinfo>
+    <author>
+      <personname>Jonathan Ichikawa</personname>
+      <institution>University of British Columbia</institution>
+    </author>
+    <author>
+      <personname>P.D. Magnus</personname>
+      <institution>University at Albany, State University of New York</institution>
+    </author>
+    <edition>UBC edition, version 2.5</edition>
+    <copyright>
+      <year>2005<ndash/>2026</year>
+      <holder>P.D. Magnus and Jonathan Ichikawa</holder>
+      <shortlicense>
+        This book is offered under a Creative Commons license (Attribution-ShareAlike 3.0).
+      </shortlicense>
+    </copyright>
+  </bibinfo>
+
+  <titlepage>
+    <titlepage-items/>
+  </titlepage>
+
+  <colophon>
+    <colophon-items/>
+  </colophon>
+
+  <acknowledgement>
+    <image source="ichikawa.jpg" width="70%">
+      <shortdescription>Photograph</shortdescription>
+    </image>
+    <p>Jonathan Ichikawa, who modified the Magnus edition to create this version, would, first and foremost, like to thank P.D. Magnus. He is also grateful to Greg Restall, and his book <em>Logic</em>, which is the first text he taught from and which is the model for the discussion of trees. He also thanks the many UBC students who test-drove drafts of the book. He<rsq/>s also grateful for helpful conversations with Roberta Ballarin, Roy Cook, Josh Dever, Dave Gilbert, Thony Gillies, and Jon Shaheen.</p>
+  </acknowledgement>
+
+  <preface xml:id="about-web-edition">
+    <title>About this Edition</title>
+    <image source="front-cover.jpg" width="45%">
+      <shortdescription>Front cover of forall x: UBC edition</shortdescription>
+    </image>
+    <p><em>forall x: UBC edition</em> is an open-access introductory logic textbook, based on P.D. Magnus<rsq/>s <em>forall x</em>. It covers translation, truth tables, trees (analytic tableaux), Fitch-style natural deduction, and soundness and completeness, for sentential and quantified logic with identity.</p>
+    <p>This is the interactive web edition. Many practice exercises check your answer when you choose one and click <q>Check Me</q>; solutions to many others can be revealed by clicking <q>Solution</q> beneath the exercise, and all of them are collected in the Solutions appendix. Cross-references open in place when clicked, and the whole book can be searched. The PDF edition is available from <url href="https://github.com/jonathanichikawa/for-all-x" visual="github.com/jonathanichikawa/for-all-x"/>.</p>
+
+    <p>Source material: <url href="https://www.fecundity.com/logic/" visual="fecundity.com/logic">fecundity.com/logic</url>, v1.30.</p>
+    <p>You are free to copy this book, to distribute it, to display it, and to make derivative works, under the following conditions: (a) Attribution. You must give the original author credit. (b) Share Alike. If you alter, transform, or build upon this work, you may distribute the resulting work only under a license identical to this one. <mdash/> For any reuse or distribution, you must make clear to others the license terms of this work. Any of these conditions can be waived if you get permission from the copyright holder. Your fair use and other rights are in no way affected by the above. <mdash/> This is a human-readable summary of the full license, which is available online at <url href="http://creativecommons.org/licenses/by-sa/3.0/" visual="creativecommons.org/licenses/by-sa/3.0"/>.</p>
+    <p>The print edition was typeset in <latex/>. The style for natural deduction proofs is based on fitch.sty (v0.4) by Peter Selinger. Tree typesetting from prooftrees (v0.6) by Clea F. Rees. This web edition is produced with PreTeXt.</p>
+    </preface>
+
+  <xi:include href="./preface.ptx"/>
+</frontmatter>

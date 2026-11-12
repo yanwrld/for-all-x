@@ -1,0 +1,6 @@
+# build products (rebuilt by ./build.sh or CI)
+output/
+.cache/
+logs/
+__pycache__/
+*.pyc

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<backmatter xmlns:xi="http://www.w3.org/2001/XInclude" xml:id="backmatter">
+  <title>Back Matter</title>
+
+  <xi:include href="./app-notation.ptx"/>
+
+  <solutions xml:id="solutions" divisional="solution">
+    <title>Solutions to selected exercises</title>
+    <xi:include href="./solutions-intro.ptx"/>
+  </solutions>
+
+  <xi:include href="./app-quickreference.ptx"/>
+
+  <colophon>
+    <p>In the Introduction to his volume <em>Symbolic Logic</em>, Charles Lutwidge Dodgson advised: <q>When you come to any passage you don<rsq/>t understand, <em>read it again</em>: if you <em>still</em> don<rsq/>t understand it, <em>read it again</em>: if you fail, even after <em>three</em> readings, very likely your brain is getting a little tired. In that case, put the book away, and take to other occupations, and next day, when you come to it fresh, you will very likely find that it is <em>quite</em> easy.</q></p>
+    <p>The same might be said for this volume, although readers are forgiven if they take a break for snacks after <em>two</em> readings.</p>
+    <p><alert>About the authors.</alert> P.D. Magnus is a Professor of Philosophy in Albany, New York. His primary research is in the philosophy of science. Jonathan Ichikawa is a Professor of Philosophy in Vancouver, British Columbia. His primary research is in epistemology and philosophy of language.</p>
+  </colophon>
+</backmatter>

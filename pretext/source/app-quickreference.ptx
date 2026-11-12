@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated from Latex-Files/forallx-ubc-app-quickreference.tex by pretext/scripts/latex2ptx.py -->
+<appendix xml:id="app-quickreference">
+<title>Quick Reference</title>
+<section xml:id="app-CharacteristicTTs">
+<title>Characteristic Truth Tables</title>
+<sidebyside margins="0%" valign="top">
+<tabular><col halign="center" right="minor"/><col halign="center"/>
+<row bottom="minor"><cell><m>\metaA{}</m></cell><cell><m>\enot\metaA{}</m></cell></row>
+<row><cell>1</cell><cell>0</cell></row>
+<row><cell>0</cell><cell>1</cell></row></tabular>
+<tabular><col halign="center" right="minor"/><col halign="center" right="minor"/><col halign="center" right="minor"/><col halign="center" right="minor"/><col halign="center" right="minor"/><col halign="center"/>
+<row bottom="minor"><cell><m>\metaA{}</m></cell><cell><m>\metaB{}</m></cell><cell><m>\metaA{}\eand\metaB{}</m></cell><cell><m>\metaA{}\eor\metaB{}</m></cell><cell><m>\metaA{}\eif\metaB{}</m></cell><cell><m>\metaA{}\eiff\metaB{}</m></cell></row>
+<row><cell>1</cell><cell>1</cell><cell>1</cell><cell>1</cell><cell>1</cell><cell>1</cell></row>
+<row><cell>1</cell><cell>0</cell><cell>0</cell><cell>1</cell><cell>0</cell><cell>0</cell></row>
+<row><cell>0</cell><cell>1</cell><cell>0</cell><cell>1</cell><cell>1</cell><cell>0</cell></row>
+<row><cell>0</cell><cell>0</cell><cell>0</cell><cell>0</cell><cell>1</cell><cell>1</cell></row></tabular></sidebyside>
+</section>
+<section xml:id="app-symbolization">
+<title>Symbolization</title>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell colspan="2" halign="left"><em>Sentential Connectives</em> (chapter <xref ref="ch-SL" text="global"/>)</cell></row>
+<row><cell/></row>
+<row><cell>It is not the case that <m>P</m>.</cell><cell><m>\enot P</m></cell></row>
+<row><cell>Either <m>P</m>, or <m>Q</m>.</cell><cell><m>(P \eor Q)</m></cell></row>
+<row><cell>Neither <m>P</m>, nor <m>Q</m>.</cell><cell><m>\enot(P \eor Q)</m> or  <m>(\enot P \eand \enot Q)</m></cell></row>
+<row><cell>Both <m>P</m>, and <m>Q</m>.</cell><cell><m>(P \eand Q)</m></cell></row>
+<row><cell>If <m>P</m>, then <m>Q</m>.</cell><cell><m>(P \eif Q)</m></cell></row>
+<row><cell><m>P</m> only if <m>Q</m>.</cell><cell><m>(P \eif Q)</m></cell></row>
+<row><cell><m>P</m> if and only if <m>Q</m>.</cell><cell><m>(P \eiff Q)</m></cell></row>
+<row><cell>Unless <m>P</m>, <m>Q</m>. <m>P</m> unless <m>Q</m>.</cell><cell><m>(P \eor Q)</m></cell></row>
+<row><cell colspan="2" halign="left"><em>Predicates</em> (chapter <xref ref="ch-QL" text="global"/>)</cell></row>
+<row><cell/></row>
+<row><cell>All <m>F</m>s are <m>G</m>s.</cell><cell><m>\forall x(Fx \eif Gx)</m></cell></row>
+<row><cell>Some <m>F</m>s are <m>G</m>s.</cell><cell><m>\exists x(Fx \eand Gx)</m></cell></row>
+<row><cell>Not all <m>F</m>s are <m>G</m>s.</cell><cell><m>\enot\forall x(Fx \eif Gx)</m> or <m>\exists x(Fx \eand \enot Gx)</m></cell></row>
+<row><cell>No <m>F</m>s are <m>G</m>s.</cell><cell><m>\forall x(Fx \eif\enot Gx)</m> or <m>\enot\exists x(Fx \eand Gx)</m></cell></row>
+<row><cell colspan="2" halign="left"><em>Identity</em> (chapter <xref ref="ch-identity" text="global"/>)</cell></row>
+<row><cell/></row>
+<row><cell>Only <m>j</m> is <m>G</m>.</cell><cell><m>\forall x(Gx \eiff x{=}j)</m></cell></row>
+<row><cell>Everything besides <m>j</m> is <m>G</m>.</cell><cell><m>\forall x(x {\neq} j \eif Gx)</m></cell></row>
+<row><cell>The <m>F</m> is <m>G</m>.</cell><cell><m>\exists x(Fx \eand \forall y(Fy \eif x{=}y) \eand Gx)</m></cell></row>
+<row><cell>The <m>F</m> is not <m>G</m>.</cell><cell><m>\exists x(Fx \eand \forall y(Fy \eif x{=}y) \eand \enot Gx)</m></cell></row></tabular>
+</section>
+<section xml:id="quickreference-tree-rules">
+<title>Tree Rules</title>
+<subsection xml:id="quickreference-sentential-rules">
+<title>Sentential Rules</title>
+<p>(chapter <xref ref="ch-sl-trees" text="global"/>)</p>
+<sidebyside widths="12% 16% 13% 17% 13%" margins="0%" valign="top">
+<image><latex-image label="tree-d1a0288a62">
+\begin{prooftree}
+{not line numbering}
+[\metaA{}\eand\metaB{}, checked
+	[\metaA{}
+	[\metaB{}, grouped
+	]
+	]
+]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image>
+<image><latex-image label="tree-51b3db26b6">
+\begin{prooftree}
+{not line numbering,
+single branches}
+[\enot(\metaA{}\eor\metaB{}), checked
+	[\enot\metaA{}
+	[\enot\metaB{}, grouped
+	]
+	]
+]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image>
+<image><latex-image label="tree-b491802f60">
+\begin{prooftree}
+{not line numbering,
+single branches}
+[\metaA{}\eiff\metaB{}, checked
+	[\metaA{}
+		[\metaB{}, grouped]
+	]
+	[\enot\metaA{}
+		[\enot\metaB{}, grouped]
+	]
+]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image>
+<image><latex-image label="tree-7bc3b64b1f">
+\begin{prooftree}
+{not line numbering,
+single branches}
+[\enot(\metaA{}\eand\metaB{}), checked
+	[\enot\metaA{}]
+	[\enot\metaB{}]
+]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image>
+<image><latex-image label="tree-98bb9889ab">
+\begin{prooftree}
+{not line numbering,
+single branches}
+[\metaA{}\eif\metaB{}, checked
+	[\enot\metaA{}]
+	[\metaB{}]
+]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image></sidebyside>
+<sidebyside widths="17% 12% 17% 10%" margins="0%" valign="top">
+<image><latex-image label="tree-120800fd2b">
+\begin{prooftree}
+{not line numbering,
+single branches}
+[\enot(\metaA{}\eiff\metaB{}), checked
+	[\metaA{}
+		[\enot\metaB{}, grouped]
+	]
+	[\enot\metaA{}
+		[\metaB{}, grouped]
+	]
+]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image>
+<image><latex-image label="tree-0b44713a2a">
+\begin{prooftree}
+{not line numbering,
+single branches}
+[\metaA{}\eor\metaB{}, checked
+	[\metaA{}]
+	[\metaB{}]
+]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image>
+<image><latex-image label="tree-0ce0a51270">
+\begin{prooftree}
+{not line numbering,
+single branches}
+[\enot(\metaA{}\eif\metaB{}), checked
+	[\metaA{}
+	[\enot\metaB{}, grouped
+	]
+	]
+]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image>
+<image><latex-image label="tree-7167eda11c">
+\begin{prooftree}
+{not line numbering}
+[\enot\enot\metaA{}, checked
+	[\metaA{}]
+]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image></sidebyside></subsection>
+<subsection xml:id="quickreference-quantifier-rules">
+<title>Quantifier Rules</title>
+<p>(chapter <xref ref="ch-QLTrees" text="global"/>)</p>
+<sidebyside widths="14% 14% 16% 16%" margins="0%" valign="top"><stack>
+<image><latex-image label="tree-1b79e6ff5d">
+\begin{prooftree}
+{not line numbering}
+[\exists\script{x}\metaA{}, checked={\script{a}}
+	[\metaA{}\substitute{\script{x}}{\script{a}}]
+]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image>
+<p>*<m>\script{a}</m> must be new</p></stack><stack>
+<image><latex-image label="tree-2074574446">
+\begin{prooftree}
+{not line numbering}
+[\forall\script{x}\metaA{}, subs=\script{a} 
+	[\metaA{}\substitute{\script{x}}{\script{a}}
+	]
+]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image>
+<p>for any <m>\script{a}</m></p></stack><stack>
+<image><latex-image label="tree-f8b5eb3bcb">
+\begin{prooftree}
+{not line numbering}
+[\enot\exists\script{x}\metaA{}, subs=\script{a} 
+	[\enot\metaA{}\substitute{\script{x}}{\script{a}}
+	]
+]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image>
+<p>for any <m>\script{a}</m></p></stack><stack>
+<image><latex-image label="tree-1d15307bb2">
+\begin{prooftree}
+{not line numbering}
+[\enot\forall\script{x}\metaA{}, checked={\script{a}}
+	[\enot\metaA{}\substitute{\script{x}}{\script{a}}
+	]
+]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image>
+<p>*<m>\script{a}</m> must be new</p></stack></sidebyside></subsection>
+<subsection xml:id="quickreference-identity-rules">
+<title>Identity Rules</title>
+<p>(chapter <xref ref="ch-identity" text="global"/>)</p>
+<p>If names <m>\script{a}</m> and <m>\script{b}</m> are identified on a branch, then, for any sentence <m>\metaA{}</m> in the branch, you may add <m>\metaA{}\substitute{\script{a}}{\script{b}}</m> to the branch.</p>
+<p>A branch closes if and only if either (i) it contains some sentence <m>\metaA{}</m> along with its negation, <m>\enot\metaA{}</m>, or (ii) it contains, for some name <m>\script{a}</m>, the sentence <m>\script{a}{\neq}\script{a}</m>.</p>
+<p>A branch is <term>complete</term> if and only if either (i) it is closed, or (ii) all of the following conditions are met:</p>
+<p>
+<ol>
+<li>Every resolvable sentence in the branch has been resolved;</li>
+<li>For every general quantified sentence <m>\metaA{}</m> in the branch, at least one instance of <m>\metaA{}</m> is in the branch; and, for every name <m>\script{a}</m> in the branch, the <m>\script{a}</m> instance of <m>\metaA{}</m> is in the branch; and</li>
+<li>It is possible to select one name as the representative of each identity group in the branch such that, for every atomic sentence or negated atomic sentence in the branch other than a positive identity claim, its representative version is also in the branch.</li></ol></p></subsection>
+</section>
+<section xml:id="quickreference-natural-deduction-rules">
+<title>Natural Deduction Rules</title>
+<subsection xml:id="nd-proofrules">
+<title>Basic Rules</title>
+<p><alert>Conjunction Introduction</alert></p>
+<image width="35%"><latex-image label="proof-0f6400cab3">
+$\begin{nd}
+	\have[m]{a}{\metaA{}}
+	\have[n]{b}{\metaB{}}
+	\have[\ ]{c}{\metaA{}\eand\metaB{}} \ai{a, b}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p><alert>Conjunction Elimination</alert></p>
+<image width="33%"><latex-image label="proof-cd45fcbf68">
+$\begin{nd}
+	\have[m]{ab}{\metaA{}\eand\metaB{}}
+	\have[\ ]{a}{\metaA{}} \ae{ab}
+	\have[\ ]{b}{\metaB{}} \ae{ab}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p><alert>Disjunction Introduction</alert></p>
+<image width="31%"><latex-image label="proof-384c0f62e8">
+$\begin{nd}
+	\have[m]{a}{\metaA{}}
+	\have[\ ]{ab}{\metaA{}\eor\metaB{}}\oi{a}
+	\have[\ ]{ba}{\metaB{}\eor\metaA{}}\oi{a}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p><alert>Disjunction Elimination</alert></p>
+<image width="36%"><latex-image label="proof-35269d6500">
+$\begin{nd}
+	\have[m]{ab}{\metaA{}\eor\metaB{}}
+	\have[n]{nb}{\enot\metaB{}}
+	\have[\ ]{a}{\metaA{}} \oe{ab,nb}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<image width="36%"><latex-image label="proof-9a3c793890">
+$\begin{nd}
+	\have[m]{ab}{\metaA{}\eor\metaB{}}
+	\have[n]{na}{\enot\metaA{}}
+	\have[\ ]{b}{\metaB{}} \oe{ab,na}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p><alert>Conditional Introduction</alert></p>
+<image width="35%"><latex-image label="proof-8907ea98cf">
+$\begin{nd}
+	\open
+		\hypo[m]{a}{\metaA{}} \by{want \metaB{}}{}
+		\have[n]{b}{\metaB{}}
+	\close
+	\have[\ ]{ab}{\metaA{}\eif\metaB{}}\ci{a-b}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p><alert>Conditional Elimination</alert></p>
+<image width="37%"><latex-image label="proof-e82d25bce0">
+$\begin{nd}
+	\have[m]{ab}{\metaA{}\eif\metaB{}}
+	\have[n]{a}{\metaA{}}
+	\have[\ ]{b}{\metaB{}} \ce{ab,a}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p><alert>Biconditional Introduction</alert></p>
+<image width="36%"><latex-image label="proof-938298bcf0-2">
+$\begin{nd}
+	\have[m]{ab}{\metaA{}\eif\metaB{}}
+	\have[n]{ba}{\metaB{}\eif\metaA{}}
+	\have[\ ]{c}{\metaA{}\eiff\metaB{}} \bi{ab, ba}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p><alert>Biconditional Elimination</alert></p>
+<image width="37%"><latex-image label="proof-ba91f4be28">
+$\begin{nd}
+	\have[m]{ab}{\metaA{}\eiff\metaB{}}
+	\have[n]{a}{\metaB{}}
+	\have[\ ]{b}{\metaA{}} \be{ab,a}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<image width="37%"><latex-image label="proof-34d89cbf39">
+$\begin{nd}
+	\have[m]{ab}{\metaA{}\eiff\metaB{}}
+	\have[n]{a}{\metaA{}}
+	\have[\ ]{b}{\metaB{}} \be{ab,a}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p><alert>Negation Introduction</alert></p>
+<image width="44%"><latex-image label="proof-8450bcd162">
+$\begin{nd}
+\open
+	\hypo[m]{na}\metaA{}\by{for reductio}{}
+	\have[n]{b}\metaB{}
+	\have[o]{nb}{\enot\metaB{}}
+\close
+\have[\ ]{a}[\ ]{\enot\metaA{}}\ni{na-b, na-nb}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p><alert>Negation Elimination</alert></p>
+<image width="45%"><latex-image label="proof-8f262c7eb5">
+$\begin{nd}
+\open
+	\hypo[m]{na}{\enot\metaA{}}\by{for reductio}{}
+	\have[n]{b}\metaB{}
+	\have[o]{nb}{\enot\metaB{}}
+\close
+\have[\ ]{a}[\ ]\metaA{}\ne{na-b, na-nb}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image></subsection>
+<subsection xml:id="quickreference-quantifier-rules-2">
+<title>Quantifier Rules</title>
+<p><alert>Existential Introduction</alert></p>
+<image width="43%"><latex-image label="proof-1f5008902e">
+$\begin{nd}
+	\have[m]{a}{\metaA{}}
+	\have[\ ]{c}{\exists \script{x}\metaA{}\substitutesome{\script{c}^\ast}{\script{x}}} \Ei{a}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p><em>
+<m>^\ast \script{x}</m> may replace some or all occurrences of <m>\script{c}</m>.</em></p>
+<p><alert>Existential Elimination</alert></p>
+<image width="50%"><latex-image label="proof-b8d1e140ef-2">
+$\begin{nd}
+	\have[m]{a}{\exists \script{x}\metaA{}}
+	\open	
+		\hypo[n]{b}{\metaA{}\substitute{\script{x}}{\script{c}^\ast}} \by{for $\exists${}E}{}
+		\have[p]{c}{\metaB{}}
+	\close
+	\have[\ ]{d}{\metaB{}} \Ee{a,b-c}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p><em>
+<m>^\ast \script{c}</m> must not occur anywhere earlier in the proof or in <m>\metaB{}</m>.</em></p>
+<p><alert>Universal Introduction</alert></p>
+<image width="37%"><latex-image label="proof-67ff222333-2">
+$\begin{nd}
+	\have[m]{a}{\metaA{}\substitute{\script{x}}{\script{c}^\ast}}
+	\have[\ ]{c}{\forall \script{x}\metaA{}} \Ai{a}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p><em>
+<m>^\ast \script{c}</m> must not occur in <m>\metaA{}</m> or in any undischarged assumption.</em></p>
+<p><alert>Universal Elimination</alert></p>
+<image width="37%"><latex-image label="proof-676255e474-2">
+$\begin{nd}
+	\have[m]{a}{\forall \script{x}\metaA{}}
+	\have[\ ]{c}{\metaA{}\substitute{\script{x}}{\script{c}}} \Ae{a}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image></subsection>
+<subsection xml:id="quickreference-identity-rules-2">
+<title>Identity Rules</title>
+<p><alert>Identity Introduction</alert></p>
+<image width="19%"><latex-image label="proof-2c10edc701">
+$\begin{nd}
+	\have[\ \,\,\,]{x}{\script{c}{=}\script{c}} \by{=I}{}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p><alert>Identity Elimination</alert></p>
+<image width="43%"><latex-image label="proof-2bcaee49bd-2">
+$\begin{nd}
+	\have[m]{e}{\script{c}{=}\script{d}}
+	\have[n]{a}{\metaA{}}
+	\have[\ ]{ea1}{\metaA{}\substitutesome{\script{c}}{\script{d}}} \by{=E}{e,a}
+	\have[\ ]{ea2}{\metaA{}\substitutesome{\script{d}}{\script{c}}} \by{=E}{e,a}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p><em>One name may replace some or all occurrences of the other.</em></p></subsection>
+<subsection xml:id="quickreference-derived-rules">
+<title>Derived Rules</title>
+<p><alert>Reiteration</alert></p>
+<image width="24%"><latex-image label="proof-19d39c643e">
+$\begin{nd}
+	\have[m]{a}{\metaA{}}
+	\have[\ ]{c}{\metaA{}} \by{R}{a}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p><alert>Dilemma</alert></p>
+<image width="42%"><latex-image label="proof-77c95141aa">
+$\begin{nd}
+	\have[m]{ab}{\metaA{}\eor\metaB{}}
+	\have[n]{ac}{\metaA{}\eif\metaC{}}
+	\have[p]{bc}{\metaB{}\eif\metaC{}}
+	\have[\ ]{a}{\metaC{}} \by{DIL}{ab,ac,bc}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p><alert>Modus Tollens</alert></p>
+<image width="37%"><latex-image label="proof-536da82d82-2">
+$\begin{nd}
+	\have[m]{ab}{\metaA{}\eif\metaB{}}
+	\have[n]{a}{\enot\metaB{}}
+	\have[\ ]{b}{\enot\metaA{}} \by{MT}{ab,a}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p><alert>Hypothetical Syllogism</alert></p>
+<image width="37%"><latex-image label="proof-1c0a6a3fbf-2">
+$\begin{nd}
+	\have[m]{ab}{\metaA{}\eif\metaB{}}
+	\have[n]{bc}{\metaB{}\eif\metaC{}}
+	\have[\ ]{ac}{\metaA{}\eif\metaC{}}\by{HS}{ab,bc}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image></subsection>
+<subsection xml:id="quickreference-replacement-rules">
+<title>Replacement Rules</title>
+<p><alert>Commutativity</alert> (Comm)</p>
+<p><m>(\metaA{}\eand\metaB{}) \Longleftrightarrow (\metaB{}\eand\metaA{})</m></p>
+<p><m>(\metaA{}\eor\metaB{}) \Longleftrightarrow (\metaB{}\eor\metaA{})</m></p>
+<p><m>(\metaA{}\eiff\metaB{}) \Longleftrightarrow (\metaB{}\eiff\metaA{})</m></p>
+<p><alert>DeMorgan</alert> (DeM)</p>
+<p><m>\enot(\metaA{}\eor\metaB{}) \Longleftrightarrow (\enot\metaA{}\eand\enot\metaB{})</m></p>
+<p><m>\enot(\metaA{}\eand\metaB{}) \Longleftrightarrow (\enot\metaA{}\eor\enot\metaB{})</m></p>
+<p><alert>Double Negation</alert> (DN)</p>
+<p><m>\enot\enot\metaA{} \Longleftrightarrow \metaA{}</m></p>
+<p><alert>Material Conditional</alert> (MC)</p>
+<p><m>(\metaA{}\eif\metaB{}) \Longleftrightarrow (\enot\metaA{}\eor\metaB{})</m></p>
+<p><m>(\metaA{}\eor\metaB{}) \Longleftrightarrow (\enot\metaA{}\eif\metaB{})</m></p>
+<p><alert>Biconditional Exchange</alert> (<m>\eiff</m>ex)</p>
+<p><m>[(\metaA{}\eif\metaB{})\eand(\metaB{}\eif\metaA{})] \Longleftrightarrow (\metaA{}\eiff\metaB{})</m></p>
+<p><alert>Quantifier Negation</alert> (QN)</p>
+<p><m>\enot\forall\script{x}\metaA{} \Longleftrightarrow \exists\script{x}\enot\metaA{}</m></p>
+<p><m>\enot\exists\script{x}\metaA{} \Longleftrightarrow \forall\script{x}\enot\metaA{}</m></p></subsection>
+</section>
+</appendix>

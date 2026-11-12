@@ -1,0 +1,1260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated from Latex-Files/forallx-ubc-12-identity.tex by pretext/scripts/latex2ptx.py -->
+<chapter xml:id="ch-identity">
+<title>Identity</title>
+<introduction>
+<p>This chapter extends QL by adding logical resources for discussion of <em>identity</em>. In the logical sense, identity is about which object something is. Two things aren’t ‘identical’ in our sense just because they look exactly alike. (Identical twins aren’t <em>logically</em> identical.) Neither does identity, in our logical sense, have to do with the way an individual conceives of oneself. (We’re not getting into whether one <em>identifies as</em> a woman, etc.) Instead, we will develop logical vocabulary to talk about whether, e.g., the burglar Peter saw earlier is <em>the same person as</em> the person who shot Uncle Ben.</p>
+<p>It is already possible to talk about identity in QL, by assigning identity and related concepts to predicates in interpretation keys. (In this sense, it’s possible to talk about pretty much anything in QL.) However, there are a few reasons why we may wish to have a more robust logical notion of identity than that. We begin by examining some of these motivations. Identity will strengthen QL, increasing its expressive power in many ways.</p></introduction>
+<section xml:id="sec-identitymotivation">
+<title>Motivating identity as a logical category</title>
+<p>Consider this sentence:</p>
+<p>
+<ol>
+<li>Only you can prevent forest fires.</li></ol></p>
+<p>How should we translate it into QL? Here is one simple option. We could use this symbolization key:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>UD:</cell><cell>people</cell></row>
+<row><cell>Px:</cell><cell>only <m>x</m> can prevent forest fires</cell></row>
+<row><cell>u:</cell><cell>you</cell></row></tabular>
+<p>And then we could translate sentence 1 straightforwardly as <m>Pu</m>. This might be adequate for some purposes, but this translation misses out on a key fact about sentence 1. Notice that sentence 1 is inconsistent with sentence 2:</p>
+<p>
+<ol>
+<li>Only your mother can prevent forest fires.</li></ol></p>
+<p>If we add a name for your mother to the symbolization key above,</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>m:</cell><cell>your mother</cell></row></tabular>
+<p>we can translate sentence 2 as <m>Pm</m>. The problem is that <m>Pu</m> and <m>Pm</m> are obviously consistent in QL, as this simple model demonstrates:</p>
+<tabular><col halign="right"/><col halign="center"/><col halign="left"/>
+<row><cell>UD</cell><cell>=</cell><cell>{<m>u</m>, <m>m</m>}</cell></row>
+<row><cell><m>\extension{P}</m></cell><cell>=</cell><cell>{<m>u</m>, <m>m</m>}</cell></row></tabular>
+<p>The ‘only’ in each sentence has just been made a part of the predicate, in a way that ignores its logical force. (Compare the analogous discussion in the Introduction to Chapter <xref ref="ch-QL" text="global"/> that motivated extending SL with predicates and quantifiers.) If <em>only</em> you can prevent forest fires, that means that no one <em>else</em> — i.e., no one who <em>is not</em> you — can prevent forest fires. We don’t yet have the logical vocabulary to express these thoughts in a strong enough way.</p>
+<p>These sentences give rise to a related issue:</p>
+<p>
+<ol>
+<li>Peter Parker lives in Queens.</li>
+<li>Peter Parker is Spider-Man.</li>
+<li>Spider-Man lives in Queens.</li></ol></p>
+<p>Here is a natural interpretation key for these sentences, given the resources we’ve seen so far.</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>UD:</cell><cell>people and places</cell></row>
+<row><cell>Lxy:</cell><cell><m>x</m> lives in <m>y</m></cell></row>
+<row><cell>Ixy:</cell><cell><m>x</m> is <m>y</m></cell></row>
+<row><cell>p:</cell><cell>Peter Parker</cell></row>
+<row><cell>s:</cell><cell>Spider-Man</cell></row>
+<row><cell>q:</cell><cell>Queens</cell></row></tabular>
+<p>Then sentences 3–5 can be translated thus:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>3.</cell><cell><m>Lpq</m></cell></row>
+<row><cell>4.</cell><cell><m>Ips</m></cell></row>
+<row><cell>5.</cell><cell><m>Lsq</m></cell></row></tabular>
+<p>But the argument from the English 3 and 4 to 5 seems valid, whereas the corresponding argument form is obviously invalid in QL. This model satisfies the premises and falsifies the conclusion:</p>
+<tabular><col halign="right"/><col halign="center"/><col halign="left"/>
+<row><cell>UD</cell><cell>=</cell><cell>{p, s, q}</cell></row>
+<row><cell><m>\extension{L}</m></cell><cell>=</cell><cell><m>\begin{array}{l|lll}
+		Lxy   &amp; p &amp; s &amp; q \\ \hline
+		p &amp; -     &amp; -  &amp; 1 \\
+		s &amp; -     &amp; -  &amp; 0 \\
+		q &amp; -     &amp; -  &amp; -
+		\end{array}</m></cell></row>
+<row><cell><m>\extension{I}</m></cell><cell>=</cell><cell><m>\begin{array}{l|lll}
+		Ixy   &amp; p &amp; s &amp; q \\ \hline
+		p &amp; -     &amp; 1  &amp; - \\
+		s &amp; -     &amp; -  &amp; - \\
+		q &amp; -     &amp; -  &amp; -
+		\end{array}</m></cell></row></tabular>
+<p>Given the interpretation key above, this is a model where Peter is Spider-Man, but where Peter and Spider-Man do not live in the same place. This does not correspond to a genuine possibility; if Peter and Spider-Man are the same person, then they must live in the same place. This is an important logical fact about identity. But in the formalism given, <m>I</m> is just another predicate like <m>L</m>, susceptible to many different interpretations and extensions.</p>
+<p>Here is a third example.</p>
+<p>
+<ol>
+<li>Mozart composed <em>Le Nozze di Figaro</em>.</li>
+<li>Mozart composed <em>Don Giovanni</em>.</li>
+<li>Mozart composed at least two things.</li></ol></p>
+<p>We introduce the obvious interpretation key:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>UD:</cell><cell>people and operas</cell></row>
+<row><cell>Cxy:</cell><cell><m>x</m> composed <m>y</m></cell></row>
+<row><cell>m:</cell><cell>Mozart</cell></row>
+<row><cell>n:</cell><cell><em>Le Nozze di Figaro</em></cell></row>
+<row><cell>g:</cell><cell><em>Don Giovanni</em></cell></row></tabular>
+<p>Then we might translate the argument thus:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell/><cell><m>Cmn</m></cell></row>
+<row><cell/><cell><m>Cmg</m></cell></row>
+<row><cell>∴</cell><cell><m>\exists x Cmx \eand \exists y Cmy</m></cell></row></tabular>
+<p>This is a valid argument form. But the problem is that <m>\exists x Cmx \eand \exists y Cmy</m> is a very bad translation of ‘Mozart composed at least two things’. Notice that it is the conjunction of two existentials, each of which says that Mozart composed at least one thing. Suppose he composed only one thing; then each conjunct is true, so the conjunction is true. To say that he composed at least <em>two</em> things, it’s not enough to say that he composed at least one thing, and then to say again that he composed at least one thing — we need some way to ensure that the <m>x</m> and <m>y</m> are <em>not the same thing</em>.</p>
+<p>What all three of these cases — the forest fire case, the Spider-Man case, and the Mozart case — show us is that if we want to reflect the logical relationships having to do with identity, we need special logical vocabulary to do so. Just as we introduced the ‘<m>\forall</m>’ and ‘<m>\exists</m>’ formalisms to reflect logical facts about quantifiers, we also need a special symbol for identity. That symbol will be ‘<m>=</m>’. Like our other logical symbols — ‘<m>\eif</m>’, ‘<m>\enot</m>’, ‘<m>\forall</m>’, etc. — its meaning will be fixed as part of our language. Interpretation keys tell us what predicates like <m>Fx</m> mean; they don’t get to specify the meaning of the logical terms.</p>
+<p>When we introduced quantifiers and predicates, we described the shift as switching to a new language, from SL to QL. In fact, however, QL isn’t so much a change away from SL as it is an addition to it. (All SL sentences are QL sentences, and all SL entailments are also QL entailments.) Here we will make one more addition, corresponding to identity. We won’t introduce a whole new name for our extended version of QL; it can be specified descriptively as ‘quantified logic with identity’. (The choice about whether to introduce a new language name is a purely conventional one; we’re here just following ordinary practice.)</p>
+</section>
+<section xml:id="identity-sec">
+<title>=</title>
+<p>We revise the definitions of grammaticality and truth in QL to add the following stipulation:</p>
+<p>For any two names <m>\script{a}</m> and <m>\script{b}</m>, ‘<m>\script{a}{=}\script{b}</m>’ is an atomic sentence in QL. It is true in a model just in case, in that model, the referent of <m>\script{a}</m> is the same object as the referent of <m>\script{b}</m>; i.e., the model assigns <m>\script{a}</m> and <m>\script{b}</m> to the same object. For example, here is a model:</p>
+<tabular><col halign="right"/><col halign="center"/><col halign="left"/>
+<row><cell>UD</cell><cell>=</cell><cell>{Peter Parker, Aunt May}</cell></row>
+<row><cell><m>\referent{p}</m></cell><cell>=</cell><cell>Peter Parker</cell></row>
+<row><cell><m>\referent{s}</m></cell><cell>=</cell><cell>Peter Parker</cell></row>
+<row><cell><m>\referent{m}</m></cell><cell>=</cell><cell>Aunt May</cell></row></tabular>
+<p>In this model, <m>p{=}s</m> is true, and <m>p{=}m</m> and <m>s{=}m</m> are false. We’ll introduce a familiar shorthand for negating identity claims; <m>s {\neq} m</m> is our preferred abbreviation for <m>\enot s{=}m</m>. (Remember that ‘<m>s{=}m</m>’ is an atomic sentence, so ‘<m>\enot s {=} m</m>’ is the negation of that sentence. It is tempting, when one looks at that sentence, to attach the negation only to <m>s</m>, so that the sentence says that the ‘negation of <m>s</m>’ is identical to <m>m</m>. But this way of reading it ultimately makes no sense; names do not have negations in QL. Only sentences do. This is part of the reason we will usually prefer to write <m>s {\neq} m</m>, rather than the potentially confusing <m>\enot s{=}m</m>. But if you do see or write the latter, remember that the negation applies to the whole identity claim.)</p>
+<p>We can also use the identity symbol with variables. Recall that a QL sentence is a QL wff with no free variables. I said above that for any two names <m>\script{a}</m> and <m>\script{b}</m>, ‘<m>\script{a}{=}\script{b}</m>’ is an atomic sentence; more generally, for any two <em>terms</em> <m>\script{c}</m> and <m>\script{d}</m>, ‘<m>\script{c}{=}\script{d}</m>’ is an atomic wff in QL. In the special case where both terms are constants (names) rather than variables, it is an atomic sentence. So, for example,  <m>a{=}x</m> and  <m>x{=}y</m> are wffs, but not sentences. An identity wff <m>\script{c}{=}\script{d}</m> is satisfied by a variable assignment in a model iff the two terms pick out the same object, where constants pick out their referents and variables pick out the objects assigned to them.</p>
+<p>A logical notion of identity is just what is needed to overcome the shortcomings of the translations in the introduction to this chapter.</p>
+</section>
+<section xml:id="identity-identity-and-no-one-else">
+<title>Identity and ‘no one else’</title>
+<p>Consider again sentence 1:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>1.</cell><cell>Only you can prevent forest fires.</cell></row></tabular>
+<p>In the introduction we tried translating this into QL with a predicate ‘only  _____ can prevent forest fires’; now we can reflect its logical structure more fully. So we’ll let our predicate just indicate the ability to prevent forest fires:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>UD:</cell><cell>people</cell></row>
+<row><cell>Px:</cell><cell><m>x</m> can prevent forest fires</cell></row>
+<row><cell>u:</cell><cell>you</cell></row></tabular>
+<p>If only you can prevent forest fires, that means that you can prevent forest fires, and, moreover, no one <em>else</em> — no one who is not you — can prevent forest fires. The first part is simple. You can prevent forest fires: <m>Pu</m>. Now we must say that no one else can prevent forest fires. Another way to say that is this: it is <em>not</em> the case that there is someone <em>who is not you</em> who can prevent forest fires. So you can think of that as a negated existential: <m>\enot \exists x (x {\neq} u \eand Px)</m>. Putting these two pieces together as a conjunction, we can translate sentence 1 as:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>1.</cell><cell><m>Pu \eand \enot \exists x (x {\neq} u \eand Px)</m></cell></row></tabular>
+<p>A second way of characterizing the ‘no one else’ clause would translate it as a universal claim, saying, of everything, that if it is not you, then it cannot prevent forest fires: <m>\forall x (x {\neq} u \eif \enot Px)</m>. This is equivalent to <m>\enot \exists x (x {\neq} u \eand Px)</m>; either is an acceptable translation. (By the end of this chapter we’ll be able to prove this equivalence.)</p>
+<p>Using similar reasoning, one can translate other kinds of sentences that talk about objects <em>other than</em> ones just mentioned. For example, suppose we want to say that Rebecca only thinks about herself. She thinks about herself, and there is no one else that she thinks about. Using <m>r</m> for Rebecca and <m>Txy</m> for ‘<m>x</m> thinks about <m>y</m>’, we could say: <md>Trr \eand \enot \exists x (x {\neq} r \eand Trx)</md></p>
+<p>There are more examples of similar kinds of translation exercises in the practice problems at the end of this chapter.</p>
+</section>
+<section xml:id="identity-identical-objects-satisfy-identical-pred">
+<title>Identical objects satisfy identical predicates</title>
+<p>In §<xref ref="sec-identitymotivation" text="global"/>, we saw that treating identity as a simple predicate prevented the validity of intuitively valid arguments like  this one:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>3</cell><cell>Peter Parker lives in Queens.</cell></row>
+<row><cell>4</cell><cell>Peter Parker is Spider-Man.</cell></row>
+<row><cell>5</cell><cell>Spider-Man lives in Queens.</cell></row></tabular>
+<p>The problem was that if the extension of the identity predicate can simply be presented in a model, without regard for the other features of the model, there was no guarantee that <m>p</m> and <m>s</m> — the names for Peter Parker and Spider-Man — were related in any particular way, just because <m>\ntuple{Peter Parker, Spider-Man}</m> happened to be assigned in the extension of the <m>I</m> predicate.</p>
+<p>But if we translate the identity predicate with the QL identity claim <m>p{=}s</m>, this requires that the names <m>s</m> and <m>p</m> be assigned to the <em>very same object</em> in the model. Consequently, for any sentence <m>\metaA{}</m> involving the name <m>p</m>, <m>\metaA{}\substitute{p}{s}</m> — the sentence that results from replacing each <m>p</m> in <m>\metaA{}</m> with an <m>s</m> — will have the same truth value as <m>\metaA{}</m>. If <m>Fp</m> is true, then the object named by <m>p</m> is in the extension of <m>F</m>. And if <m>p{=}s</m>, then the object named by <m>p</m> is <em>the very same object as</em> the object named by <m>s</m>. So of course the object named by <m>s</m> (that same object) must also be in the extension of <m>F</m>. In general, identical objects have identical properties.</p>
+<p>(The converse is not true in general. There is no rule in QL that says that if all the same wffs are true of two different names, they must be two names for the same object.)</p>
+<p>If Peter is Spider-Man, then everything true of Peter is also true of Spider-Man. So this argument form, unlike the first translation we attempted, is valid in QL:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell/><cell><m>Lpq</m></cell></row>
+<row><cell/><cell><m>p{=}s</m></cell></row>
+<row><cell>∴</cell><cell><m>Lsq</m></cell></row></tabular>
+<p>In §<xref ref="sec-identity-trees" text="global"/> below we’ll extend our tree method to claims with identity, which will give us a formal means for proving the validity of arguments like this one. (The natural deduction system for QL given in Chapter <xref ref="ch-QLND" text="global"/> will give us another.)</p>
+</section>
+<section xml:id="sec-quantity">
+<title>Quantity</title>
+<p>Identity also lets us talk about quantity in a way that wasn’t available before. In §<xref ref="sec-identitymotivation" text="global"/> we observed some challenges with translating claims about the number of objects that satisfy a particular description. For example, we struggled with sentences like ‘Mozart composed more than one opera’. But identity makes such claims straightforward.</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>UD:</cell><cell>people and operas</cell></row>
+<row><cell>Cxy:</cell><cell><m>x</m> composed <m>y</m></cell></row>
+<row><cell>Ox:</cell><cell><m>x</m> is an opera</cell></row>
+<row><cell>m:</cell><cell>Mozart</cell></row>
+<row><cell>n:</cell><cell><em>Le Nozze di Figaro</em></cell></row>
+<row><cell>g:</cell><cell><em>Don Giovanni</em></cell></row></tabular>
+<p>We want to say that there are two things, that have the following features: they are different from each other, they are both operas, and they are both composed by Mozart. A double-existential sentence, listing those conjuncts, will suffice: 
+<md>\exists x \exists y (x {\neq} y \eand Ox \eand Oy \eand Cmx \eand Cmy)</md>
+Strictly speaking, QL conjunctions only have two conjuncts, so to write this sentence scrupulously, we’d need to include brackets to signify that we’re talking about conjunctions of conjunctions:
+<md>\exists x \exists y (x {\neq} y \eand [(Ox \eand Oy) \eand (Cmx \eand Cmy)])</md>
+In sentences like these — and the longer ones listing more conditions that will feature soon — it is usually preferable for readability to leave these internal brackets out. We will write as if our system allows arbitrary numbers of conjuncts, with the understanding that, should the need arise, we could always put them back in explicitly. (We’ll rarely have occasion to do so.)</p>
+<p>This sentence says that Mozart wrote at least two operas. To say that he wrote at least <em>three</em> operas would require another quantifier with a new variable <m>z</m>, and the specification that <m>z</m> be an opera, written by Mozart, and non-identical to both of the ones previously mentioned:
+<md>\exists x \exists y \exists z (x {\neq} y \eand x {\neq} z \eand y {\neq} z \eand 
+Ox \eand Oy \eand Oz \eand Cmx \eand Cmy \eand Cmz)</md></p>
+<p>As you can see, these sentences get long and complicated rather quickly.</p>
+<p>Suppose we wanted to say that Mozart composed <em>exactly</em> two operas — no more, and no fewer. There are two reasonably natural choices for how to say that. One is to conjoin the first QL sentence of this section — Mozart composed at least two operas — with the negation of the second — Mozart did not compose at least three operas. The result is:
+<md>\exists x \exists y (x {\neq} y \eand Ox \eand Oy \eand Cmx \eand Cmy) \eand   \enot \exists x \exists y \exists z (x {\neq} y \eand x {\neq} z \eand y {\neq} z \eand Ox \eand Oy \eand Oz \eand Cmx \eand Cmy \eand Cmz)</md></p>
+<p>A slightly more efficient way of saying the same thing, rather than conjoining a new negated triple existential, would be to add, within the scope of the first two quantifiers, a conjunct to the effect that every opera composed by Mozart is one of the two mentioned in that first conjunction. To say that any opera composed by Mozart is either <m>x</m> or <m>y</m> is to say that, for any <m>z</m>, if <m>z</m> is an opera composed by Mozart, then it is either <m>x</m> or <m>y</m>. In other words: <m>\forall z [(Oz \eand Cmz) \eif (z{=}x \eor z{=}y)]</m>. So another way to say that Mozart composed exactly two operas is:
+<md>\exists x \exists y ((x {\neq} y  \eand  Ox \eand Oy \eand  Cmx \eand Cmy) \eand \forall z [(Oz \eand Cmz) \eif (z{=}x \eor z{=}y)])</md></p>
+<p>So identity gives us a way to talk about quantities, albeit not a particularly efficient one. To say that <em>at least</em> <m>n</m> things satisfy a condition, existentially quantify <m>n</m> variables, say that each satisfies the condition, and use identity to require that they are all distinct. To say that <em>exactly</em> <m>n</m> things satisfy the condition, say that at least <m>n</m> do, but that everything that satisfies the condition is one of those <m>n</m> things. Similarly, to say that <em>at most</em> <m>n</m> things satisfy a condition, we can say that there are not at least <m>n+1</m> things that satisfy it.</p>
+</section>
+<section xml:id="sec-defdesc">
+<title>Definite descriptions</title>
+<p>In 1905, Bertrand Russell famously characterized <em>definite descriptions</em> in terms of identity. A definite description is a description that implies that only one object satisfies it. Paradigmatically, definite descriptions are ones that use the definite article ‘the’. If I say ‘the baby is hungry’, I’m saying that the <em>one and only baby we might be talking about</em> is hungry. Russell was motivated in part by the apparent fact that one can use this sort of language in a meaningful way even if one is wrong about whether there’s any baby around. If there is no baby — the crying I’m hearing is a recording — my statement is false, but it’s still meaningful. For this reason, Russell was reluctant to suppose that we should understand ‘the baby’ as a name. Remember, in QL, all names have to refer to objects in the UD. Instead, my sentence can be understood as an existentially quantified claim about a unique baby. If I say ‘the baby is hungry’, according to Russell, I’m in effect saying three things: there is a baby, there’s no other baby than that one, and that baby is hungry. That second element, the uniqueness claim, can be expressed in QL with identity.</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>UD:</cell><cell>People in this house</cell></row>
+<row><cell>Bx:</cell><cell><m>x</m> is a baby</cell></row>
+<row><cell>Hx:</cell><cell><m>x</m> is hungry</cell></row>
+<row><cell>j:</cell><cell>Jonathan</cell></row></tabular>
+<p>A sentence like ‘Jonathan is hungry’ is straightforwardly translated as <m>Hj</m>. According to Russell’s theory of definite descriptions, ‘the baby is hungry’ has a much more complex logical form: there is a baby <m>x</m>, there is no baby other than <m>x</m>, and <m>x</m> is hungry.</p>
+<p><md>\exists x [Bx \eand \enot \exists y (By \eand y {\neq} x) \eand Hx]</md></p>
+<p>One of the interesting features of Russell’s theory is that ‘the baby is not hungry’ is not the negation of ‘the baby is hungry’. Instead, the negation applies only to the hunger predication in the last conjunct:</p>
+<p><md>\exists x [Bx \eand \enot \exists y (By \eand y {\neq} x) \eand \enot Hx]</md></p>
+<p>The reason Russell designed his theory this way was that he thought that both of these sentences equally implied that there is a baby. If there is no baby, then you’d be mistaken in saying either ‘the baby is hungry’ or ‘the baby is not hungry’. Consequently, one can’t be the negation of the other. As a treatment of the truth conditions of English sentences, Russell’s theory is controversial. Some philosophers of language think that sentences that seem to presuppose the existence of something that isn’t there aren’t straightforwardly false, but are rather defective in some other way — perhaps they fail to be meaningful at all, or perhaps they take on some truth value other than true or false. These matters are beyond our present scope. We will remain neutral on whether Russell’s theory is an accurate treatment of English; it is relevant for us because it provides an interesting and useful case for translation of sentences into QL with identity.</p>
+<p>The general statement of Russell’s theory of definite descriptions is, if you have a sentence applying a predicate <m>\script{P}</m> to the referent of a definite description <m>\script{D}</m>, translate it thus: there is something <m>\script{x}</m> that is <m>\script{D}</m>, there is nothing other than <m>\script{x}</m> that is <m>\script{D}</m>, and <m>\script{x}</m> is <m>\script{P}</m>.</p>
+</section>
+<section xml:id="sec-identity-trees">
+<title>Identity and trees</title>
+<introduction>
+<p>Because we have extended QL to include claims of identity, we also need to modify our tree system. Notice that if we do not do so, the system will not be complete. For example, the rules offered in Chapter <xref ref="ch-QLsoundcomplete" text="global"/> do not provide a way to demonstrate that <m>Fa, \enot Fb, a{=}b \models \bot</m>, even though those sentences are obviously inconsistent. Since each of those sentences is an atom or negated atom in QL, there is nothing to resolve, and there is no contradiction to close the tree. We need to add new rules to deal with identity. We’ll make three modifications: one for new ways to develop branches, one for branch closure, and one for branch completion.</p></introduction>
+<subsection xml:id="subsec-identity-develop">
+<title>Developing branches with identity</title>
+<p>To characterize our new branch development rule, we’ll first define a notion of <term>identity in a branch</term>. The intuitive idea of identity in a branch is simple: names are identified in a branch if the branch contains identity claims that require them to refer to the same object. So, for example, if <m>a{=}b</m> is in the branch, then <m>a</m> and <m>b</m> are identified. If <m>a{=}b</m> and <m>b{=}c</m> are both in the branch, then <m>a</m>, <m>b</m>, and <m>c</m> are all identified. Syntactically, we can define identity in a branch thus:</p>
+<assemblage>
+<p>Names <m>\script{a}</m> and <m>\script{b}</m> are <term>identified on a branch</term> if they are the same name, or if there is a chain of identity claims in the branch linking them. More precisely, <m>\script{a}</m> and <m>\script{b}</m> are identified on a branch if the branch contains identity claims that can be arranged in a sequence
+<md>\script{a}{=}\script{c}_1,\quad
+\script{c}_1{=}\script{c}_2,\quad
+\ldots,\quad
+\script{c}_n{=}\script{b},</md>
+where an identity claim may be read in either direction.</p></assemblage>
+<p>And here is an obvious rule for branch development with identity:</p>
+<assemblage>
+<p>If names <m>\script{a}</m> and <m>\script{b}</m> are identified in a branch, for any sentence <m>\metaA{}</m> in the branch, then you may add <m>\metaA{}\substitute{\script{a}}{\script{b}}</m> to the branch.</p></assemblage>
+<p>Recall that ‘<m>\metaA{}\substitute{\script{a}}{\script{b}}</m>’ just means the sentence you get by replacing every ‘<m>\script{a}</m>’ in <m>\metaA{}</m> with ‘<m>\script{b}</m>’. Note also that the definition of identity in a branch is symmetric; if <m>\script{a}</m> is identified with <m>\script{b}</m> in a branch, then  <m>\script{b}</m> is identified with <m>\script{a}</m>. So this rule allows substitution in either direction.</p>
+<p>With this rule, we can easily demonstrate that the set of sentences mentioned above closes:</p>
+<image width="32%"><latex-image label="tree-99c5801ffe">
+\begin{prooftree}
+{
+to prove={\{Fa, \enot Fb, a{=}b\} \vdash{}\bot}
+}
+	[Fa
+	[\enot Fb, grouped
+	[a{=}b, grouped
+		[Fb, just={1, 3 =}, close={2, 4}]
+	]
+	]
+	]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image>
+<p>We will add this rule to our tree system. Notice that it is not a <em>resolution</em> rule — we do not put a check mark next to either sentence referenced. They may be used again.</p></subsection>
+<subsection xml:id="identity-closing-branches-with-identity">
+<title>Closing branches with identity</title>
+<p>Previously we said that branches only close when they contain some sentence along with its negation. We add one more condition that suffices for branch closure. If any branch contains a sentence of the form <m>\script{a}{\neq}\script{a}</m>, then that branch closes. In no model can something be non-identical with itself.</p>
+<p>Adding this to the rule given in <xref ref="branchclosure-defined" text="type-global"/>, we get:</p>
+<assemblage>
+<p>A branch closes if and only if either (i) it contains some sentence <m>\metaA{}</m> along with its negation, <m>\enot\metaA{}</m>, or (ii) it contains, for some name <m>\script{a}</m>, the sentence <m>\script{a}{\neq}\script{a}</m>.</p></assemblage>
+<p>We need this rule, for example, to prove with a tree that <m>\forall x \:  a{=}x</m> is inconsistent with <m>\exists x \:  x{\neq}a</m>:</p>
+<image width="41%"><latex-image label="tree-5bf4090898">
+\begin{prooftree}
+{
+to prove={\{\forall x \: a{=}x, \exists x \: x{\neq}a\} \vdash \bot}
+}
+	[\forall x \:  a{=}x, subs={b}
+	[\exists x \:  x{\neq}a, grouped, checked=b
+		[b {\neq} a, just=2 $\exists$
+			[a{=}b, just=1 $\forall$
+				[b{\neq}b, just={3, 4 {=}}, close=5
+				]
+			]
+		]
+	]
+	]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image></subsection>
+<subsection xml:id="subsec-identitycompletion">
+<title>Identity and open branch completion</title>
+<p>Since our tree system is supposed to be <em>complete</em>, we need to <em>ensure</em> that the tree will close; it’s not enough that we have a rule that allows that it might. So, as in the case of the general rules discussed in Chapter <xref ref="ch-QLTrees" text="global"/>, we will also add an additional requirement governing branch completion. What we need is to make sure that we’ve made enough identity substitutions to demonstrate everything that needs demonstrating. For example, this shouldn’t count as a completed open branch:</p>
+<image width="32%"><latex-image label="tree-0f68058d98">
+\begin{prooftree}
+{}
+	[\enot Fb
+	[Fa, grouped
+	[Ga, grouped
+	[a{=}b, grouped
+		[Gb, just={3, 4 {=}}, open]
+	]
+	]
+	]
+	]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image>
+<p>The development on line 5 is a good one, but we can’t stop the tree there: in addition to substituting the <m>a</m> with a <m>b</m> in the <m>Ga</m> on line 3, we also need to make the same substitution in the <m>Fa</m> on line 2. That would give us <m>Fb</m>, and the tree will close. We need a branch completion rule that ensures that an open branch isn’t complete until every necessary substitution has been made.</p>
+<p>To articulate that rule, we’ll use the notion of an <term>identity group</term>. 
+The relation of being identified on a branch, introduced in §<xref ref="subsec-identity-develop" text="global"/>, divides the names in that branch into groups. Call each maximal set of names identified with one another an identity group. (A name that is not identified with any different name forms an identity group by itself.) For each identity group, choose one name in that group as its <term>representative</term>. The <term>representative version</term> of an atomic or negated atomic sentence is the sentence obtained by replacing every name in it with the representative of its identity group. We can revise our definition of branch completion, previously given in <xref ref="qltrees-tree-completion-rules" text="type-global"/>, thus:</p>
+<assemblage>
+<p>A branch is <term>complete</term> if and only if either (i) it is closed, or (ii) all of the following conditions are met:</p>
+<p>
+<ol>
+<li>Every resolvable sentence in the branch has been resolved;</li>
+<li>For every general quantified sentence <m>\metaA{}</m> in the branch, at least one instance of <m>\metaA{}</m> is in the branch; and, for every name <m>\script{a}</m> in the branch, the <m>\script{a}</m> instance of <m>\metaA{}</m> is in the branch;</li>
+<li>It is possible to select one name as the representative of each identity group in the branch such that, for every atomic sentence or negated atomic sentence in the branch other than a positive identity claim, its representative version is also in the branch.</li></ol></p></assemblage>
+<p>In the example above, <m>a{=}b</m> is in the branch, so <m>\{a,b\}</m> are an identity group in the branch. We need to pick one of those two names as the representative, and ensure that we’ve done enough substitutions to ensure that the representative version of all atoms or negated atoms is present. If <m>a</m> is our representative, then we need every atom or negated atom containing <m>b</m>, other than identity claims, to have been transformed into an <m>a</m> sentence. But the branch contains <m>\enot Fb</m> with no <m>\enot Fa</m>. So if <m>a</m> is the representative, the branch is incomplete. If <m>b</m> is the representative, we need every relevant line containing <m>a</m> to be transformed into a version with <m>b</m>; but the branch contains <m>Fa</m> but not <m>Fb</m>. Note that including either one of those developments would have closed the tree, just as we want.</p>
+<p>The same principle applies if we have more than two names identified. For a more complicated example, consider this partially completed tree:</p>
+<image width="63%"><latex-image label="tree-aa8bbdb221">
+\begin{prooftree}
+{}
+	[Fa
+	[(Fe \eand Rb \eand \enot Gd) \eor \enot Fc, grouped, checked
+	[a{=}b, grouped
+	[b{=}c, grouped
+	[d{=}e, grouped
+		[Fe \eand Rb \eand \enot Gd, just={2 \eor}, checked
+			[Fe
+			[Rb, just={6 \eand}
+			[\enot Gd, grouped
+			]
+			]
+			]
+		]
+		[\enot Fc
+		]
+	]
+	]
+	]
+	]
+	]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image>
+<p>The three identity claims create two identity groups in both branches: <m>a{=}b</m> and <m>b{=}c</m> mean that <m>a</m>, <m>b</m>, and <m>c</m> are all identified with one another. And <m>d{=}e</m> means that <m>d</m> and <m>e</m> are identified with one another. So to complete either branch, we need a representative of each of those identity groups to stand in for every other name it’s identified with. Let’s focus first on the right branch: there are two sentences that are atoms or negated atoms, other than the identity claims: <m>Fa</m> and <m>\enot Fc</m>. <m>a</m>, <m>b</m>, and <m>c</m> belong to the same identity group. So we need to pick one of those three names as a representative, and substitute it for any other(s) in that branch. If we pick <m>a</m>, then we go from <m>\enot Fc</m> to <m>\enot Fa</m>, and the branch closes:</p>
+<image width="70%"><latex-image label="tree-cf818e655f">
+\begin{highlightprooftree}
+{}
+	[\focusnode{Fa}
+	[(Fe \eand Rb \eand \enot Gd) \eor \enot Fc, grouped, checked
+	[\focusnode{a{=}b}, grouped
+	[\focusnode{b{=}c}, grouped
+	[d{=}e, grouped
+		[Fe \eand Rb \eand \enot Gd, checked
+			[Fe
+			[Rb, grouped
+			[\enot Gd, grouped
+			]
+			]
+			]
+		]
+		[\focusnode{\enot Fc}
+			[\focusnode{\enot Fa}, just={1, 3, 4 {=}}, close]
+		]
+	]
+	]
+	]
+	]
+	]
+\end{highlightprooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image>
+<p>As a useful bit of practice, work out what would happen if one chose <m>b</m> or <m>c</m> as a representative instead. Either way, the branch will close. (If you pick <m>b</m>, you’ll need one additional step.)</p>
+<p>Now let’s consider the left branch. Here, we’ll need a representative from each of the two identity groups. Let’s pick <m>a</m> as our representative for <m>a</m>, <m>b</m>, and <m>c</m>. So we need to check the branch for any atomic sentence or negated atomic sentence that contains a <m>b</m> or a <m>c</m>, other than an identity claim, and transform it into a representative version that uses <m>a</m> instead. The highlighted sentences are the ones we need to check:</p>
+<image width="51%"><latex-image label="tree-103581000c">
+\begin{highlightprooftree}
+{}
+	[\focusnode{Fa}
+	[(Fe \eand Rb \eand \enot Gd) \eor \enot Fc, grouped, checked
+	[a{=}b, grouped
+	[b{=}c, grouped
+	[d{=}e, grouped
+		[Fe \eand Rb \eand \enot Gd, checked
+			[\focusnode{Fe}
+			[\focusnode{Rb}, grouped
+			[\focusnode{\enot Gd}, grouped
+			]
+			]
+			]
+		]
+		[\enot Fc
+			[\enot Fa, close]
+		]
+	]
+	]
+	]
+	]
+	]
+\end{highlightprooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image>
+<p>The <m>Rb</m> at line 8 is the only place where we need to substitute <m>a</m> as a representative. (Our rules <em>allow</em> for this substitution for any sentence in the branch, but the completion rules <em>require</em> it only for atoms or negated atoms containing other identified names, which aren’t identity claims.) Note that the <m>\enot Fc</m> on line 6 is not in the open branch we’re considering. So we’ll develop the left branch with <m>Ra</m>:</p>
+<image width="67%"><latex-image label="tree-63c0b5e4ce">
+\begin{highlightprooftree}
+{}
+	[\focusnode{Fa}
+	[(Fe \eand Rb \eand \enot Gd) \eor \enot Fc, grouped, checked
+	[a{=}b, grouped
+	[b{=}c, grouped
+	[d{=}e, grouped
+		[Fe \eand Rb \eand \enot Gd, checked
+			[Fe
+			[\focusnode{Rb}, grouped
+			[\enot Gd, grouped
+				[\focusnode{Ra}, just={3, 8 {=}}
+				]
+			]
+			]
+			]
+		]
+		[\enot Fc
+			[\enot Fa, close]
+		]
+	]
+	]
+	]
+	]
+	]
+\end{highlightprooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image>
+<p>Finally, we need to make all necessary substitutions with a representative for the identity group with <m>d</m> and <m>e</m>. Let’s pick <m>d</m> as the representative; we need to develop <m>Fe</m> on line 7 into <m>Fd</m>. There is no other non-identity atom or negated atom in the branch containing <m>e</m>, so once we’ve done that, our branch is complete:</p>
+<image width="51%"><latex-image label="tree-71d2d292db">
+\begin{prooftree}
+{}
+	[Fa
+	[(Fe \eand Rb \eand \enot Gd) \eor \enot Fc, grouped, checked
+	[a{=}b, grouped
+	[b{=}c, grouped
+	[d{=}e, grouped
+		[Fe \eand Rb \eand \enot Gd, checked
+			[Fe
+			[Rb, grouped
+			[\enot Gd, grouped
+				[Ra
+					[Fd, open]
+				]
+			]
+			]
+			]
+		]
+		[\enot Fc
+			[\enot Fa, close]
+		]
+	]
+	]
+	]
+	]
+	]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image></subsection>
+<subsection xml:id="identity-constructing-models-with-identity">
+<title>Constructing models with identity</title>
+<p>Here is one last supplement to our tree method, having to do with constructing models from completed open branches. If a completed open branch includes any identity claims, the model must satisfy those claims by including only one object for each identity group in the UD, and having all names in the identity group refer to that object. For instance, if the sentence <m>b{=}c</m> appears in an open branch, we will not construct a model with two different objects, b and c — instead, we’ll just pick one of them as the object indicated, and assign both names to it.</p>
+<p>Consider this tree:</p>
+<image width="67%"><latex-image label="tree-62d856d368">
+\begin{prooftree}
+{}
+	[\forall x (Rax \eif x{=}b), subs={a, b, c}
+	[\exists x Rax, grouped, checked=c
+		[Rac, just=2 $\exists$
+			[Raa \eif a{=}b, just=1 $\forall$, checked
+			[Rab \eif b{=}b, grouped, just=1 $\forall$, checked
+			[Rac \eif c{=}b, grouped, just=1 $\forall$, checked
+				[\enot Rac, just=6 \eif, close={3, 7}
+				]
+				[c{=}b
+					[Rab, just={3, 7 {=}}
+						[\enot Rab, just=5 \eif, close={8, 9}]
+						[b{=}b
+							[\enot Raa, just=4 \eif, open
+							]
+							[a{=}b
+								[Rbb, just={8, 10 =}
+									[Rbc, just={3, 10 =}, open
+									]
+								]
+							]
+						]
+					]
+				]
+			]
+			]
+			]
+		]
+	]
+	]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image>
+<p>We end up with two open branches. We only need one to demonstrate that the root is satisfiable, but it is useful practice to consider both. Let’s begin with the shorter open branch to the left. Focus in on the atoms and negated atoms in that branch:</p>
+<image width="66%"><latex-image label="tree-b4aec22ed5">
+\begin{highlightprooftree}
+{}
+	[\forall x (Rax \eif x{=}b), subs={a, b, c}
+	[\exists x Rax, grouped, checked=c
+		[\focusnode{Rac}, just=2 $\exists$
+			[Raa \eif a{=}b, just=1 $\forall$, checked
+			[Rab \eif b{=}b, grouped, just=1 $\forall$, checked
+			[Rac \eif c{=}b, grouped, just=1 $\forall$, checked
+				[\enot Rac, just=6 \eif, close={3, 7}
+				]
+				[\focusnode{c{=}b}
+					[\focusnode{Rab}, just={3, 7 {=}}
+						[\enot Rab, just=5 \eif, close={8, 9}]
+						[\focusnode{b{=}b}
+							[\focusnode{\enot Raa}, just=4 \eif, open
+							]
+							[a{=}b
+							]
+						]
+					]
+				]
+			]
+			]
+			]
+		]
+	]
+	]
+\end{highlightprooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image>
+<p>Examining that branch, we see three names, <m>a</m>, <m>b</m>, and <m>c</m>, and three atomic sentences concerning the extension of <m>R</m>: <m>Rac</m>, <m>Rab</m>, and <m>\enot Raa</m>. Using our previous method for constructing models, we would have posited a three-object UD and related those objects via <m>R</m> in the appropriate way. Now, however, we also have identity claims to consider. There are two identity claims in the branch. <m>b{=}b</m> doesn’t tell us anything interesting — of <em>course</em> that object is identical with itself — but the presence of <m>c{=}b</m> indicates that our model will not include separate objects b and c. We’ll only posit one object in the UD for those two names, and another object for <m>a</m>. We can pick either letter for the object; let’s call it <m>b</m>. (Remember, it doesn’t matter what kinds of objects we pick for the UD; it could be Reed Richards for all it matters. We typically pick letters because they are easy to keep track of.)</p>
+<p>So the model suggested by the first open branch here is:</p>
+<tabular><col halign="right"/><col halign="center"/><col halign="left"/>
+<row><cell>UD</cell><cell>=</cell><cell>{a, b}</cell></row>
+<row><cell><m>\referent{a}</m></cell><cell>=</cell><cell>a</cell></row>
+<row><cell><m>\referent{b}</m></cell><cell>=</cell><cell>b</cell></row>
+<row><cell><m>\referent{c}</m></cell><cell>=</cell><cell>b</cell></row>
+<row><cell><m>\extension{R}</m></cell><cell>=</cell><cell><m>\begin{array}{l|lllll}
+	Rxy   &amp; a &amp; b \\ \hline
+	a   &amp; 0 &amp; 1   \\
+	b   &amp; - &amp; - \\
+	\end{array}</m></cell></row></tabular>
+<p>As a second example, let’s consider the other, longer completed open branch in the same tree:</p>
+<image width="67%"><latex-image label="tree-2b569e7719">
+\begin{highlightprooftree}
+{}
+	[\forall x (Rax \eif x{=}b), subs={a, b, c}
+	[\exists x Rax, grouped, checked=c
+		[\focusnode{Rac}, just=2 $\exists$
+			[Raa \eif a{=}b, just=1 $\forall$, checked
+			[Rab \eif b{=}b, grouped, just=1 $\forall$, checked
+			[Rac \eif c{=}b, grouped, just=1 $\forall$, checked
+				[\enot Rac, just=6 \eif, close={3, 7}
+				]
+				[\focusnode{c{=}b}
+					[\focusnode{Rab}, just={3, 7 {=}}
+						[\enot Rab, just=5 \eif, close={8, 9}]
+						[\focusnode{b{=}b}
+							[\enot Raa, just=4 \eif, open
+							]
+							[\focusnode{a{=}b}
+								[\focusnode{Rbb}, just={8, 10 =}
+									[\focusnode{Rbc}, just={3, 10 =}, open
+									]
+								]
+							]
+						]
+					]
+				]
+			]
+			]
+			]
+		]
+	]
+	]
+\end{highlightprooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image>
+<p>This branch includes both <m>a{=}b</m> and <m>c{=}b</m>, which implies that all three of these names are names for the same object. So the UD for the model corresponding to the right branch will have only one object, which all three names denote.</p>
+<tabular><col halign="right"/><col halign="center"/><col halign="left"/>
+<row><cell>UD</cell><cell>=</cell><cell>{a}</cell></row>
+<row><cell><m>\referent{a}</m></cell><cell>=</cell><cell>a</cell></row>
+<row><cell><m>\referent{b}</m></cell><cell>=</cell><cell>a</cell></row>
+<row><cell><m>\referent{c}</m></cell><cell>=</cell><cell>a</cell></row>
+<row><cell><m>\extension{R}</m></cell><cell>=</cell><cell><m>\begin{array}{l|lll}
+	Rxy   &amp; a  \\ \hline
+	a   &amp; 1    \\
+	\end{array}</m></cell></row></tabular>
+<p>It is sometimes helpful, for an intuitive grip on what is going on in these trees, to think about an English translation alongside the formalisms. For example, suppose that <m>Rxy</m> is interpreted as ‘<m>x</m> loves <m>y</m>’. Line 1 of the tree says that person <m>a</m> loves at most one person; line 2 says that <m>a</m> loves at least one person. The tree demonstrates two ways that might be: the one and only person <m>a</m> loves could be <m>a</m>, or it could be someone else.</p></subsection>
+</section>
+<exercises xml:id="identity-exercises">
+<title>Practice Exercises</title>
+<subexercises xml:id="pr-QL-ID-constructmodel">
+<title>Part A</title>
+<exercise>
+<statement>
+<p>Use the completed open branch in the tree given in the final tree in §<xref ref="subsec-identitycompletion" text="global"/> to construct a model that satisfies its root.</p></statement>
+<solution>
+<tabular><col halign="right"/><col halign="center"/><col halign="left"/>
+<row><cell>UD</cell><cell>=</cell><cell><m>\{a,d\}</m></cell></row>
+<row><cell><m>\referent{a}</m></cell><cell>=</cell><cell><m>a</m></cell></row>
+<row><cell><m>\referent{b}</m></cell><cell>=</cell><cell><m>a</m></cell></row>
+<row><cell><m>\referent{c}</m></cell><cell>=</cell><cell><m>a</m></cell></row>
+<row><cell><m>\referent{d}</m></cell><cell>=</cell><cell><m>d</m></cell></row>
+<row><cell><m>\referent{e}</m></cell><cell>=</cell><cell><m>d</m></cell></row>
+<row><cell><m>\extension{F}</m></cell><cell>=</cell><cell><m>\begin{array}{l|l}
+	           &amp; F \\ \hline
+		\mathbf{a} &amp; 1 \\
+		\mathbf{d} &amp; 1
+	\end{array}</m></cell></row>
+<row><cell><m>\extension{R}</m></cell><cell>=</cell><cell><m>\begin{array}{l|l}
+	           &amp; R \\ \hline
+		\mathbf{a} &amp; 1 \\
+		\mathbf{d} &amp; -
+	\end{array}</m></cell></row>
+<row><cell><m>\extension{G}</m></cell><cell>=</cell><cell><m>\begin{array}{l|l}
+	           &amp; G \\ \hline
+		\mathbf{a} &amp; - \\
+		\mathbf{d} &amp; 0
+	\end{array}</m></cell></row></tabular></solution></exercise>
+</subexercises>
+<subexercises xml:id="pr-QL-ID-spies">
+<title>Part B</title>
+<introduction>
+<p>Using the symbolization key given, translate each English-language sentence into QL with identity. For sentences containing definite descriptions, assume Russell’s theory.</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>UD:</cell><cell>people</cell></row>
+<row><cell>Kx:</cell><cell><m>x</m> knows the combination to the safe.</cell></row>
+<row><cell>Sx:</cell><cell><m>x</m> is a spy.</cell></row>
+<row><cell>Vx:</cell><cell><m>x</m> is a vegetarian.</cell></row>
+<row><cell>Txy:</cell><cell><m>x</m> trusts <m>y</m>.</cell></row>
+<row><cell>h:</cell><cell>Hofthor</cell></row>
+<row><cell>i:</cell><cell>Ingmar</cell></row></tabular></introduction>
+<exercise>
+<statement>
+<p>Hofthor is a spy, but no vegetarian is a spy.</p></statement>
+<solution>
+<p><m>Sh \eand \enot \exists x (Vx \eand Sx)</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>No one knows the combination to the safe unless Ingmar does.</p></statement>
+<solution>
+<p><m>\enot Ki \eif \enot\exists x Kx</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>No spy knows the combination to the safe.</p></statement>
+<solution>
+<p><m>\enot \exists x (Sx \eand Kx)</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Neither Hofthor nor Ingmar is a vegetarian.</p></statement>
+<solution>
+<p><m>\enot Vh \eand \enot Vi</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Hofthor trusts a vegetarian.</p></statement>
+<solution>
+<p><m>\exists x (Vx \eand Thx)</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Everyone who trusts Ingmar trusts a vegetarian.</p></statement>
+<solution>
+<p><m>\forall x (Txi \eif \exists y (Txy \eand Vy))</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Everyone who trusts Ingmar trusts someone who trusts a vegetarian.</p></statement>
+<solution>
+<p><m>\forall x (Txi \eif \exists y (Txy \eand \exists z (Tyz \eand Vz)))</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Only Ingmar knows the combination to the safe.</p></statement>
+<solution>
+<p><m>Ki \eand \enot \exists x (Kx \eand x{\neq}i)</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Ingmar trusts Hofthor, but no one else.</p></statement>
+<solution>
+<p><m>Tih \eand \enot \exists x (Tix \eand x{\neq}h)</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>The person who knows the combination to the safe is a vegetarian.</p></statement>
+<solution>
+<p><m>\exists x (Kx \eand \enot \exists y (Ky \eand x{\neq}y) \eand Vx)</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>The person who knows the combination to the safe is not a spy.</p></statement>
+<solution>
+<p><m>\exists x (Kx \eand \enot \exists y (Ky \eand x{\neq}y) \eand \enot Sx)</m></p></solution></exercise>
+</subexercises>
+<subexercises xml:id="pr-QL-ID-cards">
+<title>Part C</title>
+<introduction>
+<p>Using the symbolization key given, translate each English-language sentence into QL with identity. For sentences containing definite descriptions, assume Russell’s theory.</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>UD:</cell><cell>cards in a standard deck</cell></row>
+<row><cell>Bx:</cell><cell><m>x</m> is black.</cell></row>
+<row><cell>Cx:</cell><cell><m>x</m> is a club.</cell></row>
+<row><cell>Dx:</cell><cell><m>x</m> is a deuce.</cell></row>
+<row><cell>Jx:</cell><cell><m>x</m> is a jack.</cell></row>
+<row><cell>Mx:</cell><cell><m>x</m> is a man with an axe.</cell></row>
+<row><cell>Ox:</cell><cell><m>x</m> is one-eyed.</cell></row>
+<row><cell>Wx:</cell><cell><m>x</m> is wild.</cell></row></tabular></introduction>
+<exercise>
+<statement>
+<p>All clubs are black cards.</p></statement>
+<solution>
+<p><m>\forall x(Cx \eif Bx)</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>There are no wild cards.</p></statement>
+<solution>
+<p><m>\enot\exists x Wx</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>There are at least two clubs.</p></statement>
+<solution>
+<p><m>\exists x \exists y(Cx \eand Cy \eand x{\neq} y)</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>There is more than one one-eyed jack.</p></statement>
+<solution>
+<p><m>\exists x \exists y(Jx \eand Ox \eand Jy \eand Oy \eand x{\neq} y)</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>There are at most two one-eyed jacks.</p></statement>
+<solution>
+<p><m>\forall x\forall y\forall z\bigl[(Jx \eand Ox \eand Jy \eand Oy \eand Jz \eand Oz)\eif(x{=}y \eor x{=}z \eor y{=}z)\bigr]</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>There are exactly two black jacks.</p></statement>
+<solution>
+<p><m>\exists x\exists y\bigl(Jx \eand Bx \eand Jy \eand By \eand x {\neq} y\eand \forall z[(Jz \eand Bz) \eif (x{=}z \eor y{=}z)]\bigr)</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>There are exactly four deuces.</p></statement>
+<solution>
+<p><m>\exists x_1\exists x_2\exists x_3\exists x_4 (Dx_1 \eand Dx_2 \eand Dx_3 \eand Dx_4 \eand x_1 {\neq} x_2 \eand x_1 {\neq} x_3 \eand x_1 {\neq} x_4 \eand x_2 {\neq} x_3 \eand x_2 {\neq} x_4 \eand x_3 {\neq} x_4 \\  \eand \enot\exists y(Dy \eand y{\neq} x_1 \eand y{\neq}x_2 \eand y{\neq} x_3 \eand y{\neq} x_4))</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>The deuce of clubs is a black card.</p></statement>
+<solution>
+<p><m>\exists x\bigl(Dx \eand Cx \eand \forall y[(Dy\eand Cy) \eif x{=}y] \eand Bx\bigr)</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>One-eyed jacks and the man with the axe are wild.</p></statement>
+<solution>
+<p><m>\forall x\bigl[(Ox \eand Jx) \eif Wx\bigr] \eand \exists x\bigl[Mx \eand \forall y(My \eif x{=}y) \eand Wx\bigr]</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>If the deuce of clubs is wild, then there is exactly one wild card.</p></statement>
+<solution>
+<p><m>\exists x \bigl[Dx \eand Cx \eand \forall y[(Dy\eand Cy) \eif x{=}y] \eand (Wx \eif \forall y [Wy \eif x{=}y])\bigr]</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>The man with the axe is not a jack.</p></statement>
+<solution>
+<p><m>\exists x\bigl[Mx \eand \forall y(My \eif x{=}y) \eand \enot Jx\bigr]</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>The deuce of clubs is not the man with the axe.</p></statement>
+<solution>
+<p><m>\exists x \exists y (Dx \eand Cx \eand \forall z((Dz \eand Cz) \eif x{=}z) \eand My \eand \forall z (Mz \eif y{=}z) \eand x{\neq}y)</m></p></solution></exercise>
+</subexercises>
+<subexercises xml:id="pr-QLbuffy">
+<title>Part D</title>
+<introduction>
+<p>Using the symbolization key given, translate each English-language sentence into QL with identity.</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>UD:</cell><cell>people, generations, and monsters</cell></row>
+<row><cell>Gx:</cell><cell><m>x</m> is a generation.</cell></row>
+<row><cell>Hx:</cell><cell><m>x</m> is human.</cell></row>
+<row><cell>Sx:</cell><cell><m>x</m> is a slayer.</cell></row>
+<row><cell>Vx:</cell><cell><m>x</m> is a vampire.</cell></row>
+<row><cell>Dx:</cell><cell><m>x</m> is a demon.</cell></row>
+<row><cell>Wx:</cell><cell><m>x</m> is a werewolf.</cell></row>
+<row><cell>Fx:</cell><cell><m>x</m> is a force of darkness.</cell></row>
+<row><cell>Axy:</cell><cell><m>x</m> will stand against <m>y</m>.</cell></row>
+<row><cell>Bxy:</cell><cell><m>x</m> is born in generation <m>y</m>.</cell></row>
+<row><cell>Kxy:</cell><cell><m>x</m> will kick <m>y</m>.</cell></row>
+<row><cell>b:</cell><cell>Buffy</cell></row>
+<row><cell>f:</cell><cell>Faith</cell></row>
+<row><cell>w:</cell><cell>Willow</cell></row></tabular></introduction>
+<exercise>
+<statement>
+<p>Buffy and Willow were born in the same generation.</p></statement>
+<solution>
+<p><m>\exists x (Gx \eand Bbx \eand Bwx)</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>There is no more than one slayer born in each generation.</p></statement>
+<solution>
+<p><m>\forall x \forall y [\exists z (Gz \eand Sx \eand Sy \eand Bxz \eand Byz) \eif x{=}y]</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>A slayer other than Buffy is one of the forces of darkness.</p></statement>
+<solution>
+<p><m>\exists x (Sx \eand x{\neq}b \eand Fx)</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Willow will stand against any force of darkness other than a werewolf.</p></statement>
+<solution>
+<p><m>\forall x [(Fx \eand \enot Wx) \eif Awx]</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Faith will kick everyone except herself.</p></statement>
+<solution>
+<p><m>\forall x ((\enot Gx \eand x{\neq}f) \eif Kfx)</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Buffy will kick anyone who stands against a slayer, unless they are also kicking vampires or demons.</p></statement>
+<solution>
+<p><m>\forall x (\exists y (Sy \eand Axy \eand \enot \exists z ((Vz \eor Dz) \eand Kxz)) \eif Kbx)</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>In every generation a slayer is born.</p></statement>
+<solution>
+<p><m>\forall x (Gx \eif \exists y (Sy \eand Byx))</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>In every generation a slayer is born. She will stand against the vampires, demons, and forces of darkness.</p></statement>
+<solution>
+<p><m>\forall x (Gx \eif \exists y (Sy \eand Byx \eand \forall z [(Vz \eor Dz \eor Fz) \eif Ayz]))</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>In every generation a slayer is born. She alone will stand against the vampires, demons, and forces of darkness.</p></statement>
+<solution>
+<p><m>\forall x (Gx \eif \exists y (Sy \eand Byx \eand \\ 
+\forall z [(Vz \eor Dz \eor Fz) \eif Ayz] \eand \\ 
+	\forall y_{2} (\forall z [(Vz \eor Dz \eor Fz) \eif Ay_{2}z] \eif y_{2}{=}y) ))</m></p></solution></exercise>
+</subexercises>
+<subexercises xml:id="identity-part-e">
+<title>Part E</title>
+<introduction>
+<p>Using the symbolization key given, translate each English-language sentence into QL with identity. For sentences containing definite descriptions, assume Russell’s theory.</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>UD:</cell><cell>animals in the world</cell></row>
+<row><cell>Bx:</cell><cell><m>x</m> is in Farmer Brown’s field.</cell></row>
+<row><cell>Hx:</cell><cell><m>x</m> is a horse.</cell></row>
+<row><cell>Px:</cell><cell><m>x</m> is a Pegasus.</cell></row>
+<row><cell>Wx:</cell><cell><m>x</m> has wings.</cell></row></tabular></introduction>
+<exercise>
+<statement>
+<p>There are at least three horses in the world.</p></statement></exercise>
+<exercise>
+<statement>
+<p>There are at least three animals in the world.</p></statement></exercise>
+<exercise>
+<statement>
+<p>There is more than one horse in Farmer Brown’s field.</p></statement></exercise>
+<exercise>
+<statement>
+<p>There are three horses in Farmer Brown’s field.</p></statement></exercise>
+<exercise>
+<statement>
+<p>There is a single winged creature in Farmer Brown’s field; any other creatures in the field must be wingless.</p></statement></exercise>
+<exercise>
+<statement>
+<p>The Pegasus is a winged horse.</p></statement></exercise>
+<exercise>
+<statement>
+<p>The animal in Farmer Brown’s field is not a horse.</p></statement></exercise>
+<exercise>
+<statement>
+<p>The horse in Farmer Brown’s field does not have wings.</p></statement></exercise>
+</subexercises>
+<subexercises xml:id="pr-IdentityModels">
+<title>Part F</title>
+<introduction>
+<p>Demonstrate each of the following, either by constructing a model, or by explaining why it’s impossible to do so. If you wish, you can draw a tree to help you answer these questions; however, it is good conceptual practice to tackle some of these questions directly by thinking about just what you’d need to put in your model.</p></introduction>
+<exercise>
+<statement>
+<p>Show that <m>\{{\enot}Raa, \forall x (x{=}a \eor Rxa)\}</m>
+is consistent.</p></statement>
+<solution>
+<p>There are many possible answers. Here is one:</p>
+<tabular><col halign="right"/><col halign="center"/><col halign="left"/>
+<row><cell>UD</cell><cell>=</cell><cell>{Harry, Sally}</cell></row>
+<row><cell><m>\extension{R}</m></cell><cell>=</cell><cell>{<m>\ntuple{Sally, Harry}</m>}</cell></row>
+<row><cell><m>\referent{a}</m></cell><cell>=</cell><cell>Harry</cell></row></tabular></solution></exercise>
+<exercise>
+<statement>
+<p>Show that <m>\{\forall x\forall y\forall z(x{=}y \eor y{=}z \eor x{=}z),
+\exists x\exists y\ x{\neq} y\}</m> is consistent.</p></statement>
+<solution>
+<p>There are no predicates or constants, so we only need to give a UD.
+Any UD with 2 members will do.</p></solution></exercise>
+<exercise>
+<statement>
+<p>Show that <m>\{\forall x\forall y\ x{=}y, \exists x\ x {\neq} a\}</m> is inconsistent.</p></statement>
+<solution>
+<p>We need to show that it is impossible to construct a model in which these are both true. Suppose <m>\exists x\ x {\neq} a</m> is true in a model. There is something in the universe of discourse that is <em>not</em> the referent of <m>a</m>. So there are at least two things in the universe of discourse: <m>\referent{a}</m> and this other thing. Call this other thing <m>\beta</m>— we know <m>a {\neq} \beta</m>. But if <m>a {\neq} \beta</m>, then <m>\forall x\forall y\ x{=}y</m> is false. So the first sentence must be false if the second sentence is true. As such, there is no model in which they are both true. Therefore, they are inconsistent.</p></solution></exercise>
+<exercise>
+<statement>
+<p>Show that <m>\exists x (x {=} h \eand x {=} i)</m> is contingent.</p></statement>
+<solution>
+<p>A model where this is true:</p>
+<tabular><col halign="right"/><col halign="center"/><col halign="left"/>
+<row><cell>UD</cell><cell>=</cell><cell>{Harry}</cell></row>
+<row><cell><m>\referent{h}</m></cell><cell>=</cell><cell>Harry</cell></row>
+<row><cell><m>\referent{i}</m></cell><cell>=</cell><cell>Harry</cell></row></tabular>
+<p>A model where this is false:</p>
+<tabular><col halign="right"/><col halign="center"/><col halign="left"/>
+<row><cell>UD</cell><cell>=</cell><cell>{Harry, Ivan}</cell></row>
+<row><cell><m>\referent{h}</m></cell><cell>=</cell><cell>Harry</cell></row>
+<row><cell><m>\referent{i}</m></cell><cell>=</cell><cell>Ivan</cell></row></tabular></solution></exercise>
+<exercise>
+<statement>
+<p>Show that {<m>\exists x\exists y(Zx \eand Zy \eand x{=}y)</m>, <m>\enot Zd</m>, <m>d{=}s</m>} is consistent.</p></statement>
+<solution>
+<p>This is one of many possible answers:</p>
+<tabular><col halign="right"/><col halign="center"/><col halign="left"/>
+<row><cell>UD</cell><cell>=</cell><cell>{Dorothy, Harry}</cell></row>
+<row><cell><m>\extension{Z}</m></cell><cell>=</cell><cell>{<m>\ntuple{Harry}</m>}</cell></row>
+<row><cell><m>\referent{d}</m></cell><cell>=</cell><cell>Dorothy</cell></row>
+<row><cell><m>\referent{h}</m></cell><cell>=</cell><cell>Harry</cell></row>
+<row><cell><m>\referent{s}</m></cell><cell>=</cell><cell>Dorothy</cell></row></tabular></solution></exercise>
+<exercise>
+<statement>
+<p>Show that ‘<m>\forall x(Dx \eif \exists y Tyx)</m> ∴ <m>\exists y \exists z\ y{\neq} z</m>’ is invalid.</p></statement>
+<solution>
+<p>This is one of a number of possible answers. Any model with a 1 object UD that satisfies the premise will work.</p>
+<tabular><col halign="right"/><col halign="center"/><col halign="left"/>
+<row><cell>UD</cell><cell>=</cell><cell>{Dorothy}</cell></row>
+<row><cell><m>\extension{D}</m></cell><cell>=</cell><cell>{}</cell></row>
+<row><cell><m>\extension{T}</m></cell><cell>=</cell><cell>{}</cell></row>
+<row><cell><m>\referent{d}</m></cell><cell>=</cell><cell>Dorothy</cell></row></tabular></solution></exercise>
+</subexercises>
+<subexercises xml:id="pr-IdentityTrees">
+<title>Part G</title>
+<introduction>
+<p>Construct a tree to test the following entailment claims. If they are false, provide a model that demonstrates this.</p></introduction>
+<exercise>
+<statement>
+<p><m>\models \forall x \forall y (x{=}y \eif y{=}x)</m></p></statement>
+<solution>
+<p><m>\models \forall x \forall y (x{=}y \eif y{=}x)</m> is true.</p>
+<image width="58%"><latex-image label="tree-cd2fe889c8">
+\begin{prooftree}
+{}
+[\enot \forall x \forall y (x{=}y \eif y{=}x), checked=a
+	[\enot \forall y (a{=}y \eif y{=}a), checked=b, just=1 $\enot \forall$
+		[\enot (a{=}b \eif b{=}a), checked, just=2 $\enot \forall$, grouped
+			[a{=}b, just=3 \enot \eif
+			[b{\neq}a, grouped
+				[b{\neq}b, just={4, 5 =}, close={6}]
+			]
+			]
+		]
+	]
+]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image></solution></exercise>
+<exercise>
+<statement>
+<p><m>\models \forall x \exists y \: x{=}y</m></p></statement>
+<solution>
+<p><m>\models \forall x \exists y \: x{=}y</m> is true.</p>
+<image width="45%"><latex-image label="tree-e16300baf5">
+\begin{prooftree}
+{}
+[\enot \forall x \exists y \: x{=}y, checked=a
+	[\enot \exists y \: y{=}a, subs={a}, just=1 $\enot \forall$
+		[a{\neq}a, close=3, just=2 \enot $\exists$]
+	]
+]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image></solution></exercise>
+<exercise>
+<statement>
+<p><m>\models \exists x \forall y \: x{=}y</m></p></statement>
+<solution>
+<p><m>\models \exists x \forall y \: x{=}y</m> is false.</p>
+<image width="47%"><latex-image label="tree-39f5c01f4e">
+\begin{prooftree}
+{}
+[\enot \exists x \forall y \: x{=}y, subs={a, b}
+	[\enot \forall y \: a{=}y, checked=b, just=1 $\enot \exists$
+		[a{\neq}b, just=2 \enot $\forall$
+			[\enot \forall y \: b{=}y, checked=c, just=1 $\enot \exists$
+				[b{\neq}c, just=4 \enot $\forall$
+					[\vdots]
+				]
+			]
+		]
+	]
+]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image>
+<tabular><col halign="right"/><col halign="center"/><col halign="left"/>
+<row><cell>UD</cell><cell>=</cell><cell>{a, b, c, …}</cell></row></tabular>
+<p>This infinite tree describes a model with an infinite UD. Since there are no predicates we needn’t provide any extensions. Note that a two-object domain would also have sufficed to satisfy the root, even though the tree was not complete after line 3, since we hadn’t taken the <m>b</m> instance of the negated existential. The tree will be infinite since at line 6 we would take the <m>c</m> instance from line 1, etc.</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>\exists x \forall y \: x{=}y \models \forall x \forall y (Rxy \eiff Ryx)</m></p></statement>
+<solution>
+<p><m>\exists x \forall y \: x{=}y \models \forall x \forall y (Rxy \eiff Ryx)</m> is true.</p>
+<image width="58%"><latex-image label="tree-21c53a579f">
+\begin{prooftree}
+{}
+[\exists x \forall y \: x{=}y, checked=a
+[\enot \forall x \forall y (Rxy \eiff Ryx), checked=b, grouped
+	[\forall y \: a{=}y, subs={b, c}, just=1 $\exists$
+		[\enot \forall y (Rby \eiff Ryb), checked=c, just=2 $\enot \forall$
+			[\enot (Rbc \eiff Rcb), checked, just=4 \enot $\forall$, grouped
+				[a{=}b, just=3 $\forall$
+				[a{=}c, just=3 $\forall$, grouped
+					[\enot (Rac \eiff Rca), just={5, 6 =}
+						[\enot (Raa \eiff Raa), just={8, 7 =}, checked, grouped
+							[Raa, just=9 \enot\eiff
+							[\enot Raa, grouped, close={10, 11}
+							]
+							]
+							[Raa
+							[\enot Raa, grouped, close={10, 11}
+							]
+							]
+						]
+					]
+				]
+				]
+			]
+		]
+	]
+]
+]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image></solution></exercise>
+<exercise>
+<statement>
+<p><m>\models \enot \forall x \forall y \forall z [(Axy \eand Azx \eand y{=}z) \eif Axx]</m></p></statement>
+<solution>
+<p><m>\models \enot \forall x \forall y \forall z [(Axy \eand Azx \eand y{=}z) \eif Axx]</m> is false.</p>
+<image width="82%"><latex-image label="tree-3b07ba78dd">
+\begin{prooftree}
+{}
+[\enot\enot\forall x \forall y \forall z ((Axy \eand Azx \eand y{=}z) \eif Axx), checked
+	[\forall x \forall y \forall z ((Axy \eand Azx \eand y{=}z) \eif Axx), just=1 \enot\enot, subs={a}
+		[\forall y \forall z ((Aay \eand Aza \eand y{=}z) \eif Aaa), just=2 $\forall$, subs={a}, grouped
+			[\forall z ((Aaa \eand Aza \eand a{=}z) \eif Aaa), just=3 $\forall$, subs={a}, grouped
+				[(Aaa \eand Aaa \eand a{=}a) \eif Aaa, just=4 $\forall$, checked, grouped
+					[\enot (Aaa \eand Aaa \eand a{=}a), just=5 \eif, checked
+						[\enot Aaa, just=6 \enot \eand, open]
+						[\enot Aaa, open]
+						[a{\neq}a, close=7]
+					]
+					[Aaa, open]
+				]
+			]
+		]
+	]
+]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image>
+<p>This tree is complete. Three open branches describe these two models:</p>
+<tabular><col halign="right"/><col halign="center"/><col halign="left"/>
+<row><cell>UD</cell><cell>=</cell><cell>{a}</cell></row>
+<row><cell><m>\extension{A}</m></cell><cell>=</cell><cell><m>\emptyset</m></cell></row></tabular>
+<tabular><col halign="right"/><col halign="center"/><col halign="left"/>
+<row><cell>UD</cell><cell>=</cell><cell>{a}</cell></row>
+<row><cell><m>\extension{A}</m></cell><cell>=</cell><cell>{<m>\ntuple{a, a}</m>}</cell></row></tabular></solution></exercise>
+<exercise>
+<statement>
+<p><m>\forall x \forall y \: x{=}y \models \exists x Fx \eiff \forall x Fx</m></p></statement>
+<solution>
+<p><m>\forall x \forall y \: x{=}y \models \exists x Fx \eiff \forall x Fx</m> is true.</p>
+<image width="59%"><latex-image label="tree-73f4b30d77">
+\begin{prooftree}
+{}
+[\forall x \forall y \: x{=}y, subs={a}
+[\enot (\exists x Fx \eiff \forall x Fx), grouped, checked
+	[\exists x Fx, checked=a, just=2 \enot\eiff, name=ex1
+	[\enot \forall x Fx, checked=b, grouped, name=notall
+		[Fa, just=$\exists$: ex1, move by=2, name=c1
+		[\enot Fb, grouped, just=\enot $\forall$: notall, name=nfb
+			[\forall y \: a{=}y, subs={b}, just=1 $\forall$, name=ally
+				[a{=}b, just=$\forall$: ally, name=ab, grouped
+					[\enot Fa, name=c2, close={7, 11}, just={=: ab, nfb}
+					]
+				]
+			]
+		]
+		]
+	]
+	]
+	[\enot \exists x Fx, subs={a}, name=ppp
+	[\forall x Fx, grouped, subs={a}, name=allxfx
+		[\enot Fa, just={\enot$\exists$: ppp}
+			[Fa, just={$\forall$: allxfx}, close, grouped
+			]
+		]
+	]
+	]
+]
+]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image></solution></exercise>
+<exercise>
+<statement>
+<p><m>\forall x (x{=}a \eor x{=}b), Ga \eiff \enot Gb \models \enot \exists x \exists y \exists z (Gx \eand Gy \eand \enot Gz)</m></p></statement>
+<solution>
+<p><m>\forall x (x{=}a \eor x{=}b), Ga \eiff \enot Gb \models \enot \exists x \exists y \exists z (Gx \eand Gy \eand \enot Gz)</m> is false.</p>
+<image width="79%"><latex-image label="tree-3a2217434a">
+\begin{prooftree}
+{}
+[\forall x (x{=}a \eor x{=}b), subs={c, d, e, a, b}
+[Ga \eiff \enot Gb, grouped, checked
+[\enot \enot \exists x \exists y \exists z (Gx \eand Gy \eand \enot Gz), grouped, checked
+	[\exists x \exists y \exists z (Gx \eand Gy \eand \enot Gz), just=3 \enot\enot, checked=c
+		[\exists y \exists z (Gc \eand Gy \eand \enot Gz), just=4 $\exists$, checked=d, grouped
+			[\exists z (Gc \eand Gd \eand \enot Gz), just=5 $\exists$, checked=e, grouped
+				[Gc \eand Gd \eand \enot Ge, just=6 $\exists$, checked, grouped
+					[Gc, just=7 \eand, name=e1
+					[Gd, grouped
+					[\enot Ge, grouped
+								[c{=}a \eor c{=}b, checked, just=1 $\forall$
+									[c{=}a, just=11 \eor, name=e2
+										[Ga, just={=: e1, e2}
+											[Ga, just=2 \eiff
+											[\enot Gb, grouped
+												[d{=}a \eor d{=}b, checked, just=1 $\forall$
+													[d{=}a, just=\eor:{!u}
+														[e{=}a \eor e{=}b, checked, just=1 $\forall$
+															[e{=}a, just=\eor:{!u}
+																[\enot Ga, close={13, 20}]
+															]
+															[e{=}b
+																[a{=}a \eor a{=}b, checked, just=1 $\forall$
+																	[a{=}a, just=\eor:{!u}
+																		[b{=}a \eor b{=}b, just=1 $\forall$, checked
+																			[b{=}a, just=\eor:{!u}
+																				[Gb, close={15, 24}]
+																			]
+																			[b{=}b, open]
+																		]
+																	]
+																	[a{=}b]
+																]
+															]
+														]
+													]
+													[d{=}b]
+												]
+											]
+											]
+											[\enot Ga
+											[\enot \enot Gb, grouped, close={13, 14}
+											]
+											]
+										]
+									]
+									[c{=}b]
+								]
+					]Raa
+					]
+					]
+				]
+			]
+		]
+	]
+]
+]
+]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image>
+<p>This tree will end up with multiple open branches; since one open branch is enough to falsify the entailment claim, this version focuses on the left-most open branch at every point, leaving the other open branches incomplete. It describes this model:</p>
+<tabular><col halign="right"/><col halign="center"/><col halign="left"/>
+<row><cell>UD</cell><cell>=</cell><cell>{a, b}</cell></row>
+<row><cell><m>\referent{a}</m></cell><cell>=</cell><cell>a</cell></row>
+<row><cell><m>\referent{b}</m></cell><cell>=</cell><cell>b</cell></row>
+<row><cell><m>\referent{c}</m></cell><cell>=</cell><cell>a</cell></row>
+<row><cell><m>\referent{d}</m></cell><cell>=</cell><cell>a</cell></row>
+<row><cell><m>\referent{e}</m></cell><cell>=</cell><cell>b</cell></row>
+<row><cell><m>\extension{G}</m></cell><cell>=</cell><cell>{a}</cell></row></tabular></solution></exercise>
+<exercise>
+<statement>
+<p><m>\forall x (Fx \eif x{=}f), \exists x (Fx \eor \forall y \: y{=}x) \models Ff</m></p></statement>
+<solution>
+<p><m>\forall x (Fx \eif x{=}f), \exists x (Fx \eor \forall y \: y{=}x) \models Ff</m> is false.</p>
+<image width="51%"><latex-image label="tree-965d8a8074">
+\begin{prooftree}
+{}
+[\forall x (Fx \eif x{=}f), subs={a, f}
+[\exists x (Fx \eor \forall y \: y{=}x), checked=a, grouped
+[\enot Ff, grouped
+	[Fa \eor \forall y \: y{=}a, checked, just=2 $\exists$
+		[Fa \eif a{=}f, just=1 $\forall$, checked
+			[\enot Fa, just=5 \eif
+				[Fa, just=4 \eor, close]
+				[\forall y \: y{=}a, subs={f, a}
+					[f{=}a, just=7 $\forall$, name=e1
+					[a{=}a, just=7 $\forall$, grouped
+						[Ff \eif f{=}f, checked, just=1 $\forall$
+							[\enot Ff, name=e2, open]
+							[f{=}f, open]
+						]
+					]
+					]
+				]
+			]
+			[a{=}f]
+		]
+	]
+]
+]
+]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image>
+<p>We have two completed open branches. In this case, both branches give the same model:</p>
+<tabular><col halign="right"/><col halign="center"/><col halign="left"/>
+<row><cell>UD</cell><cell>=</cell><cell>{a}</cell></row>
+<row><cell><m>\referent{a}</m></cell><cell>=</cell><cell>a</cell></row>
+<row><cell><m>\referent{f}</m></cell><cell>=</cell><cell>a</cell></row>
+<row><cell><m>\extension{F}</m></cell><cell>=</cell><cell><m>\emptyset</m></cell></row></tabular></solution></exercise>
+<exercise>
+<statement>
+<p><m>\exists x \exists y Dxy \models \forall x_{1} \forall x_{2} \forall x_{3} \forall x_{4} [(Dx_{1}x_{2} \eand Dx_{3}x_{4}) \eif (x_{2}{\neq}x_{3} \eor Dx_{1}x_{4})]</m></p></statement>
+<solution>
+<p><m>\exists x \exists y Dxy \models \forall x_{1} \forall x_{2} \forall x_{3} \forall x_{4} [(Dx_{1}x_{2} \eand Dx_{3}x_{4}) \eif (x_{2}{\neq}x_{3} \eor Dx_{1}x_{4})]</m> is false.</p>
+<image width="100%"><latex-image label="tree-67014ea5e9">
+\begin{prooftree}
+{}
+[\exists x \exists y Dxy, checked=a
+[\enot \forall x_{1} \forall x_{2} \forall x_{3} \forall x_{4} ((Dx_{1}x_{2} \eand Dx_{3}x_{4}) \eif (x_{2}{\neq}x_{3} \eor Dx_{1}x_{4})), grouped, checked=c
+[\exists y Day, checked=b, just=1 $\exists$
+[Dab, just=3 $\exists$, grouped
+[\enot \forall x_{2} \forall x_{3} \forall x_{4} ((Dcx_{2} \eand Dx_{3}x_{4}) \eif (x_{2}{\neq}x_{3} \eor Dcx_{4})), just=2 \enot $\forall$, checked=d
+[\enot \forall x_{3} \forall x_{4} ((Dcd \eand Dx_{3}x_{4}) \eif (d{\neq}x_{3} \eor Dcx_{4})), checked=e, just=5 \enot $\forall$,grouped
+[\enot \forall x_{4} ((Dcd \eand Dex_{4}) \eif (d{\neq}e \eor Dcx_{4})), checked=f, just=6 \enot $\forall$, grouped
+[\enot ((Dcd \eand Def) \eif (d{\neq}e \eor Dcf)), checked, just=7 \enot $\forall$, grouped
+[Dcd \eand Def, checked, just=8 \enot \eif
+[\enot (d{\neq}e \eor Dcf), checked, grouped
+[Dcd, just=9 \eand, name=dcd
+[Def, grouped, name=def
+[\enot d{\neq}e, just=10 \enot\eif
+[\enot Dcf, grouped
+[d{=}e, just=13 \enot\enot, name=ee
+[Ddf, just={=: def, ee}
+[Dce, just={=: dcd, ee}, grouped, open
+]]]]]]]]]]]]]]]]]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image>
+<tabular><col halign="right"/><col halign="center"/><col halign="left"/>
+<row><cell>UD</cell><cell>=</cell><cell>{a, b, c, d, f}</cell></row>
+<row><cell><m>\referent{a}</m></cell><cell>=</cell><cell>a</cell></row>
+<row><cell><m>\referent{b}</m></cell><cell>=</cell><cell>b</cell></row>
+<row><cell><m>\referent{c}</m></cell><cell>=</cell><cell>c</cell></row>
+<row><cell><m>\referent{d}</m></cell><cell>=</cell><cell>d</cell></row>
+<row><cell><m>\referent{e}</m></cell><cell>=</cell><cell>d</cell></row>
+<row><cell><m>\referent{f}</m></cell><cell>=</cell><cell>f</cell></row></tabular>
+<tabular><col halign="right"/><col halign="center"/><col halign="left"/>
+<row><cell><m>\extension{D}</m></cell><cell>=</cell><cell><m>\begin{array}{l|lllll}
+Dxy        &amp; \mathbf{a} &amp; \mathbf{b} &amp; \mathbf{c} &amp; \mathbf{d} &amp; \mathbf{f} \\ \hline
+\mathbf{a} &amp; -          &amp; 1          &amp; -          &amp; -          &amp; -          \\
+\mathbf{b} &amp; -          &amp; -          &amp; -          &amp; -          &amp; -          \\
+\mathbf{c} &amp; -          &amp; -          &amp; -          &amp; 1          &amp; 0          \\
+\mathbf{d} &amp; -          &amp; -          &amp; -          &amp; -          &amp; 1          \\
+\mathbf{f} &amp; -          &amp; -          &amp; -          &amp; -          &amp; -         
+\end{array}</m></cell></row></tabular></solution></exercise>
+</subexercises>
+<subexercises xml:id="identity-part-h">
+<title>Part H</title>
+<exercise>
+<statement>
+<p>In § <xref ref="sec-quantity" text="global"/> we looked at two different translations of ‘Mozart wrote exactly two operas’. Use trees to prove that they are equivalent.</p></statement></exercise>
+</subexercises>
+<subexercises xml:id="pr-IdentityArguments">
+<title>Part I</title>
+<introduction>
+<p>Translate these arguments into QL with identity, and evaluate them for validity with a tree. (Don’t be surprised or discouraged if some of these trees end up very complex.)</p></introduction>
+<exercise>
+<statement>
+<p>Dudley will threaten anyone who threatens anyone. Therefore, Dudley will threaten himself.</p></statement></exercise>
+<exercise>
+<statement>
+<p>The exam is easy. Therefore, every exam Sheila took was easy. (Use Russell’s theory of definite descriptions.)</p></statement></exercise>
+<exercise>
+<statement>
+<p>Three wise men visited Jesus. Every wise man who visited Jesus gave Jesus a gift. Therefore, Jesus received more than one gift.</p></statement></exercise>
+<exercise>
+<statement>
+<p>Worf is the only Klingon in Starfleet. Everyone in Starfleet is brave. All brave Klingons are warriors. Therefore, there is at least one brave warrior in Starfleet.</p></statement></exercise>
+<exercise>
+<statement>
+<p>Worf is the only Klingon in Starfleet. Everyone in Starfleet is brave. All brave Klingons are warriors. Therefore, there is exactly one brave warrior in Starfleet.</p></statement></exercise>
+<exercise>
+<statement>
+<p>Every person likes every kind of sandwich that is tasty. Jack is a person. Jack likes exactly one kind of sandwich. Therefore, no more than one kind of sandwich is tasty.</p></statement></exercise>
+</subexercises>
+<conclusion>
+<note component="genai">
+<title>GenAI prompts for further practice</title>
+<p>Here are some potential GenAI prompts you might use to generate further practice problems, in case you find that helpful.</p>
+<p>
+<ul>
+<li>Give me English sentences involving phrases like “only”, “no one else”, “everyone except”, and “someone other than”. Ask me to translate them into QL with identity. Present one sentence at a time and check my answer.</li>
+<li>Give me English sentences making claims about quantities, such as “at least two”, “at most two”, “exactly two”, and “exactly three”. Ask me to translate them into QL with identity and explain how the identity claims ensure that the right number of objects are involved.</li>
+<li>Give me English sentences containing definite descriptions, such as “the student who passed the exam”, and ask me to translate them into QL using Russell’s theory of definite descriptions. After I answer, check separately whether my translation expresses existence, uniqueness, and the property attributed to the object.</li>
+<li>Give me some identity claims together with atomic and negated atomic QL sentences. Ask me to replace each name with the representative of its identity group and determine whether the resulting sentences reveal a contradiction.</li>
+<li>Give me lists of atoms, negated atoms, identity claims, and negated identity claims that could occur on a completed open branch. Ask me to construct a model that satisfies them, making sure that names identified on the branch are assigned the same referent.</li>
+<li>Give me sets of QL sentences involving identity and ask me whether I can construct a model satisfying them. Present one set at a time. If I think the set is inconsistent, ask me to explain which identity claims and predicate claims create the conflict.</li></ul></p></note></conclusion>
+</exercises>
+</chapter>

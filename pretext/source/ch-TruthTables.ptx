@@ -1,0 +1,961 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated from Latex-Files/forallx-ubc-3-truthtables.tex by pretext/scripts/latex2ptx.py -->
+<chapter xml:id="ch-TruthTables">
+<title>Truth tables</title>
+<introduction>
+<p>This chapter introduces a way of evaluating sentences and arguments of SL. The truth table method is a purely mechanical procedure that requires no intuition or special insight. Given the (albeit imprecise) translatability between SL and natural languages, this also amounts to a formal way of evaluating some natural language arguments.</p></introduction>
+<section xml:id="truthtables-truth-functional-connectives">
+<title>Truth-functional connectives</title>
+<p>Any non-atomic sentence of SL is composed of atomic sentences with sentential connectives. In Ch. <xref ref="ch-SL" text="global"/>, we offered <em>characteristic truth tables</em> for each connective. Although we didn’t emphasize it at the time, the fact that it is possible to give truth tables like this is very significant. It means that our connectives are <term>truth-functional</term>. That is to say, the only thing that matters for determining the truth value of a given sentence of SL is the truth values of its constituent parts. To determine the truth value of a sentence <m>\enot\metaA{}</m>, the only thing that matters is the truth value of <m>\metaA{}</m>. You don’t have to know what <m>\metaA{}</m> means, or where it came from, or what evidence there is for it and what that evidence might depend on. The truth-value of a negation is a <em>function</em> of the truth-value of its negand. And so likewise for the other connectives.</p>
+<p>We are using the same notion of a <term>function</term> that you have probably encountered in mathematics. A function from one set to another associates each member of the first set with exactly one member of the second set. Once the first element is fixed, the function uniquely selects an element of the second set. Any given numerical value of <m>x</m> will unambiguously determine the value of <m>x^{2}</m>, for instance, so <m>f(x)=x^{2}</m> is a function. In the same way, any given truth value of <m>\metaA{}</m> will unambiguously determine the value of <m>\enot\metaA{}</m>, which is why negation, too, is a function.</p>
+<p>This is a very interesting feature of SL. It is not inevitable. The syntax of English, for example, permits one to make a new, more complex English declarative sentence by prefixing the phrase ‘Donald Trump cares whether’ in front of any declarative English sentence. In this respect this phrase is syntactically similar to ‘<m>\enot</m>’ in SL. But it is impossible to give a truth-functional characterization of the ‘Donald Trump cares whether’ operator in English. If you want to know whether Donald Trump cares whether  the Canadian dollar is getting stronger, it’s not enough to know whether the Canadian dollar is getting stronger. If it is, he might or might not care; if it isn’t, he might or might not care. ‘Donald Trump cares whether’ is not truth-functional. But all the connectives of SL are.</p>
+<p>For this reason, we can construct truth tables to determine the logical features of SL sentences.</p>
+</section>
+<section xml:id="truthtables-complete-truth-tables">
+<title>Complete truth tables</title>
+<p>The truth conditions of a sentence which contains only one connective are given by the characteristic truth table for that connective. Truth tables list out all the possible combinations of truth values for the atomic wffs at play; each row corresponds to a possible way of assigning truth values to atomic sentences. ({<m>P=1</m>, <m>Q=1</m>} is one way truth values could be assigned; {<m>P=1</m>, <m>Q=0</m>} is another.)</p>
+<p>In the previous chapter, we wrote the characteristic truth tables with ‘1’ for true and ‘0’ for false. It is important to note, however, that this is not about truth in any deep or cosmic sense. Philosophical investigation into the nature of truth is a worthy project in its own right, but the truth functions in SL are just rules which transform input values into output values. (This is part of the reason why, in this book, we usually write ‘1’ and ‘0’ instead of ‘T’ and ‘F’.) Even though we interpret ‘1’ as meaning ‘true’ and ‘0’ as meaning ‘false’, computers can be programmed to fill out truth tables in a purely mechanical way. In a machine, ‘1’ might mean that a register is switched on and ‘0’ that the register is switched off. Mathematically, they are just the two possible values that a sentence of SL can have. The truth tables for the connectives of SL, written in terms of 1s and 0s, are given in <xref ref="table-CharacteristicTTs" text="type-global"/>.</p>
+<figure xml:id="table-CharacteristicTTs"><caption>The characteristic truth tables for the connectives of SL.</caption>
+<sidebyside>
+<tabular><col halign="center" right="minor"/><col halign="center"/>
+<row bottom="minor"><cell><m>\metaA{}</m></cell><cell><m>\enot\metaA{}</m></cell></row>
+<row><cell>1</cell><cell>0</cell></row>
+<row><cell>0</cell><cell>1</cell></row></tabular>
+<tabular><col halign="center" right="minor"/><col halign="center" right="minor"/><col halign="center" right="minor"/><col halign="center" right="minor"/><col halign="center" right="minor"/><col halign="center"/>
+<row bottom="minor"><cell><m>\metaA{}</m></cell><cell><m>\metaB{}</m></cell><cell><m>\metaA{}\eand\metaB{}</m></cell><cell><m>\metaA{}\eor\metaB{}</m></cell><cell><m>\metaA{}\eif\metaB{}</m></cell><cell><m>\metaA{}\eiff\metaB{}</m></cell></row>
+<row><cell>1</cell><cell>1</cell><cell>1</cell><cell>1</cell><cell>1</cell><cell>1</cell></row>
+<row><cell>1</cell><cell>0</cell><cell>0</cell><cell>1</cell><cell>0</cell><cell>0</cell></row>
+<row><cell>0</cell><cell>1</cell><cell>0</cell><cell>1</cell><cell>1</cell><cell>0</cell></row>
+<row><cell>0</cell><cell>0</cell><cell>0</cell><cell>0</cell><cell>1</cell><cell>1</cell></row></tabular></sidebyside></figure>
+<p>The characteristic truth table for conjunction, for example, gives the truth conditions for any sentence of the form <m>(\metaA{}\eand\metaB{})</m>. Even if the conjuncts <m>\metaA{}</m> and <m>\metaB{}</m> are long, complicated sentences, the conjunction is true if and only if both <m>\metaA{}</m> and <m>\metaB{}</m> are true.</p>
+<p>Let’s construct a truth table for a more complicated sentence. Consider the sentence <m>(H\eand I)\eif H</m>. We consider all the possible combinations of true and false for <m>H</m> and <m>I</m>, which gives us four rows. We then copy the truth-values for the sentence letters and write them underneath the letters in the sentence.</p>
+<tabular><col halign="center" right="minor"/><col halign="center" right="minor"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/>
+<row bottom="minor"><cell><m>H</m></cell><cell><m>I</m></cell><cell><m>(H</m></cell><cell><m>\eand</m></cell><cell><m>I)</m></cell><cell><m>\eif</m></cell><cell><m>H</m></cell></row>
+<row><cell>1</cell><cell>1</cell><cell><alert>1</alert></cell><cell/><cell><alert>1</alert></cell><cell/><cell><alert>1</alert></cell></row>
+<row><cell>1</cell><cell>0</cell><cell><alert>1</alert></cell><cell/><cell><alert>0</alert></cell><cell/><cell><alert>1</alert></cell></row>
+<row><cell>0</cell><cell>1</cell><cell><alert>0</alert></cell><cell/><cell><alert>1</alert></cell><cell/><cell><alert>0</alert></cell></row>
+<row><cell>0</cell><cell>0</cell><cell><alert>0</alert></cell><cell/><cell><alert>0</alert></cell><cell/><cell><alert>0</alert></cell></row></tabular>
+<p>So far all we’ve done is duplicate the first two columns. We’ve written the ‘H’ column twice — once under each ‘H’, and the ‘I’ column once, under the ‘I’.</p>
+<p>Now consider the subsentence <m>H\eand I</m>. This is a conjunction <m>\metaA{}\eand\metaB{}</m> with <m>H</m> as <m>\metaA{}</m> and with <m>I</m> as <m>\metaB{}</m>. <m>H</m> and <m>I</m> are both true on the first row. Since a conjunction is true when both conjuncts are true, we write a 1 underneath the conjunction symbol. In the other three rows, at least one of the conjuncts is false, so the conjunction <m>(H \eand I)</m> is false. So we write 0s under the conjunction symbol on those rows:</p>
+<tabular><col halign="center" right="minor"/><col halign="center" right="minor"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/>
+<row bottom="minor"><cell><m>H</m></cell><cell><m>I</m></cell><cell><m>(H</m></cell><cell><m>\eand</m></cell><cell><m>I)</m></cell><cell><m>\eif</m></cell><cell><m>H</m></cell></row>
+<row><cell/><cell/><cell><m>\metaA{}</m></cell><cell><m>\eand</m></cell><cell><m>\metaB{}</m></cell><cell/><cell/></row>
+<row><cell>1</cell><cell>1</cell><cell>1</cell><cell><alert>1</alert></cell><cell>1</cell><cell/><cell>1</cell></row>
+<row><cell>1</cell><cell>0</cell><cell>1</cell><cell><alert>0</alert></cell><cell>0</cell><cell/><cell>1</cell></row>
+<row><cell>0</cell><cell>1</cell><cell>0</cell><cell><alert>0</alert></cell><cell>1</cell><cell/><cell>0</cell></row>
+<row><cell>0</cell><cell>0</cell><cell>0</cell><cell><alert>0</alert></cell><cell>0</cell><cell/><cell>0</cell></row></tabular>
+<p>The entire sentence is a conditional <m>\metaA{}\eif\metaB{}</m> with <m>(H \eand I)</m> as <m>\metaA{}</m> and with <m>H</m> as <m>\metaB{}</m>. On the second row, for example, <m>(H\eand I)</m> is false and <m>H</m> is true. Since a conditional is true when the antecedent is false, we write a 1 in the second row underneath the conditional symbol. We continue for the other three rows and get this:</p>
+<tabular><col halign="center" right="minor"/><col halign="center" right="minor"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/>
+<row bottom="minor"><cell><m>H</m></cell><cell><m>I</m></cell><cell><m>(H</m></cell><cell><m>\eand</m></cell><cell><m>I)</m></cell><cell><m>\eif</m></cell><cell><m>H</m></cell></row>
+<row><cell/><cell/><cell/><cell><m>\metaA{}</m></cell><cell/><cell><m>\eif</m></cell><cell><m>\metaB{}</m></cell></row>
+<row><cell>1</cell><cell>1</cell><cell/><cell>1</cell><cell/><cell><alert>1</alert></cell><cell>1</cell></row>
+<row><cell>1</cell><cell>0</cell><cell/><cell>0</cell><cell/><cell><alert>1</alert></cell><cell>1</cell></row>
+<row><cell>0</cell><cell>1</cell><cell/><cell>0</cell><cell/><cell><alert>1</alert></cell><cell>0</cell></row>
+<row><cell>0</cell><cell>0</cell><cell/><cell>0</cell><cell/><cell><alert>1</alert></cell><cell>0</cell></row></tabular>
+<p>The column of 1s underneath the conditional tells us that the sentence <m>(H \eand I)\eif H</m> is true regardless of the truth-values of <m>H</m> and <m>I</m>. They can be true or false in any combination, and the compound sentence still comes out true. It is crucial that we have considered all of the possible combinations. If we only had a two-line truth table, we could not be sure that the sentence was not false for some other combination of truth-values.</p>
+<p>In this example, we have not repeated all of the entries in every successive table, so that it’s easier for you to see which parts are new. When actually writing truth tables on paper, however, it is impractical to erase whole columns or rewrite the whole table for every step. Although it is more crowded, the truth table can be written in this way:</p>
+<tabular><col halign="center" right="minor"/><col halign="center" right="minor"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/>
+<row bottom="minor"><cell><m>H</m></cell><cell><m>I</m></cell><cell><m>(H</m></cell><cell><m>\eand</m></cell><cell><m>I)</m></cell><cell><m>\eif</m></cell><cell><m>H</m></cell></row>
+<row><cell>1</cell><cell>1</cell><cell>1</cell><cell>1</cell><cell>1</cell><cell><alert>1</alert></cell><cell>1</cell></row>
+<row><cell>1</cell><cell>0</cell><cell>1</cell><cell>0</cell><cell>0</cell><cell><alert>1</alert></cell><cell>1</cell></row>
+<row><cell>0</cell><cell>1</cell><cell>0</cell><cell>0</cell><cell>1</cell><cell><alert>1</alert></cell><cell>0</cell></row>
+<row><cell>0</cell><cell>0</cell><cell>0</cell><cell>0</cell><cell>0</cell><cell><alert>1</alert></cell><cell>0</cell></row></tabular>
+<p>Most of the columns underneath the sentence are only there for bookkeeping purposes. When you become more adept with truth tables, you will probably no longer need to copy over the columns for each of the sentence letters. In any case, the truth-value of the sentence on each row is just the column underneath the main logical operator of the sentence; in this case, the column underneath the conditional. We’ve marked it in bold.</p>
+<p>A <term>complete truth table</term> has a row for all the possible combinations of 1 and 0 for all of the sentence letters. The size of the complete truth table depends on the number of different sentence letters in the table. A sentence that contains only one sentence letter requires only two rows, as in the characteristic truth table for negation. This is true even if the same letter is repeated many times, as in the sentence
+<m>[(C\eiff C) \eif C] \eand \enot(C \eif C)</m>.
+The complete truth table requires only two lines because there are only two possibilities: <m>C</m> can be true or it can be false. A single sentence letter can never be marked both 1 and 0 on the same row. The truth table for this sentence looks like this:</p>
+<tabular><col halign="center" right="minor"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/>
+<row bottom="minor"><cell><m>C</m></cell><cell><m>[(</m></cell><cell><m>C</m></cell><cell><m>\eiff</m></cell><cell><m>C</m></cell><cell><m>)</m></cell><cell><m>\eif</m></cell><cell><m>C</m></cell><cell><m>]</m></cell><cell><m>\eand</m></cell><cell><m>\enot</m></cell><cell><m>(</m></cell><cell><m>C</m></cell><cell><m>\eif</m></cell><cell><m>C</m></cell><cell><m>)</m></cell></row>
+<row><cell>1</cell><cell/><cell>1</cell><cell>1</cell><cell>1</cell><cell/><cell>1</cell><cell>1</cell><cell/><cell><alert>0</alert></cell><cell>0</cell><cell/><cell>1</cell><cell>1</cell><cell>1</cell><cell/></row>
+<row><cell>0</cell><cell/><cell>0</cell><cell>1</cell><cell>0</cell><cell/><cell>0</cell><cell>0</cell><cell/><cell><alert>0</alert></cell><cell>0</cell><cell/><cell>0</cell><cell>1</cell><cell>0</cell><cell/></row></tabular>
+<p>Looking at the column underneath the main connective, we see that the sentence is false on both rows of the table; i.e., it is false regardless of whether <m>C</m> is true or false. So it is a contradiction. (See §<xref ref="sec-tautologydef" text="global"/>.)</p>
+<p>A sentence that contains two sentence letters requires four lines for a complete truth table, as in the other characteristic truth tables and the table for <m>(H \eand I)\eif H</m> above.</p>
+<p>A sentence that contains three sentence letters requires eight lines. For example:</p>
+<tabular><col halign="center" right="minor"/><col halign="center" right="minor"/><col halign="center" right="minor"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/>
+<row bottom="minor"><cell><m>M</m></cell><cell><m>N</m></cell><cell><m>P</m></cell><cell><m>M</m></cell><cell><m>\eand</m></cell><cell><m>(N</m></cell><cell><m>\eor</m></cell><cell><m>P)</m></cell></row>
+<row><cell>1</cell><cell>1</cell><cell>1</cell><cell>1</cell><cell><alert>1</alert></cell><cell>1</cell><cell>1</cell><cell>1</cell></row>
+<row><cell>1</cell><cell>1</cell><cell>0</cell><cell>1</cell><cell><alert>1</alert></cell><cell>1</cell><cell>1</cell><cell>0</cell></row>
+<row><cell>1</cell><cell>0</cell><cell>1</cell><cell>1</cell><cell><alert>1</alert></cell><cell>0</cell><cell>1</cell><cell>1</cell></row>
+<row><cell>1</cell><cell>0</cell><cell>0</cell><cell>1</cell><cell><alert>0</alert></cell><cell>0</cell><cell>0</cell><cell>0</cell></row>
+<row><cell>0</cell><cell>1</cell><cell>1</cell><cell>0</cell><cell><alert>0</alert></cell><cell>1</cell><cell>1</cell><cell>1</cell></row>
+<row><cell>0</cell><cell>1</cell><cell>0</cell><cell>0</cell><cell><alert>0</alert></cell><cell>1</cell><cell>1</cell><cell>0</cell></row>
+<row><cell>0</cell><cell>0</cell><cell>1</cell><cell>0</cell><cell><alert>0</alert></cell><cell>0</cell><cell>1</cell><cell>1</cell></row>
+<row><cell>0</cell><cell>0</cell><cell>0</cell><cell>0</cell><cell><alert>0</alert></cell><cell>0</cell><cell>0</cell><cell>0</cell></row></tabular>
+<p>From this table, we know that the sentence <m>M\eand(N\eor P)</m> might be true or false, depending on the truth-values of <m>M</m>, <m>N</m>, and <m>P</m>.</p>
+<p>A complete truth table for a sentence that contains four different sentence letters requires 16 lines. In general, if a complete truth table has <m>n</m> different sentence letters, then it must have <m>2^n</m> rows.</p>
+<p>In order to fill in the columns of a complete truth table, begin with the right-most sentence letter and alternate 1s and 0s. In the next column to the left, write two 1s, write two 0s, and repeat. For the third sentence letter, write four 1s followed by four 0s. This yields an eight line truth table like the one above. For a 16 line truth table, the next column of sentence letters should have eight 1s followed by eight 0s. For a 32 line table, the next column would have 16 1s followed by 16 0s. And so on.</p>
+</section>
+<section xml:id="sec-usingtruthtables">
+<title>Using truth tables</title>
+<subsection xml:id="truthtables-tautologies-contradictions-and-contingen">
+<title>Tautologies, contradictions, and contingent sentences</title>
+<p>Recall from §<xref ref="sec-tautologydef" text="global"/> that an English sentence is a tautology if it must be true as a matter of logic. With a complete truth table, we consider all of the ways that the world might be. If the sentence is true on every line of a complete truth table, then it is true as a matter of logic, regardless of what the world is like.</p>
+<p>So a sentence is a <term>tautology in SL</term> if the column under its main connective is 1 on every row of a complete truth table.</p>
+<p>Conversely, a sentence is a <term>contradiction in SL</term> if the column under its main connective is 0 on every row of a complete truth table.</p>
+<p>A sentence is <term>contingent in SL</term> if it is neither a tautology nor a contradiction; i.e. if it is 1 on at least one row and 0 on at least one row.</p>
+<p>From the truth tables in the previous section, we know that <m>(H\eand I)\eif H</m> is a tautology, that <m>[(C\eiff C) \eif C] \eand \enot(C \eif C)</m> is a contradiction, and that <m>M \eand (N \eor P)</m> is contingent.</p></subsection>
+<subsection xml:id="truthtables-logical-equivalence">
+<title>Logical equivalence</title>
+<p>Two sentences are logically equivalent in English if they have the same truth value as a matter of logic. Once again, truth tables allow us to define an analogous concept for SL: Two sentences are <term>logically equivalent in SL</term> if they have the same truth-value on every row of a complete truth table under their main connective.</p>
+<p>Consider the sentences <m>\enot(A \eor B)</m> and <m>\enot A \eand \enot B</m>. Are they logically equivalent? To find out, we construct a truth table.</p>
+<tabular><col halign="center" right="minor"/><col halign="center" right="minor"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center" right="minor"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/>
+<row bottom="minor"><cell><m>A</m></cell><cell><m>B</m></cell><cell><m>\enot</m></cell><cell><m>(A</m></cell><cell><m>\eor</m></cell><cell><m>B)</m></cell><cell><m>\enot</m></cell><cell><m>A</m></cell><cell><m>\eand</m></cell><cell><m>\enot</m></cell><cell><m>B</m></cell></row>
+<row><cell>1</cell><cell>1</cell><cell><alert>0</alert></cell><cell>1</cell><cell>1</cell><cell>1</cell><cell>0</cell><cell>1</cell><cell><alert>0</alert></cell><cell>0</cell><cell>1</cell></row>
+<row><cell>1</cell><cell>0</cell><cell><alert>0</alert></cell><cell>1</cell><cell>1</cell><cell>0</cell><cell>0</cell><cell>1</cell><cell><alert>0</alert></cell><cell>1</cell><cell>0</cell></row>
+<row><cell>0</cell><cell>1</cell><cell><alert>0</alert></cell><cell>0</cell><cell>1</cell><cell>1</cell><cell>1</cell><cell>0</cell><cell><alert>0</alert></cell><cell>0</cell><cell>1</cell></row>
+<row><cell>0</cell><cell>0</cell><cell><alert>1</alert></cell><cell>0</cell><cell>0</cell><cell>0</cell><cell>1</cell><cell>0</cell><cell><alert>1</alert></cell><cell>1</cell><cell>0</cell></row></tabular>
+<p>Look at the columns for the main connectives; negation for the first sentence, conjunction for the second. On the first three rows, both are 0. On the final row, both are 1. Since they match on every row, the two sentences are logically equivalent.</p></subsection>
+<subsection xml:id="truthtables-consistency">
+<title>Consistency</title>
+<p>A set of sentences in English is consistent if it is logically possible for them all to be true at once.
+A set of sentences is <term>logically consistent in SL</term> if there is at least one line of a complete truth table on which all of the sentences are true. It is <term>inconsistent</term> otherwise.</p>
+<p>Look again at the truth table above. We can see that <m>\enot(A \eor B)</m> and <m>\enot A \eand \enot B</m> are consistent, because there is at least one row, namely the last one, where both are assigned true.</p>
+<p>Are <m>A</m>, <m>B</m>, and <m>\enot A \eand \enot B</m> logically consistent? No. If they were, there would have to be a row where all three sentences are assigned true. But examination of the truth table reveals that there is no such row.</p></subsection>
+<subsection xml:id="truthtables-validity">
+<title>Validity</title>
+<p>An argument in English is valid if it is logically impossible for the premises to be true and for the conclusion to be false at the same time.
+An argument is <term>valid in SL</term> if there is no row of a complete truth table on which the premises are all 1 and the conclusion is 0; an argument is <term>invalid in SL</term> if there is such a row.</p>
+<p>Consider this argument:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell/><cell><m>\enot L \eif (J \eor L)</m></cell></row>
+<row><cell/><cell><m>\enot L</m></cell></row>
+<row><cell>∴</cell><cell><m>J</m></cell></row></tabular>
+<p>Is it valid? To find out, we construct a truth table.</p>
+<tabular><col halign="center" right="minor"/><col halign="center" right="minor"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center" right="minor"/><col halign="center"/><col halign="center" right="minor"/><col halign="center"/>
+<row bottom="minor"><cell><m>J</m></cell><cell><m>L</m></cell><cell><m>\enot</m></cell><cell><m>L</m></cell><cell><m>\eif</m></cell><cell><m>(J</m></cell><cell><m>\eor</m></cell><cell><m>L)</m></cell><cell><m>\enot</m></cell><cell>L</cell><cell>J</cell></row>
+<row><cell>1</cell><cell>1</cell><cell>0</cell><cell>1</cell><cell><alert>1</alert></cell><cell>1</cell><cell>1</cell><cell>1</cell><cell><alert>0</alert></cell><cell>1</cell><cell><alert>1</alert></cell></row>
+<row><cell>1</cell><cell>0</cell><cell>1</cell><cell>0</cell><cell><alert>1</alert></cell><cell>1</cell><cell>1</cell><cell>0</cell><cell><alert>1</alert></cell><cell>0</cell><cell><alert>1</alert></cell></row>
+<row><cell>0</cell><cell>1</cell><cell>0</cell><cell>1</cell><cell><alert>1</alert></cell><cell>0</cell><cell>1</cell><cell>1</cell><cell><alert>0</alert></cell><cell>1</cell><cell><alert>0</alert></cell></row>
+<row><cell>0</cell><cell>0</cell><cell>1</cell><cell>0</cell><cell><alert>0</alert></cell><cell>0</cell><cell>0</cell><cell>0</cell><cell><alert>1</alert></cell><cell>0</cell><cell><alert>0</alert></cell></row></tabular>
+<p>To determine whether the argument is valid, check to see whether there are any rows on which both premises are assigned 1, but where the conclusion is assigned 0. There are no such rows. The only row on which both the premises are 1 is the second row, and on that row the conclusion is also 1. So the argument form is valid in SL.</p>
+<p>Here is another example. Is this argument valid?</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell/><cell><m>P \eif Q</m></cell></row>
+<row><cell/><cell><m>\enot P</m></cell></row>
+<row><cell>∴</cell><cell><m>\enot Q</m></cell></row></tabular>
+<p>To evaluate it, construct a truth table and see whether there is a row that assigns 1 to the premises and 0 to the conclusion:</p>
+<tabular><col halign="center"/><col halign="center" right="minor"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center" right="minor"/><col halign="center"/><col halign="center" right="minor"/><col halign="center"/><col halign="center"/>
+<row bottom="minor"><cell><m>P</m></cell><cell><m>Q</m></cell><cell/><cell><m>P</m></cell><cell><m>\eif</m></cell><cell><m>Q</m></cell><cell/><cell><m>\enot</m></cell><cell><m>P</m></cell><cell><m>\enot</m></cell><cell><m>Q</m></cell></row>
+<row><cell>1</cell><cell>1</cell><cell/><cell>1</cell><cell><alert>1</alert></cell><cell>1</cell><cell/><cell><alert>0</alert></cell><cell>1</cell><cell><alert>0</alert></cell><cell>1</cell></row>
+<row><cell>1</cell><cell>0</cell><cell/><cell>1</cell><cell><alert>0</alert></cell><cell>0</cell><cell/><cell><alert>0</alert></cell><cell>1</cell><cell><alert>1</alert></cell><cell>0</cell></row>
+<row><cell>0</cell><cell>1</cell><cell/><cell>0</cell><cell><alert>1</alert></cell><cell>1</cell><cell/><cell><alert>1</alert></cell><cell>0</cell><cell><alert>0</alert></cell><cell>1</cell></row>
+<row><cell>0</cell><cell>0</cell><cell/><cell>0</cell><cell><alert>1</alert></cell><cell>0</cell><cell/><cell><alert>1</alert></cell><cell>0</cell><cell><alert>1</alert></cell><cell>0</cell></row></tabular>
+<p>There is. On the third row, the premises are true and the conclusion is false. So the argument is invalid.</p></subsection>
+</section>
+<section xml:id="truthtables-partial-truth-tables">
+<title>Partial truth tables</title>
+<p>In order to show that a sentence is a tautology, we need to show that it is assigned 1 on every row. So we need a complete truth table. To show that a sentence is <em>not</em> a tautology, however, we only need one line: a line on which the sentence is 0. Therefore, in order to show that something is not a tautology, it is enough to provide a one-line <em>partial truth table</em> — regardless of how many sentence letters the sentence might have in it.</p>
+<p>Consider, for example, the sentence <m>(U \eand T) \eif (S \eand W)</m>. Let’s show that it is <em>not</em> a tautology, by providing a partial truth table. We fill in 0 for the entire sentence. The main connective of the sentence is a conditional. In order for the conditional to be false, the antecedent must be true (1) and the consequent must be false (0). So we fill these in on the table:</p>
+<tabular><col halign="center" right="minor"/><col halign="center" right="minor"/><col halign="center" right="minor"/><col halign="center" right="minor"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/>
+<row bottom="minor"><cell><m>S</m></cell><cell><m>T</m></cell><cell><m>U</m></cell><cell><m>W</m></cell><cell><m>(U</m></cell><cell><m>\eand</m></cell><cell><m>T)</m></cell><cell><m>\eif</m></cell><cell><m>(S</m></cell><cell><m>\eand</m></cell><cell><m>W)</m></cell></row>
+<row><cell/><cell/><cell/><cell/><cell/><cell>1</cell><cell/><cell><alert>0</alert></cell><cell/><cell>0</cell><cell/></row></tabular>
+<p>In order for the <m>(U\eand T)</m> to be true, both <m>U</m> and <m>T</m> must be true. So we put a 1 under those letters:</p>
+<tabular><col halign="center" right="minor"/><col halign="center" right="minor"/><col halign="center" right="minor"/><col halign="center" right="minor"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/>
+<row bottom="minor"><cell><m>S</m></cell><cell><m>T</m></cell><cell><m>U</m></cell><cell><m>W</m></cell><cell><m>(U</m></cell><cell><m>\eand</m></cell><cell><m>T)</m></cell><cell><m>\eif</m></cell><cell><m>(S</m></cell><cell><m>\eand</m></cell><cell><m>W)</m></cell></row>
+<row><cell/><cell>1</cell><cell>1</cell><cell/><cell>1</cell><cell>1</cell><cell>1</cell><cell><alert>0</alert></cell><cell/><cell>0</cell><cell/></row></tabular>
+<p>Remember that each instance of a given sentence letter must be assigned the same truth value in a given row of a truth table. You can’t assign 1 to one instance of <m>U</m> and 0 to another instance of <m>U</m> in the same row. So here we put a 1 under <em>each</em> instance of <m>U</m> and <m>T</m>.</p>
+<p>Now we just need to make <m>(S\eand W)</m> false. To do this, we need to make at least one of <m>S</m> and <m>W</m> false. We can make both <m>S</m> and <m>W</m> false if we want. All that matters is that the whole sentence turns out false on this line. Making an arbitrary decision, we finish the table in this way:</p>
+<tabular><col halign="center" right="minor"/><col halign="center" right="minor"/><col halign="center" right="minor"/><col halign="center" right="minor"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/>
+<row bottom="minor"><cell><m>S</m></cell><cell><m>T</m></cell><cell><m>U</m></cell><cell><m>W</m></cell><cell><m>(U</m></cell><cell><m>\eand</m></cell><cell><m>T)</m></cell><cell><m>\eif</m></cell><cell><m>(S</m></cell><cell><m>\eand</m></cell><cell><m>W)</m></cell></row>
+<row><cell>0</cell><cell>1</cell><cell>1</cell><cell>0</cell><cell>1</cell><cell>1</cell><cell>1</cell><cell><alert>0</alert></cell><cell>0</cell><cell>0</cell><cell>0</cell></row></tabular>
+<p>Showing that something is a tautology requires a complete truth table. Showing that something is <em>not</em> a tautology requires only a one-line partial truth table, where the sentence is false on that one line. That’s what we’ve just done. In the same way, to show that something is a contradiction, you must show that it is false on every row; to show that it is not a contradiction, you need only find one row where it is true.</p>
+<p>A sentence is contingent if it is neither a tautology nor a contradiction. So showing that a sentence is contingent requires a <em>two-line</em> partial truth table: The sentence must be true on one line and false on the other. For example, we can show that the sentence above is contingent with this truth table:</p>
+<tabular><col halign="center" right="minor"/><col halign="center" right="minor"/><col halign="center" right="minor"/><col halign="center" right="minor"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/>
+<row bottom="minor"><cell><m>S</m></cell><cell><m>T</m></cell><cell><m>U</m></cell><cell><m>W</m></cell><cell><m>(U</m></cell><cell><m>\eand</m></cell><cell><m>T)</m></cell><cell><m>\eif</m></cell><cell><m>(S</m></cell><cell><m>\eand</m></cell><cell><m>W)</m></cell></row>
+<row><cell>0</cell><cell>1</cell><cell>1</cell><cell>0</cell><cell>1</cell><cell>1</cell><cell>1</cell><cell><alert>0</alert></cell><cell>0</cell><cell>0</cell><cell>0</cell></row>
+<row><cell>0</cell><cell>1</cell><cell>0</cell><cell>0</cell><cell>0</cell><cell>0</cell><cell>1</cell><cell><alert>1</alert></cell><cell>0</cell><cell>0</cell><cell>0</cell></row></tabular>
+<p>Note that there are many combinations of truth values that would have made the sentence true, so there are many ways we could have written the second line.</p>
+<p>Showing that a sentence is <em>not</em> contingent requires providing a complete truth table, because it requires showing that the sentence is a tautology or that it is a contradiction.  If you do not know whether a particular sentence is contingent, then you do not know whether you will need a complete or partial truth table. You can always start working on a complete truth table. If you complete rows that show the sentence is contingent, then you can stop. If not, then complete the truth table. Even though two carefully selected rows will show that a contingent sentence is contingent, there is nothing wrong with filling in more rows.</p>
+<p>Showing that two sentences are logically equivalent requires providing a complete truth table. Showing that two sentences are <em>not</em> logically equivalent requires only a one-line partial truth table: Make the table so that one sentence is true and the other false.</p>
+<p>Showing that a set of sentences is consistent requires providing one row of a truth table on which all of the sentences are true. The rest of the table is irrelevant, so a one-line partial truth table will do. Showing that a set of sentences is inconsistent, on the other hand, requires a complete truth table: You must show that on every row of the table at least one of the sentences is false.</p>
+<p>Showing that an argument is valid requires a complete truth table. Showing that an argument is <em>invalid</em> only requires providing a one-line truth table: If you can produce a line on which the premises are all true and the conclusion is false, then the argument is invalid.</p>
+<table xml:id="table-CompleteVsPartial">
+<title>Do you need a complete truth table or a partial truth table? It depends on what you are trying to show.</title>
+<tabular><col halign="center" right="minor"/><col halign="center" right="minor"/><col halign="center" right="minor"/>
+<row><cell/><cell bottom="minor">YES</cell><cell bottom="minor">NO</cell></row>
+<row><cell>tautology?</cell><cell>complete truth table</cell><cell>one-line partial truth table</cell></row>
+<row><cell>contradiction?</cell><cell>complete truth table</cell><cell>one-line partial truth table</cell></row>
+<row><cell>contingent?</cell><cell>two-line partial truth table</cell><cell>complete truth table</cell></row>
+<row><cell>equivalent?</cell><cell>complete truth table</cell><cell>one-line partial truth table</cell></row>
+<row><cell>consistent?</cell><cell>one-line partial truth table</cell><cell>complete truth table</cell></row>
+<row><cell>valid?</cell><cell bottom="minor">complete truth table</cell><cell bottom="minor">one-line partial truth table</cell></row></tabular></table>
+<p><xref ref="table-CompleteVsPartial" text="type-global"/> summarizes when a complete truth table is required and when a partial truth table will do. If you are trying to remember whether you need a complete truth table or not, the general rule is, if you’re looking to establish a claim about <em>every</em> interpretation, you need a complete table.</p>
+</section>
+<section xml:id="sec-forms">
+<title>Evaluating English arguments via SL</title>
+<p>Recall from §<xref ref="sec-validity" text="global"/> that a natural language argument is valid if and only if it is impossible for the premises to be true while the conclusion is false. This notion is rather closely related to validity in SL, which obtains if and only if there is no assignment of truth values to atomic sentences on which the premises are assigned ‘1’ and the conclusion is assigned ‘0’. This is of course by design. Validity of an SL argument form guarantees that an English argument that is well-translated into that form is valid. Consider for example this English argument:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell/><cell>Either Quentin is a liar or Peter is not honest.</cell></row>
+<row><cell/><cell>Peter is honest.</cell></row>
+<row><cell>∴</cell><cell>Quentin is a liar.</cell></row></tabular>
+<p>This argument is valid. There’s no way for the conclusion to be false if both premises are true. Let’s translate this argument into SL, and evaluate the resulting formal argument for validity with a truth table. We begin with a symbolization key:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>Q:</cell><cell>Quentin is a liar.</cell></row>
+<row><cell>P:</cell><cell>Peter is honest.</cell></row></tabular>
+<p>With this key, the argument, rendered in SL, looks like this:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell/><cell><m>(Q\eor\enot P)</m></cell></row>
+<row><cell/><cell><m>P</m></cell></row>
+<row><cell>∴</cell><cell><m>Q</m></cell></row></tabular>
+<p>We can evaluate this formal argument for validity using a truth table. We’ll set up a table with two atomic sentences, and check to see whether there is a row that assigns ‘1’ to both premises and assigns ‘0’ to the conclusion. The completed truth table looks like this:</p>
+<tabular><col halign="center" right="minor"/><col halign="center" right="minor"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center" right="minor"/><col halign="center" right="minor"/><col halign="center"/>
+<row bottom="minor"><cell><m>Q</m></cell><cell><m>P</m></cell><cell><m>(Q</m></cell><cell><m>\eor</m></cell><cell><m>\enot</m></cell><cell><m>P</m>)</cell><cell><m>P</m></cell><cell><m>Q</m></cell></row>
+<row><cell>1</cell><cell>1</cell><cell>1</cell><cell><alert>1</alert></cell><cell>0</cell><cell>1</cell><cell><alert>1</alert></cell><cell><alert>1</alert></cell></row>
+<row><cell>1</cell><cell>0</cell><cell>1</cell><cell><alert>1</alert></cell><cell>1</cell><cell>0</cell><cell><alert>0</alert></cell><cell><alert>1</alert></cell></row>
+<row><cell>0</cell><cell>1</cell><cell>0</cell><cell><alert>0</alert></cell><cell>0</cell><cell>1</cell><cell><alert>1</alert></cell><cell><alert>0</alert></cell></row>
+<row><cell>0</cell><cell>0</cell><cell>0</cell><cell><alert>1</alert></cell><cell>1</cell><cell>0</cell><cell><alert>0</alert></cell><cell><alert>0</alert></cell></row></tabular>
+<p>If the argument form were invalid, there’d be a line on which the first two bold values are ‘1’ but the third is ‘0’. There is no such line, so the argument form is valid. This helps explain why the English version of the argument is also valid: it is an argument that has a valid form in SL.</p>
+<p>To illustrate further, consider an invalid argument, like this one:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell/><cell>May is home or Happy is away.</cell></row>
+<row><cell/><cell>Happy is away</cell></row>
+<row><cell>∴</cell><cell>May is not home.</cell></row></tabular>
+<p>This is naturally translated into this SL argument form, with the obvious assignment of sentence letters to simple propositions:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell/><cell><m>(M\eor H)</m></cell></row>
+<row><cell/><cell><m>H</m></cell></row>
+<row><cell>∴</cell><cell><m>\enot</m> M</cell></row></tabular>
+<p>Now we construct the complete truth table for those SL sentences, to test that argument form for validity:</p>
+<tabular><col halign="center" right="minor"/><col halign="center" right="minor"/><col halign="center"/><col halign="center"/><col halign="center" right="minor"/><col halign="center" right="minor"/><col halign="center"/><col halign="center"/>
+<row bottom="minor"><cell><m>M</m></cell><cell><m>H</m></cell><cell><m>(M</m></cell><cell><m>\eor</m></cell><cell><m>H)</m></cell><cell><m>H</m></cell><cell><m>\enot</m></cell><cell><m>M</m></cell></row>
+<row><cell>1</cell><cell>1</cell><cell>1</cell><cell><alert>1</alert></cell><cell>1</cell><cell><alert>1</alert></cell><cell><alert>0</alert></cell><cell>1</cell></row>
+<row><cell>1</cell><cell>0</cell><cell>1</cell><cell><alert>1</alert></cell><cell>0</cell><cell><alert>0</alert></cell><cell><alert>0</alert></cell><cell>1</cell></row>
+<row><cell>0</cell><cell>1</cell><cell>0</cell><cell><alert>1</alert></cell><cell>1</cell><cell><alert>1</alert></cell><cell><alert>1</alert></cell><cell>0</cell></row>
+<row><cell>0</cell><cell>0</cell><cell>0</cell><cell><alert>0</alert></cell><cell>0</cell><cell><alert>0</alert></cell><cell><alert>1</alert></cell><cell>0</cell></row></tabular>
+<p>We are looking to see if there is a row in which both premises are true, and the conclusion is false. In other words, we’re looking for a row in which the bold main connective columns match the pattern <m>1,1,0</m>. The first row of the truth table is such a row. Since there is at least one row where the premises are true and the conclusion is false, the argument form is invalid.</p>
+<p>There are at least two advantages to evaluating a natural language argument for validity by translating it into SL. For one thing, using truth tables to evaluate arguments is a formal method that does not require any particular rational insight or intuition. It is often relatively easy to tell whether the informal definition of validity is met — most of us have a good sense of what is and isn’t possible. But it is an advantage to have an operationalized set of rules that a simple computer could apply. A second advantage, alluded to in Chapter <xref ref="ch-SL" text="global"/>, is that talking about valid SL forms provides a nice way to explain what various valid English arguments have in common with one another. The validity of the argument form</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell/><cell><m>(Q\eor\enot P)</m></cell></row>
+<row><cell/><cell><m>P</m></cell></row>
+<row><cell>∴</cell><cell><m>Q</m></cell></row></tabular>
+<p>helps explain why the Quentin argument is valid, but the explanation does not depend on any of the specifics of what the individual letters stand for. It would be a perfectly good explanation for why <em>any</em> argument of this form would have to be valid. For example, consider this argument:</p>
+<p>
+<dl width="narrow">
+<li>
+<title> </title>
+<p>Either Barney is a purple dinosaur or I don’t have a really weird-looking cat.</p></li>
+<li>
+<title> </title>
+<p>I do have a really weird-looking cat.</p></li>
+<li>
+<title>∴</title>
+<p>Barney is a purple dinosaur.</p></li></dl></p>
+<p>That argument can be translated into the same SL argument just evaluated, using this symbolization key:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>Q:</cell><cell>Barney is a purple dinosaur.</cell></row>
+<row><cell>P:</cell><cell>I have a really weird-looking cat.</cell></row></tabular>
+<p>Since it too has a valid form in SL, it too must be a valid argument. <em>Any</em> argument with this form will be a valid argument.</p>
+<assemblage>
+<p>If you have an argument form that is valid in SL, then <em>any</em> English argument that is properly translatable into that argument form will be valid.</p></assemblage>
+<p>Note that this is even true for arguments that have a more complex internal structure, like this strange argument:</p>
+<p>
+<dl width="narrow">
+<li>
+<title> </title>
+<p>Either Canada is a democracy if and only if Poland is neither part of the European Union nor majority Catholic, or my dog is not not lazy.</p></li>
+<li>
+<title> </title>
+<p>My dog is not lazy.</p></li>
+<li>
+<title>∴</title>
+<p>Canada is a democracy if and only if Poland is neither part of the European Union nor majority Catholic.</p></li></dl></p>
+<p>One could translate this argument into a relatively complex argument in SL. (If you did, the first premise would probably be a disjunction with a complex biconditional as one disjunct, and a negated negation as the other; the conclusion would probably be a biconditional with an atom on one side, and a negated disjunction on the other.) In this instance, however, that extra structure isn’t needed to explain the validity of the argument. For this argument too has the same valid form as the previous ones, as can be seen via this symbolization key:</p>
+<p>
+<dl width="narrow">
+<li>
+<title>Q:</title>
+<p>Canada is a democracy if and only if Poland is neither part of the European Union nor majority Catholic.</p></li>
+<li>
+<title>P:</title>
+<p>My dog is not lazy.</p></li></dl></p>
+<p>For many purposes, this would be a poor choice of symbolization keys. It ignores the internal structure of two central sentences. This argument is not given in most descriptive form, as discussed in §<xref ref="sec-mostdescriptiveform" text="global"/>. But if, as here, that structure is irrelevant, you can save yourself some work by engaging at a higher level of abstraction.</p>
+<p>Note also that it’s an implication of what we’ve just illustrated that there’s not just one SL argument form that is <em>the</em> argument form for a given argument in English. One can formalize arguments in various ways. If an argument has a valid argument form in SL, that’s a guarantee that the argument is valid. But it is important not to invert this relationship — it does <em>not</em> follow from the fact that an argument has an <em>invalid</em> form, that the argument is invalid. One reason this is so is that it is possible for arguments to have valid forms <em>and</em> invalid forms.</p>
+</section>
+<section xml:id="truthtables-common-student-mistakes">
+<title>Common student mistakes</title>
+<introduction>
+<p>Here are a couple of issues that often come up when I teach this material to students.</p></introduction>
+<subsection xml:id="truthtables-validity-is-not-relative-to-particular-v">
+<title>Validity is not relative to particular valuations of atoms</title>
+<p>A sentence in SL is true on some interpretations, and false on others. (For current purposes, you can think of an <term>interpretation</term> as something that fixes a row of the truth table; it determines the truth values of the atomic sentences in use.) For example, <m>P \eiff Q</m> is true on any interpretation where {<m>P=1</m>, <m>Q=1</m>}, and false relative to interpretations where {<m>P=1</m>, <m>Q=0</m>}. So truth in SL is relative to an interpretation.</p>
+<p>Validity, unlike truth, is a claim about <em>all</em> interpretations.</p>
+<p>Consider an example. Let’s use a truth table to evaluate whether <m>P\eor Q</m>, <m>\enot P</m> ∴ <m>P \eiff Q</m> is a valid argument form. To do this, we can draw the complete truth table for those three wffs:</p>
+<tabular><col halign="center"/><col halign="center" right="minor"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center" right="minor"/><col halign="center"/><col halign="center" right="minor"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/>
+<row bottom="minor"><cell><m>P</m></cell><cell><m>Q</m></cell><cell/><cell><m>P</m></cell><cell><m>\eor</m></cell><cell><m>Q</m></cell><cell/><cell><m>\enot</m></cell><cell><m>P</m></cell><cell/><cell><m>P</m></cell><cell><m>\eiff</m></cell><cell><m>Q</m></cell><cell/></row>
+<row><cell>1</cell><cell>1</cell><cell/><cell>1</cell><cell><alert>1</alert></cell><cell>1</cell><cell/><cell><alert>0</alert></cell><cell>1</cell><cell/><cell>1</cell><cell><alert>1</alert></cell><cell>1</cell><cell/></row>
+<row><cell>1</cell><cell>0</cell><cell/><cell>1</cell><cell><alert>1</alert></cell><cell>0</cell><cell/><cell><alert>0</alert></cell><cell>1</cell><cell/><cell>1</cell><cell><alert>0</alert></cell><cell>0</cell><cell/></row>
+<row><cell>0</cell><cell>1</cell><cell/><cell>0</cell><cell><alert>1</alert></cell><cell>1</cell><cell/><cell><alert>1</alert></cell><cell>0</cell><cell/><cell>0</cell><cell><alert>0</alert></cell><cell>1</cell><cell/></row>
+<row><cell>0</cell><cell>0</cell><cell/><cell>0</cell><cell><alert>0</alert></cell><cell>0</cell><cell/><cell><alert>1</alert></cell><cell>0</cell><cell/><cell>0</cell><cell><alert>1</alert></cell><cell>0</cell><cell/></row></tabular>
+<p>We then check to see whether there is any row where the disjunction and the negation are true and the biconditional is false. Row three, {<m>P=0</m>, <m>Q=1</m>}, is such a row, so the argument is invalid.</p>
+<p>Here is a common mistake. Students sometimes draw the truth table accurately, and correctly note that line three is inconsistent with the argument’s validity, but misdescribe the situation, saying something like this: <em>‘The argument is invalid when <m>P=0</m>, <m>Q=1</m>.’</em> This is a mistake because the argument isn’t only invalid <em>in that row</em> — the argument is invalid, <em>period</em>. The third row of this truth table is the row that <em>shows why</em> the argument is invalid, but validity and invalidity are claims about <em>all</em> interpretations. So we shouldn’t say the argument is invalid ‘when’ <m>P=0</m>, <m>Q=1</m>; it’s invalid always, because of the interpretation where <m>P=0</m>, <m>Q=1</m>.</p>
+<p>(For comparison, consider this proposition: <em>it is always after 4:00 p.m.</em> This proposition is false, because sometimes, it <em>isn’t</em> after 4:00 p.m. For example, once every day it is 3:00 p.m. But we wouldn’t say that “it is always after 4:00 p.m.” is false <em>at 3:00 p.m.</em> That sentence is <em>always</em> false. Even at 5:00 p.m., it’s not truth that “it is always after 4:00 p.m.” is false. Validity claims, like claims using the word “always,” are rendered false by a single counterexample, and their falsity isn’t only <em>relative to</em> that counterexample.)</p>
+<p>This sounds like a small and fussy point about speaking precisely about logic. It is. But careful language here can help lead to careful thought. It is important, in thinking clearly about validity, to remember that validity, unlike truth, is a feature that SL argument forms have or lack <em>intrinsically</em>. Validity is not something an argument form has in some interpretations and lacks in others.</p>
+<p>The same goes for tautologies, contradictions, and contingent sentences. A sentence isn’t a tautology on some interpretations and not on others; it either simply is, or it simply is not, a tautology.</p></subsection>
+<subsection xml:id="truthtables-valid-arguments-with-invalid-forms">
+<title>Valid arguments with invalid forms</title>
+<p>Here is a question students sometimes get wrong: <em>Provide (in English) a valid argument of the form <m>P</m> ∴ <m>P \eand Q</m>, or explain why it is impossible to do so.</em> Students often think this is impossible, because <m>P</m> ∴ <m>P \eand Q</m> is an invalid argument form.</p>
+<p>Well,  <m>P</m> ∴ <m>P \eand Q</m> certainly is an invalid argument form. The premise is true, and the conclusion false, on an interpretation where <m>P=1</m>, <m>Q=0</m>. But that doesn’t mean there can be no valid argument with this form.</p>
+<p>A valid argument form is a form that guarantees that any argument of that form is valid. Since this form is invalid, it is going to be possible to find invalid arguments of that form. For example, we could interpret <m>P</m> and <m>Q</m> thus:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>P:</cell><cell>Captain Hook is angry.</cell></row>
+<row><cell>Q:</cell><cell>Captain Hook has at least two daughters.</cell></row></tabular>
+<p>And of course the English argument, <em>Captain Hook is angry, therefore Captain Hook is angry and he has at least two daughters</em> is obviously invalid. But that doesn’t mean there couldn’t be <em>other</em> arguments of this form that <em>are</em> valid. The form doesn’t guarantee that they’ll be valid, but they may be valid nevertheless. Consider this symbolization key:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>P:</cell><cell>Captain Hook has three daughters.</cell></row>
+<row><cell>Q:</cell><cell>Captain Hook has at least two daughters.</cell></row></tabular>
+<p>The resulting argument is valid: <em>Captain Hook has three daughters. Therefore, Captain Hook has three daughters and he has at least two daughters.</em> It is impossible for the premise to be true without the conclusion also being true, so it satisfies the definition of validity given in Chapter <xref ref="ch-intro" text="global"/>. This argument is valid, even though it has an SL argument form that is invalid. We will be particularly interested in arguments whose validity can be explained by their forms, but the definition of validity in English is more general.</p></subsection>
+</section>
+<exercises xml:id="truthtables-exercises">
+<title>Practice Exercises</title>
+<introduction>
+<p>If you want additional practice, you can construct truth tables for any of the sentences and arguments in the exercises for the previous chapter.</p></introduction>
+<subexercises xml:id="HW2-E">
+<title>Part A</title>
+<exercise>
+<statement>
+<p>Provide the truth table for the complex formula:
+<md>((P \eif (( P \eif Q) \eiff (P \eand \enot R))) \eor R)</md>
+Indicate whether the formula is tautological, contradictory, or contingent. If it is contingent, provide a model that satisfies it and one that falsifies it.</p>
+<tabular><col halign="center"/><col halign="center"/><col halign="center" right="minor"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/>
+<row bottom="minor"><cell><m>P</m></cell><cell><m>Q</m></cell><cell><m>R</m></cell><cell/><cell>(</cell><cell><m>P</m></cell><cell><m>\eif</m></cell><cell>(</cell><cell>(</cell><cell><m>P</m></cell><cell><m>\eif</m></cell><cell><m>Q</m></cell><cell>)</cell><cell><m>\eiff</m></cell><cell>(</cell><cell><m>P</m></cell><cell><m>\&amp;</m></cell><cell><m>\enot</m></cell><cell><m>R</m></cell><cell>)</cell><cell>)</cell><cell>)</cell><cell><m>\lor</m></cell><cell><m>R</m></cell><cell/></row>
+<row><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/></row>
+<row><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/></row>
+<row><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/></row>
+<row><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/></row>
+<row><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/></row>
+<row><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/></row>
+<row><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/></row>
+<row><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/></row></tabular></statement></exercise>
+</subexercises>
+<subexercises xml:id="HW3-A">
+<title>Part B</title>
+<exercise>
+<statement>
+<p>Provide the complete truth table for this SL sentence:
+<md>((P \eor Q) \eand (\enot P \eor \enot Q)) \eiff R</md>
+Indicate whether it is tautological, contradictory, or contingent. If it is contingent, provide an assignment of truth values that satisfies it and one that falsifies it.</p></statement></exercise>
+</subexercises>
+<subexercises xml:id="pr-TT-TTorC">
+<title>Part C</title>
+<introduction>
+<p>Determine whether each sentence is a tautology, a contradiction, or a contingent sentence. Justify your answer with a complete or partial truth table where appropriate.</p></introduction>
+<exercise>
+<statement>
+<p><m>A \eif A</m></p></statement><choices><choice correct="yes">
+<statement>
+<p>Tautology</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>Contradiction</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice><choice>
+<statement>
+<p>Contingent</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>tautology</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>\enot B \eand B</m></p></statement><choices><choice>
+<statement>
+<p>Tautology</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice><choice correct="yes">
+<statement>
+<p>Contradiction</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>Contingent</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>contradiction</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>C \eif\enot C</m></p></statement><choices><choice>
+<statement>
+<p>Tautology</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice><choice>
+<statement>
+<p>Contradiction</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice><choice correct="yes">
+<statement>
+<p>Contingent</p></statement><feedback>
+<p>Correct.</p></feedback></choice></choices>
+<solution>
+<p>contingent</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>\enot D \eor D</m></p></statement><choices><choice correct="yes">
+<statement>
+<p>Tautology</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>Contradiction</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice><choice>
+<statement>
+<p>Contingent</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>tautology</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>(A \eiff B) \eiff \enot(A\eiff \enot B)</m></p></statement><choices><choice correct="yes">
+<statement>
+<p>Tautology</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>Contradiction</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice><choice>
+<statement>
+<p>Contingent</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>tautology</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>(A\eand B) \eor (B\eand A)</m></p></statement><choices><choice>
+<statement>
+<p>Tautology</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice><choice>
+<statement>
+<p>Contradiction</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice><choice correct="yes">
+<statement>
+<p>Contingent</p></statement><feedback>
+<p>Correct.</p></feedback></choice></choices>
+<solution>
+<p>contingent</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>(A \eif B) \eor (B \eif A)</m></p></statement><choices><choice correct="yes">
+<statement>
+<p>Tautology</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>Contradiction</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice><choice>
+<statement>
+<p>Contingent</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>tautology</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>\enot[A \eif (B \eif A)]</m></p></statement><choices><choice>
+<statement>
+<p>Tautology</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice><choice correct="yes">
+<statement>
+<p>Contradiction</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>Contingent</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>contradiction</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>(A \eand B) \eif (B \eor A)</m></p></statement><choices><choice correct="yes">
+<statement>
+<p>Tautology</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>Contradiction</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice><choice>
+<statement>
+<p>Contingent</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>tautology</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>A \eiff [A \eif (B \eand \enot B)]</m></p></statement><choices><choice>
+<statement>
+<p>Tautology</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice><choice correct="yes">
+<statement>
+<p>Contradiction</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>Contingent</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>contradiction</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>\enot(A \eor B) \eiff (\enot A \eand \enot B)</m></p></statement><choices><choice correct="yes">
+<statement>
+<p>Tautology</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>Contradiction</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice><choice>
+<statement>
+<p>Contingent</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>tautology</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>\enot(A\eand B) \eiff A</m></p></statement><choices><choice>
+<statement>
+<p>Tautology</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice><choice>
+<statement>
+<p>Contradiction</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice><choice correct="yes">
+<statement>
+<p>Contingent</p></statement><feedback>
+<p>Correct.</p></feedback></choice></choices>
+<solution>
+<p>contingent</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>\bigl[(A\eand B) \eand\enot(A\eand B)\bigr] \eand C</m></p></statement><choices><choice>
+<statement>
+<p>Tautology</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice><choice correct="yes">
+<statement>
+<p>Contradiction</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>Contingent</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>contradiction</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>A\eif(B\eor C)</m></p></statement><choices><choice>
+<statement>
+<p>Tautology</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice><choice>
+<statement>
+<p>Contradiction</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice><choice correct="yes">
+<statement>
+<p>Contingent</p></statement><feedback>
+<p>Correct.</p></feedback></choice></choices>
+<solution>
+<p>contingent</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>[(A \eand B) \eand C] \eif B</m></p></statement><choices><choice correct="yes">
+<statement>
+<p>Tautology</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>Contradiction</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice><choice>
+<statement>
+<p>Contingent</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>tautology</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>(A \eand\enot A) \eif (B \eor C)</m></p></statement><choices><choice correct="yes">
+<statement>
+<p>Tautology</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>Contradiction</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice><choice>
+<statement>
+<p>Contingent</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>tautology</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>\enot\bigl[(C\eor A) \eor B\bigr]</m></p></statement><choices><choice>
+<statement>
+<p>Tautology</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice><choice>
+<statement>
+<p>Contradiction</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice><choice correct="yes">
+<statement>
+<p>Contingent</p></statement><feedback>
+<p>Correct.</p></feedback></choice></choices>
+<solution>
+<p>contingent</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>(B\eand D) \eiff [A \eiff(A \eor C)]</m></p></statement><choices><choice>
+<statement>
+<p>Tautology</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice><choice>
+<statement>
+<p>Contradiction</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice><choice correct="yes">
+<statement>
+<p>Contingent</p></statement><feedback>
+<p>Correct.</p></feedback></choice></choices>
+<solution>
+<p>contingent</p></solution></exercise>
+</subexercises>
+<subexercises xml:id="pr-TT-equiv">
+<title>Part D</title>
+<exercise>
+<statement>
+<p>Determine whether each pair of sentences is logically equivalent. Justify your answer with a complete or partial truth table where appropriate.</p>
+<p>
+<ol>
+<li><m>A</m>, <m>\enot A</m></li>
+<li><m>A</m>, <m>A \eor A</m></li>
+<li><m>A\eif A</m>, <m>A \eiff A</m></li>
+<li><m>A \eor \enot B</m>, <m>A\eif B</m></li>
+<li><m>A \eand \enot A</m>, <m>\enot B \eiff B</m></li>
+<li><m>\enot(A \eand B)</m>, <m>\enot A \eor \enot B</m></li>
+<li><m>\enot(A \eif B)</m>, <m>\enot A \eif \enot B</m></li>
+<li><m>(A \eif B)</m>, <m>(\enot B \eif \enot A)</m></li>
+<li><m>[(A \eor B) \eor C]</m>, <m>[A \eor (B \eor C)]</m></li>
+<li><m>[(A \eor B) \eand C]</m>, <m>[A \eor (B \eand C)]</m></li></ol></p></statement>
+<solution>
+<p>2, 
+3, 
+5, 
+6, 
+8, 
+and 9 
+are logically equivalent.</p></solution></exercise>
+</subexercises>
+<subexercises xml:id="pr-TT-consistent">
+<title>Part E</title>
+<introduction>
+<p>Determine whether each set of sentences is consistent or inconsistent. Justify your answer with a complete or partial truth table where appropriate.</p></introduction>
+<exercise>
+<statement>
+<p><m>A\eif A</m>, <m>\enot A \eif \enot A</m>, <m>A\eand A</m>, <m>A\eor A</m></p></statement><choices><choice correct="yes">
+<statement>
+<p>Consistent</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>Inconsistent</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>Consistent.</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>A \eand B</m>, <m>C\eif \enot B</m>, <m>C</m></p></statement><choices><choice>
+<statement>
+<p>Consistent</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice><choice correct="yes">
+<statement>
+<p>Inconsistent</p></statement><feedback>
+<p>Correct.</p></feedback></choice></choices>
+<solution>
+<p>Inconsistent.</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>A\eor B</m>, <m>A\eif C</m>, <m>B\eif C</m></p></statement><choices><choice correct="yes">
+<statement>
+<p>Consistent</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>Inconsistent</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>Consistent.</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>A\eif B</m>, <m>B\eif C</m>, <m>A</m>, <m>\enot C</m></p></statement><choices><choice>
+<statement>
+<p>Consistent</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice><choice correct="yes">
+<statement>
+<p>Inconsistent</p></statement><feedback>
+<p>Correct.</p></feedback></choice></choices>
+<solution>
+<p>Inconsistent.</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>B\eand(C\eor A)</m>, <m>A\eif B</m>, <m>\enot(B\eor C)</m></p></statement><choices><choice>
+<statement>
+<p>Consistent</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice><choice correct="yes">
+<statement>
+<p>Inconsistent</p></statement><feedback>
+<p>Correct.</p></feedback></choice></choices>
+<solution>
+<p>Inconsistent.</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>A \eor B</m>, <m>B\eor C</m>, <m>C\eif \enot A</m></p></statement><choices><choice correct="yes">
+<statement>
+<p>Consistent</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>Inconsistent</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>Consistent.</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>A\eiff(B\eor C)</m>, <m>C\eif \enot A</m>, <m>A\eif \enot B</m></p></statement><choices><choice correct="yes">
+<statement>
+<p>Consistent</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>Inconsistent</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>Consistent.</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>A</m>, <m>B</m>, <m>C</m>, <m>\enot D</m>, <m>\enot E</m>, <m>F</m></p></statement><choices><choice correct="yes">
+<statement>
+<p>Consistent</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>Inconsistent</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>Consistent.</p></solution></exercise>
+</subexercises>
+<subexercises xml:id="HW3-B">
+<title>Part F</title>
+<exercise>
+<statement>
+<p>Use a complete truth table to evaluate this argument form for validity:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell/><cell><m>(P \eif Q) \eor (Q \eif P)</m></cell></row>
+<row><cell/><cell><m>P</m></cell></row>
+<row><cell>∴</cell><cell><m>P\eiff Q</m></cell></row></tabular>
+<p>Indicate whether it is valid or invalid. If it is invalid, provide an interpretation that satisfies the premises and falsifies the conclusion.</p></statement></exercise>
+</subexercises>
+<subexercises xml:id="pr-TT-valid">
+<title>Part G</title>
+<introduction>
+<p>Determine whether each argument form is valid or invalid. Justify your answer with a complete or partial truth table where appropriate.</p></introduction>
+<exercise>
+<statement>
+<p><m>A\eif A</m> ∴ <m>A</m></p></statement><choices><choice>
+<statement>
+<p>Valid</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice><choice correct="yes">
+<statement>
+<p>Invalid</p></statement><feedback>
+<p>Correct.</p></feedback></choice></choices>
+<solution>
+<p>Invalid.</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>A\eor\bigl[A\eif(A\eiff A)\bigr]</m> ∴ A</p></statement><choices><choice>
+<statement>
+<p>Valid</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice><choice correct="yes">
+<statement>
+<p>Invalid</p></statement><feedback>
+<p>Correct.</p></feedback></choice></choices>
+<solution>
+<p>Invalid.</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>A\eif(A\eand\enot A)</m> ∴ <m>\enot A</m></p></statement><choices><choice correct="yes">
+<statement>
+<p>Valid</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>Invalid</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>Valid.</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>A\eiff\enot(B\eiff A)</m> ∴ <m>A</m></p></statement><choices><choice>
+<statement>
+<p>Valid</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice><choice correct="yes">
+<statement>
+<p>Invalid</p></statement><feedback>
+<p>Correct.</p></feedback></choice></choices>
+<solution>
+<p>Invalid.</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>A\eor(B\eif A)</m> ∴ <m>\enot A \eif \enot B</m></p></statement><choices><choice correct="yes">
+<statement>
+<p>Valid</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>Invalid</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>Valid.</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>A\eif B</m>, <m>B</m> ∴ <m>A</m></p></statement><choices><choice>
+<statement>
+<p>Valid</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice><choice correct="yes">
+<statement>
+<p>Invalid</p></statement><feedback>
+<p>Correct.</p></feedback></choice></choices>
+<solution>
+<p>Invalid.</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>A\eor B</m>, <m>B\eor C</m>, <m>\enot A</m> ∴ <m>B \eand C</m></p></statement><choices><choice>
+<statement>
+<p>Valid</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice><choice correct="yes">
+<statement>
+<p>Invalid</p></statement><feedback>
+<p>Correct.</p></feedback></choice></choices>
+<solution>
+<p>Invalid.</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>A\eor B</m>, <m>B\eor C</m>, <m>\enot B</m> ∴ <m>A \eand C</m></p></statement><choices><choice correct="yes">
+<statement>
+<p>Valid</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>Invalid</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>Valid.</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>(B\eand A)\eif C</m>, <m>(C\eand A)\eif B</m> ∴ <m>(C\eand B)\eif A</m></p></statement><choices><choice>
+<statement>
+<p>Valid</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice><choice correct="yes">
+<statement>
+<p>Invalid</p></statement><feedback>
+<p>Correct.</p></feedback></choice></choices>
+<solution>
+<p>Invalid.</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>A\eiff B</m>, <m>B\eiff C</m> ∴ <m>A\eiff C</m></p></statement><choices><choice correct="yes">
+<statement>
+<p>Valid</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>Invalid</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>Valid.</p></solution></exercise>
+</subexercises>
+<subexercises xml:id="pr-TT-concepts">
+<title>Part H</title>
+<introduction>
+<p>Answer each of the questions below and justify your answer.</p></introduction>
+<exercise>
+<statement>
+<p>Suppose that <m>\metaA{}</m> and <m>\metaB{}</m> are logically equivalent. What can you say about <m>\metaA{}\eiff\metaB{}</m>?</p></statement>
+<solution>
+<p><m>\metaA{}</m> and <m>\metaB{}</m> have the same truth value on every line of a complete truth table, so <m>\metaA{}\eiff\metaB{}</m> is true on every line. It is a tautology.</p></solution></exercise>
+<exercise>
+<statement>
+<p>Suppose that <m>(\metaA{}\eand\metaB{})\eif\metaC{}</m> is contingent. What can you say about the argument “<m>\metaA{}</m>, <m>\metaB{}</m>, ∴<m>\metaC{}</m>”?</p></statement>
+<solution>
+<p>The sentence is false on some line of a complete truth table. On that line, <m>\metaA{}</m> and <m>\metaB{}</m> are true and <m>\metaC{}</m> is false. So the argument is invalid.</p></solution></exercise>
+<exercise>
+<statement>
+<p>Suppose that <m>\{\metaA{},\metaB{}, \metaC{}\}</m> is inconsistent. What can you say about <m>(\metaA{}\eand\metaB{}\eand\metaC{})</m>?</p></statement>
+<solution>
+<p>Since there is no line of a complete truth table on which all three sentences are true, the conjunction is false on every line. So it is a contradiction.</p></solution></exercise>
+<exercise>
+<statement>
+<p>Suppose that <m>\metaA{}</m> is a contradiction. What can you say about the argument “<m>\metaA{}</m>, <m>\metaB{}</m>, ∴<m>\metaC{}</m>”?</p></statement>
+<solution>
+<p>Since <m>\metaA{}</m> is false on every line of a complete truth table, there is no line on which <m>\metaA{}</m> and <m>\metaB{}</m> are true and <m>\metaC{}</m> is false. So the argument is valid.</p></solution></exercise>
+<exercise>
+<statement>
+<p>Suppose that <m>\metaC{}</m> is a tautology. What can you say about the argument “<m>\metaA{}</m>, <m>\metaB{}</m>, ∴<m>\metaC{}</m>”?</p></statement>
+<solution>
+<p>Since <m>\metaC{}</m> is true on every line of a complete truth table, there is no line on which <m>\metaA{}</m> and <m>\metaB{}</m> are true and <m>\metaC{}</m> is false. So the argument is valid.</p></solution></exercise>
+<exercise>
+<statement>
+<p>Suppose that <m>\metaA{}</m> and <m>\metaB{}</m> are logically equivalent. What can you say about <m>(\metaA{}\eor\metaB{})</m>?</p></statement>
+<solution>
+<p>Not much. <m>(\metaA{}\eor\metaB{})</m> is a tautology if <m>\metaA{}</m> and <m>\metaB{}</m> are tautologies; it is a contradiction if they are contradictions; it is contingent if they are contingent.</p></solution></exercise>
+<exercise>
+<statement>
+<p>Suppose that <m>\metaA{}</m> and <m>\metaB{}</m> are <em>not</em> logically equivalent. What can you say about <m>(\metaA{}\eor\metaB{})</m>?</p></statement>
+<solution>
+<p><m>\metaA{}</m> and <m>\metaB{}</m> have different truth values on at least one line of a complete truth table, and <m>(\metaA{}\eor\metaB{})</m> will be true on that line. On other lines, it might be true or false. So <m>(\metaA{}\eor\metaB{})</m> is either a tautology or it is contingent; it is <em>not</em> a contradiction.</p></solution></exercise>
+</subexercises>
+<subexercises xml:id="pr-altConnectives">
+<title>Part I</title>
+<introduction>
+<p>We could leave the biconditional (<m>\eiff</m>) out of the language. If we did that, we could still write ‘<m>A\eiff B</m>’ so as to make sentences easier to read, but that would be shorthand for <m>(A\eif B) \eand (B\eif A)</m>. The resulting language would be formally equivalent to SL, since <m>A\eiff B</m> and <m>(A\eif B) \eand (B\eif A)</m> are logically equivalent in SL. If we valued formal simplicity over expressive richness, we could replace more of the connectives with notational conventions and still have a language equivalent to SL.</p>
+<p>There are a number of equivalent languages with only two connectives. It would be enough to have only negation and the material conditional. Show this by writing sentences that are logically equivalent to each of the following using only parentheses, sentence letters, negation (<m>\enot</m>), and the material conditional (<m>\eif</m>).</p></introduction>
+<exercise>
+<statement>
+<p><m>A\eor B</m></p></statement>
+<solution>
+<p><m>\enot A \eif B</m></p></solution></exercise>
+<exercise>
+<statement>
+<p><m>A\eand B</m></p></statement>
+<solution>
+<p><m>\enot(A \eif \enot B)</m></p></solution></exercise>
+<exercise>
+<statement>
+<p><m>A\eiff B</m></p></statement>
+<solution>
+<p><m>\enot [(A\eif B) \eif \enot(B\eif A)]</m></p></solution></exercise>
+<conclusion>
+<p>We could have a language that is equivalent to SL with only negation and disjunction as connectives. Show this: Using only parentheses, sentence letters, negation (<m>\enot</m>), and disjunction (<m>\eor</m>), write sentences that are logically equivalent to each of the following.</p>
+<p>
+<ol>
+<li><m>A \eand B</m></li>
+<li><m>A \eif B</m></li>
+<li><m>A \eiff B</m></li></ol></p>
+<p>The <em>Sheffer stroke</em> is a logical connective with the following characteristic truthtable:</p>
+<tabular><col halign="center" right="minor"/><col halign="center" right="minor"/><col halign="center"/>
+<row bottom="minor"><cell><m>\metaA{}</m></cell><cell><m>\metaB{}</m></cell><cell><m>\metaA{}|\metaB{}</m></cell></row>
+<row><cell>1</cell><cell>1</cell><cell>0</cell></row>
+<row><cell>1</cell><cell>0</cell><cell>1</cell></row>
+<row><cell>0</cell><cell>1</cell><cell>1</cell></row>
+<row><cell>0</cell><cell>0</cell><cell>1</cell></row></tabular>
+<p>
+<ol>
+<li>Write a sentence using the connectives of SL that is logically equivalent to <m>(A|B)</m>.</li></ol></p>
+<p>Every sentence written using a connective of SL can be rewritten as a logically equivalent sentence using one or more Sheffer strokes. Using no connectives other than the Sheffer stroke, write sentences that are equivalent to each of the following.</p>
+<p>
+<ol>
+<li><m>\enot A</m></li>
+<li><m>(A\eand B)</m></li>
+<li><m>(A\eor B)</m></li>
+<li><m>(A\eif B)</m></li>
+<li><m>(A\eiff B)</m></li></ol></p></conclusion>
+</subexercises>
+<subexercises xml:id="HW2-F">
+<title>Part J</title>
+<introduction>
+<p>The connective ‘<m>\eor</m>’ indicates <em>inclusive disjunction</em>; it is true if either <em>or both</em> of the disjuncts is true. One might be interested in <em>exclusive disjunction</em>, which requires that exactly one of the disjuncts be true. Let us temporarily extend SL to include a connective for exclusive disjunction, allowing sentences of the form <m>(\metaA{} \oplus \metaB{})</m>, where <m>\metaA{}</m> and <m>\metaB{}</m> are sentences, meaning that exactly one of <m>\metaA{}</m> and <m>\metaB{}</m> are true.</p></introduction>
+<exercise>
+<statement>
+<p>Provide the truth table for <m>(\metaA{} \oplus \metaB{})</m>.</p>
+<tabular><col halign="center"/><col halign="center" right="minor"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/><col halign="center"/>
+<row bottom="minor"><cell><m>\metaA{}</m></cell><cell><m>\metaB{}</m></cell><cell/><cell><m>\metaA{}</m></cell><cell><m>\oplus</m></cell><cell><m>\metaB{}</m></cell><cell/></row>
+<row><cell/><cell/><cell/><cell/><cell/><cell/><cell/></row>
+<row><cell/><cell/><cell/><cell/><cell/><cell/><cell/></row>
+<row><cell/><cell/><cell/><cell/><cell/><cell/><cell/></row>
+<row><cell/><cell/><cell/><cell/><cell/><cell/><cell/></row></tabular></statement></exercise>
+<exercise>
+<statement>
+<p><m>\oplus</m> is <em>definable</em> in terms of <m>\eor</m>, <m>\eand</m>, and <m>\enot</m>. This means that there is a formula using only these latter connectives that is equivalent to — true in all the same models as — <m>(P \oplus Q)</m>. Provide such a formula.</p></statement></exercise>
+<exercise>
+<statement>
+<p>Using truth tables, prove that the formula provided in the last question is equivalent to <m>(P \oplus Q)</m>.</p></statement></exercise>
+</subexercises>
+<conclusion>
+<note component="genai">
+<title>GenAI prompts for further practice</title>
+<p>Here are some potential GenAI prompts you might use to generate further practice problems, in case you find that helpful.</p>
+<p>
+<ul>
+<li>Give me truth tables with some entries left blank. My task is to complete the missing entries and explain the reasoning behind each one.</li>
+<li>Give me some SL sentences that involve two or three atoms. My task is to construct a truth table for each, and use it to tell whether the sentence is a tautology, a contradiction, or contingent. Check my answers and explain any mistakes in my reasoning.</li>
+<li>Give me some examples of SL argument forms and ask me to construct complete truth tables to test them for validity. Start with arguments involving two sentence letters and gradually increase the difficulty.</li>
+<li>Give me pairs consisting of an English argument and an SL argument form. My task is to decide whether the English argument is an instance of the SL form. Explain any mistakes in my reasoning.</li>
+<li>Give me some SL argument forms, along with their complete truth tables. Ask me whether the argument forms are valid or invalid. After I answer, explain how the truth table establishes the result.</li>
+<li>Give me invalid arguments in SL. My task is to identify a valuation under which all the premises are true and the conclusion is false. Check my answer before revealing your own.</li>
+<li>Give me valid and invalid argument forms in SL. Ask me to predict whether the form is valid before constructing a truth table. Then use a truth table to check my prediction.</li>
+<li>Give me English arguments and ask me first to translate them into SL and then to test them for validity using a truth table. Check both my translation and my truth table.</li></ul></p></note></conclusion>
+</exercises>
+</chapter>

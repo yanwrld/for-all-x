@@ -1,0 +1,64 @@
+# Builds the interactive PreTeXt web edition from the LaTeX sources and,
+# on pushes to master, publishes it with GitHub Pages.
+#
+# One-time setup for publishing: Settings -> Pages -> Build and deployment ->
+# Source: "GitHub Actions".
+
+name: PreTeXt web edition
+
+on:
+  push:
+    branches: [ master ]
+    paths: [ 'Latex-Files/**', 'pretext/**', '.github/workflows/pretext.yml' ]
+  pull_request:
+    branches: [ master ]
+    paths: [ 'Latex-Files/**', 'pretext/**', '.github/workflows/pretext.yml' ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pretext-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install PreTeXt
+        run: pip install -r pretext/requirements.txt
+
+      - name: Install LaTeX (for proof trees and natural deduction proofs)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            texlive-latex-base texlive-latex-recommended texlive-latex-extra \
+            texlive-pictures texlive-fonts-recommended
+
+      - name: Convert and build
+        run: ./pretext/build.sh images
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: pretext/output/web
+
+  deploy:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated from Latex-Files/forallx-ubc-4-SLmodels.tex by pretext/scripts/latex2ptx.py -->
+<chapter xml:id="ch-SLmodels">
+<title>Entailment and Models for SL</title>
+<introduction>
+<p>This chapter offers a formal semantics for SL, allowing us to be more precise about the notion of truth in SL. We’ll also highlight some important features of <em>entailment</em>, a key concept in formal logic.</p>
+<p>A formal, logical language is built from two kinds of elements: logical symbols and non-logical symbols. Connectives like ‘<m>\eand</m>’ and ‘<m>\eif</m>’ are logical symbols, because their meaning is specified within the formal language. When writing a symbolization key, you are not allowed to change the meaning of the logical symbols. You cannot say, for instance, that the ‘<m>\enot</m>’ symbol will mean ‘not’ in one argument and ‘perhaps’ in another. The ‘<m>\enot</m>’ symbol always means logical negation. It is used to translate the English language word ‘not’, but it is a symbol of a formal language and is defined by its truth conditions.</p>
+<p>The sentence letters in SL are non-logical symbols, because their meaning is not defined by the logical structure of SL. When we translate an argument from English to SL, for example, the sentence letter <m>M</m> does not have its meaning fixed in advance; instead, we provide a symbolization key that says how <m>M</m> should be interpreted in that argument.</p>
+<p>In translating from English to a formal language, we provided symbolization keys which were interpretations of all the non-logical symbols we used in the translation. An <term>interpretation</term> gives a meaning to all the non-logical elements of the language. We’ll also use the term ‘<term>model</term>’ as another word for an interpretation. In our simple formal language SL, meaning is simply a matter of truth and falsity, relative to a given interpretation. These notions too need to be characterized in a formal way.</p></introduction>
+<section xml:id="sec-semanticsSL">
+<title>Semantics for SL</title>
+<p>This section provides a rigorous, formal characterization of <em>truth in SL</em> which builds on what we already know from doing truth tables. We were able to use truth tables to reliably test whether a sentence was a tautology in SL, whether two sentences were equivalent, whether an argument was valid, and so on. For instance: <m>\metaA{}</m> is a tautology in SL if and only if it is assigned ‘1’ on every line of a complete truth table.</p>
+<p>This worked because each line of a truth table corresponds to a way the world might be. We considered all the possible combinations of 1s and 0s for the sentence letters that made a difference to the sentences we cared about. The truth table allowed us to determine what would happen given these different combinations. An <em>interpretation</em> in SL provides a truth value to each atomic sentence in use; and every combination of truth values is represented by an interpretation.</p>
+<p>(Technical side note: one might be tempted to <em>identify</em> interpretations with assignments of truth values to atomic sentences. (In past versions of this book, that’s actually what I did.) For a variety of reasons, this is not (any longer) my preference. One reason is that there can be different ways to assign truth values to atomic sentences, corresponding to one and the same row of the truth table, if one includes values for atoms that are not mentioned in the truth table. In a truth table for a sentence that doesn’t include an <m>R</m>, for instance, these two assignments of truth values to atoms are effectively equivalent, and correspond to the same row of the truth table: {<m>P=1</m>, <m>Q=1</m>, <m>R=1</m>}, {<m>P=1</m>, <m>Q=1</m>, <m>R=0</m>}. So there could be different interpretations corresponding to the same row of the truth table, but an interpretation <em>determines</em> a row of a truth table.</p>
+<p>A more complex motivation for my terminological choice here has to do with the relationship between SL and QL, a more complex language we’ll learn later in the textbook. I’ll return to this connection in §<xref ref="sec-0PlaceModels" text="global"/>.)</p>
+<p>Once we construct a truth table, the symbols ‘1’ and ‘0’ are divorced from their metalinguistic meaning of ‘true’ and ‘false’. We interpret ‘1’ as meaning ‘true’, but the formal properties of 1 are defined by the characteristic truth tables for the various connectives.  The symbols in a truth table have a formal meaning that we can specify entirely in terms of how the connectives operate. For example, if <m>A</m> is value 1, then <m>\enot A</m> is value 0.</p>
+<p>To formally define truth in SL, then, we want a function that assigns, for each interpretation, a 1 or 0 to each of the sentences of SL. We can interpret this function as a definition of truth for SL if it assigns 1 to all of the true sentences of SL and 0 to all of the false sentences of SL. Call this function ‘<m>v</m>’ (for ‘valuation’). We want <m>v</m> to be a function such that for any sentence <m>\metaA{}</m>, <m>v(\metaA{})=1</m> if <m>\metaA{}</m> is true and <m>v(\metaA{})=0</m> if <m>\metaA{}</m> is false.</p>
+<p>Recall that the recursive definition of a wff for SL had two stages: The first step said that atomic sentences (solitary sentence letters) are wffs. The second stage allowed for wffs to be constructed out of more basic wffs. There were clauses of the definition for all of the sentential connectives. For example, if <m>\metaA{}</m> is a wff, then <m>\enot\metaA{}</m> is a wff.</p>
+<p>Our strategy for defining the truth function, <m>v</m>, will also be in two steps. The first step will handle truth for atomic sentences; the second step will handle truth for compound sentences.</p>
+</section>
+<section xml:id="slmodels-defining-truth-in-sl">
+<title>Defining truth in SL</title>
+<p>How can we define truth for an atomic sentence of SL? Consider, for example, the sentence <m>M</m>. Without an interpretation, we cannot say whether <m>M</m> is true or false. It might mean anything. If we use <m>M</m> to symbolize ‘The moon orbits the Earth’, then <m>M</m> is true. If we use <m>M</m> to symbolize ‘The moon is a giant turnip’, then <m>M</m> is false.</p>
+<p>When we give a symbolization key for SL, we provide a translation into English of the sentence letters that we use. In this way, the symbolization key specifies what each of the sentence letters <em>means</em>. However, this is not enough to determine whether or not that sentence is true. The sentences about the moon, for instance, require that you know some rudimentary astronomy. Imagine a small child who became convinced that the moon is a giant turnip. She could understand what the sentence ‘The moon is a giant turnip’ means, but mistakenly think that it was true.</p>
+<p>So a symbolization key alone does not determine whether a sentence is true or false. Truth or falsity depends also on what the world is like. If <m>M</m> meant ‘The moon is a giant turnip’ and the real moon were a giant turnip, then <m>M</m> would be true. To get a truth value via the symbolization key, one has to first translate the sentence into English, and then rely on one’s knowledge of what the world is like.</p>
+<p>We want a logical system that can proceed without astronomical investigation. Moreover, we want to abstract away from the specific commitments of a given symbolization key. So our logical definition of truth will proceed in a different way. We ignore any proffered symbolization key, and take, from a given interpretation, a <em>truth value assignment</em>. Formally, this is just a function that tells us the truth value of all the atomic sentences. Call this function ‘<m>a</m>’ (for ‘assignment’). We define <m>a</m> for all sentence letters <m>\script{P}</m>, such that
+<md>a(\script{P}) =
+\left\{
+	\begin{array}{ll}
+	1 &amp; \mbox{if \script{P} is true},\\
+	0 &amp; \mbox{otherwise.}
+	\end{array}
+\right.</md>
+This means that <m>a</m> takes any atomic sentence of SL and assigns it either a one or a zero; one if the sentence is true, zero if the sentence is false.</p>
+<p>You can think of <m>a</m> as being like a row of a truth table. Whereas a truth table row assigns a truth value to a few atomic sentences, the truth value assignment assigns a value to every atomic sentence of SL. There are infinitely many sentence letters, and the truth value assignment gives a value to each of them. When constructing a truth table, we only care about sentence letters that affect the truth value of sentences that interest us. As such, we ignore the rest.</p>
+<p>It is important to note that the truth value assignment, <m>a</m>, is not part of the language SL. Rather, it is part of the mathematical machinery that we are using to describe SL. It encodes which atomic sentences are true and which are false.</p>
+<p>We now define the truth function, <m>v</m>, using the same recursive structure that we used to define a wff of SL.</p>
+<p>
+<ol>
+<li>If <m>\metaA{}</m> is a sentence letter, then <m>v(\metaA{})=a(\metaA{})</m>.</li>
+<li>If <m>\metaA{}</m> is <m>{\enot}\metaB{}</m> for some sentence <m>\metaB{}</m>, then
+<md>v(\metaA{}) =
+	\left\{\begin{array}{ll}
+	1 &amp; \mbox{if $v(\metaB{}) = 0$},\\
+	0 &amp; \mbox{otherwise.}
+	\end{array}\right.</md></li>
+<li>If <m>\metaA{}</m> is <m>(\metaB{}\eand\metaC{})</m> for some sentences <m>\metaB{}</m>, <m>\metaC{}</m>, then
+<md>v(\metaA{}) =
+	\left\{\begin{array}{ll}
+	1 &amp; \mbox{if $v(\metaB{}) = 1$ and $v(\metaC{}) = 1$,}\\
+	0 &amp; \mbox{otherwise.}
+	\end{array}\right.</md></li></ol></p>
+<p>You may be tempted to worry that this definition is circular, because it uses the word ‘and’ in trying to define ‘and.’ But remember, we are not attempting to give a definition of the English word ‘and’; we are giving a definition of truth for sentences of SL containing the logical symbol ‘<m>\eand</m>.’ We define truth for object language sentences containing the symbol ‘<m>\eand</m>’ using the metalanguage word ‘and.’ There is nothing circular about that.</p>
+<p>
+<ol>
+<li>If <m>\metaA{}</m> is <m>(\metaB{}\eor\metaC{})</m> for some sentences <m>\metaB{}</m>, <m>\metaC{}</m>, then
+<md>v(\metaA{}) =
+	\left\{\begin{array}{ll}
+	0 &amp; \mbox{if $v(\metaB{}) = 0$ and $v(\metaC{}) = 0$,}\\
+	1 &amp; \mbox{otherwise.}
+	\end{array}\right.</md></li>
+<li>If <m>\metaA{}</m> is <m>(\metaB{}\eif\metaC{})</m> for some sentences <m>\metaB{}</m>, <m>\metaC{}</m>, then
+<md>v(\metaA{}) =
+	\left\{\begin{array}{ll}
+	0 &amp; \mbox{if $v(\metaB{}) = 1$ and $v(\metaC{}) = 0$,}\\
+	1 &amp; \mbox{otherwise.}
+	\end{array}\right.</md></li>
+<li>If <m>\metaA{}</m> is <m>(\metaB{}\eiff\metaC{})</m> for some sentences <m>\metaB{}</m>, <m>\metaC{}</m>, then
+<md>v(\metaA{}) =
+	\left\{\begin{array}{ll}
+	1 &amp; \mbox{if $v(\metaB{}) = v(\metaC{})$},\\
+	0 &amp; \mbox{otherwise.}
+	\end{array}\right.</md></li></ol></p>
+<p>Since the definition of <m>v</m> has the same structure as the definition of a wff, we know that <m>v</m> assigns a value to <em>every</em> wff of SL. Since the sentences of SL and the wffs of SL are the same, this means that <m>v</m> returns the truth value of every sentence of SL.</p>
+<p>Truth in SL is always truth <em>relative to</em> some interpretation, because the definition of truth for SL does not say whether a given sentence is true or false. Rather, it says how the truth of that sentence relates to a truth value assignment.</p>
+</section>
+<section xml:id="slmodels-semantic-entailment">
+<title>Semantic entailment</title>
+<p>We are now in a position to give more precise definitions of terms like ‘tautology’, ‘contradiction’, and so on. Truth tables provided a way to <em>check</em> whether a sentence was a tautology in SL, but they did not <em>define</em> what it means to be a tautology in SL. We will give definitions of these concepts for SL in terms of <term>entailment</term>.</p>
+<p>The relation of semantic entailment is about satisfiability — that is, whether there is any possible interpretation that meets a certain set of conditions. ‘<m>\metaA{}</m> entails <m>\metaB{}</m>’, means that there is no interpretation for which <m>\metaA{}</m> is true and <m>\metaB{}</m> is false. An interpretation provides a valuation function that gives truth values to atomic sentences; so <m>\metaA{}</m> entails <m>\metaB{}</m> if and only if every assignment of truth values to atomic sentences that makes <m>\metaA{}</m> true also makes <m>\metaB{}</m> true. (We could just as well say that  ‘<m>\metaA{}</m> entails <m>\metaB{}</m>’, means that there is no <em>valuation function</em> that makes <m>\metaA{}</m> true and <m>\metaB{}</m> false. Interpretations specify valuation functions.)</p>
+<p>We abbreviate entailment with a symbol called the <em>double turnstile</em>:
+<m>\metaA{}\models\metaB{}</m> means ‘<m>\metaA{}</m> semantically entails <m>\metaB{}</m>.’ The same symbol with a slash through it, <m>\not\models</m>, represents non-entailment. <m>\metaA{}\not\models\metaB{}</m> means ‘<m>\metaA{}</m> does not entail <m>\metaB{}</m>.’</p>
+<p>These symbols, like ‘<m>\metaA{}</m>’, etc., are part of the <em>metalanguage</em> we use to discuss SL; they are not part of SL itself.</p>
+</section>
+<section xml:id="slmodels-entailment-validity-and-informally-good">
+<title>Entailment, validity, and informally good arguments</title>
+<p>Entailment is a formal notion. It is connected in important ways to the informal notion of a good argument, but when considering entailment in SL, it is important to remember to apply the definitions rigorously and precisely, rather than relying on your sense of whether the argument is a good one. The notions can come apart in some surprising ways.</p>
+<p>Let’s start with a straightforward example. Consider whether this entailment claim is true: <md>(P\eand Q) \models (P\eor Q)</md> This is true if and only if every interpretation that satisfies <m>(P\eand Q)</m>, also satisfies  <m>(P\eor Q)</m>. Hopefully it is obvious to you that this is true. Only an interpretation that assigns 1 to both <m>P</m> and <m>Q</m> will satisfy the left, and any such interpretation will certainly satisfy the right as well. (You could draw the truth table to verify this if you want the practice.) So, as one might naturally expect, <m>(P\eand Q) \models (P\eor Q)</m>.</p>
+<p>Or to take another simple case, consider this entailment claim, which is the converse of the one just discussed:
+<md>(P \eor Q) \models (P \eand Q)</md>
+It is true if and only every interpretation that satisfies <m>(P \eor Q)</m>, also satisfies <m>(P \eand Q)</m>. Again, you could construct the truth table to check whether this is so, but for a simple example like this one, it should be reasonably obvious that this entailment claim is false. There are interpretations that make <m>(P \eor Q)</m> true, and that also make <m>(P \eand Q)</m> false. Any interpretation that makes exactly one of <m>P</m> and <m>Q</m> true will be a counterexample to this entailment claim.</p>
+<p>Here is a less intuitive example. What should we make of this claim?</p>
+<blockquote>
+<p><m>(P\eand Q) \models (A\eiff\enot\enot A)</m></p></blockquote>
+<p>Notice that the sentence letters on the left-hand side here are completely different letters from those on the right-hand side. So there is a straightforward sense in which the two sides of the turnstile have <em>nothing to do with one another</em>. Nevertheless, this <em>is</em> a true entailment claim. This is because it satisfies the definition: every interpretation that satisfies the left (i.e., every interpretation with a valuation function assigns ‘1’ to both <m>P</m> and <m>Q</m>), also satisfies <m>(A\eiff\enot\enot A)</m>. This for the simple reason that every valuation <em>whatsoever</em> satisfies <m>(A\eiff\enot\enot A)</m>; it is a tautology.</p>
+<p>From this example we can see that a tautology will be entailed by anything whatsoever. If the right-hand side of the entailment claim is a tautology, it doesn’t matter what’s on the left — you know it’s going to be true.</p>
+<p>So these are all true:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell/><cell><m>P \models (P \eor \enot P)</m></cell></row>
+<row><cell/><cell><m>Q \models (P \eor \enot P)</m></cell></row>
+<row><cell/><cell><m>(P \eand \enot P) \models (P \eor \enot P)</m></cell></row></tabular>
+</section>
+<section xml:id="slmodels-tautologies-are-entailed-by-the-empty-se">
+<title>Tautologies are entailed by the empty set</title>
+<p>In the examples so far, we’ve been talking about one sentence entailing another. But we can also describe a set of several sentences as jointly entailing an SL sentence: <md>\metaA{}_1,\metaA{}_2,\metaA{}_3,\cdots\models\metaB{}</md> means that there is no truth value assignment for which all of the sentences in the set <m>\{\metaA{}_1,\metaA{}_2,\metaA{}_3,\cdots\}</m> are true and <m>\metaB{}</m> is false. It will sometimes be convenient to use a variable that can stand in for any set of sentences; just as ‘<m>\metaA{}</m>’ can stand for any sentence of SL, we can let ‘<m>\metaSetX{}</m>’ stand in for any set of sentences in SL. (In the case of ‘<m>\metaA{}\models\metaB{}</m>’ above, ‘<m>\metaSetX{}</m>’ is the singleton set containing just <m>\metaA{}</m>.)</p>
+<p>In general, we may say that <md>\metaSetX{}\models\metaB{}</md> means that there’s no interpretation satisfying every member of set <m>\metaSetX{}</m> without also satisfying sentence <m>\metaB{}</m>.</p>
+<p>We saw in the previous section that a tautology —  an SL sentence that is true in every interpretation — is entailed by any sentence. The reasoning applies more generally: a tautology will be entailed by any set of sentences. This includes the <em>empty set</em>, which can be written ‘<m>\emptyset</m>’. In general, ‘<m>\metaSetX{} \models \metaA{}</m>’ says that every interpretation that satisfies everything in <m>\metaSetX{}</m>, satisfies <m>\metaA{}</m>; in the special case where <m>\metaSetX{}</m> is <m>\emptyset</m>, every interpretation trivially satisfies everything in <m>\metaSetX{}</m>. This is because, trivially, every interpretation satisfies everything in <m>\emptyset</m>. So ‘<m>\emptyset \models \metaA{}</m>’ says that absolutely every interpretation satisfies <m>\metaA{}</m>. That is, it says that <m>\metaA{}</m> is a tautology.</p>
+<p>By convention, we can leave the left side of an entailment claim blank, instead of writing in <m>\emptyset</m>. In other words, <md>\models \metaA{}</md> is shorthand for <md>\emptyset \models \metaA{}.</md></p>
+<p>So these entailment claims are true, because in each case the sentence on the right is a tautology:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell/><cell><m>\models (P \eor \enot P)</m></cell></row>
+<row><cell/><cell><m>\models (P \eiff P)</m></cell></row>
+<row><cell/><cell><m>\models ((P \eand\enot P)\eif (A \eor B))</m></cell></row></tabular>
+<p>And these entailment claims are not true, because each sentence on the right is not a tautology:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell/><cell><m>\models P</m></cell></row>
+<row><cell/><cell><m>\models (P \eand \enot P)</m></cell></row>
+<row><cell/><cell><m>\models \enot(P \eif \enot P)</m></cell></row></tabular>
+<p>(If you need help seeing why a given sentence is or is not a tautology, draw out the truth table and check to see whether it has a 1 on every row. See §<xref ref="sec-usingtruthtables" text="global"/>.)</p>
+</section>
+<section xml:id="slmodels-inconsistent-sentences-entail-absurditie">
+<title>Inconsistent sentences entail absurdities</title>
+<p>Consider this entailment claim: <md>(P \eand \enot P) \models Q</md>This statement is true. It says that every interpretation satisfying <m>(P \eand \enot P)</m> also satisfies <m>Q</m>. But <m>(P \eand \enot P)</m> is a contradiction — no interpretations satisfy it. So trivially, ‘every’ interpretation that satisfies it satisfies <m>Q</m>.</p>
+<p>This explanation had nothing to do with the specifics of the sentence <m>Q</m>. Exactly the same considerations would demonstrate that, for any sentence <m>\metaB{}</m>, <m>(P \eand \enot P) \models \metaB{}</m>. And the same goes for any other contradictory sentence, or any set of sentences that are mutually inconsistent. These are all true:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell/><cell><m>(P \eand \enot P) \models (\enot Q \eif R)</m></cell></row>
+<row><cell/><cell><m>P, (\enot Q \eand \enot P) \models (Q \eiff P)</m></cell></row>
+<row><cell/><cell><m>(P \eand\enot P) \models ((A_1 \eor A_2) \eif \enot (A_3 \eiff (A_4 \eand \enot A_2)))</m></cell></row></tabular>
+<p>You can think of evaluating an entailment claim as like checking to see whether a rule is being violated or not. If there’s a rule that says every student with a dog has to have a permit, you check each student with a dog, and make sure they have a permit. If you find someone without a dog, it doesn’t matter whether they have a permit or not. (If you don’t have a dog, you’re not breaking the rule.) Or if you find someone with a permit, it doesn’t matter whether they have a dog. (Nobody with a permit can be breaking the rule.) An entailment claim is like a rule that says every interpretation that satisfies the left-hand side must also satisfy the right-hand side. To verify it, you can ignore any interpretation that falsifies the left, or that satisfies the right.</p>
+<p>In each of the cases above, you don’t even need to examine the sentence at the right to confirm that the entailment claim is true, since you already know that no interpretations satisfy the sentences on the left. (This is analogous to knowing that no students have a dog — in this case you don’t have to check to see whether anyone has a permit to confirm that the rule is being respected.) Any entailment claim with an unsatisfiable set of sentences on the left is true. Unsatisfiable sets of sentences entail <em>every</em> sentence.</p>
+<p>We have a special notation for describing this situation. We write: <md>\metaSetX{} \models \bot</md> to indicate that the set <m>\metaSetX{}</m> entails an <em>absurdity</em>; think of ‘<m>\bot</m>’ as standing in for an arbitrary unsatisfiable SL wff. So you can think of ‘<m>\metaSetX{} \models \bot</m>’ as saying that every interpretation that satisfies <m>\metaSetX{}</m> satisfies the unsatisfiable. That’s just another way of saying that <em>no</em> interpretation satisfies <m>\metaSetX{}</m>. (Compare: ‘the only Klingons who hate honour are the Klingons who aren’t Klingons at all.’)</p>
+<p>So these entailment claims are true, because the set of sentences on the left is not satisfiable:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell/><cell><m>(P \eand \enot P) \models \bot</m></cell></row>
+<row><cell/><cell><m>P, (\enot Q \eand \enot P) \models\bot</m></cell></row>
+<row><cell/><cell><m>(P \eiff\enot P) \models\bot</m></cell></row></tabular>
+<p>And these entailment claims are not true, because the sentences on the left <em>can</em> be satisfied:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell/><cell><m>(P \eor \enot P) \models\bot</m></cell></row>
+<row><cell/><cell><m>P, \enot Q, (R \eor Q) \models\bot</m></cell></row>
+<row><cell/><cell><m>\enot P, \enot Q, (P \eif \enot\enot Q) \models\bot</m></cell></row></tabular>
+<p>(If you need help seeing why a given set of sentences can be satisfied, draw out the truth table and check to see if any row assigns a 1 to each sentence. See §<xref ref="sec-usingtruthtables" text="global"/>.)</p>
+</section>
+<section xml:id="slmodels-defining-concepts-in-terms-of-entailment">
+<title>Defining concepts in terms of entailment</title>
+<p>The double turnstile symbol allows us to give concise definitions for various concepts in SL:</p>
+<blockquote>
+<p>A <term>tautology in SL</term> is a sentence <m>\metaA{}</m>  such that <m>\emptyset\models\metaA{}</m>.</p>
+<p>A <term>contradiction in SL</term> is a sentence <m>\metaA{}</m> such that <m>\metaA{}\models\bot</m>.</p>
+<p>A sentence is <term>contingent in SL</term> if and only if it is neither a tautology nor a contradiction.</p>
+<p>An argument with premises <m>\metaSetX{}</m> and conclusion <m>\metaA{}</m> is <term>valid in SL</term> if and only if <m>\metaSetX{}\models\metaA{}</m>.</p>
+<p>Two sentences <m>\metaA{}</m> and <m>\metaB{}</m> are <term>logically equivalent in SL</term> if and only if both <m>\metaA{}\models\metaB{}</m> and <m>\metaB{}\models\metaA{}</m>.</p>
+<p>A set of sentences <m>\metaSetX{}</m> is <term>inconsistent in SL</term> if and only if <m>\metaSetX{}\models \bot</m>. Otherwise <m>\metaSetX{}</m> is <term>consistent in SL</term>.</p></blockquote>
+</section>
+<exercises xml:id="slmodels-exercises">
+<title>Practice Exercises</title>
+<subexercises xml:id="pr-treesetup">
+<title>Part A</title>
+<introduction>
+<p>Each of the following claims can be evaluated with truth tables. For each, what would you look for in a completed truth table to evaluate it? The Greek letters can stand for any arbitrary sentence of SL. The first claim has the answer filled out for you.</p></introduction>
+<exercise>
+<statement>
+<p><m>\Phi</m> is a tautology.
+		To evaluate this claim, check to see whether the main connective of <m>\Phi</m> has a 1 under it in every row. If so, it is true. Otherwise, it is false.</p></statement>
+<solution>
+<p>To evaluate this claim, check to see whether there is any row where the main connective of <m>\Phi</m> has a 1 under it and the main connective of <m>\Psi</m> has a 0 under it. If so, it is false. Otherwise, it is true.</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>\Phi \models \Psi</m>. 
+		To evaluate this claim, check to see whether...</p></statement>
+<solution>
+<p>To evaluate this claim, check to see whether there is at least one row where the main connective of <m>\Phi</m> has a 1 under it, and also at least one row where it has a 0 under it. If so, it is true. Otherwise, it is false.</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>\Phi</m> is contingent. To evaluate this claim, check to see whether...</p></statement>
+<solution>
+<p>To evaluate this claim, check to see whether there is at least one row where the main connective of <m>\Phi</m> has a 1 under it. If so, it is false. Otherwise, it is true.</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>\Phi \models \bot</m> 	To evaluate this claim, check to see whether...</p></statement>
+<solution>
+<p>To evaluate this claim, check to see whether there is at least one row where the main connective of <m>\Phi</m> has a 0 under it. If so, it is false. Otherwise, it is true.</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>\emptyset \models \Phi</m> 	To evaluate this claim, check to see whether...</p></statement></exercise>
+</subexercises>
+<subexercises xml:id="pr-entailTF">
+<title>Part B</title>
+<introduction>
+<p>Determine whether each entailment claim is true. You may construct a truth table to test it if you like, but these examples are simple enough so that you may be able to just think it through and get the right answer.</p></introduction>
+<exercise>
+<statement>
+<p><m>Q \models (P \eor Q)</m></p></statement><choices><choice correct="yes">
+<statement>
+<p>True</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>False</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>True.</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>P, Q \models (P \eor P)</m></p></statement><choices><choice correct="yes">
+<statement>
+<p>True</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>False</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>True.</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>P \eiff Q, P \models Q</m></p></statement><choices><choice correct="yes">
+<statement>
+<p>True</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>False</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>True.</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>S \models (Q \eif Q)</m></p></statement><choices><choice correct="yes">
+<statement>
+<p>True</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>False</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>True.</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>(P \eand \enot P) \models (Q \eor \enot Q)</m></p></statement><choices><choice correct="yes">
+<statement>
+<p>True</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>False</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>True.</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>(P \eand \enot P) \models (Q \eand \enot Q)</m></p></statement><choices><choice correct="yes">
+<statement>
+<p>True</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>False</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>True.</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>(P \eor \enot P) \models \bot</m></p></statement><choices><choice>
+<statement>
+<p>True</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice><choice correct="yes">
+<statement>
+<p>False</p></statement><feedback>
+<p>Correct.</p></feedback></choice></choices>
+<solution>
+<p>False.</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>(P \eor \enot P) \models Q</m></p></statement><choices><choice>
+<statement>
+<p>True</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice><choice correct="yes">
+<statement>
+<p>False</p></statement><feedback>
+<p>Correct.</p></feedback></choice></choices>
+<solution>
+<p>False.</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>\models (P \eor \enot P)</m></p></statement><choices><choice correct="yes">
+<statement>
+<p>True</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>False</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>True.</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>\models (P \eand \enot P)</m></p></statement><choices><choice>
+<statement>
+<p>True</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice><choice correct="yes">
+<statement>
+<p>False</p></statement><feedback>
+<p>Correct.</p></feedback></choice></choices>
+<solution>
+<p>False.</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>(A \eor B) \eif \enot P \models (P \eor \enot P)</m></p></statement><choices><choice correct="yes">
+<statement>
+<p>True</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>False</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>True.</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>(P \eiff Q) \models ((P \eand Q) \eor \enot (P \eor Q))</m></p></statement><choices><choice correct="yes">
+<statement>
+<p>True</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>False</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>True.</p></solution></exercise>
+</subexercises>
+<subexercises xml:id="pr-entailmentcounterexamples">
+<title>Part C</title>
+<introduction>
+<p>Prove each of the following, by providing an interpretation that shows the relevant entailment claim to be false.</p></introduction>
+<exercise>
+<statement>
+<p><m>A \not\models B</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>A \not\models \enot A</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>(A \eor B) \not\models A</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>(A \eif B) \not\models A</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>(A \eif B) \not\models B</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>(A \eand B) \not\models C</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>A \not\models (A \eand B)</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>(A \eif B) \not\models (\enot A)</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>(A \eif B), B \not\models A</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>(A \eor B), \enot A \not\models C</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>(A \eif B), (B \eif C) \not\models (C \eif A)</m></p></statement></exercise>
+</subexercises>
+<subexercises xml:id="slmodels-part-d">
+<title>Part D</title>
+<introduction>
+<p>For each claim, determine whether it is true or false. If it is true, briefly explain why. If it is false, provide a counterexample interpretation.</p></introduction>
+<exercise>
+<statement>
+<p>If <m>\metaA{} \models \metaB{}</m> and <m>\metaA{} \models \metaC{}</m>, then <m>\metaA{} \models (\metaB{} \eand \metaC{})</m>.</p></statement></exercise>
+<exercise>
+<statement>
+<p>If <m>\metaA{} \models \metaB{}</m> and <m>\metaB{} \models \metaC{}</m>, then <m>\metaA{} \models \metaC{}</m>.</p></statement></exercise>
+<exercise>
+<statement>
+<p>If <m>\metaA{} \models \metaB{}</m>, then <m>\metaB{} \models \metaA{}</m>.</p></statement></exercise>
+<exercise>
+<statement>
+<p>If <m>\metaA{} \models \metaB{}</m>, then <m>(\metaA{} \eand \metaC{}) \models \metaB{}</m>.</p></statement></exercise>
+<exercise>
+<statement>
+<p>If <m>(\metaA{} \eand \metaB{}) \models \metaC{}</m>, then <m>\metaA{} \models \metaC{}</m>.</p></statement></exercise>
+<exercise>
+<statement>
+<p>If <m>\metaA{} \models (\metaB{} \eand \metaC{})</m>, then <m>\metaA{} \models \metaB{}</m>.</p></statement></exercise>
+<exercise>
+<statement>
+<p>If <m>\metaA{} \models \metaB{}</m>, then <m>\metaA{} \models (\metaB{} \eor \metaC{})</m>.</p></statement></exercise>
+<exercise>
+<statement>
+<p>If <m>\metaA{} \models \metaC{}</m> and <m>\metaB{} \models \metaC{}</m>, then <m>(\metaA{} \eor \metaB{}) \models \metaC{}</m>.</p></statement></exercise>
+</subexercises>
+<conclusion>
+<note component="genai">
+<title>GenAI prompts for further practice</title>
+<p>Here are some potential GenAI prompts you might use to generate further practice problems, in case you find that helpful.</p>
+<p>
+<ul>
+<li>Give me entailment claims involving one or two SL sentences. One at a time, ask me whether the entailment claim is true or false. After I answer, explain the correct result and justify it using the definition of entailment.</li>
+<li>Give me false entailment claims. My task is to provide an interpretation that shows the entailment fails. Check my interpretation and explain why it works.</li>
+<li>Give me pairs of SL sentences and ask whether they are logically equivalent. Present one pair at a time, let me answer, and then explain the correct result.</li>
+<li>Give me statements involving entailment, consistency, and equivalence. Some should be true and some false. Ask me to determine which are which and justify my answers.</li>
+<li>Give me a set of premises and ask which of several candidate conclusions are entailed by those premises. Explain each answer using the definition of entailment.</li>
+<li>Give me a sentence of SL and ask me to describe all interpretations that satisfy it. Start with very simple sentences and gradually increase the complexity.</li>
+<li>Give me semantic claims expressed using the symbols <m>\models</m> and <m>\not\models</m>. Ask me to explain what each claim means in ordinary English.</li>
+<li>Give me ordinary-English descriptions of semantic relationships and ask me to express them using the notation <m>\models</m>, <m>\not\models</m>, equivalence, consistency, or inconsistency, whichever is appropriate.</li></ul></p></note></conclusion>
+</exercises>
+</chapter>

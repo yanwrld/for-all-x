@@ -9,6 +9,8 @@ The full book is available for pdf download [here][2]. Professor Ichikawa plans 
 
 This repo is maintaining a list of know errors [here][3].
 
+An interactive web edition, built with [PreTeXt](https://pretextbook.org), is generated from the same LaTeX source. It has self-checking exercises, solutions that open beneath each exercise, cross-references that open in place, and full-text search. See [`pretext/README.md`](pretext/README.md) for how to build it.
+
 Here are a few points of information about the book:
 
 * designed for a 13-week, introductory logic course with no prerequisites

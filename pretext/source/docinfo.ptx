@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<docinfo>
+  <document-id>forallx-ubc</document-id>
+  <directories external="../assets"/>
+  <blurb shelf="Philosophy">An open-access introductory textbook in formal logic: translation, truth tables, trees, natural deduction, and metatheory for sentential and quantified logic.</blurb>
+
+  <!-- Logical notation.  These mirror the definitions in Latex-Files/forallx-ubc.sty -->
+  <!-- and are used by MathJax on the web and by LaTeX for the generated images.       -->
+  <macros>
+    \newcommand{\eand}{\mathbin{\&amp;}}
+    \newcommand{\eor}{\vee}
+    \newcommand{\eif}{\supset}
+    \newcommand{\eiff}{\equiv}
+    \newcommand{\enot}{\neg}
+    \newcommand{\metaA}{\varPhi}
+    \newcommand{\metaB}{\varPsi}
+    \newcommand{\metaC}{\varOmega}
+    \newcommand{\metaSetX}{\mathcal{X}}
+    \newcommand{\metaSetY}{\mathcal{Y}}
+    \newcommand{\metaSetZ}{\mathcal{Z}}
+    \newcommand{\script}[1]{\mathscr{#1}}
+    \newcommand{\model}[1]{\mathbb{#1}}
+    \newcommand{\extension}[1]{\text{extension}(#1)}
+    \newcommand{\referent}[1]{\text{referent}(#1)}
+    \newcommand{\ntuple}[1]{\mathopen{&lt;}#1\mathclose{&gt;}}
+    \newcommand{\substitute}[2]{\,\boxed{#1\Rightarrow #2}}
+    \newcommand{\substitutesome}[2]{\,\boxed{\boxed{#1\Rightarrow #2}}}
+  </macros>
+
+  <latex-image-preamble>
+    \usepackage{forallx-images}
+  </latex-image-preamble>
+</docinfo>

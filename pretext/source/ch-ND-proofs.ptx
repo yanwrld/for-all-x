@@ -1,0 +1,1323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated from Latex-Files/forallx-ubc-7-SLND.tex by pretext/scripts/latex2ptx.py -->
+<chapter xml:id="ch-ND-proofs">
+<title>Natural Deduction Proofs in SL</title>
+<introduction>
+<p>This chapter introduces a different proof system in SL, separate from the tree method. The tree method has advantages and disadvantages. One advantage of trees is that, for the most part, they can be produced in a purely mechanical way — one need rely only on a rigorous application of a well-defined procedure; no ‘flash of insight’ is necessary. Another advantage is that, when a tree remains open, the tree method gives us a recipe for constructing an interpretation that satisfies the root. One disadvantage is that they do not always emphasize in an intuitive way <em>why</em> a conclusion follows from a set of premises; they show that something <em>must</em> be the case, on pain of contradiction, but they don’t always demonstrate, in a way closely connected to natural reasoning, why some things follow from other things.</p>
+<p>The <term>natural deduction</term> system of this chapter will differ from the tree method in all of these respects. It is intended to model human reasoning in a closer way, illustrating the connections between various claims; consequently, working through a natural deduction proof requires a bit more insight and inspiration than a tree proof does.</p>
+<p>Natural deduction proofs can be used to prove that an argument is valid; if an argument is invalid, our natural deduction system will not necessarily make that obvious. We won’t have the equivalent to a completed open tree — a proof of invalidity. It will turn out that there is a natural deduction derivation corresponding to every valid argument in SL — i.e., like the tree method, this method is complete. (It is also sound.) But we won’t offer a way to prove that there is no proof, and so natural deduction can’t be used by itself to prove invalidity.</p></introduction>
+<section xml:id="nd-proofs-natural-deduction-the-basic-idea">
+<title>Natural deduction: the basic idea</title>
+<p>The general idea of a natural deduction proof is simple. You begin by writing down the premises you’re beginning with, each on its own numbered line. Then you add a new numbered line, adding sentences that you can demonstrate to follow logically from what you have already written. (A formal list of rules gives the legal options for how to develop the proof.) If, following the rules, you manage to derive the conclusion from the premises, then you’ve shown that the argument form from those premises to that conclusion is valid.</p>
+<p>Formally, a <term>natural deduction proof</term> is a numbered sequence of sentences. The first sentences of the sequence are assumptions; these are the premises of the argument. Every sentence later in the sequence is derived from earlier sentences by one of the rules of proof. The final sentence of the sequence is the conclusion of the argument.</p>
+<p>Consider these two SL argument forms:</p>
+<p><em>Modus Ponens:</em></p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell/><cell><m>P \eif Q</m></cell></row>
+<row><cell/><cell><m>P</m></cell></row>
+<row><cell>∴</cell><cell><m>Q</m></cell></row></tabular>
+<p><em>Disjunctive Syllogism:</em></p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell/><cell><m>P \eor Q</m></cell></row>
+<row><cell/><cell><m>\enot P</m></cell></row>
+<row><cell>∴</cell><cell><m>Q</m></cell></row></tabular>
+<p>Both are valid; you could confirm this with a four-line truth table. Either would demonstrate that there is no interpretation satisfying both premises, while falsifying the conclusion. The truth table method does not distinguish between these argument forms; it simply shows that they are both valid. There is, however, an interesting and important difference between these two argument forms, gestured at by their labels. The first argument, <em>Modus Ponens</em>, has a distinctive syntactic form: its premises are a conditional and the antecedent of that conditional, and the conclusion is the consequent; the second has a different form.</p>
+<p>The natural deduction method is based in the recognition of particular kinds of valid forms. They also correspond reasonably well to familiar forms of informal reasoning. If you know a conditional, and you also know its antecedent, it is easy to infer its consequent. (Imagine being sure that if I ate the chilli, I’ll get sick, and also being sure that I ate the chilli. You will surely infer that I will get sick.) <em>Modus ponens</em> is the name of this kind of conditional reasoning, and there is a special rule for it in our natural deduction system.</p>
+</section>
+<section xml:id="nd-proofs-our-first-rule-conditional-elimination-m">
+<title>Our first rule: Conditional Elimination (<em>modus ponens</em>)</title>
+<p>Many different arguments demonstrate the <em>modus ponens</em> pattern; all of them are valid:</p>
+<sidebyside widths="32% 32% 32%" margins="0%" valign="top">
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell/><cell><m>P \eif \enot Q</m></cell></row>
+<row><cell/><cell><m>P</m></cell></row>
+<row><cell>∴</cell><cell><m>\enot Q</m></cell></row></tabular>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell/><cell><m>\enot P \eif (A \eiff B)</m></cell></row>
+<row><cell/><cell><m>\enot P</m></cell></row>
+<row><cell>∴</cell><cell><m>A \eiff B</m></cell></row></tabular>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell/><cell><m>(P \eor Q) \eif A</m></cell></row>
+<row><cell/><cell><m>P \eor Q</m></cell></row>
+<row><cell>∴</cell><cell><m>A</m></cell></row></tabular></sidebyside>
+<p>All of these arguments are similar in an important way to the <em>modus ponens</em> argument above, and different from the <em>disjunctive syllogism</em> one. But the truth table proof of the validity for each of these arguments will go the same way: it will simply produce a truth table, and show that there is no row where the premises are all true and the conclusion is false. The truth table method does not illuminate what the <em>modus ponens</em> inferences all have in common.</p>
+<p>Another way of making this point is to observe that the method of truth tables does not clearly show <em>why</em> an argument is valid. If you were to do a 1024-line truth table for an argument that contains ten sentence letters, then you could check to see if there were any lines on which the premises were all true and the conclusion were false. If you did not see such a line, and you were sure that you made no mistakes in constructing the table, then you would know that the argument was valid. Yet you might not be able to say anything further about why this particular argument was a valid argument form.</p>
+<p>The natural deduction system of this chapter will include an inference rule corresponding to <em>modus ponens</em>. Natural deduction proofs of these validities, then, will all share something important in common: they will use that inference rule. Here, in its formal presentation, is the rule:</p>
+<image width="37%"><latex-image label="proof-2335470981">
+$\begin{nd}
+	\have[m]{ab}{\metaA{}\eif\metaB{}}
+	\have[n]{a}\metaA{}
+	\have[\ ]{b}\metaB{} \ce{ab,a}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p>As has been the case throughout this book, the Greek letters <m>\metaA{}</m> and <m>\metaB{}</m> are variables that can represent any SL sentence. The <m>m</m> and <m>n</m> here are variables ranging over line numbers. What this rule says is that if you have a conditional <m>\metaA{}\eif\metaB{}</m> on line <m>m</m>, and you also have <m>\metaA{}</m>, the antecedent of that conditional, on line <m>n</m>, you can write the consequent <m>\metaB{}</m> on a new line.</p>
+<p>The notation off to the right in the new line, “<m>\eif</m> E <m>m, n</m>,” is the justification for the new line. “<m>\eif</m> E” stands for “Conditional Elimination,” which is our official name for the <em>modus ponens</em> rule. (We call it an ‘elimination’ rule because it begins with a conditional statement, and ends up deriving a statement that is not a conditional.)</p>
+<p>With this rule, we can prove that all of the <em>modus ponens</em> arguments mentioned above are valid. Here are proofs of two of them:</p>
+<sidebyside widths="37% 43%" margins="0%" valign="top">
+<image><latex-image label="proof-3180093528">
+$\begin{nd}
+	\hypo{if}{P \eif \enot Q}
+	\hypo{a}P
+	\have{c}{\enot Q} \ce{if,a}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<image><latex-image label="proof-c83181b751">
+$\begin{nd}
+	\hypo{if}{(P \eor Q) \eif A}
+	\hypo{a}{P \eor Q}
+	\have{c}A \ce{if,a}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image></sidebyside>
+<p>Notice that these two proofs share just the same structure. We start by listing the premises as lines 1 and 2. We include a horizontal line under those premises to indicate that the lines above it are premises that we assume; subsequent lines will need to be derived via rules. So we apply the conditional elimination rule to get the conclusion. We justify that conclusion by citing Conditional Elimination, and lines 1 and 2.</p>
+<p>One can produce more complicated proofs via the same rule. Let’s prove that this SL argument form is valid:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell/><cell><m>A</m></cell></row>
+<row><cell/><cell><m>A \eif B</m></cell></row>
+<row><cell/><cell><m>B \eif C</m></cell></row>
+<row><cell/><cell><m>C \eif [\enot P \eiff (Q \eor R)]</m></cell></row>
+<row><cell>∴</cell><cell><m>\enot P \eiff (Q \eor R)</m></cell></row></tabular>
+<p>We begin by writing our four premises on numbered lines:</p>
+<image width="69%"><latex-image label="proof-c84b576ac2">
+$\begin{nd}
+	\hypo{4}{A}
+	\hypo{1}{A \eif B}
+	\hypo{2}{B\eif C}
+	\hypo{3}{C \eif [\enot P \eiff (Q \eor R)]} \want{\enot P \eiff (Q \eor R)}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p>The horizontal line at line four indicates that the first four lines are assumed — no justification for them is necessary.</p>
+<p>We also include the ‘want’ notation off to the right, indicating what conclusion we are attempting to establish. (This is not strictly required as part of our proof, but it is helpful in keeping things organized.) We will complete the proof when we derive <m>\enot P \eiff (Q \eor R)</m> — i.e., when, while following the rules for how proofs may be developed, we write that sentence down on its own line. We cannot use conditional elimination to get to that sentence directly from our premises. We do have, on line 4, a conditional with that sentence as a consequent, but we don’t have <m>C</m>, the antecedent, on its own line. However, we can get there via two steps of our inference rule. From lines 1 and 2, we can get <m>B</m>, and then, from there and 3, we can get to <m>C</m>. Finally, a third instance of conditional elimination lets us derive the intended conclusion:</p>
+<image width="69%"><latex-image label="proof-cf5bf6bbdc">
+$\begin{nd}
+	\hypo{4}{A} 
+	\hypo{1}{A \eif B}
+	\hypo{2}{B\eif C}
+	\hypo{3}{C \eif [\enot P \eiff (Q \eor R)]} \want{\enot P \eiff (Q \eor R)}
+	\have{b} {B} \ce{4,1}
+	\have{c}{C} \ce{2,b}
+	\have{}{\enot P \eiff (Q \eor R)} \ce{3,c}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p>Here are three things to notice about this proof.</p>
+<p>First, every line after the premises needs to include a justification, citing a rule and the applicable previous line numbers. (So far Conditional Elimination is our only rule, but we will learn more very soon.) You can only write a new line if you have a rule that shows how it follows from previous lines.</p>
+<p>Second, once you have derived something from the premises, that new line is available to help justify future lines. Once we derive line 5, for example, we’re able to use it with line 3 to derive line 6.</p>
+<p>Third, the Conditional Elimination rule requires that you have a conditional and its antecedent; it doesn’t matter what order they are listed in. (In other words, when the rule says you need to have a conditional on line <m>m</m>, and its antecedent on line <m>n</m>, it does not matter whether <m>m&lt;n</m>.) It also does not matter whether they are on consecutive lines. They just have to be on <em>some</em> lines up above, before performing the rule.  So it is fine, for instance, that in justifying line 5, we cite a conditional on line 2, and its antecedent on line 1.</p>
+</section>
+<section xml:id="nd-proofs-exact-matches">
+<title>Exact matches</title>
+<p>Conditional Elimination, as well as all of our other natural deduction rules, are syntactically defined. That is to say, the application of the rules depends on the exact shape of the SL sentences in question. Here, again, is the formal statement of the rule:</p>
+<image width="37%"><latex-image label="proof-2335470981-2">
+$\begin{nd}
+	\have[m]{ab}{\metaA{}\eif\metaB{}}
+	\have[n]{a}\metaA{}
+	\have[\ ]{b}\metaB{} \ce{ab,a}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p>It says that any time one has, on one line, a sentence made up of some sentence <m>\metaA{}</m>, followed by the ‘<m>\eif</m>’ symbol, followed by some sentence <m>\metaB{}</m>, where one also has <m>\metaA{}</m> on another line, one may derive <m>\metaB{}</m>. This is the only pattern of inference that this rule permits. <m>\metaA{}</m> and <m>\metaB{}</m> can be any sentences of SL, but a line justified by Conditional Elimination must fit this pattern exactly. It is not enough that one can ‘just see’ that a given sentence follows via a similar pattern of inference.</p>
+<p>For example, this is <em>not</em> a legal derivation in our system:</p>
+<image width="43%"><latex-image label="proof-c450fc4bbd">
+$\begin{nd}
+	\hypo{ab}{P \eif (A \eand B)}
+	\hypo{a}{P}
+	\have{b}{B}\ce{ab,a}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p>The Conditional Elimination rule requires that the new sentence derived be the consequent of the conditional cited. But in this example, <m>B</m> is not the consequent of <m>P\eif (A \eand B)</m> — <m>A \eand B</m> is. It is true that <m>B</m> obviously follows from <m>A \eand B</m>, but the Conditional Elimination rule doesn’t allow you to derive things just because they obviously follow. (Neither does any other rule in our formal system.) To derive <m>B</m> from these premises we’ll need to use another rule. (In particular, we will want to use the Conjunction Elimination rule, given below.)</p>
+<p>To check to make sure you are applying the rules correctly, one good heuristic is to think about whether you are relying on the rule itself, or on your intuitive understanding of the meanings of the symbols we use in SL. Your intuitive understanding is a good way to think about which rules to use, but to check to make sure you’re using the rules properly, think about whether the rules’ exact formulations could explain why it is permissible to extend the derivation in the exact way you’re working with. Pretend, for instance, that you have no idea what the ‘<m>\eif</m>’ symbol means, but you do know that if you have two sentences joined by it on one line, and the first of those two sentences on another line, then you are allowed to copy down the second sentence exactly on a new line. This — and no more — is what the Conditional Elimination rule permits you to do. (This is what we mean when we say the rule is syntactically defined.) It would be pretty trivial to write a computer program to check to see whether a line is properly derived via Conditional Elimination.</p>
+</section>
+<section xml:id="nd-proofs-our-second-rule-modus-tollens">
+<title>Our second rule: <em>modus tollens</em></title>
+<p>Here is another rule one can use with conditionals:</p>
+<image width="37%"><latex-image label="proof-536da82d82">
+$\begin{nd}
+	\have[m]{ab}{\metaA{}\eif\metaB{}}
+	\have[n]{a}{\enot\metaB{}}
+	\have[\ ]{b}{\enot\metaA{}} \by{MT}{ab,a}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p>If you have a conditional on one numbered line, and the negation of its consequent on another line, you may derive the negation of its antecedent on a new line. We abbreviate the justification for this rule as ‘MT’ for <em>modus tollens</em>. If you know that if she found the treasure, she is happy, and you also know that she isn’t happy, then you can very sensibly infer that she didn’t find the treasure.</p>
+<p>You may notice an asymmetry between the labels we use for <em>modus ponens</em> and <em>modus tollens</em>: in the former case, we use Conditional Elimination (<m>\eif</m> E) as its official name, but in the latter case, we call the rule Modus Tollens (MT). We’ll explain in more detail why we use the labels in this way when we discuss ‘basic’ and ‘derived’ rules in §<xref ref="sec-basic" text="global"/> below. For now, the important thing is to understand how to use the rule.</p>
+<p>We do not include a horizontal line in the statement of the rule, because we don’t want to assume that lines <m>m</m> and <m>n</m> are assumptions. They might be — they might be premises in the argument, for example — but they might themselves be derived, and have rules justifying them. It doesn’t matter how we got <m>m</m> and <m>n</m>, it just matters that we have them.</p>
+<p>Here is an example employing <em>Modus Tollens</em> several times over. We will derive <m>\enot A</m> from <m>\{A \eif B, B \eif C, C \eif D, \enot D\}</m>:</p>
+<image width="36%"><latex-image label="proof-e73d0318a8">
+$\begin{nd}
+	\hypo{ab}{A \eif B}
+	\hypo{bc}{B \eif C}
+	\hypo{cd}{C \eif D}
+	\hypo{nd}{\enot D} \want{\enot A}
+	\have{c}{\enot C} \by{MT}{cd,nd}
+	\have{b}{\enot B} \by{MT}{bc,c}
+	\have{a}{\enot A} \by{MT}{ab,b}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p>At each of lines 5–7, we cite a conditional and the negation of its consequent to infer the negation of its antecedent.</p>
+</section>
+<section xml:id="nd-proofs-disjunction-elimination">
+<title>Disjunction Elimination</title>
+<p>Recall this argument form from the Introduction of this chapter:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell/><cell><m>P \eor Q</m></cell></row>
+<row><cell/><cell><m>\enot P</m></cell></row>
+<row><cell>∴</cell><cell><m>Q</m></cell></row></tabular>
+<p>We noted above that this is a different argument form from one that uses <em>modus ponens</em>; instead, it uses a kind of derivation that is specific to disjunction. From a disjunction like <m>P \eor Q</m> alone, you can’t conclude either disjunct, but you can conclude that <em>at least one</em> of the two disjuncts is true. So if you have also established that one of the disjuncts is false — i.e., its negation is true — then you can conclude the other disjunct, as in the argument above.</p>
+<p>This inference form is sometimes called ‘Disjunctive Syllogism’. In our system, it will be our official Disjunction Elimination (<m>\eor</m>E) rule. If you have a disjunction and also the negation of one of its disjuncts, you may conclude the other disjunct.</p>
+<sidebyside widths="36% 36%" margins="0%" valign="top">
+<image><latex-image label="proof-8034641cc7">
+$\begin{nd}
+	\have[m]{ab}{\metaA{}\eor\metaB{}}
+	\have[n]{nb}{\enot\metaB{}}
+	\have[\ ]{a}\metaA{} \oe{ab,nb}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<image><latex-image label="proof-5f8165cfa0">
+$\begin{nd}
+	\have[m]{ab}{\metaA{}\eor\metaB{}}
+	\have[n]{na}{\enot\metaA{}}
+	\have[\ ]{b}\metaB{} \oe{ab,na}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image></sidebyside>
+<p>We represent two different inference patterns here, because the rule allows you to conclude <em>either</em> disjunct from the negation of the other. If we’d only listed the left version of the rule above, then <m>\eor</m>E would’ve only permited one to conclude the <em>first</em> disjunct from the negation of the <em>second</em> one, along with the disjunction. Our rule lets us work with either disjunction. (If you want to be very fussy about it, you could think of these as two different rules with a strong conceptual similarity that happen to have the same name.)</p>
+<p>Now that we have several rules, we are in a position to see how they can interact to construct more interesting proofs. Consider for example this argument form:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell/><cell><m>\enot L \eif (J \eor L)</m></cell></row>
+<row><cell/><cell><m>\enot L</m></cell></row>
+<row><cell>∴</cell><cell><m>J</m></cell></row></tabular>
+<p>The two premises match the requirements for Conditional Elimination (<em>modus ponens</em>). And once that is done, we will be in a position to use Disjunction Elimination to derive the desired conclusion:</p>
+<image width="44%"><latex-image label="proof-4a1cded1dd">
+$\begin{nd}
+	\hypo{c}{\enot L \eif (J \eor L)}
+	\hypo{a}{\enot L}  \want {J}
+	\have{3}{J \eor L} \ce{c,a}
+	\have{4}{J} \oe{a,3}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p>Via Conditional Elimination, we can derive <m>J \eor L</m> from lines 1 and 2. Then from <m>J \eor L</m> and <m>\enot L</m>, we can derive <m>J</m>, by Disjunction Elimination.</p>
+<p>In this example, unlike the others we’ve seen so far, we used the premise on line 2 twice — notice that the 2 appears in the justification for both line 3 and line 4. There is no limit to how many times you can make use of a given line in a natural deduction proof; once something is established, you can make use of it as often as you like.</p>
+</section>
+<section xml:id="nd-proofs-conjunction-introduction">
+<title>Conjunction Introduction</title>
+<p>Here is another rule. It is our Conjunction Introduction rule, which we abbreviate ‘<m>\eand</m>I’:</p>
+<image width="35%"><latex-image label="proof-f6e2c54285">
+$\begin{nd}
+	\have[m]{a}\metaA{}
+	\have[n]{b}\metaB{}
+	\have[\ ]{c}{\metaA{}\eand\metaB{}} \ai{a, b}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p>This rule says that if you have some sentence <m>\metaA{}</m>, and you also have some sentence <m>\metaB{}</m>, you may derive their conjunction, <m>(\metaA{} \eand \metaB{})</m>. It is called Conjunction <em>Introduction</em> because it derives a conjunction from sentences that are not conjunctions.</p>
+<p>Recall again that it is not a requirement either conjunct be an atom, or that <m>m</m> and <m>n</m> be consecutive lines, or that they appear in the order listed here. We require only that each line has been established somewhere above in the proof. If you have <m>K</m> on line 15 and <m>L</m> on line 8, you can prove <m>(K\eand L)</m> at some later point in the proof with the justification ‘<m>\eand</m>I 8, 15.’</p>
+</section>
+<section xml:id="nd-proofs-conjunction-elimination">
+<title>Conjunction Elimination</title>
+<p>We have just seen that Conjunction Introduction allows you to derive a conjunction from a non-conjunction; Conjunction Elimination lets you do the converse. From a conjunction, you may derive either of its conjuncts. From <m>(A \eand (P \eor Q))</m>, for instance, you may derive <m>A</m>, or you may derive <m>(P \eor Q)</m>. (Or you could even apply Conjunction Elimination twice and derive both.)</p>
+<p>This will be our Conjunction Elimination rule, which we abbreviate ‘<m>\eand</m>E’:</p>
+<image width="33%"><latex-image label="proof-1779446ee4">
+$\begin{nd}
+	\have[m]{ab}{\metaA{}\eand\metaB{}}
+	\have[\ ]{a}\metaA{} \ae{ab}
+	\have[\ ]{b}\metaB{} \ae{ab}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p>This rule lets you derive either conjunct. (You do not have to derive both, as indicated in the proof template representing the rule, but you can, via two applications of the rule.) So for example, this is a perfectly acceptable natural deduction proof:</p>
+<image width="31%"><latex-image label="proof-d03a6c4d5f">
+$\begin{nd}
+	\hypo[1]{ab}{A \eand B}
+	\have[2]{b}B \ae{ab}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p>Note that the <m>\eand</m>E rule requires only one sentence, so we write one line number as the justification for applying it.</p>
+<p>Here is an example illustrating our two conjunction rules working together. Consider this argument.</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell/><cell><m>[(A\eor B)\eif(C\eor D)] \eand [(E \eor F) \eif (G\eor H)]</m></cell></row>
+<row><cell>∴</cell><cell><m>[(E \eor F) \eif (G\eor H)] \eand [(A\eor B)\eif(C\eor D)]</m></cell></row></tabular>
+<p>The main logical operator in both the premise and conclusion is conjunction. Since conjunction is symmetric, the argument is obviously valid. The two conjunctions have the same two conjuncts, in the opposite order. In order to provide a proof, we begin by writing down the premise. After the premises, we draw a horizontal line — everything below this line must be justified by a rule of proof. So the beginning of the proof looks like this:</p>
+<image width="68%"><latex-image label="proof-d0fdbf2df1">
+$\begin{nd}
+	\hypo{ab}{{[}(A\eor B)\eif(C\eor D){]} \eand {[}(E \eor F) \eif (G\eor H){]}}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p>From the premise, we can get each of the conjuncts by <m>\eand</m>E. The proof now looks like this:</p>
+<image width="81%"><latex-image label="proof-8fdf855e6c">
+$\begin{nd}
+	\hypo{ab}{{[}(A\eor B)\eif(C\eor D){]} \eand {[}(E \eor F) \eif (G\eor H){]}}
+	\have{a}{{[}(A\eor B)\eif(C\eor D){]}} \ae{ab}
+	\have{b}{{[}(E \eor F) \eif (G\eor H){]}} \ae{ab}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p>The <m>\eand</m>I rule requires that we have each of the conjuncts available somewhere in the proof. They can be separated from one another, and they can appear in any order. So by applying the <m>\eand</m>I rule to lines 3 and 2, we arrive at the desired conclusion. The finished proof looks like this:</p>
+<image width="84%"><latex-image label="proof-c68b1406e6">
+$\begin{nd}
+	\hypo{ab}{{[}(A\eor B)\eif(C\eor D){]} \eand {[}(E \eor F) \eif (G\eor H){]}}
+	\have{a}{{[}(A\eor B)\eif(C\eor D){]}} \ae{ab}
+	\have{b}{{[}(E \eor F) \eif (G\eor H){]}} \ae{ab}
+	\have{ba}{{[}(E \eor F) \eif (G\eor H){]} \eand {[}(A\eor B)\eif(C\eor D){]}} \ai{a,b}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p>This proof may not look terribly interesting or surprising, but it shows how we can use rules of proof together to demonstrate the validity of an argument form. Note also that using a truth table to show that this argument is valid would have required a staggering 256 lines, since there are eight sentence letters in the argument. A proof via trees would be less unwieldy than that, but it would be less simple and elegant than this one. (Constructing such a proof would be a good exercise for tree review.)</p>
+</section>
+<section xml:id="sec-basic">
+<title>Basic and derived rules</title>
+<p>We have so far introduced five rules: Conditional Elimination, <em>modus tollens</em>, Disjunction Elimination, Conjunction Elimination, and Conjunction Introduction. There are more rules still to learn, but it is helpful first to pause and draw a distinction between different kinds of rules.</p>
+<p>Many of our rules, we have seen, carry the name ‘Elimination’ or ‘Introduction’, along with the name of one of our SL connectives. In fact, every rule we’ve seen so far except <em>modus tollens</em> has had such a name. Such rules are the <em>basic</em> rules in our natural deduction system. The basic rules comprise an Introduction and an Elimination rule for each connective, plus one more rule. <em>Modus tollens</em> is not a basic rule; we will call it a <em>derived</em> rule.</p>
+<p>A derived rule is a non-basic rule whose validity we can derive using basic rules only. A useful fact about our natural deduction system is that the basic rules themselves are enough to derive every SL validity. Derived rules are helpful for making some proofs shorter or more intuitive, but one could prove anything provable without them.</p>
+<p>We have already seen the Introduction and Elimination rules for conjunction, and the elimination rules for disjunction and conditionals. In the next several sections, we’ll finish canvassing the basic rules, then say a bit more about <em>modus tollens</em> and other derived rules.</p>
+</section>
+<section xml:id="nd-proofs-the-remaining-basic-rules">
+<title>The remaining basic rules</title>
+<introduction>
+<p>All of the rules introduced in this chapter are summarized in the Quick Reference guide at the end of this book.</p></introduction>
+<subsection xml:id="nd-proofs-disjunction-introduction">
+<title>Disjunction Introduction</title>
+<p>If <m>M</m> is true, then <m>M \eor N</m> must also be true. In general, the Disjunction Introduction rule (<m>\eor</m>I) allows us to derive a disjunction if we already have one of its two disjuncts:</p>
+<image width="31%"><latex-image label="proof-f3414c29ef">
+$\begin{nd}
+	\have[m]{a}\metaA{}
+	\have[\ ]{ab}{\metaA{}\eor\metaB{}}\oi{a}
+	\have[\ ]{ba}{\metaB{}\eor\metaA{}}\oi{a}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p>One can introduce a disjunct in either position — it can be the first disjunct or the second disjunct. Accordingly, both options are listed here. (One is not required to do both; you can just take whichever version you find most helpful.)</p>
+<p>As always, <m>\metaB{}</m> can be <em>any</em> sentence whatsoever. So the following is a legitimate proof:</p>
+<image width="73%"><latex-image label="proof-1f428cdc9e">
+$\begin{nd}
+	\hypo{m}{M}
+	\have{mmm}{M \eor ([(A\eiff B) \eif (C \eand D)] \eiff [E \eand F])}\oi{m}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p>It may seem odd that just by knowing <m>M</m> we can derive a conclusion that includes sentences like <m>A</m>, <m>B</m>, and the rest — sentences that have nothing to do with <m>M</m>. Yet the conclusion follows immediately by <m>\eor</m>I. This is as it should be: The truth conditions for the disjunction mean that, if <m>\metaA{}</m> is true, then <m>\metaA{}\eor \metaB{}</m> is true regardless of what <m>\metaB{}</m> is. So the conclusion could not be false if the premise were true; the argument form is valid.</p></subsection>
+<subsection xml:id="nd-proofs-conditional-introduction">
+<title>Conditional Introduction</title>
+<p>Consider this argument:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell/><cell><m>R \eor F</m></cell></row>
+<row><cell>∴</cell><cell><m>\enot R \eif F</m></cell></row></tabular>
+<p>The argument form seems like it should be valid — either <m>R</m> or <m>F</m> is true, so if <m>R</m> isn’t true, <m>F</m> must be. (You can confirm that it is valid by examining the truth tables.) The Conditional Introduction rule can demonstrate that this is so.</p>
+<p>We begin the proof by writing down the premise of the argument, making a note of our intended conclusion, and drawing a horizontal line, like this:</p>
+<image width="41%"><latex-image label="proof-8d35021e8c">
+$\begin{nd}
+	\hypo{rf}{R \eor F} \want{\enot R \eif F}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p>If we had <m>\enot R</m> as a further premise, we could derive <m>F</m> by the <m>\eor</m>E rule. But we do not have <m>\enot R</m> as a premise of this argument, nor can we derive it directly from the premise we do have — so we cannot simply prove <m>F</m>. What we will do instead is start a <em>subproof</em>, a proof within the main proof. When we start a subproof, we draw another vertical line to indicate that we are no longer in the main proof. Then we write in an assumption for the subproof. This can be anything we want. Here, it will be helpful to assume <m>\enot R</m>. We want to show that, if we did assume that, we would be able to derive <m>F</m>. So we make a new assumption that <m>\enot R</m>, and give ourselves a note that we wish to derive <m>F</m>. Our proof now looks like this:</p>
+<image width="43%"><latex-image label="proof-0fc47370e6">
+$\begin{nd}
+	\hypo{rf}{R \eor F}  \want{\enot R \eif F}
+	\open
+		\hypo{nr}{\enot R} \want {F}
+		\have{}{}
+	\close
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p>It is important to emphasize that we are not claiming to have <em>proven</em> <m>\enot R</m> from the premise on line 1. We do not need to write in any justification for the assumption line of a subproof. (The ‘want’ is a note to ourself, not a justification.) The new horizontal line indicates that a new <em>assumption</em> is being made; we also include a vertical line that extends to lines below, to indicate that this assumption remains in effect. You can think of the subproof as posing the question: What could we show <em>if</em> <m>\enot R</m> were true? We are trying to show that we could derive <m>F</m>. And indeed, we can:</p>
+<image width="43%"><latex-image label="proof-065d89e0ce">
+$\begin{nd}
+	\hypo{rf}{R \eor F}  \want{\enot R \eif F}
+	\open
+		\hypo{nr}{\enot R} \want {F}
+		\have{f}{F}\oe{rf, nr}
+	\close
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p>This has shown that <em>if</em> we had <m>\enot R</m> as a premise, <em>then</em> we could prove <m>F</m>. In effect, we have proven that <m>F</m> follows from <m>\enot R</m>. This is indeed very close to demonstrating the conditional, <m>\enot R \eif F</m>. This last step is just what the Conditional Introduction rule will allow us to perform. We close the subproof and derive <m>\enot R \eif F</m> in the main proof. Our final proof looks like this:</p>
+<image width="36%"><latex-image label="proof-bed688c738">
+$\begin{nd}
+	\hypo{rf}{R \eor F}
+	\open
+		\hypo{nr}{\enot R}\want {F}
+		\have{f}{F}\oe{rf, nr}
+	\close
+	\have{nrf}{\enot R \eif F}\ci{nr-f}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p>The <m>\eif</m>I rule lets us <term>discharge</term> the assumption we’d been making, ending that vertical line. We also stop indenting — the difference in placement of lines 3 and 4 emphasizes that they are importantly different: during lines 2 and 3, we were <em>assuming</em> that <m>\enot R</m>. By the time we get to line 4, we are no longer making that assumption.</p>
+<p>Notice that the justification for applying the <m>\eif</m>I rule is the entire subproof. That’s why we justify it by reference to a range of lines, instead of a comma-separated list. In this example, that was just two lines, but often, we’ll cite longer subproofs.</p>
+<p>It may seem as if the ability to assume anything at all in a subproof would lead to chaos: Does it allow you to prove any conclusion from any premises? The answer is no, it does not. Consider this proof schema:</p>
+<image width="38%"><latex-image label="proof-6ae285a704">
+$\begin{nd}
+	\hypo{a}\metaA{}
+	\open
+		\hypo{b1}\metaB{}
+		\have{b2}{\metaB{}\eand \metaA{}} \ai{a,b1}
+	\close
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p>Does this show that one can conjoin any arbitrary sentence <m>\metaB{}</m> with premise <m>\metaA{}</m>? After all, we’ve written <m>\metaB{}\eand\metaA{}</m> on a line of a proof that began with <m>\metaA{}</m>, without violating any of the rules of our system. The reason this doesn’t have that implication is the vertical line that still extends into line 3. That line indicates that the assumption made at line 2 is still in effect. When the vertical line for the subproof ends, the subproof is <em>closed</em>. In order to complete a proof, you must close all of the subproofs. The conclusion to be proved must not be ‘blocked off’ by a vertical line; it should be aligned with the premises.</p>
+<p>In this example, there is no way to close the subproof and show that the conjunction follows from line 1 alone. One can only close a subproof via particular rules that allow you to do so; <m>\eif</m>I is one such rule; <m>\eand</m>I does not close subproofs. One can’t just close a subproof willy-nilly. Closing a subproof is called <em>discharging</em> the assumptions of that subproof. So we can put the point this way: You cannot complete a proof until you have discharged all of the assumptions other than the original premises of the argument.</p>
+<p>Of course, it is legitimate to do this:</p>
+<image width="41%"><latex-image label="proof-ca877b6028">
+$\begin{nd}
+	\hypo{a}\metaA{}
+	\open
+		\hypo{b1}\metaB{}
+		\have{b2}{\metaB{}\eand \metaA{}} \ai{a,b1}
+	\close
+	\have{c}{\metaB{} \eif (\metaB{}\eand\metaA{})} \ci{b1-b2}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p>This should not seem so strange, though. The conclusion on line 4 really does follow from line 1. (Draw a truth table if you need convincing of this.)</p>
+<p>Once an assumption has been discharged, any lines that have been shown to follow from that assumption — i.e., those lines inside the box indicated by the vertical line of that assumption — cannot be cited as justification on further lines. So this development of the proof above, for instance, is not permitted:</p>
+<image width="36%"><latex-image label="proof-f9f53d886c">
+$\begin{nd}
+	\hypo{rf}{R \eor F}
+	\open
+		\hypo{nr}{\enot R}\want {F}
+		\have{f}{F}\oe{rf, nr}
+	\close
+	\have{nrf}{\enot R \eif F}\ci{nr-f}
+	\have{bad}{F \eor A}\oi{f}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p>Once the assumption made at line 2 has been discharged at line 4, the lines within that assumption — 2 and 3 — are unavailable for further justification. So one cannot perform Disjunction Introduction on line 3 at line 5. Line 3 was not demonstrated to follow from the premise on line 1 — it follows only from this combined with the <em>assumption</em> on line 2. And by the time we get to line 5, we are no longer making that assumption.</p>
+<p>Put in its general form, the <m>\eif</m>I rule looks like this:</p>
+<image width="35%"><latex-image label="proof-fe55f18984">
+$\begin{nd}
+	\open
+		\hypo[m]{a}\metaA{} \by{want \metaB{}}{}
+		\have[n]{b}\metaB{}
+	\close
+	\have[\ ]{ab}{\metaA{}\eif\metaB{}}\ci{a-b}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p>When we introduce a subproof, we typically write what we want to derive off to the right. This is just so that we do not forget why we started the subproof if it goes on for five or ten lines. There is no ‘want’ rule. It is a note to ourselves, and not formally part of the proof.</p>
+<p>Although it is consistent with the natural deduction rules to open a subproof with any assumption you please, there are some very important guidelines you should always make sure to follow, when working with assumptions. Starting a subproof with a random assumption is a terrible strategy. It will just waste lines of the proof. Never make an assumption unless you already have a specific plan for how you are going to discharge it. In order to derive a conditional by the <m>\eif</m>I rule, for instance, you must assume the antecedent of that conditional.</p>
+<p>The <m>\eif</m>I rule also requires that the consequent of the conditional be the last line of the subproof. It is always permissible to close a subproof and discharge its assumptions, but it will not be helpful to do so until you get what you want. This is an illustration of the observation made above, that unlike the tree method, the natural deduction method requires some strategy and thinking ahead.</p>
+<assemblage>
+<p>You should <em>never</em> make an assumption without a plan for how to discharge it.</p></assemblage>
+<p>So far, conditional introduction is the only rule we’ve looked at that involves assumptions, but we’ll see two more assumption-involving rules later in the chapter.
+Here is another example of an argument form whose validity we can prove using the conditional rules.</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell/><cell><m>P \eif Q</m></cell></row>
+<row><cell/><cell><m>Q \eif R</m></cell></row>
+<row><cell>∴</cell><cell><m>P \eif R</m></cell></row></tabular>
+<p>We begin the proof by writing the two premises as assumptions. Since the main logical operator in the conclusion is a conditional, we can expect to use the <m>\eif</m>I rule. For that, we need a subproof — so we write in the antecedent of the conditional as assumption of a subproof. We make a note that we are aiming for the consequent of that conditional:</p>
+<image width="34%"><latex-image label="proof-9f301eca29">
+$\begin{nd}
+	\hypo{pq}{P \eif Q}
+	\hypo{qr}{Q \eif R}
+	\open
+		\hypo{p}{P} \want {R}
+	\close
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p>We made <m>P</m> available by assuming it in a subproof, allowing us to use <m>\eif</m>E on the first premise. This gives us <m>Q</m>, which allows us to use <m>\eif</m>E on the second premise. Having derived <m>R</m>, we close the subproof. By assuming <m>P</m> we were able to prove <m>R</m>, so we apply the <m>\eif</m>I rule and finish the proof:</p>
+<image width="35%"><latex-image label="proof-c2ce91226f">
+$\begin{nd}
+	\hypo{pq}{P \eif Q}
+	\hypo{qr}{Q \eif R}
+	\open
+		\hypo{p}{P}\want {R}
+		\have{q}{Q}\ce{pq,p}
+		\have{r}{R}\ce{qr,q}
+	\close
+	\have{pr}{P \eif R}\ci{p-r}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image></subsection>
+<subsection xml:id="nd-proofs-biconditional-introduction">
+<title>Biconditional Introduction</title>
+<p>Biconditionals indicate that the two sides have the same truth value. One establishes a biconditional by establishing each direction of it as conditionals. To derive <m>W \eiff X</m>, for instance, you must establish both <m>W \eif X</m> and <m>X \eif W</m>. (You might derive those conditionals via <m>\eif</m>I, or you might get them some other way. They might even simply be premises.) Those conditionals may occur in either order; they need not be on consecutive lines. (Compare the shape of the <m>\eand</m>I rule.) Schematically, the Biconditional Introduction rule works like this:</p>
+<image width="36%"><latex-image label="proof-938298bcf0">
+$\begin{nd}
+	\have[m]{ab}{\metaA{}\eif\metaB{}}
+	\have[n]{ba}{\metaB{}\eif\metaA{}}
+	\have[\ ]{c}{\metaA{}\eiff\metaB{}} \bi{ab, ba}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image></subsection>
+<subsection xml:id="nd-proofs-biconditional-elimination">
+<title>Biconditional Elimination</title>
+<p>The Biconditional Elimination rule (<m>\eiff</m>E) is a generalized version of <em>modus ponens</em> (<m>\eif</m>E). If you have the left-hand subsentence of the biconditional, you can derive the right-hand subsentence. If you have the right-hand subsentence, you can derive the left-hand subsentence. This is the rule:</p>
+<sidebyside widths="37% 37%" margins="0%" valign="top">
+<image><latex-image label="proof-5e58997e92">
+$\begin{nd}
+	\have[m]{ab}{\metaA{}\eiff\metaB{}}
+	\have[n]{a}\metaA{}
+	\have[\ ]{b}\metaB{} \be{ab,a}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<image><latex-image label="proof-826bb60753">
+$\begin{nd}
+	\have[m]{ab}{\metaA{}\eiff\metaB{}}
+	\have[n]{a}\metaB{}
+	\have[\ ]{b}\metaA{} \be{ab,a}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image></sidebyside>
+<p>As in the case of Disjunction Elimination, we include both versions under the same name, so that you don’t need to worry about whether the side you already have is the left-hand side of the biconditional or the right-hand side. Whichever side it is, you may derive the other via Biconditional Elimination.</p></subsection>
+<subsection xml:id="nd-proofs-reductio-and-the-negation-rules">
+<title><em>Reductio</em> and the negation rules</title>
+<p>Here is a simple mathematical argument in English:</p>
+<p>
+<dl width="narrow">
+<li>
+<title> </title>
+<p>Assume there is some greatest natural number. Call it <m>A</m>.</p></li>
+<li>
+<title> </title>
+<p>That number plus one is also a natural number.</p></li>
+<li>
+<title> </title>
+<p>Obviously, <m>A+1 &gt; A</m>.</p></li>
+<li>
+<title> </title>
+<p>So there is a natural number greater than <m>A</m>.</p></li>
+<li>
+<title> </title>
+<p>This is impossible, since <m>A</m> is assumed to be the greatest natural number.</p></li>
+<li>
+<title>∴</title>
+<p>There is no greatest natural number.</p></li></dl></p>
+<p>This kind of argument form is traditionally called a <em>reductio</em>. Its full Latin name is <em>reductio ad absurdum</em>, which means ‘reduction to absurdity.’ (You will also sometimes see proofs of this form described as ‘indirect’ proofs.) In a <em>reductio</em>, we assume something for the sake of argument — for example, that there is a greatest natural number. Then we show that the assumption leads to two contradictory sentences — for example, that <m>A</m> is the greatest natural number and that it is not. In this way, we show that the original assumption must have been false.</p>
+<p>The basic rules for negation will allow for arguments like this. Like the Conditional Introduction rule, our negation rules allow us to make new assumptions with no justification — we draw a new vertical line, and a note to ourselves as to what we are trying to do. If we assume something and show that it leads to contradictory sentences, then we have proven the negation of the assumption. This is the Negation Introduction (<m>\enot</m>I) rule:</p>
+<image width="44%"><latex-image label="proof-af46e2e497">
+$\begin{nd}
+\open
+	\hypo[m]{na}\metaA{}\by{for \emph{reductio}}{}
+	\have[n]{b}\metaB{}
+	\have[o]{nb}{\enot\metaB{}}
+\close
+\have[\ ]{a}[\ ]{\enot\metaA{}}\ni{na-b, na-nb}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p>The <m>\enot</m>I rule discharges the assumption for <em>reductio</em>, concluding its negation, when it’s shown that some sentence and its negation each follow from the assumption. It cites two (overlapping) ranges: a subproof from the assumption to some sentence <m>\metaB{}</m>, and a subproof from that same assumption to <m>\enot\metaB{}</m>. We write ‘for <em>reductio</em>’ to the right of the assumption, as a note to ourselves, a reminder of why we started the subproof. It is not formally part of the proof, but it is helpful for thinking clearly about it and planning ahead. (An alternate notation would be ‘want <m>\bot</m>’ instead of ‘for <em>reductio</em>.’ Either would be a way to indicate that we are now attempting to derive an absurdity within this subproof.)</p>
+<p>To see how the rule works, suppose we want to prove an instance of the law of non-contradiction: <m>\enot(G \eand \enot G)</m>. We can prove this without any premises by immediately starting a subproof. We want to apply <m>\enot</m>I to the subproof, so we assume <m>(G \eand \enot G)</m>. We then get an explicit contradiction by <m>\eand</m>E. The proof looks like this:</p>
+<image width="46%"><latex-image label="proof-039eaefa4d">
+$\begin{nd}
+	\open
+		\hypo{gng}{G\eand \enot G}\by{for \emph{reductio}}{}
+		\have{g}{G}\ae{gng}
+		\have{ng}{\enot G}\ae{gng}
+	\close
+	\have{ngng}{\enot(G \eand \enot G)}\ni{gng-g, gng-ng}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p>This is our first example of a natural deduction proof with no premises. It is a way to show that its conclusion is a tautology.</p>
+<p>The <m>\enot</m>E rule will work in much the same way. If we assume <m>\enot\metaA{}</m> and show that it leads to a sentence and its negation, we have effectively proven <m>\metaA{}</m>. So the rule looks like this:</p>
+<image width="45%"><latex-image label="proof-4ec827c499">
+$\begin{nd}
+\open
+	\hypo[m]{na}{\enot\metaA{}}\by{for \emph{reductio}}{}
+	\have[n]{b}\metaB{}
+	\have[o]{nb}{\enot\metaB{}}
+\close
+\have[\ ]{a}[\ ]\metaA{}\ne{na-b, na-nb}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p>This is a good time to reiterate the important advice I gave in the discussion of assumptions and conditional introduction:</p>
+<assemblage>
+<p>You should <em>never</em> make an assumption without a plan for how to discharge it.</p></assemblage>
+<p>There are only three good reasons to ever make an assumption, when working in our SL natural deduction proof system, and each reason indicates exactly what you should assume, and where you want to get in the subproof, based on what you’re trying to prove. First, if you want to prove a conditional <m>\metaA{}\eif\metaB{}</m>, assume the antecedent <m>\metaA{}</m>, and try to derive the consequent <m>\metaB{}</m>. This will let you derive the conditional, via conditional introduction. Second, if you want to prove a negation <m>\enot\metaA{}</m> via <em>reductio</em>, assume the negand, <m>\metaA{}</m>, and try to derive some sentence <m>\metaB{}</m> along with its negation, <m>\enot\metaB{}</m>. Then you can use negation introduction to derive <m>\enot\metaA{}</m>. Third, if you want to prove some sentence <m>\metaA{}</m> via <em>reductio</em>, assume the negation, <m>\enot\metaA{}</m>, and once again try to derive some <m>\metaB{}</m> along with <m>\enot\metaB{}</m>. This will allow you to prove <m>\metaA{}</m> by negation elimination.</p>
+<p><em>Never</em> make an assumption, in this proof system, unless it exactly matches one of those three patterns.</p></subsection>
+</section>
+<section xml:id="nd-proofs-derived-rules">
+<title>Derived rules</title>
+<introduction>
+<p>A <term>derived rule</term> is a rule of proof that does not make any new proofs possible. Anything that can be proven with a derived rule can be proven without it. You can think of a short proof using a derived rule as shorthand for a longer proof that uses only the basic rules.</p></introduction>
+<subsection xml:id="sec-reiteration">
+<title>Reiteration</title>
+<p>Here is a very simple rule, called Reiteration (R). If you already have shown something in the course of a proof, the Reiteration rule allows you to repeat it on a new line. Put formally:</p>
+<image width="24%"><latex-image label="proof-75fae674ce">
+$\begin{nd}
+	\have[m]{a1}\metaA{}
+	\have[\ ]{a2}\metaA{} \by{R}{a1}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p>Here is a simple derivation of Reiteration using our basic rules:</p>
+<image width="32%"><latex-image label="proof-1b563754eb">
+$\begin{nd}
+	\hypo{a1}\metaA{}
+	\have{a2}{\metaA{} \eand \metaA{}} \ai{a1,a1}
+	\have{a3}\metaA{}  \ae{a2}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p>Obviously, the reiteration rule will not allow us to show anything <em>new</em>. For that, we will need to use other rules. Still, Reiteration is a handy rule to have available. Here, for instance, is a proof using Reiteration to help with a Negation Introduction:</p>
+<image width="41%"><latex-image label="proof-086ba68bb4">
+$\begin{nd}
+	\hypo{p}{P}
+	\hypo{qnp}{Q \eif \enot P} \want{\enot Q}
+	\open
+		\hypo{q}{Q} \by{for \emph{reductio}}{}
+		\have{np}{\enot P}\ce{qnp,q}
+		\have{nnp}{P}\by{R}{p}
+	\close
+	\have{nq}{\enot Q}\ni{q-np, q-nnp}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p>Negation Introduction requires that one show that some sentence and its negation are both derivable from the assumption for <em>reductio</em>. In this case, we establish that <m>P</m> and <m>\enot P</m> both follow from the assumption that <m>Q</m>. In the case of <m>\enot P</m>, we can get it directly via Conditional Elimination; the easiest way to get the <m>P</m> that we need is simply to reiterate it from line 1. But it would also be possible to do a version of this proof using more steps without Reiteration, by using Conjunction Introduction and Conjunction Elimination together instead.</p></subsection>
+<subsection xml:id="nd-proofs-modus-tollens">
+<title>Modus tollens</title>
+<p>We have been discussing <em>modus tollens</em> throughout this chapter, and in §<xref ref="sec-reiteration" text="global"/> we showed how, in the case of one simple proof using <em>modus tollens</em>, we can instead give a slightly longer proof using basic rules and Reiteration. In fact, we can prove this much more generally, via this proof schema:</p>
+<image width="41%"><latex-image label="proof-c1d65edc3b">
+$\begin{nd}
+	\hypo{p}{\metaA{}}
+	\hypo{qnp}{\metaB{} \eif \enot \metaA{}} \want{\enot \metaB{}}
+	\open
+		\hypo{q}{\metaB{}} \by{for \emph{reductio}}{}
+		\have{np}{\enot \metaA{}}\ce{qnp,q}
+		\have{nnp}{\metaA{}}\by{R}{p}
+	\close
+	\have{nq}{\enot \metaB{}}\ni{q-np, q-nnp}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p>Reiteration is not a basic rule, so this by itself isn’t <em>quite</em> a proof that we can derive <em>modus tollens</em> from our basic rules. But since we have already seen that Reiteration itself can be derived from basic rules, we know that any Reiteration step can be replaced with a series of steps using only basic rules. If we did it using basic rules only, we’d replace line 5 with a 2-step version of the Reiteration derivation from §<xref ref="sec-reiteration" text="global"/>:</p>
+<image width="43%"><latex-image label="proof-010a71bb61">
+$\begin{nd}
+	\hypo{p}{\metaA{}}
+	\hypo{qnp}{\metaB{} \eif \enot \metaA{}} \want{\enot \metaB{}}
+	\open
+		\hypo{q}{\metaB{}} \by{for \emph{reductio}}{}
+		\have{np}{\enot \metaA{}}\ce{qnp,q}
+		\have{nnp}{\metaA{}\eand\metaA{}}\ai{p}
+		\have{nnnp}{\metaA{}}\ae{nnp}		
+	\close
+	\have{nq}{\enot \metaB{}}\ni{q-np, q-nnnp}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p>As always, <m>\metaA{}</m> and <m>\metaB{}</m> are meta-variables. They are not symbols of SL, but stand-ins for arbitrary sentences of SL. So this is not, strictly speaking, a proof in SL. It is more like a recipe; no matter what sentences you want to use <em>modus tollens</em> on, if that rule would allow it, this pattern of proof will get you to the same place using basic rules only. This means that <em>modus tollens</em> is not really necessary; we could prove everything we want to prove without it.</p>
+<p>Nevertheless, it is a convenient shortcut. We add it to our list of derived rules.</p></subsection>
+<subsection xml:id="nd-proofs-dilemma">
+<title>Dilemma</title>
+<p>Here is the Dilemma rule:</p>
+<image width="41%"><latex-image label="proof-1074a8f4ed">
+$\begin{nd}
+	\have[m]{ab}{\metaA{}\eor\metaB{}} 
+	\have[n]{ac}{\metaA{}\eif\metaC{}}
+	\have[o]{bc}{\metaB{}\eif\metaC{}}
+	\have[\ ]{c}{\metaC{}} \by{DIL}{ab,ac,bc}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p>It might not be immediately obvious that this is a valid inference rule, but if you think about it a minute, you may be able to see why it is a good rule. If you know that two conditionals are true, and they have the same consequent, and you also know that one of the two antecedents is true, then whichever of those two disjuncts is true, will license a <em>modus ponens</em> inference to the conclusion.</p>
+<p>For example, suppose you know all of the following:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell/><cell>If it is raining, the car is wet.</cell></row>
+<row><cell/><cell>If it is snowing, the car is wet.</cell></row>
+<row><cell/><cell>It is raining or it is snowing.</cell></row></tabular>
+<p>From these premises, you can definitely establish that the car is wet. This is the form that the Dilemma rule captures. We use the label ‘dilemma’ to convey the idea that, whichever way you pick, you’ll be stuck with the same conclusion. (“You’re damned if you do, and you’re damned if you don’t...”)</p>
+<p>The Dilemma rule is also derivable from the basic rules. The proof is a bit more complicated, but here it is in schematic form:</p>
+<image width="51%"><latex-image label="proof-79cb67784d">
+$\begin{nd}
+	\hypo{ab}{\metaA{}\eor\metaB{}}
+	\hypo{ac}{\metaA{}\eif\metaC{}}
+	\hypo{bc}{\metaB{}\eif\metaC{}}\by{want \metaC{}}{}
+	\open
+		\hypo{nc}{\enot \metaC{}}\by{for \emph{reductio}}{}
+		\open
+			\hypo{a1}\metaA{}\by{for \emph{reductio}}{}
+			\have{c1}{\metaC{}}\ce{ac, a1}
+			\have{nc1}{\enot\metaC{}}\by{R}{nc}
+		\close
+		\have{na}{\enot\metaA{}}\ni{a1-c1, a1-nc1}
+		\open
+			\hypo{b2}\metaB{}\by{for \emph{reductio}}{}
+			\have{c2}{\metaC{}}\ce{bc, b2}
+			\have{nc2}{\enot\metaC{}}\by{R}{nc}
+		\close
+		\have{nb}{\enot\metaB{}}\ni{b2-c2, b2-nc2}
+		\have{b}\metaB{}\oe{ab, na}
+	\close
+	\have{c}{\metaC{}} \ne{nc-b, nc-nb}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p>To understand this proof, think about the broad outline of it. Ultimately, we derive <m>\metaC{}</m> via Negation Elimination; that’s why we assumed <m>\enot\metaC{}</m> on line 4, and worked our way to a contradiction on lines 12–13. The internal lines are subproofs to the intermediate conclusions <m>\metaB{}</m> and <m>\enot\metaB{}</m>.</p>
+<p>This is our first example of a natural deduction proof that involves nested assumptions. You can assume something new even while a previous assumption is open, as this proof does at line 5. Make sure to close the assumptions in the proper order, closing the newest assumptions first. (Here, the line 5 assumption must be closed, as it is after line 7, before the line 4 one is, at the end of the proof.)</p>
+<p>As in the case of <em>modus tollens</em>, Dilemma doesn’t allow us to prove anything we couldn’t prove via basic rules. Anytime you wanted to use the Dilemma rule, you could always take ten extra lines and prove the same thing in basic rules. But it’s a useful shorthand to include on our list of derived rules.</p></subsection>
+<subsection xml:id="nd-proofs-hypothetical-syllogism">
+<title>Hypothetical Syllogism</title>
+<p>We also add hypothetical syllogism (HS) as a derived rule:</p>
+<image width="37%"><latex-image label="proof-1c0a6a3fbf">
+$\begin{nd}
+	\have[m]{ab}{\metaA{}\eif\metaB{}}
+	\have[n]{bc}{\metaB{}\eif\metaC{}}
+	\have[\ ]{ac}{\metaA{}\eif\metaC{}}\by{HS}{ab,bc}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p>We have already given a proof of one instance of Hypothetical Syllogism in <xref ref="nd-proofs-conditional-introduction" text="type-global"/>. The general proof schema is just the same, but with <m>P</m>, <m>Q</m>, and <m>R</m> replaced with <m>\metaA{}</m>, <m>\metaB{}</m>, and <m>\metaC{}</m>, respectively.</p></subsection>
+</section>
+<section xml:id="nd-proofs-rules-of-replacement">
+<title>Rules of replacement</title>
+<p>Consider how you would prove this argument form valid: <m>F\eif(G\eand H)</m> ∴ <m>F\eif G</m></p>
+<p>Perhaps it is tempting to write down the premise and apply the <m>\eand</m>E rule to the conjunction <m>(G \eand H)</m>. This is impermissible, however, because the basic rules of proof can only be applied to whole sentences. In order to use <m>\eand</m>E, we need to get the conjunction <m>(G \eand H)</m> on a line by itself. Here is a proof:</p>
+<image width="43%"><latex-image label="proof-dbc9e78133">
+$\begin{nd}
+	\hypo{fgh}{F\eif(G\eand H)}
+	\open
+		\hypo{f}{F}\by{want $G$}{}
+		\have{gh}{G \eand H}\ce{fgh,f}
+		\have{g}{G}\ae{gh}
+	\close
+	\have{fg}{F \eif G}\ci{f-g}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p>The rules we have seen so far must apply to wffs that are on a proof line by themselves. We will now introduce some derived rules that may be applied to wffs that are parts of more complex sentences. These are called <term>rules of replacement</term>, because they can be used to replace part of a sentence with a logically equivalent expression. One simple rule of replacement is Commutativity (abbreviated Comm), which says that we can swap the order of conjuncts in a conjunction or the order of disjuncts in a disjunction. We define the rule thus:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell><m>(\metaA{}\eand\metaB{}) \Longleftrightarrow (\metaB{}\eand\metaA{})</m></cell></row>
+<row><cell><m>(\metaA{}\eor\metaB{}) \Longleftrightarrow (\metaB{}\eor\metaA{})</m></cell></row>
+<row><cell><m>(\metaA{}\eiff\metaB{}) \Longleftrightarrow (\metaB{}\eiff\metaA{})</m></cell><cell>Comm</cell></row></tabular>
+<p>The double arrow means that you can take a subformula on one side of the arrow and replace it with the subformula on the other side. The arrow is double-headed because rules of replacement work in both directions. And replacement rules — unlike all the rules we’ve seen so far — can be applied to wffs that are part of more complex sentences. They don’t need to be on their own line.</p>
+<p>Consider this argument: <m>(M \eor P) \eif (P \eand M)</m> ∴ <m>(P \eor M) \eif (M \eand P)</m></p>
+<p>It is possible to give a proof of this using only the basic rules, but it will be somewhat tedious. With the Comm rule, we can provide a proof easily:</p>
+<image width="54%"><latex-image label="proof-c6954946b3">
+$\begin{nd}
+	\hypo{1}{(M \eor P) \eif (P \eand M)}
+	\have{2}{(P \eor M) \eif (P \eand M)}\by{Comm}{1}
+	\have{n}{(P \eor M) \eif (M \eand P)}\by{Comm}{2}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p>(We need to apply the rule twice, because each application allows one transformation. We transformed the antecedent first, then the consequent. The opposite order would also have been fine.)</p>
+<p>Another rule of replacement is Double Negation (DN). With the DN rule, you can remove or insert a pair of negations for any wff in a line, even if it isn’t the whole line. This is the rule:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell><m>\enot\enot\metaA{} \Longleftrightarrow \metaA{}</m></cell><cell>DN</cell></row></tabular>
+<p>Two more replacement rules  are called De Morgan’s Laws, named for the 19th-century British logician Augustus De Morgan. (Although De Morgan did formalize and publish these laws, many others discussed them before him.) The rules capture useful relations between negation, conjunction, and disjunction. Here are the rules, which we abbreviate DeM:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell><m>\enot(\metaA{}\eor\metaB{}) \Longleftrightarrow (\enot\metaA{}\eand\enot\metaB{})</m></cell></row>
+<row><cell><m>\enot(\metaA{}\eand\metaB{}) \Longleftrightarrow (\enot\metaA{}\eor\enot\metaB{})</m></cell><cell>DeM</cell></row></tabular>
+<p>As we have seen, <m>\metaA{}\eif\metaB{}</m> is equivalent to <m>\enot\metaA{}\eor\metaB{}</m>. A further replacement rule captures this equivalence. We abbreviate the rule MC, for ‘material conditional.’ It takes two forms:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell><m>(\metaA{}\eif\metaB{}) \Longleftrightarrow (\enot\metaA{}\eor\metaB{})</m></cell><cell/></row>
+<row><cell><m>(\metaA{}\eor\metaB{}) \Longleftrightarrow (\enot\metaA{}\eif\metaB{})</m></cell><cell>MC</cell></row></tabular>
+<p>Now consider this argument: <m>\enot(P \eif Q)</m> ∴ <m>P \eand \enot Q</m></p>
+<p>As always, we could prove this argument valid using only the basic rules. With rules of replacement, though, the proof is much simpler:</p>
+<image width="39%"><latex-image label="proof-58abbb52f3">
+$\begin{nd}
+	\hypo{1}{\enot(P \eif Q)}
+	\have{2}{\enot(\enot P \eor Q)}\by{MC}{1}
+	\have{3}{\enot\enot P \eand \enot Q}\by{DeM}{2}
+	\have{4}{P \eand \enot Q}\by{DN}{3}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p>A final replacement rule captures the relation between conditionals and biconditionals. We will call this rule biconditional exchange and abbreviate it <m>\eiff</m>ex.</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell><m>[(\metaA{}\eif\metaB{})\eand(\metaB{}\eif\metaA{})] \Longleftrightarrow (\metaA{}\eiff\metaB{})</m></cell><cell><m>\eiff</m>ex</cell></row></tabular>
+</section>
+<section xml:id="sec-SL-ND-strategy">
+<title>Proof strategy</title>
+<p>There is no simple recipe for proofs, and there is no substitute for practice. Here, though, are some rules of thumb and strategies to keep in mind.</p>
+<paragraphs>
+<title>Work backwards from what you want.</title>
+<p>The ultimate goal is to derive the conclusion. Look at the conclusion and ask what the introduction rule is for its main logical operator. This gives you an idea of what should happen <em>just before</em> the last line of the proof. Then you can treat this line as if it were your goal. Ask what you could do to derive this new goal.</p></paragraphs>
+<p>For example: If your conclusion is a conditional <m>\metaA{}\eif\metaB{}</m>, plan to use the <m>\eif</m>I rule. This requires starting a subproof in which you assume <m>\metaA{}</m>. In the subproof, you want to derive <m>\metaB{}</m>.</p>
+<paragraphs>
+<title>Work forwards from what you have.</title>
+<p>When you are starting a proof, look at the premises; later, look at the sentences that you have derived so far. Think about the elimination rules for the main operators of these sentences. These will tell you what your options are.</p></paragraphs>
+<p>For example: If you have a conditional <m>\metaA{}\eif\metaB{}</m>, and you also have <m>\metaA{}</m>, <m>\eif</m>E is a pretty natural choice.</p>
+<p>For a short proof, you might be able to eliminate the premises and introduce the conclusion. A long proof is formally just a number of short proofs linked together, so you can fill the gap by alternately working back from the conclusion and forward from the premises.</p>
+<paragraphs>
+<title>Change what you are looking at.</title>
+<p>Replacement rules can often make your life easier. If a proof seems impossible, try out some different substitutions.</p></paragraphs>
+<p>For example: It is often difficult to prove a disjunction using the basic rules. If you want to show <m>\metaA{}\eor\metaB{}</m>, it is often easier to show <m>\enot\metaA{}\eif\metaB{}</m> and use the MC rule.</p>
+<p>Some replacement rules should become second nature. If you see a negated disjunction, for instance, you should immediately think of DeMorgan’s rule.</p>
+<paragraphs>
+<title>Do not forget indirect proof.</title>
+<p>If you cannot find a way to show something directly, try assuming its negation.</p></paragraphs>
+<p>Remember that most proofs can be done either indirectly or directly. One way might be easier — or perhaps one sparks your imagination more than the other — but either one is formally legitimate.</p>
+<paragraphs>
+<title>Repeat as necessary.</title>
+<p>Once you have decided how you might be able to get to the conclusion, ask what you might be able to do with the premises. Then consider the target sentences again and ask how you might reach them.</p></paragraphs>
+<paragraphs>
+<title>Persist.</title>
+<p>Try different things. If one approach fails, then try something else.</p></paragraphs>
+</section>
+<section xml:id="nd-proofs-proof-theoretic-concepts">
+<title>Proof-theoretic concepts</title>
+<p>As we did in our discussion of trees, we will again use the symbol ‘<m>\vdash</m>’ to indicate provability. Provability is relative to a proof system, so the meaning of the ‘<m>\vdash</m>’ symbol featured in this chapter should be distinguished from the one we used for trees. When necessary, we can specify the single turnstile with reference to the proof system in question, letting ‘<m>\vdash_{T}</m>’ stand for provability in the tree system, and ‘<m>\vdash_{ND}</m>’ stand for provability in this natural deduction system. For the most part in this chapter, though, we’ll be interested in natural deduction, so unless it is specified otherwise, you can understand ‘<m>\vdash</m>’ to mean ‘<m>\vdash_{ND}</m>’.</p>
+<p>The double turnstile symbol ‘<m>\models</m>’, by contrast, remains unchanged. It stands for semantic entailment, as described in ch. <xref ref="ch-SLmodels" text="global"/>.</p>
+<p>When we write <m>\{\metaA{}_1,\metaA{}_2,\ldots\}\vdash_{ND}\metaB{}</m>, this means that it is possible to give a natural deduction derivation of <m>\metaB{}</m> from premises <m>\metaA{}_1</m>,<m>\metaA{}_2</m>,<m>\ldots</m>. With just one premise, we leave out the curly brackets, so <m>\metaA{}\vdash\metaB{}</m> means that there is a proof of <m>\metaB{}</m> with <m>\metaA{}</m> as a premise. Naturally, <m>\vdash\metaA{}</m> means that there is a proof of <m>\metaA{}</m> that has no premises. You can think of it as shorthand for <m>\emptyset\vdash\metaA{}</m>.</p>
+<p>For notational completeness, we can understand <m>\metaSetX{}\vdash\bot</m> to mean that from <m>\metaSetX{}</m>, we could prove an arbitrary contradiction. In other words, <m>\metaSetX{}</m> is an inconsistent set.</p>
+<p>Logical proofs are sometimes called <em>derivations</em>. So <m>\metaA{}\vdash\metaB{}</m> can be read as ‘<m>\metaB{}</m> is derivable from <m>\metaA{}</m>.’</p>
+<p>A <term>theorem</term> is a sentence that is derivable without any premises; i.e., <m>\metaA{}</m> is a theorem if and only if <m>\vdash\metaA{}</m>.</p>
+<p>It is not too hard to show that something is a theorem — you just have to give a proof of it. How could you show that something is <em>not</em> a theorem? If its negation is a theorem, then you could provide a proof. For example, it is easy to prove <m>\enot(P \eand \enot P)</m>, which shows that <m>(P \eand \enot P)</m> cannot be a theorem. For a sentence that is neither a theorem nor the negation of a theorem, however, there is no easy way to show this. You would have to demonstrate not just that certain proof strategies fail, but that no proof is possible. Even if you fail in trying to prove a sentence in a thousand different ways, perhaps the proof is just too long and complex for you to make out. As we’ve emphasized already, this is a difference between our natural deduction system and the tree method. (For just the same reason, the natural deduction system doesn’t provide a straightforward way to demonstrate that an argument form is invalid.)</p>
+<p>Two sentences <m>\metaA{}</m> and <m>\metaB{}</m> are <term>provably equivalent</term> if and only if each can be derived from the other; i.e., <m>\metaA{}\vdash\metaB{}</m> and <m>\metaB{}\vdash\metaA{}</m>.</p>
+<p>It is relatively easy to show that two sentences are provably equivalent — it just requires a pair of proofs. Showing that sentences are <em>not</em> provably equivalent would be much harder. It would be just as hard as showing that a sentence is not a theorem. (In fact, these problems are interchangeable. Can you think of a sentence that would be a theorem if and only if <m>\metaA{}</m> and <m>\metaB{}</m> were provably equivalent?)</p>
+<p>The set of sentences <m>\{\metaA{}_1,\metaA{}_2,\ldots\}</m> is <term>provably inconsistent</term> if and only if contradictory sentences are derivable from it; i.e., for some sentence <m>\metaB{}</m>, <m>\{\metaA{}_1,\metaA{}_2,\ldots\}\vdash\metaB{}</m> and <m>\{\metaA{}_1,\metaA{}_2,\ldots\}\vdash\enot \metaB{}</m>. This is equivalent to <m>\{\metaA{}_1,\metaA{}_2,\ldots\}\vdash\bot</m>.</p>
+<p>It is easy to show that a set is provably inconsistent: You just need to assume the sentences in the set and prove a contradiction. Showing that a set is <em>not</em> provably inconsistent will be much harder. It would require more than just providing a proof or two; it would require showing that proofs of a certain kind are <em>impossible</em>.</p>
+</section>
+<section xml:id="nd-proofs-proofs-and-models">
+<title>Proofs and models</title>
+<p>As you might already suspect, there is a connection between <em>theorems</em> and <em>tautologies</em>.</p>
+<p>There is a formal way of showing that a sentence is a theorem: Prove it. For each line, we can check to see if that line follows by the cited rule. It may be hard to produce a twenty line proof, but it is not so hard to check each line of the proof and confirm that it is legitimate — and if each line of the proof individually is legitimate, then the whole proof is legitimate. Showing that a sentence is a tautology, though, requires reasoning in English about all possible models. There is no formal way of checking to see if the reasoning is sound. Given a choice between showing that a sentence is a theorem and showing that it is a tautology, it would be easier to show that it is a theorem.</p>
+<p>By contrast, there is no formal way of showing that a sentence is <em>not</em> a theorem. We would need to reason in English about all possible proofs. Yet there is a formal method for showing that a sentence is not a tautology. We need only construct a model in which the sentence is false. Given a choice between showing that a sentence is not a theorem and showing that it is not a tautology, it would be easier to show that it is not a tautology.</p>
+<p>Fortunately, a sentence is a theorem if and only if it is a tautology. If we provide a proof of <m>\vdash\metaA{}</m> and thus show that it is a theorem, it follows that <m>\metaA{}</m> is a tautology; i.e., <m>\models\metaA{}</m>. Similarly, if we construct a model in which <m>\metaA{}</m> is false and thus show that it is not a tautology, it follows that <m>\metaA{}</m> is not a theorem.</p>
+<p>In general, <m>\metaA{}\vdash\metaB{}</m> if and only if <m>\metaA{}\models\metaB{}</m>. As such:</p>
+<p>
+<ul>
+<li>An argument is <em>valid</em> if and only if <em>the conclusion is derivable from the premises</em>.</li>
+<li>Two sentences are <em>logically equivalent</em> if and only if they are <em>provably equivalent</em>.</li>
+<li>A set of sentences is <em>consistent</em> if and only if it is <em>not provably inconsistent</em>.</li></ul></p>
+<p>You can pick and choose when to think in terms of proofs and when to think in terms of models, doing whichever is easier for a given task. <xref ref="table-ProofOrModel" text="type-global"/> summarizes when it is best to give proofs and when it is best to give models.</p>
+<p>In this way, proofs and models give us a versatile toolkit for working with arguments. If we can translate an argument into SL, then we can measure its logical weight in a purely formal way. If it is deductively valid, we can give a formal proof; if it is invalid, we can provide a formal counterexample.</p>
+<table xml:id="table-ProofOrModel">
+<title>Sometimes it is easier to show something by providing proofs than it is by providing models. Sometimes it is the other way round.  It depends on what you are trying to show.</title>
+<tabular><col halign="left" right="minor"/><col halign="left" right="minor"/><col halign="left" right="minor"/>
+<row><cell/><cell halign="center" bottom="minor">YES</cell><cell halign="center" bottom="minor">NO</cell></row>
+<row><cell>Is <m>\metaA{}</m> a tautology?</cell><cell bottom="minor">prove <m>\vdash\metaA{}</m></cell><cell bottom="minor">give a model in which <m>\metaA{}</m> is false</cell></row>
+<row><cell>Is <m>\metaA{}</m> a contradiction?</cell><cell bottom="minor">prove <m>\vdash\enot\metaA{}</m></cell><cell bottom="minor">give a model in which <m>\metaA{}</m> is true</cell></row>
+<row><cell>Is <m>\metaA{}</m> contingent?</cell><cell bottom="minor">give a model in which <m>\metaA{}</m> is true and another in which <m>\metaA{}</m> is false</cell><cell bottom="minor">prove <m>\vdash\metaA{}</m> or <m>\vdash\enot\metaA{}</m></cell></row>
+<row><cell>Are <m>\metaA{}</m> and <m>\metaB{}</m> equivalent?</cell><cell bottom="minor">prove <m>\metaA{}\vdash\metaB{}</m> and <m>\metaB{}\vdash\metaA{}</m></cell><cell bottom="minor">give a model in which <m>\metaA{}</m> and <m>\metaB{}</m> have different truth values</cell></row>
+<row><cell>Is the set <m>\model{A}</m> consistent?</cell><cell bottom="minor">give a model in which all the sentences in <m>\model{A}</m> are true</cell><cell bottom="minor">taking the sentences in <m>\model{A}</m>, prove <m>\metaB{}</m> and <m>\enot\metaB{}</m></cell></row>
+<row><cell>Is the argument ‘<m>\metaA{}</m>, <m>\metaB{}</m>, … ∴ <m>\metaC{}</m>’ valid?</cell><cell bottom="minor">prove <m>\metaA{}, \metaB{}, \ldots \vdash\metaC{}</m></cell><cell bottom="minor">give a model in which {<m>\metaA{}</m>, <m>\metaB{}</m>, … } is satisfied and <m>\metaC{}</m> is falsified</cell></row></tabular></table>
+</section>
+<section xml:id="nd-proofs-soundness-and-completeness">
+<title>Soundness and completeness</title>
+<p>Chapter <xref ref="ch-SLsoundcomplete" text="global"/> considered the soundness and completeness of the tree method at length; it proved that this method was both sound (<m>\metaSetX{}\vdash_{T}\metaA{}</m> only if <m>\metaSetX{}\models{}\metaA{}</m>) and complete (<m>\metaSetX{}\models{}\metaA{}</m> only if <m>\metaSetX{}\vdash_{T}\metaA{}</m>). We said in the last section that <m>\metaA{}\vdash_{ND}\metaB{}</m> if and only if <m>\metaA{}\models\metaB{}</m>; this is equivalent to saying that our natural deduction system, too, is sound and complete. Given the soundness and completeness of the tree method, this also means that our two proof systems are equivalent in the sense that anything provable in one is also provable in the other (<m>\metaSetX{}\vdash_{T}\metaA{})</m> iff (<m>\metaSetX{}\vdash_{ND}\metaA{}</m>).</p>
+<p>How can we know that our natural deduction method is sound? A proof system is <term>sound</term> if there are no derivations corresponding to invalid arguments. Demonstrating that the proof system is sound would require showing that any possible proof in our system is the proof of a valid argument. There is a fairly simple way of approaching this in a step-wise fashion. If using the <m>\eand</m>E rule on the last line of a proof could never change a valid argument into an invalid one, then using the rule many times could not make an argument invalid. Similarly, if using the <m>\eand</m>E and <m>\eor</m>E rules individually on the last line of a proof could never change a valid argument into an invalid one, then using them in combination could not either.</p>
+<p>The strategy is to show for every rule of inference that it alone could not make a valid argument into an invalid one. It follows that the rules used in combination would not make a valid argument invalid. Since a proof is just a series of lines, each justified by a rule of inference, this would show that every provable argument is valid.</p>
+<p>Consider, for example, the <m>\eand</m>I rule. Suppose we use it to add <m>\metaA{}\eand\metaB{}</m> to a valid argument. In order for the rule to apply, <m>\metaA{}</m> and <m>\metaB{}</m> must already be available in the proof. Since the argument so far is valid, <m>\metaA{}</m> and <m>\metaB{}</m> are either premises of the argument or valid consequences of the premises. As such, any model in which the premises are true must be a model in which <m>\metaA{}</m> and <m>\metaB{}</m> are true. According to the definition of <term>truth in SL</term>, this means that <m>\metaA{}\eand\metaB{}</m> is also true in such a model. Therefore, <m>\metaA{}\eand\metaB{}</m> validly follows from the premises. This means that using the <m>\eand</m>I rule to extend a valid proof produces another valid proof.</p>
+<p>In order to show that the proof system is sound, we would need to show this for the other inference rules. Since the derived rules are consequences of the basic rules, it would suffice to provide similar arguments for the 16 other basic rules. The reasoning is extremely similar to that given in the soundness proof for trees in the previous chapter. We will not go through it in detail here.</p>
+<p>What of completeness? Why think that <em>every</em> valid argument is an argument that can be proven in our natural deduction system? That is, why think that <m>\metaA{}\models\metaB{}</m> implies <m>\metaA{}\vdash\metaB{}</m>? Our system <em>is</em> also complete, but the completeness proof for natural deduction is a bit more complex than the completeness proof for trees. (In the case of trees, we had a mechanical method that was guaranteed to find proofs if they exist; we have seen no such method here, which makes proving these general results harder.) This proof is beyond the scope of this book.</p>
+<p>The important point is that, happily, the proof system for SL is both sound and complete. Consequently, we may freely use this natural deduction method to draw conclusions about models in SL.</p>
+</section>
+<section xml:id="nd-proofs-summary-of-definitions">
+<title>Summary of definitions</title>
+<p>
+<ul>
+<li>A sentence <m>\metaA{}</m> is a <term>theorem</term> if and only if <m>\vdash\metaA{}</m>.</li>
+<li>Two sentences <m>\metaA{}</m> and <m>\metaB{}</m> are <term>provably equivalent</term> if and only if <m>\metaA{}\vdash\metaB{}</m> and <m>\metaB{}\vdash\metaA{}</m>.</li>
+<li><m>\{\metaA{}_1,\metaA{}_2,\ldots\}</m> is <term>provably inconsistent</term> if and only if, for some sentence <m>\metaB{}</m>, <m>\{\metaA{}_1,\metaA{}_2,\ldots\}\vdash(\metaB{} \eand \enot \metaB{})</m>.</li></ul></p>
+</section>
+<exercises xml:id="nd-proofs-exercises">
+<title>Practice Exercises</title>
+<subexercises xml:id="pr-justifySLproof">
+<title>Part A</title>
+<exercise>
+<statement>
+<p>Provide a justification (rule and line numbers) for each line of proof that requires one.</p>
+<sidebyside widths="26% 19%" margins="0%" valign="top">
+<image><latex-image label="proof-af9d937c4a">
+$\begin{nd}
+\hypo{1}{W \eif \enot B}
+\hypo{2}{A \eand W}
+\hypo{2b}{B \eor (J \eand K)}
+\have{3}{W}{}
+\have{4}{\enot B} {}
+\have{5}{J \eand K} {}
+\have{6}{K}{}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<image><latex-image label="proof-59f6499c8d">
+$\begin{nd}
+\hypo{1}{L \eiff \enot O}
+\hypo{2}{L \eor \enot O}
+\open
+	\hypo{a1}{\enot L}
+	\have{a2}{\enot O}{}
+	\have{a3}{L}{}
+	\have{a4}{\enot L}{}
+\close
+\have{3}{L}{}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image></sidebyside>
+<image width="33%"><latex-image label="proof-a91bc88a19">
+$\begin{nd}
+\hypo{1}{Z \eif (C \eand \enot N)}
+\hypo{2}{\enot Z \eif (N \eand \enot C)}
+\open
+	\hypo{a1}{\enot(N \eor  C)}
+	\have{a2}{\enot N \eand \enot C} {}
+	\open
+		\hypo{b1}{Z}
+		\have{b2}{C \eand \enot N}{}
+		\have{b3}{C}{}
+		\have{b4}{\enot C}{}
+	\close
+	\have{a3}{\enot Z}{}
+	\have{a4}{N \eand \enot C}{}
+	\have{a5}{N}{}
+	\have{a6}{\enot N}{}
+\close
+\have{3}{N \eor C}{}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image></statement>
+<solution>
+<image width="43%"><latex-image label="proof-07ddadc024">
+$\begin{nd}
+\hypo{1}{W \eif \enot B}
+\hypo{2}{A \eand W}
+\hypo{2b}{B \eor (J \eand K)}\want{K}
+\have{3}{W}\ae{2}
+\have{4}{\enot B} \ce{1,3}
+\have{5}{J \eand K} \oe{2b,4}
+\have{6}{K} \ae{5}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<image width="42%"><latex-image label="proof-1423a05522">
+$\begin{nd}
+\hypo{1}{L \eiff \enot O}
+\hypo{2}{L \eor \enot O}\want{L}
+\open
+	\hypo{a1}{\enot L} \by{for \emph{reductio}}{}
+	\have{a2}{\enot O}\oe{2,a1}
+	\have{a3}{L}\be{1,a2}
+	\have{a4}{\enot L}\by{R}{a1}
+\close
+\have{3}{L}\ne{a1-a3, a1-a4}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<image width="58%"><latex-image label="proof-6ced8f92a2">
+$\begin{nd}
+\hypo{1}{Z \eif (C \eand \enot N)}
+\hypo{2}{\enot Z \eif (N \eand \enot C)}\want{N \eor C}
+\open
+	\hypo{a1}{\enot(N \eor  C)} \by{for \emph{reductio}}{}
+	\have{a2}{\enot N \eand \enot C} \by{DeM}{a1}
+	\open
+		\hypo{b1}{Z} \by{for \emph{reductio}}{}
+		\have{b2}{C \eand \enot N}\ce{1,b1}
+		\have{b3}{C}\ae{b2}
+		\have{b4}{\enot C}\ae{a2}
+	\close
+	\have{a3}{\enot Z}\ni{b1-b3, b1-b4}
+	\have{a4}{N \eand \enot C}\ce{2,a3}
+	\have{a5}{N}\ae{a4}
+	\have{a6}{\enot N}\ae{a2}
+\close
+\have{3}{N \eor C}\ne{a1-a5, a1-a6}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image></solution></exercise>
+</subexercises>
+<subexercises xml:id="pr-solvedSLproofs">
+<title>Part B</title>
+<introduction>
+<p>Give a proof for each argument in SL.</p></introduction>
+<exercise>
+<statement>
+<p><m>K\eand L</m>, ∴ <m>K\eiff L</m></p></statement>
+<solution>
+<image width="41%"><latex-image label="proof-2c22a8674f">
+$\begin{nd}
+	\hypo{a1}{K\eand L} \want{K\eiff L}
+	\open
+		\hypo{b1}{K} \want{L}
+		\have{b2}{L} \ae{a1}
+	\close
+	\have{kl}{K \eif L} \ci{b1-b2}
+	\open
+		\hypo{c1}{L} \want{K}
+		\have{c2}{K} \ae{a1}
+	\close
+	\have{lk}{L \eif K} \ci{c1-c2}
+	\have{d1}{K \eiff L} \bi{kl,lk}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image></solution></exercise>
+<exercise>
+<statement>
+<p><m>A\eif (B\eif C)</m>, ∴ <m>(A\eand B)\eif C</m></p></statement>
+<solution>
+<image width="58%"><latex-image label="proof-084a270fa9">
+$\begin{nd}
+	\hypo{a1}{A\eif (B\eif C)} \want{(A\eand B)\eif C}
+	\open
+		\hypo{b1}{A\eand B} \want{C}
+		\have{b2}{A} \ae{b1}
+		\have{b3}{B\eif C} \ce{a1,b2}
+		\have{b4}{B} \ae{b1}
+		\have{b5}{C} \ce{b3, b4}
+	\close
+	\have{c}{(A\eand B)\eif C} \ci{b1-b5}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image></solution></exercise>
+<exercise>
+<statement>
+<p><m>P \eand (Q\eor R)</m>, <m>P\eif \enot R</m>, ∴ <m>Q\eor E</m></p></statement>
+<solution>
+<image width="48%"><latex-image label="proof-328c8c99b2">
+$\begin{nd}
+	\hypo{a1}{P \eand (Q\eor R)}
+	\hypo{a2}{P\eif \enot R} \want{Q\eor E}
+	\have{a3}{P} \andE{a1}
+	\have{a4}{\enot R} \ifE{a2,a3}
+	\have{a5}{Q\eor R} \andE{a1}
+	\have{a6}{Q} \orE{a4,a5}
+	\have{c}{Q\eor E} \orI{a6}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image></solution></exercise>
+<exercise>
+<statement>
+<p><m>(C\eand D)\eor E</m>, ∴ <m>E\eor D</m></p></statement>
+<solution>
+<image width="48%"><latex-image label="proof-dd405e5d76">
+$\begin{nd}
+	\hypo{a1}{(C\eand D)\eor E} \want{E\eor D}
+	\open
+		\hypo{b1}{\enot E} \want{D}
+		\have{b2}{C\eand D} \oe{a1,b1}
+		\have{b3}{D} \ae{b2}
+	\close
+	\have{c1}{\enot E\eif D} \ci{b1-b3}
+	\have{c2}{E\eor D} \by{MC}{c1}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image></solution></exercise>
+<exercise>
+<statement>
+<p><m>\enot F\eif G</m>, <m>F\eif H</m>, ∴ <m>G\eor H</m></p></statement>
+<solution>
+<image width="43%"><latex-image label="proof-8a1b530e11">
+$\begin{nd}
+	\hypo{a1}{\enot F\eif G}
+	\hypo{a2}{F\eif H} \want{G\eor H}
+	\open
+		\hypo{b1}{\enot G} \want{H}
+		\have{b2}{\enot\enot F} \by{MT}{a1,b1}
+		\have{b3}{F} \by{DN}{b2}
+		\have{b4}{H} \ce{a2,b3}
+	\close
+	\have{c1}{\enot G \eif H} \ci{b1-b4}
+	\have{c2}{G\eor H} \by{MC}{c1}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image></solution></exercise>
+<exercise>
+<statement>
+<p><m>(X\eand Y)\eor(X\eand Z)</m>, <m>\enot(X\eand D)</m>, <m>D\eor M</m> ∴ <m>M</m></p></statement>
+<solution>
+<image width="66%"><latex-image label="proof-54a05e9858">
+$\begin{nd}
+	\hypo{a1}{(X\eand Y)\eor(X\eand Z)}
+	\hypo{a2}{\enot(X\eand D)}
+	\hypo{a3}{D\eor M} \want{M}
+	\open
+		\hypo{b1}{\enot X} \by{for \emph{reductio}}{}
+		\have{b2}{\enot X\eor \enot Y} \oi{b1}
+		\have{b3}{\enot (X \eand Y)} \by{DeM}{b2}
+		\have{b4}{X\eand Z} \oe{a1,b3}
+		\have{b5}{X} \ae{b4}
+		\have{b6}{\enot X} \by{R}{b1}
+	\close
+	\have{c}{X} \ne{b1-b5, b1-b6}
+	\open
+		\hypo{d1}{\enot M} \by{for \emph{reductio}}{}
+		\have{d2}{D} \oe{a3,d1}
+		\have{d3}{X\eand D} \ai{c,d2}
+		\have{d4}{\enot(X\eand D)} \by{R}{a2}
+	\close
+	\have{e}{M} \ne{d1-d3, d1-d4}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image></solution></exercise>
+</subexercises>
+<subexercises xml:id="nd-proofs-part-c">
+<title>Part C</title>
+<introduction>
+<p>Give a proof for each argument in SL.</p></introduction>
+<exercise>
+<statement>
+<p><m>Q\eif(Q\eand\enot Q)</m>, ∴ <m>\enot Q</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>J\eif\enot J</m>, ∴ <m>\enot J</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>E\eor F</m>, <m>F\eor G</m>, <m>\enot F</m>, ∴ <m>E \eand G</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>A\eiff B</m>, <m>B\eiff C</m>, ∴ <m>A\eiff C</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>M\eor(N\eif M)</m>, ∴ <m>\enot M \eif \enot N</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>S\eiff T</m>, ∴ <m>S\eiff (T\eor S)</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>(M \eor N) \eand (O \eor P)</m>, <m>N \eif P</m>, <m>\enot P</m>, ∴ <m>M\eand O</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>(Z\eand K) \eor (K\eand M)</m>, <m>K \eif D</m>, ∴ <m>D</m></p></statement></exercise>
+</subexercises>
+<subexercises xml:id="pr-SLND-theorems">
+<title>Part D</title>
+<introduction>
+<p>Show that each of the following sentences is a theorem in SL.</p></introduction>
+<exercise>
+<statement>
+<p><m>O \eif O</m></p></statement>
+<solution>
+<image width="34%"><latex-image label="proof-0e40c4f735">
+$\begin{nd}
+	\open
+		\hypo{o1}{O}\want{O}
+		\have{o2}{O}\by{R}{o1}
+	\close
+	\have{o3}{O \eif O}\ci{o1-o2}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image></solution></exercise>
+<exercise>
+<statement>
+<p><m>N \eor \enot N</m></p></statement>
+<solution>
+<image width="52%"><latex-image label="proof-b2a4385fa5">
+$\begin{nd}
+	\open
+		\hypo{nnon}{\enot (N \eor \enot N)}\by{for \emph{reductio}}{}
+		\have{nnnn}{\enot N \eand \enot\enot N}\by{DeM}{nnon}
+		\have{n}{\enot N}\ae{nnnn}
+		\have{nn}{\enot\enot N}\ae{nnnn}
+	\close
+	\have{nonn}{N \eor \enot N}\ne{nnon-n,nnon-nn}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image></solution></exercise>
+<exercise>
+<statement>
+<p><m>\enot(P\eand \enot P)</m></p></statement>
+<solution>
+<image width="46%"><latex-image label="proof-70a458ef35">
+$\begin{nd}
+	\open
+		\hypo{panp}{P \eand \enot P}\by{for \emph{reductio}}{}
+		\have{p}{P}\ae{panp}
+		\have{np}{\enot P}\ae{panp}
+	\close
+	\have{npanp}{\enot (P \eand \enot P)}\ni{panp-p,panp-np}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image></solution></exercise>
+<exercise>
+<statement>
+<p><m>\enot(A \eif \enot C) \eif (A \eif C)</m></p></statement>
+<solution>
+<image width="63%"><latex-image label="proof-5c8c9b4483">
+$\begin{nd}
+	\open
+		\hypo{nainc}{\enot (A \eif \enot C)}\want{A \eif C}
+		\open
+			\hypo{a}{A}\want{C}{}
+			\have{nnaonc}{\enot (\enot A \eor \enot C)}\by{MC}{nainc}
+			\have{nnaannc}{\enot \enot A \eand \enot \enot C}\by{DeM}{nnaonc}
+			\have{nnaac}{\enot \enot A \eand C}\by{DN}{nnaannc}
+			\have{c}{C}\ae{nnaac}
+		\close
+		\have{aic}{A \eif C}\ci{a-c}
+	\close
+	\have{nainciaic}{\enot (A \eif \enot C) \eif (A \eif C) }\ci{nainc-aic}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image></solution></exercise>
+<exercise>
+<statement>
+<p><m>J \eiff [J\eor (L\eand\enot L)]</m></p></statement>
+<solution>
+<image width="69%"><latex-image label="proof-c5b863d962">
+$\begin{nd}
+	\open
+		\hypo{j}{J}\want {J\eor (L\eand\enot L)}
+		\have{joblah}{J\eor (L\eand\enot L)}\oi{j}
+	\close
+	\have{jijblah}{J \eif [J\eor (L\eand\enot L)]}\ci{j-joblah}
+	\open
+		\hypo{jblah2}{J\eor (L\eand\enot L)}\want{J}
+		\open
+			\hypo{nj}{\enot J}\by{for \emph{reductio}}{}
+			\have{lanl}{L \eand \enot L}\oe{jblah2, nj}
+			\have{l}{L}\ae{lanl}
+			\have{nl}{\enot L}\ae{lanl}
+		\close
+		\have{j2}{J}\ne{nj-l,nj-nl}
+	\close
+	\have{jblahij}{(J\eor (L\eand\enot L)) \eif J}\ci{jblah2-j2}
+	\have{jiffjblah}{J \eiff [J\eor (L\eand\enot L)]}\bi{jijblah,jblahij}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image></solution></exercise>
+</subexercises>
+<subexercises xml:id="nd-proofs-part-e">
+<title>Part E</title>
+<introduction>
+<p>Show that each of the following pairs of sentences are provably equivalent in SL.</p></introduction>
+<exercise>
+<statement>
+<p><m>\enot\enot\enot\enot G</m>, <m>G</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>T\eif S</m>, <m>\enot S \eif \enot T</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>R \eiff E</m>, <m>E \eiff R</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>\enot G \eiff H</m>, <m>\enot(G \eiff H)</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>U \eif I</m>, <m>\enot(U \eand \enot I)</m></p></statement></exercise>
+</subexercises>
+<subexercises xml:id="pr-solvedSLproofs2">
+<title>Part F</title>
+<introduction>
+<p>Provide proofs to show each of the following.</p></introduction>
+<exercise>
+<statement>
+<p><m>M \eand (\enot N \eif \enot M) \vdash (N \eand M) \eor \enot M</m></p></statement>
+<solution>
+<image width="68%"><latex-image label="proof-c93225eda4">
+$\begin{nd}
+	\hypo{1}{M\eand(\enot N \eif \enot M)}\want{(N \eand M) \eor \enot M}
+	\have{2}{M}\ae{1}
+	\have{3}{\enot N \eif \enot M}\ae{1}
+	\have{4}{\enot \enot M}\by{DN}{2}
+	\have{5}{\enot \enot N}\by{MT}{3, 4}
+	\have{6}{N}\by{DN}{5}
+	\have{7}{N \eand M}\ai{6,2}
+	\have{8}{(N \eand M) \eor \enot M}\oi{7}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image></solution></exercise>
+<exercise>
+<statement>
+<p>{<m>C\eif(E\eand G)</m>, <m>\enot C \eif G</m>} <m>\vdash G</m></p></statement>
+<solution>
+<image width="49%"><latex-image label="proof-9e9b018f43">
+$\begin{nd}
+	\hypo{1}{C \eif (E \eand G)}
+	\hypo{2}{\enot C \eif G}\want{G}
+	\open
+		\hypo{3}{\enot G}\by{for \emph{reductio}}{}
+		\have{4}{\enot \enot C}\by{MT}{2,3}
+		\have{5}{C}\by{DN}{4}
+		\have{6}{E \eand G}\ce{1,5}
+		\have{7}{G}\ae{6}
+		\have{8}{\enot G}\by{R}{3}
+	\close
+	\have{9}{G}\ne{3-7,3-8}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image></solution></exercise>
+<exercise>
+<statement>
+<p>{<m>(Z\eand K)\eiff(Y\eand M)</m>, <m>D\eand(D\eif M)</m>} <m>\vdash Y\eif Z</m></p></statement>
+<solution>
+<image width="61%"><latex-image label="proof-fd5129a951">
+$\begin{nd}
+	\hypo{1}{(Z \eand K) \eiff (Y \eand M)}
+	\hypo{2}{D \eand (D \eif M)}\want{Y \eif Z}
+	\have{3}{D \eif M}\ae{2}
+	\have{4}{D}\ae{2}
+	\have{5}{M}\ce{3,4}
+	\open
+		\hypo{6}{Y}\want{Z}
+		\have{7}{Y \eand M}\ai{6,5}
+		\have{8}{Z \eand K}\be{1,7}
+		\have{9}{Z}\ae{8}
+	\close
+	\have{10}{Y \eif Z}\ci{6-9}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image></solution></exercise>
+<exercise>
+<statement>
+<p>{<m>(W \eor X) \eor (Y \eor Z)</m>, <m>X\eif Y</m>, <m>\enot Z</m>} <m>\vdash W\eor Y</m></p></statement>
+<solution>
+<image width="62%"><latex-image label="proof-0bda89220a">
+$\begin{nd}
+	\hypo{1}{(W \eor X) \eor (Y \eor Z)}
+	\hypo{2}{X \eif Y}
+	\hypo{3}{\enot Z}\want{W \eor Y}
+	\open
+		\hypo{4}{\enot (W \eor Y)}\by{for \emph{reductio}}{}
+		\have{5}{\enot W \eand \enot Y}\by{DeM}{4}
+		\have{6}{\enot Y}\ae{5}
+		\have{7}{\enot W}\ae{5}
+		\have{8}{\enot X}\by{MT}{2,6}
+		\have{9}{\enot W \eand \enot X}\ai{7,8}
+		\have{10}{\enot (W \eor X)}\by{DeM}{9}
+		\have{11}{Y \eor Z}\oe{1,10}
+		\have{12}{Z}\oe{11,6}
+		\have{13}{\enot Z}\by{R}{3}
+	\close
+	\have{14}{W \eor Y}\ne{4-12,4-13}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image></solution></exercise>
+</subexercises>
+<subexercises xml:id="nd-proofs-part-g">
+<title>Part G</title>
+<introduction>
+<p>For the following, provide proofs using only the basic rules. The proofs will be longer than they would need to be if you used the derived rules.</p></introduction>
+<exercise>
+<statement>
+<p>Show that MT is a legitimate derived rule. Using only the basic rules, prove the following: <m>\metaA{}\eif\metaB{}</m>, <m>\enot\metaB{}</m>, ∴ <m>\enot\metaA{}</m></p></statement></exercise>
+<exercise>
+<statement>
+<p>Show that Comm is a legitimate rule for the biconditional. Using only the basic rules, prove that <m>\metaA{}\eiff\metaB{}</m> and <m>\metaB{}\eiff\metaA{}</m> are equivalent.</p></statement></exercise>
+<exercise>
+<statement>
+<p>Using only the basic rules, prove the following instance of DeMorgan’s Laws: <m>(\enot A \eand \enot B)</m>, ∴ <m>\enot(A \eor B)</m></p></statement></exercise>
+<exercise>
+<statement>
+<p>Show that <m>\eiff</m>ex is a legitimate derived rule. Using only the basic rules, prove that <m>D\eiff E</m> and <m>(D\eif E)\eand(E\eif D)</m> are equivalent.</p></statement></exercise>
+</subexercises>
+<subexercises xml:id="nd-proofs-part-h">
+<title>Part H</title>
+<exercise>
+<statement>
+<p>If you know that <m>\metaA{}\vdash\metaB{}</m>, what can you say about <m>(\metaA{}\eand\metaC{})\vdash\metaB{}</m>? Explain your answer.</p></statement></exercise>
+<exercise>
+<statement>
+<p>If you know that <m>\metaA{}\vdash\metaB{}</m>, what can you say about <m>(\metaA{}\eor\metaC{})\vdash\metaB{}</m>? Explain your answer.</p></statement></exercise>
+</subexercises>
+<conclusion>
+<note component="genai">
+<title>GenAI prompts for further practice</title>
+<p>Here are some potential GenAI prompts you might use to generate further practice problems, in case you find that helpful.</p>
+<p>
+<ul>
+<li>Give me some examples of valid SL argument forms, for me to practice proving with natural deduction. Before I attempt each proof, ask me to explain the proof strategy I will employ. Critique my strategy and, if appropriate, suggest alternatives.</li>
+<li>Give me some SL natural deduction derivations that contain a mistake. My task is to identify the place where the derivation goes wrong.</li>
+<li>Give me short natural deduction proofs and ask me whether they are correct. If they are incorrect, ask me to identify the first line where an error occurs.</li>
+<li>Give me statements involving derivability, validity, and entailment. Ask me to determine which notion is being discussed and explain the difference between them.</li>
+<li>Give me a completed natural deduction proof and ask me to explain, in ordinary English, the overall strategy used in the proof.</li></ul></p></note></conclusion>
+</exercises>
+</chapter>

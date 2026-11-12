@@ -1,0 +1,1120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated from Latex-Files/forallx-ubc-8-predicate.tex by pretext/scripts/latex2ptx.py -->
+<chapter xml:id="ch-QL">
+<title>Quantified logic</title>
+<introduction>
+<p>This chapter introduces a logical language called QL. It is a version of <em>quantified logic</em>, because it allows for quantifiers like <em>all</em> and <em>some</em>. Quantified logic is also sometimes called <em>predicate logic</em>, because the basic units of the language are predicates and terms.</p></introduction>
+<section xml:id="ql-from-sentences-to-predicates">
+<title>From sentences to predicates</title>
+<p>Consider the following argument, which is valid in English:</p>
+<blockquote>
+<p>If everyone knows logic, then either no one will be confused or everyone will. Everyone will be confused only if we try to believe a contradiction. Everyone knows logic.</p>
+<p>∴ If we don’t try to believe a contradiction, then no one will be confused.</p></blockquote>
+<p>In order to symbolize this in SL, we will need a symbolization key.</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>L:</cell><cell>Everyone knows logic.</cell></row>
+<row><cell>N:</cell><cell>No one will be confused.</cell></row>
+<row><cell>E:</cell><cell>Everyone will be confused.</cell></row>
+<row><cell>B:</cell><cell>We try to believe a contradiction.</cell></row></tabular>
+<p>Notice that <m>N</m> and <m>E</m> are both about people being confused, but they are two separate sentence letters. We can’t replace <m>E</m> with <m>\enot N</m>. Why not? <m>\enot N</m> means ‘It is not the case that no one will be confused.’ This would be the case if even one person were confused, so it is a long way from saying that <em>everyone</em> will be confused.</p>
+<p>Because we have separate sentence letters for <m>N</m> and <m>E</m>, however, our formalization does not encode any connection between the two. They are just two atomic sentences which might be true or false independently. It is impossible for it to be the case that both no one and everyone was confused. As sentences of SL, however, there is a truth-value assignment for which <m>N</m> and <m>E</m> are both true. This is a limitation of the descriptive power of SL. Some features of English sentences are not preserved in SL. Our new language, QL, will preserve more of this structure.</p>
+<p>Expressions like ‘no one’, ‘everyone’, and ‘anyone’ are called <em>quantifiers</em>. By translating <m>N</m> and <m>E</m> as separate atomic sentences, we leave out the <em>quantifier structure</em> of the sentences. In the example we’ve been discussing, the quantifier structure is not terribly important. The argument is valid without reference to it. As such, we can safely ignore it. To see this, we translate the argument to SL:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell/><cell><m>L \eif (N \eor E)</m></cell></row>
+<row><cell/><cell><m>E \eif B</m></cell></row>
+<row><cell/><cell><m>L</m></cell></row>
+<row><cell>∴</cell><cell><m>\enot B \eif N</m></cell></row></tabular>
+<p>This is a valid argument form in SL. (You can construct a truth table, a tree, or a natural deduction proof to confirm this.)</p>
+<p>Now consider another argument. This one is also valid in English.</p>
+<blockquote>
+<p>Willard is a logician. All logicians wear funny hats.</p>
+<p>∴ Willard wears a funny hat.</p></blockquote>
+<p>To symbolize it in SL, we define a symbolization key:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>L:</cell><cell>Willard is a logician.</cell></row>
+<row><cell>A:</cell><cell>All logicians wear funny hats.</cell></row>
+<row><cell>F:</cell><cell>Willard wears a funny hat.</cell></row></tabular>
+<p>Now we symbolize the argument:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell/><cell><m>L</m></cell></row>
+<row><cell/><cell><m>A</m></cell></row>
+<row><cell>∴</cell><cell><m>F</m></cell></row></tabular>
+<p>This is pretty obviously an <em>invalid</em> SL form. Nevertheless, this is clearly a valid argument in English. It’s impossible for the premises to be true without the conclusion also being true. But the SL symbolization leaves out all quantificational structure in virtue of which it is valid. The sentence ‘All logicians wear funny hats’ says something specific about both logicians and hat-wearing. By not translating this structure, treating the whole sentence as an atom, we lose the connection between Willard’s being a logician and Willard’s wearing a hat.</p>
+<p>Some arguments with quantifier structure can be captured in SL, like the first example, even though SL ignores the quantifier structure. Other arguments’ validity cannot be captured in SL, like the second example. Notice that the problem is not that we have made a mistake while symbolizing the second argument. We gave a perfectly appropriate translation; indeed, these are the best symbolizations we can give for these arguments <em>in SL</em>.</p>
+<p>If an English argument is properly translated into a form that is valid in SL, that argument is valid, even if it involves quantifiers. But if it does not have a valid SL form, that doesn’t mean the English argument is invalid; valid arguments can have invalid forms. It just means that SL doesn’t <em>show</em> that the argument is valid. This will be the case when the argument’s quantifier structure plays an important role in its validity.</p>
+<p>Similarly, if a sentence with quantifiers comes out as a <em>tautology in SL</em>, then the English sentence is logically true. If it comes out as <em>contingent in SL</em>, then this might be because of the structure of the quantifiers that gets removed when we translate into the formal language.</p>
+<p>In order to symbolize arguments that rely on quantifier structure, we need to develop a different, richer, logical language. We will call this language ‘quantified logic’, or QL.</p>
+</section>
+<section xml:id="ql-building-blocks-of-ql">
+<title>Building blocks of QL</title>
+<p>Our first key notion in QL will be <term>predicates</term>. A predicate is analogous to an English description  — an expression like ‘is a dog’ or ‘has black fur’. Such descriptions are not sentences on their own. They are neither true nor false. They are descriptions that apply to some objects, but not to others. In order to be true or false, we need to specify an object: Who or what is it that is said to be a dog, or to have black fur? In SL, we have no way to give meaningful translations to English terms that are not full sentences. In QL, we will.</p>
+<p>The details of this will be explained in the rest of the chapter, but here is the basic idea: In QL, we will represent predicates with capital letters. For instance, we might let <m>D</m> stand for ‘_____ is a dog.’ We will use lower-case letters as the names of specific things. For instance, we might let <m>b</m> stand for Bertie. The expression <m>Db</m> will be a sentence in QL. Given this symbolization, <m>Db</m> is a translation of the sentence ‘Bertie is a dog.’</p>
+<p>In order to represent quantifier structure, we will also have symbols that represent quantifiers. For instance, ‘<m>\exists</m>’ will mean ‘There is some_____.’ So to say that there is a dog, we can write <m>\exists x Dx</m>; that is: There is some <m>x</m> such that <m>x</m> is a dog.</p>
+<p>That will come later. We start by defining singular terms and predicates.</p>
+</section>
+<section xml:id="ql-singular-terms">
+<title>Singular terms</title>
+<p>In English, a <term>singular term</term> is a word or phrase that refers to a <em>specific</em> person, place, or thing. The word ‘dog’ is not a singular term, because it is a general term that could apply to many individual animals. The phrase ‘Jonathan’s dog Mezzo’ is a singular term, because it refers to a specific little poodle mix. She is black, and soft, and wonderful.</p>
+<p>A <term>proper name</term> is a singular term that picks out an individual directly. The name ‘Emerson’ is a proper name, and the name alone does not tell you anything about Emerson. Of course, some names are traditionally given to boys, and others are traditionally given to girls. If ‘Jack Hathaway’ is used as a singular term, you might guess that it refers to a man. However, the name does not necessarily mean that the person referred to is a man — or even that the creature referred to is a person. Jack might be a giraffe for all you could tell just from the name. There is a great deal of philosophical action surrounding this issue, but the important point here is that a name is a singular term because it picks out a single, specific individual.</p>
+<p>Other singular terms more obviously convey information about the thing to which they refer. For instance, you can tell without being told anything further that ‘Jonathan’s dog Mezzo’ is a singular term that refers to a dog. A <term>definite description</term> picks out an individual by means of a unique description. In English, definite descriptions are often phrases of the form ‘the such-and-so.’ They refer to <em>the</em> specific thing that matches the given description. For example, ‘the tallest member of Monty Python’ and ‘the first emperor of China’ are definite descriptions. A description that does not pick out a specific individual is not a definite description. ‘A member of Monty Python’ and ‘an emperor of China’ are not definite descriptions. We’ll discuss definite descriptions in more detail in Chapter <xref ref="ch-identity" text="global"/>.</p>
+<p>In English, the specification of a singular term may depend on context; ‘Willard’ means a specific person and not just someone named Willard; ‘P.D. Magnus’ as a logical singular term means the original author of this textbook, not the other person who has the same name. We live with this kind of ambiguity in English, but it is important to keep in mind that singular terms in QL must refer to just one specific thing.</p>
+<p>In QL, we will symbolize singular terms with lower-case letters <m>a</m> through <m>w</m>. We can add numerical subscripts if we want to use some letter more than once. So <m>a,b,c,\ldots w, a_1, f_{32}, j_{390}</m>, and <m>m_{12}</m> are all terms in QL.</p>
+<p>Singular terms are called <term>constants</term> because they pick out specific individuals. Note that <m>x, y</m>, and <m>z</m> are not constants in QL. They will be <term>variables</term>, letters which do not stand for any specific thing. We will need them when we introduce quantifiers.</p>
+</section>
+<section xml:id="ql-predicates">
+<title>Predicates</title>
+<p>Simple one-place predicates are properties of individuals. They are things you can say about an object. Here are some one-place predicates:</p>
+<p>
+<dl width="narrow">
+<li>
+<title> </title>
+<p>‘_____ is a dog’</p></li>
+<li>
+<title> </title>
+<p>‘_____ is a member of Monty Python’</p></li>
+<li>
+<title> </title>
+<p>‘_____ ’s favourite ramen place is in Gastown’</p></li>
+<li>
+<title> </title>
+<p>‘An anvil was dropped from a very high height onto _____ ’s head’</p></li></dl></p>
+<p>Predicates like these are called <term>one-place</term> or <term>monadic</term>, because there is only one blank to fill in. A one-place predicate and a singular term combine to make a sentence.</p>
+<p>Other predicates are about the <em>relation</em> between two things. For instance:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell/><cell>‘_____ is bigger than _____’</cell></row>
+<row><cell/><cell>‘_____ is to the left of _____’</cell></row>
+<row><cell/><cell>‘_____ owes money to _____’</cell></row></tabular>
+<p>These are <term>two-place</term> or <term>dyadic</term> predicates, because they need to be filled in with two terms in order to make a sentence.</p>
+<p>In general, you can think about predicates as schematic sentences that need to be filled out with some number of terms. Conversely, you can start with sentences and make predicates out of them by removing terms. Consider the sentence, ‘Buchanan Tower is North of Barber but South of Buchanan E.’ By removing a singular term, we can recognize this sentence as using any of three different monadic predicates:</p>
+<p>
+<dl width="narrow">
+<li>
+<title> </title>
+<p>_____ is North of Barber but South of Buchanan E.</p></li>
+<li>
+<title> </title>
+<p>Buchanan Tower is North of _____ but South of Buchanan E.</p></li>
+<li>
+<title> </title>
+<p>Buchanan Tower is North of Barber but South of _____.</p></li></dl></p>
+<p>By removing two singular terms, we can recognize three different dyadic predicates:</p>
+<p>
+<dl width="narrow">
+<li>
+<title> </title>
+<p>Buchanan Tower is North of _____ but South of _____.</p></li>
+<li>
+<title> </title>
+<p>_____ is North of Barber but South of _____.</p></li>
+<li>
+<title> </title>
+<p>_____ is North of _____ but South of Buchanan E.</p></li></dl></p>
+<p>By removing all three singular terms, we can recognize one <term>three-place</term> or <term>triadic</term> predicate:</p>
+<p>_____ is North of _____ but South of _____.</p>
+<p>If we are translating this sentence into QL, should we translate it with a one-, two-, or three-place predicate? It depends on what we want to be able to say. If we’re only interested in discussing the location of buildings relative to Barber, then the generality of the three-place predicate is unnecessary. If we only want to discuss whether buildings are North of Barber and South of BUCH E, a one-place predicate will be enough.</p>
+<p>In general, we can have predicates with as many places as we need. Predicates with more than one place are called <term>polyadic</term>. Predicates with <m>n</m> places, for some number <m>n</m>, are called <term>n-place</term> or <term>n-adic</term>. You can make an <m>n</m>-adic predicate by replacing <m>n</m> names in any sentence with blanks. You can even have a 0-place predicate — this would be the result of replacing <m>0</m> names in a sentence with blanks. In other words, a 0-place predicate is just a sentence.</p>
+<p>In QL, we symbolize predicates with capital letters <m>A</m> through <m>Z</m>, with or without numerical subscripts. When we give a symbolization key for predicates, we will not use blanks; instead, we will use variables. By convention, constants are listed at the end of the key. So we might write a key that looks like this:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>Ax:</cell><cell><m>x</m> is angry.</cell></row>
+<row><cell>Hx:</cell><cell><m>x</m> is happy.</cell></row>
+<row><cell>T<m>_1</m>xy:</cell><cell><m>x</m> is at least as tall as <m>y</m>.</cell></row>
+<row><cell>T<m>_2</m>xy:</cell><cell><m>x</m> is at least as tough as <m>y</m>.</cell></row>
+<row><cell>Bxyz:</cell><cell><m>y</m> is between <m>x</m> and <m>z</m>.</cell></row>
+<row><cell>d:</cell><cell>Donald</cell></row>
+<row><cell>g:</cell><cell>Gregor</cell></row>
+<row><cell>m:</cell><cell>Marybeth</cell></row></tabular>
+<p>We can symbolize sentences that use any combination of these predicates and terms. For example:</p>
+<p>
+<ol>
+<li>Donald is angry.</li>
+<li>If Donald is angry, then so are Gregor and Marybeth.</li>
+<li>Marybeth is at least as tall and as tough as Gregor.</li>
+<li>Donald is shorter than Gregor.</li>
+<li>Gregor is between Donald and Marybeth.</li></ol></p>
+<p>Sentence 1 is straightforward: <m>Ad</m>. The ‘<m>x</m>’ in the key entry ‘<m>Ax</m>’ is just a placeholder; we replace it with other terms when translating.</p>
+<p>Sentence 2 can be paraphrased as, ‘If <m>Ad</m>, then <m>Ag</m> and <m>Am</m>.’ QL has all the truth-functional connectives of SL, so we translate this as <m>Ad \eif (Ag \eand Am)</m>.</p>
+<p>Sentence 3 can be translated as <m>T_1mg \eand T_2mg</m>.</p>
+<p>Sentence 4 might seem as if it requires a new predicate. If we only needed to symbolize this sentence, we could define a predicate like <m>Sxy</m> to mean ‘<m>x</m> is shorter than <m>y</m>.’ However, this would ignore the logical connection between ‘shorter’ and ‘taller.’ Considered only as symbols of QL, there is no connection between <m>S</m> and <m>T_1</m>. They might mean anything at all. Instead of introducing a new predicate, we paraphrase sentence 4 using predicates already in our key: ‘It is not the case that Donald is as tall or taller than Gregor.’ We can translate it as <m>\enot T_1dg</m>.</p>
+<p>Sentence 5 requires that we pay careful attention to the order of terms in the key. It becomes <m>Bdgm</m>.</p>
+</section>
+<section xml:id="ql-quantifiers">
+<title>Quantifiers</title>
+<p>We are now ready to introduce quantifiers. Quantifiers (unlike names and predicates) are a new kind of logical connective; like conjunction, negation, etc., they can govern the interpretation of a QL sentence.  Consider these English sentences:</p>
+<p>
+<ol>
+<li>Everyone is happy.</li>
+<li>Everyone is at least as tough as Donald.</li>
+<li>Someone is angry.</li></ol></p>
+<p>It might be tempting to translate sentence 6 as <m>Hd \eand Hg \eand Hm</m>. Yet this would only say that Donald, Gregor, and Marybeth are happy. We want to say that <em>everyone</em> is happy, even if we have not defined a constant to name them. In order to do this, we introduce the ‘<m>\forall</m>’ symbol. This is called the <term>universal quantifier</term>.</p>
+<p>A quantifier is placed in front of the formula that it binds. It always comes along with an associated variable. Typically that formula will include the same variable. We can translate sentence 6 as <m>\forall x Hx</m>. Paraphrased partially into English, this means ‘For all <m>x</m>, <m>x</m> is happy.’</p>
+<p>We call <m>\forall x</m> an <em>x-quantifier</em>. The formula that follows the quantifier is called the <em>scope</em> of the quantifier. We will give a formal definition of scope later, but intuitively it is the part of the sentence that the quantifier quantifies over. In <m>\forall x Hx</m>, the scope of the universal quantifier is <m>Hx</m>.</p>
+<p>Sentence 7 can be paraphrased as, ‘For all <m>x</m>, <m>x</m> is at least as tough as Donald.’ This translates as <m>\forall x T_2xd</m>.</p>
+<p>In these quantified sentences, the variable <m>x</m> is serving as a kind of placeholder. The expression <m>\forall x</m> means that you can pick anyone and put them in as <m>x</m>. There is no special reason to use <m>x</m> rather than some other variable. The sentence <m>\forall x Hx</m> means exactly the same thing as <m>\forall y Hy</m>, <m>\forall z Hz</m>, and <m>\forall x_5 Hx_5</m>.</p>
+<p>To translate sentence 8, we introduce another new symbol: the <term>existential quantifier</term>, <m>\exists</m>. Like the universal quantifier, the existential quantifier requires a variable. Sentence 8 can be translated as <m>\exists x Ax</m>. This means that there is some <m>x</m> which is angry. More precisely, it means that there is <em>at least one</em> angry person. Once again, the variable is a kind of placeholder; we could just as easily have translated sentence 8 as <m>\exists z Az</m>.</p>
+<p>Consider these further sentences:</p>
+<p>
+<ol>
+<li>No one is angry.</li>
+<li>There is someone who is not happy.</li>
+<li>Not everyone is happy.</li></ol></p>
+<p>Sentence 9 can be paraphrased as, ‘It is not the case that someone is angry.’ This can be translated using negation and an existential quantifier: <m>\enot \exists x Ax</m>. Yet sentence 9 could also be paraphrased as, ‘Everyone is not angry.’ With this in mind, it can be translated using negation and a universal quantifier: <m>\forall x \enot Ax</m>. Both of these are acceptable translations, because they are logically equivalent. The critical thing is whether the negation comes before or after the quantifier.</p>
+<p>In general, <m>\forall x\metaA{}</m> is logically equivalent to <m>\enot\exists x\enot\metaA{}</m>. This means that any sentence which can be symbolized with a universal quantifier can be symbolized with an existential quantifier, and vice versa. One translation might seem more natural than the other, but there is no logical difference in translating with one quantifier rather than the other. For some sentences, it will simply be a matter of taste.</p>
+<p>Sentence 10 is most naturally paraphrased as, ‘There is some <m>x</m> such that <m>x</m> is not happy.’ This becomes <m>\exists x \enot Hx</m>. Equivalently, we could write <m>\enot\forall x Hx</m>.</p>
+<p>Sentence 11 is most naturally translated as <m>\enot\forall x Hx</m>. This is logically equivalent to sentence 10 and so could also be translated as <m>\exists x \enot Hx</m>.</p>
+</section>
+<section xml:id="ql-universe-of-discourse">
+<title>Universe of discourse</title>
+<p>Given the symbolization key we have been using, <m>\forall xHx</m> means ‘Everyone is happy.’ Who is included in this <em>everyone</em>? When we use sentences like this in English, we usually do not mean everyone now alive on the Earth. We certainly do not mean everyone who was ever alive or who will ever live. We mean something more modest: everyone in the building, everyone in the class, or everyone in the room.</p>
+<p>In order to eliminate this ambiguity, we will need to specify a <term>universe of discourse</term> — abbreviated UD. The UD is the set of things that we are talking about. So if we want to talk about people in Chicago, we define the UD to be people in Chicago. We write this at the beginning of the symbolization key, like this:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>UD:</cell><cell>people in Chicago</cell></row></tabular>
+<p>The quantifiers <em>range over</em> the universe of discourse. Given this UD, <m>\forall x</m> means ‘Everyone in Chicago’ and <m>\exists x</m> means ‘Someone in Chicago.’ Each constant names some member of the UD, so we can only use this UD with the symbolization key above if Donald, Gregor, and Marybeth are all in Chicago. If we want to talk about people in places besides Chicago, then we need to include those people in the UD.</p>
+<p>In QL, the UD must be <em>non-empty</em>; that is, it must include at least one thing. It is possible to construct formal languages that allow for empty UDs, but this introduces complications; such languages are beyond the scope of this book.</p>
+<p>Even allowing for a UD with just one member can produce some strange results. Suppose we have this as a symbolization key:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>UD:</cell><cell>the Eiffel Tower</cell></row>
+<row><cell>Px:</cell><cell><m>x</m> is in Paris.</cell></row></tabular>
+<p>The sentence <m>\forall x Px</m> might be paraphrased in English as ‘Everything is in Paris.’ Yet that would be misleading. It means that everything <em>in the UD</em> is in Paris. This UD contains only the Eiffel Tower, so with this symbolization key <m>\forall x Px</m> just means that the Eiffel Tower is in Paris. We will rarely work with such bizarre domains as this.</p>
+<p>It is a rule in QL that each constant will pick out exactly one member of the UD. (There is no rule prohibiting multiple different constants from referring to the same member of the UD.)</p>
+</section>
+<section xml:id="ql-translating-to-ql">
+<title>Translating to QL</title>
+<p>We now have the basic pieces of QL. Translating more complicated sentences will only be a matter of knowing the right way to combine predicates, constants, quantifiers, variables, and sentential connectives. Consider these sentences:</p>
+<p>
+<ol>
+<li>Every coin in my pocket is a loonie.</li>
+<li>Some coin on the table is a dime.</li>
+<li>Not all the coins on the table are loonies.</li>
+<li>None of the coins in my pocket are dimes.</li></ol></p>
+<p>In providing a symbolization key, we need to specify a UD. Since we are talking about coins in my pocket and on the table, the UD must at least contain all of those coins. Since we are not talking about anything besides coins, we let the UD be all coins. Since we are not talking about any specific coins, we do not need to define any constants. So we define this key:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>UD:</cell><cell>all coins</cell></row>
+<row><cell>Px:</cell><cell><m>x</m> is in my pocket.</cell></row>
+<row><cell>Tx:</cell><cell><m>x</m> is on the table.</cell></row>
+<row><cell>Lx:</cell><cell><m>x</m> is a loonie.</cell></row>
+<row><cell>Dx:</cell><cell><m>x</m> is a dime.</cell></row></tabular>
+<p>Sentence 12 is most naturally translated with a universal quantifier. The universal quantifier says something about everything in the UD, not just about the coins in my pocket. Sentence 12 means that, for any coin, <em>if</em> that coin is in my pocket, <em>then</em> it is a loonie. So we can translate it as <m>\forall x(Px \eif Lx)</m>.</p>
+<p>Since sentence 12 is about coins that are both in my pocket <em>and</em> that are loonies, it might be tempting to translate it using a conjunction. However, the sentence <m>\forall x(Px \eand Lx)</m> would mean that everything in the UD is both in my pocket and a loonie: All the coins that exist are loonies in my pocket. This would be nice, but it means something very different than sentence 12.</p>
+<p>Sentence 13 is most naturally translated with an existential quantifier. It says that there is some coin which is both on the table and which is a dime. So we can translate it as <m>\exists x(Tx \eand Dx)</m>.</p>
+<p>Notice that we needed to use a conditional with the universal quantifier, but we used a conjunction with the existential quantifier. This is a common pattern. What would it mean to write <m>\exists x(Tx \eif Dx)</m>? Probably not what you think. It means that there is some member of the UD which would satisfy the subformula; roughly speaking, there is some name <m>\alpha</m> such that <m>(T\alpha \eif D\alpha)</m> is true. In SL, <m>\metaA{} \eif \metaB{}</m> is logically equivalent to <m>\enot\metaA{} \eor \metaB{}</m>, and this will also hold in QL. So <m>\exists x(Tx \eif Dx)</m> is true if there is some <m>\alpha</m> such that <m>(\enot T\alpha \eor D\alpha)</m>; i.e., it is true if some coin is <em>either</em> not on the table <em>or</em> is a dime. Of course there is a coin that is not on the table — there are coins in lots of other places. So <m>\exists x(Tx \eif Dx)</m> makes an extremely weak claim. A conditional will usually be the natural connective to use with a universal quantifier, but a conditional within the scope of an existential quantifier can do very strange things. As a general rule, there is almost never any good reason to translate an English sentence into QL as an existential governing a conditional.</p>
+<p>Sentence 14 can be paraphrased as, ‘It is not the case that every coin on the table is a loonie.’ So we can translate it as <m>\enot \forall x(Tx \eif Lx)</m>. You might look at sentence 14 and paraphrase it instead as, ‘Some coin on the table is not a loonie.’ You would then translate it as <m>\exists x(Tx \eand \enot Lx)</m>. Although it is probably not obvious, these two translations are logically equivalent. (This is due to the logical equivalence between <m>\enot\forall x\metaA{}</m> and <m>\exists x\enot\metaA{}</m>, along with the equivalence between <m>\enot(\metaA{}\eif\metaB{})</m> and <m>\metaA{}\eand\enot\metaB{}</m>. We’ll be able to prove this later.)</p>
+<p>Sentence 15 can be paraphrased as, ‘It is not the case that there is some dime in my pocket.’ This can be translated as <m>\enot\exists x(Px \eand Dx)</m>. It might also be paraphrased as, ‘Everything in my pocket is a non-dime,’ and then could be translated as <m>\forall x(Px \eif \enot Dx)</m>. Again the two translations are logically equivalent. Both are correct translations of sentence 15.</p>
+<p>We can now translate the argument from <xref ref="ql-from-sentences-to-predicates" text="type-global"/>, the one that motivated the need for quantifiers:</p>
+<blockquote>
+<p>Willard is a logician. All logicians wear funny hats.</p>
+<p>∴ Willard wears a funny hat.</p></blockquote>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>UD:</cell><cell>people</cell></row>
+<row><cell>Lx:</cell><cell><m>x</m> is a logician.</cell></row>
+<row><cell>Fx:</cell><cell><m>x</m> wears a funny hat.</cell></row>
+<row><cell>w:</cell><cell>Willard</cell></row></tabular>
+<p>Translating, we get:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell/><cell><m>Lw</m></cell></row>
+<row><cell/><cell><m>\forall x(Lx \eif Fx)</m></cell></row>
+<row><cell>∴</cell><cell><m>Fw</m></cell></row></tabular>
+<p>This captures the structure that was left out of the SL translation of this argument, and this is a valid argument in QL.</p>
+</section>
+<section xml:id="ql-empty-predicates">
+<title>Empty predicates</title>
+<p>A predicate need not apply to anything in the UD. A predicate that applies to nothing in the UD is called an <term>empty</term> predicate.</p>
+<p>Suppose we want to symbolize these two sentences:</p>
+<p>
+<ol>
+<li>Every monkey knows sign language.</li>
+<li>Some monkey knows sign language.</li></ol></p>
+<p>It is possible to write the symbolization key for these sentences in this way:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>UD:</cell><cell>animals</cell></row>
+<row><cell>Mx:</cell><cell><m>x</m> is a monkey.</cell></row>
+<row><cell>Sx:</cell><cell><m>x</m> knows sign language.</cell></row></tabular>
+<p>Sentence 16 can now be translated as <m>\forall x(Mx \eif Sx)</m>.</p>
+<p>Sentence 17 becomes <m>\exists x(Mx \eand Sx)</m>.</p>
+<p>It is tempting to say that sentence 16 entails sentence 17; that is: if every monkey knows sign language, then it must be that some monkey knows sign language. However, the entailment does not hold in QL. It is possible for the sentence <m>\forall x(Mx \eif Sx)</m> to be true even though the sentence <m>\exists x(Mx \eand Sx)</m> is false.</p>
+<p>How can this be? The answer comes from considering whether these sentences would be true or false <em>if there were no monkeys</em>.</p>
+<p>We have defined <m>\forall</m> and <m>\exists</m> in such a way that <m>\forall\metaA{}</m> is equivalent to <m>\enot \exists\enot \metaA{}</m>. As such, the universal quantifier doesn’t involve the existence of anything — only non-existence. If sentence 16 is true, then there are <em>no</em> monkeys who don’t know sign language. If there were no monkeys, then <m>\forall x(Mx \eif Sx)</m> would be true and <m>\exists x(Mx \eand Sx)</m> would be false.</p>
+<p>A second reason to allow empty predicates is that we want to be able to say things like, ‘I do not know if there are any monkeys, but any monkeys that there are know sign language.’ That is, we want to be able to have predicates that do not (or might not) refer to anything.</p>
+<p>Third, consider: <m>\forall x (Px \eif Px)</m>. This should be a tautology. But if sentence 16 implied sentence 17, then this would imply <m>\exists x (Px \eand Px)</m>. It would become a logical truth that for any predicate there is something that satisfies that predicate.</p>
+<p>What happens if we add an empty predicate <m>R</m> to the interpretation above? For example, we might define <m>Rx</m> to mean ‘<m>x</m> is a refrigerator.’ Now the sentence <m>\forall x(Rx \eif Mx)</m> will be true. This is counterintuitive, since we do not want to say that there are a whole bunch of refrigerator monkeys. It is important to remember, though, that <m>\forall x(Rx \eif Mx)</m> means that any member of the UD which is a refrigerator is a monkey. Since the UD is animals, there are no refrigerators in the UD and so the sentence is trivially true.</p>
+<p>If you were actually translating the sentence ‘All refrigerators are monkeys’, then you would want to include appliances in the UD. Then the predicate <m>R</m> would not be empty and the sentence <m>\forall x(Rx \eif Mx)</m> would be false.</p>
+<assemblage>
+<p>
+<ul>
+<li>A UD must have <em>at least</em> one member.</li>
+<li>A predicate may apply to some, all, or no members of the UD.</li>
+<li>A constant must pick out <em>exactly</em> one member of the UD.</li>
+<li>A member of the UD may be picked out by one constant, many constants, or none at all.</li></ul></p></assemblage>
+</section>
+<section xml:id="ql-picking-a-universe-of-discourse">
+<title>Picking a universe of discourse</title>
+<p>The appropriate symbolization of an English language sentence in QL will depend on the symbolization key. In some ways, this is obvious: It matters whether <m>Dx</m> means ‘<m>x</m> is dainty’ or ‘<m>x</m> is dangerous.’ The meaning of sentences in QL also depends on the UD.</p>
+<p>Let <m>Rx</m> mean ‘<m>x</m> is a rose,’ let <m>Tx</m> mean ‘<m>x</m> has a thorn,’ and consider this sentence:</p>
+<p>
+<ol>
+<li>Every rose has a thorn.</li></ol></p>
+<p>It is tempting to say that sentence 18 should be translated as <m>\forall x(Rx \eif Tx)</m>. If the UD contains all roses, that would be correct. Yet if the UD is merely <em>things on my kitchen table</em>, then <m>\forall x(Rx \eif Tx)</m> would only mean that every rose on my kitchen table has a thorn. If there are no roses on my kitchen table, the sentence would be trivially true.</p>
+<p>The universal quantifier only ranges over members of the UD, so we need to include all roses in the UD in order to translate sentence 18. We have two options. First, we can restrict the UD to include all roses but <em>only</em> roses. Then sentence 18 becomes <m>\forall x Tx</m>. This means that everything in the UD has a thorn; since the UD just is the set of roses, this means that every rose has a thorn. This option can save us trouble if every sentence that we want to translate using the symbolization key is about roses.</p>
+<p>Second, we can let the UD contain things besides roses: rhododendrons, rats, rifles, and whatall else. Then sentence 18 must be <m>\forall x(Rx \eif Tx)</m>.</p>
+<p>If we wanted the universal quantifier to mean <em>every</em> thing, without restriction, then we might try to specify a UD that contains everything. But this notion is somewhat obscure. Does ‘everything’ include things that have only been imagined, like fictional characters? On the one hand, we want to be able to symbolize arguments about Hamlet or Sherlock Holmes. So we need to have the option of including fictional characters in the UD. On the other hand, we never need to talk about every thing that does not exist. That might not even make sense. There are philosophical issues here that we will not try to address. We can avoid these difficulties by always specifying the UD. For example, if we mean to talk about plants, people, and cities, then the UD might be ‘living things and places.’</p>
+<p>Suppose that we want to translate sentence 18 and, with the same symbolization key, translate these sentences:</p>
+<p>
+<ol>
+<li>Esmerelda has a rose in her hair.</li>
+<li>Everyone is cross with Esmerelda.</li></ol></p>
+<p>We need a UD that includes roses (so that we can symbolize sentence 18), and that also includes people (so we can translate sentence 19–20.) Here is a suitable key:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>UD:</cell><cell>people and plants</cell></row>
+<row><cell>Px:</cell><cell><m>x</m> is a person.</cell></row>
+<row><cell>Rx:</cell><cell><m>x</m> is a rose.</cell></row>
+<row><cell>Tx:</cell><cell><m>x</m> has a thorn.</cell></row>
+<row><cell>Cxy:</cell><cell><m>x</m> is cross with <m>y</m>.</cell></row>
+<row><cell>Hxy:</cell><cell><m>x</m> has <m>y</m> in their hair.</cell></row>
+<row><cell>e:</cell><cell>Esmerelda</cell></row></tabular>
+<p>Since we do not have a predicate that means ‘<m>\ldots</m> has a rose in her hair’, translating sentence 19 will require paraphrasing. The sentence says that there is a rose in Esmerelda’s hair; that is, there is something which is both a rose and is in Esmerelda’s hair. So we get: <m>\exists x(Rx \eand Hex)</m>.</p>
+<p>It is tempting to translate sentence 20 as <m>\forall x Cxe</m>. Unfortunately, this would mean that every member of the UD is cross with Esmerelda — both people and plants. It would mean, for instance, that the rose in Esmerelda’s hair is cross with her. Of course, sentence 20 does not mean that.</p>
+<p>‘Everyone’ means every person, not every member of the UD. So we can paraphrase sentence 20 as, ‘Every person is cross with Esmerelda.’ We know how to translate sentences like this: <m>\forall x(Px \eif Cxe)</m>.</p>
+<p>In general, the universal quantifier can be used to mean ‘everyone’ if the UD contains only people. If there are people and other things in the UD, then ‘everyone’ must be treated as ‘every person’.</p>
+</section>
+<section xml:id="ql-translating-pronouns">
+<title>Translating pronouns</title>
+<p>When translating to QL, it is important to understand the structure of the sentences you want to translate. What matters is the final translation in QL, and sometimes you will be able to move from an English language sentence directly to a sentence of QL. Other times, it helps to paraphrase the sentence one or more times. Each successive paraphrase should move from the original sentence closer to something that you can translate directly into QL.</p>
+<p>For the next several examples, we will use this symbolization key:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>UD:</cell><cell>people</cell></row>
+<row><cell>Gx:</cell><cell><m>x</m> can play guitar.</cell></row>
+<row><cell>Rx:</cell><cell><m>x</m> is a rock star.</cell></row>
+<row><cell>c:</cell><cell>Chris</cell></row>
+<row><cell>l:</cell><cell>Lemmy</cell></row></tabular>
+<p>Now consider these sentences:</p>
+<p>
+<ol>
+<li>If Chris can play guitar, then they are a rock star.</li>
+<li>If a person can play guitar, then they are a rock star.</li></ol></p>
+<p>Sentence 21 and sentence 22 have the same words in the consequent (‘<m>\ldots</m> they are a rock star’), but they cannot be translated in the same way. It helps to paraphrase the original sentences, replacing pronouns with explicit references.</p>
+<p>Sentence 21 can be paraphrased as, ‘If Chris can play guitar, then <em>Chris</em> is a rock star.’ The word ‘they’ in sentence 21 is being used to refer to a specific individual, Chris. This can obviously be translated as <m>Gc \eif Rc</m>.</p>
+<p>Sentence 22 must be paraphrased differently: ‘If a person can play guitar, then <em>that person</em> is a rock star.’ The pronoun ‘they’ here is not about any particular person, so we need a variable. Translating halfway, we can paraphrase the sentence as, ‘For any person <m>x</m>, if <m>x</m> can play guitar, then <m>x</m> is a rock star.’ Now this can be translated as <m>\forall x (Gx \eif Rx)</m>. This is the same as, ‘Everyone who can play guitar is a rock star.’</p>
+<p>Consider these further sentences:</p>
+<p>
+<ol>
+<li>If anyone can play guitar, then Lemmy can.</li>
+<li>If anyone can play guitar, then they are a rock star.</li></ol></p>
+<p>These two sentences have the same antecedent (‘If anyone can play guitar<m>\ldots</m>’), but they have different logical structures.</p>
+<p>Sentence 23 can be paraphrased, ‘If someone can play guitar, then Lemmy can play guitar.’ The antecedent and consequent are separate sentences, so it can be symbolized with a conditional as the main logical operator: <m>\exists x Gx \eif Gl</m>.</p>
+<p>Sentence 24 can be paraphrased, ‘For any person, if they can play guitar, then they are a rock star.’ It would be a mistake to symbolize this with an existential quantifier, because it is talking about everybody. The sentence is equivalent to ‘All guitar players are rock stars.’ It is best translated as <m>\forall x(Gx \eif Rx)</m>.</p>
+<p>The English words ‘any’ and ‘anyone’ should typically be translated using quantifiers. As these two examples show, they sometimes call for an existential quantifier (as in sentence 23) and sometimes for a universal quantifier (as in sentence 24). If you have a hard time determining which is required, paraphrase the sentence with an English language sentence that uses words besides ‘any’ or ‘anyone.’</p>
+</section>
+<section xml:id="ql-quantifiers-and-scope">
+<title>Quantifiers and scope</title>
+<p>In the sentence <m>\exists x Gx \eif Gl</m>, the scope of the existential quantifier is the expression <m>Gx</m>. Would it matter if the scope of the quantifier were the whole sentence? That is, does the sentence <m>\exists x (Gx \eif Gl)</m> mean something different?</p>
+<p>With the key given above, <m>\exists x Gx \eif Gl</m> means that if there is some guitarist, then Lemmy is a guitarist. <m>\exists x (Gx \eif Gl)</m> would mean that there is some person such that if that person were a guitarist, then Lemmy would be a guitarist. Recall that the conditional here is a material conditional; the conditional is true any time the antecedent is false. Let the constant <m>p</m> denote the author of this book, someone who is certainly not a guitarist. The sentence <m>Gp \eif Gl</m> is true because <m>Gp</m> is false. Since someone (namely <m>p</m>) satisfies the sentence, then <m>\exists x (Gx \eif Gl)</m> is true. The sentence is true because there is a non-guitarist, regardless of Lemmy’s skill with the guitar.</p>
+<p>Something strange happened when we changed the scope of the quantifier, because the conditional in QL is a material conditional. In order to keep the meaning the same, we would have to change the quantifier: <m>\exists x Gx \eif Gl</m> means the same thing as <m>\forall x (Gx \eif Gl)</m>, and <m>\exists x (Gx \eif Gl)</m> means the same thing as <m>\forall x Gx \eif Gl</m>.</p>
+<p>Note that quantifiers count as logical connectives, so one can sensibly ask whether the main connective of a given sentence is a quantifier or something else. (Calling it a ‘connective’ can be slightly confusing, since, unlike connectives like conjunction and disjunction, it doesn’t literally <em>connect</em> two sentences. Quantifiers are like negations in this respect — each does count as a connective.) If the scope of the quantifier is the entire sentence, then that quantifier is the main connective, as in <m>\forall x (Gx \eif Gl)</m>. If the scope of the quantifier is limited to a subsentence, then that quantifier is not the main connective. For example, in <m>\exists x Gx \eif Gl</m>, the main connective is the conditional; the existential is part of the antecedent.</p>
+</section>
+<section xml:id="ql-ambiguous-predicates">
+<title>Ambiguous predicates</title>
+<p>Suppose we just want to translate this sentence:</p>
+<p>
+<ol>
+<li>Adina is a skilled surgeon.</li></ol></p>
+<p>Let the UD be people, let <m>Kx</m> mean ‘<m>x</m> is a skilled surgeon’, and let <m>a</m> mean Adina. Sentence 25 is simply <m>Ka</m>.</p>
+<p>Suppose instead that we want to translate this argument:</p>
+<blockquote>
+<p>The hospital will only hire a skilled surgeon. All surgeons are greedy. Billy is a surgeon, but is not skilled. Therefore, Billy is greedy, but the hospital will not hire him.</p></blockquote>
+<p>We need to distinguish being a <em>skilled surgeon</em> from merely being a <em>surgeon</em>. So we define this symbolization key:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>UD:</cell><cell>people</cell></row>
+<row><cell>Gx:</cell><cell><m>x</m> is greedy.</cell></row>
+<row><cell>Hx:</cell><cell>The hospital will hire <m>x</m>.</cell></row>
+<row><cell>Rx:</cell><cell><m>x</m> is a surgeon.</cell></row>
+<row><cell>Kx:</cell><cell><m>x</m> is skilled.</cell></row>
+<row><cell>b:</cell><cell>Billy</cell></row></tabular>
+<p>Now the argument can be translated in this way:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell/><cell><m>\forall x\bigl[\enot (Rx \eand Kx) \eif \enot Hx\bigr]</m></cell></row>
+<row><cell/><cell><m>\forall x(Rx \eif Gx)</m></cell></row>
+<row><cell/><cell><m>Rb \eand \enot Kb</m></cell></row>
+<row><cell>∴</cell><cell><m>Gb \eand \enot Hb</m></cell></row></tabular>
+<p>Next suppose that we want to translate this argument:</p>
+<blockquote>
+<p>Carol is a skilled surgeon and a tennis player. Therefore, Carol is a skilled tennis player.</p></blockquote>
+<p>If we start with the symbolization key we used for the previous argument, we could add a predicate (let <m>Tx</m> mean ‘<m>x</m> is a tennis player’) and a constant (let <m>c</m> mean Carol). Then the argument becomes:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell/><cell><m>(Rc \eand Kc) \eand Tc</m></cell></row>
+<row><cell>∴</cell><cell><m>Tc \eand Kc</m></cell></row></tabular>
+<p>This translation is a disaster! It takes what in English is a terrible argument and translates it as a valid argument in QL. The problem is that there is a difference between being <em>skilled as a surgeon</em> and <em>skilled as a tennis player</em>. Translating this argument correctly requires two separate predicates, one for each type of skill. If we let <m>K_1x</m> mean ‘<m>x</m> is skilled as a surgeon’ and <m>K_2x</m> mean ‘<m>x</m> is skilled as a tennis player,’ then we can symbolize the argument in this way:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell/><cell><m>(Rc \eand K_1c) \eand Tc</m></cell></row>
+<row><cell>∴</cell><cell><m>Tc \eand K_2c</m></cell></row></tabular>
+<p>Like the English language argument it translates, this is invalid.</p>
+<p>The moral of these examples is that you need to be careful of symbolizing predicates, when they are presented in English in a way that might be ambiguous. Similar problems can arise with predicates like <em>good</em>, <em>bad</em>, <em>big</em>, and <em>small</em>. Just as skilled surgeons and skilled tennis players have different skills, big dogs, big mice, and big problems are big in different ways.</p>
+<p>Is it enough to have a predicate that means ‘<m>x</m> is a skilled surgeon’, rather than two predicates ‘<m>x</m> is skilled’ and ‘<m>x</m> is a surgeon’? Sometimes. As sentence 25 shows, sometimes we do not need to distinguish between skilled surgeons and other surgeons.</p>
+<p>Must we always distinguish between different ways of being skilled, good, bad, or big? No. As the argument about Billy shows, sometimes we only need to talk about one kind of skill. If you are translating an argument that is just about dogs, it is fine to define a predicate that means ‘<m>x</m> is big.’ If the UD includes dogs and mice, however, it is probably best to make the predicate mean ‘<m>x</m> is big for a dog.’</p>
+</section>
+<section xml:id="ql-multiple-quantifiers">
+<title>Multiple quantifiers</title>
+<p>Consider this following symbolization key and the sentences that follow it:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>UD:</cell><cell>People and dogs</cell></row>
+<row><cell>Dx:</cell><cell><m>x</m> is a dog.</cell></row>
+<row><cell>Fxy:</cell><cell><m>x</m> is a friend of <m>y</m>.</cell></row>
+<row><cell>Oxy:</cell><cell><m>x</m> owns <m>y</m>.</cell></row>
+<row><cell>f:</cell><cell>Fifi</cell></row>
+<row><cell>g:</cell><cell>Gerald</cell></row></tabular>
+<p>
+<ol>
+<li>Fifi is a dog.</li>
+<li>Gerald is a dog owner.</li>
+<li>Someone is a dog owner.</li>
+<li>All of Gerald’s friends are dog owners.</li>
+<li>Every dog owner is the friend of a dog owner.</li></ol></p>
+<p>Sentence 26 is easy: <m>Df</m>.</p>
+<p>Sentence 27 can be paraphrased as, ‘There is a dog that Gerald owns.’ This can be translated as <m>\exists x(Dx \eand Ogx)</m>.</p>
+<p>Sentence 28 can be paraphrased as, ‘There is some <m>y</m> such that <m>y</m> is a dog owner.’ The subsentence ‘<m>y</m> is a dog owner’ is just like sentence 27, except that it is about <m>y</m> rather than being about Gerald. So we can translate sentence 28 as <m>\exists y \exists x(Dx \eand Oyx)</m>.</p>
+<p>Sentence 29 can be paraphrased as, ‘Every friend of Gerald is a dog owner.’ Translating part of this sentence, we get <m>\forall x(Fxg \eif\mbox{`</m>x<m>is a dog owner'})</m>. Again, it is important to recognize that ‘<m>x</m> is a dog owner’ is structurally just like sentence 27. Since we already have an x-quantifier, we will need a different variable for the existential quantifier. Any other variable will do. Using <m>z</m>, sentence 29 can be translated as <m>\forall x\bigl[Fxg \eif\exists z(Dz \eand Oxz)\bigr]</m>.</p>
+<p>Sentence 30 can be paraphrased as ‘For any <m>x</m> that is a dog owner, there is a dog owner who is <m>x</m>’s friend.’ Partially translated, this becomes <md>\forall x\bigl[\mbox{$x$ is a dog owner}\eif\exists y(\mbox{$y$ is a dog owner}\eand Fxy)\bigr].</md> Completing the translation, sentence 30 becomes <md>\forall x\bigl[\exists z(Dz \eand Oxz)\eif\exists y\bigl(\exists z(Dz \eand Oyz)\eand Fxy\bigr)\bigr].</md></p>
+<p>Consider this symbolization key and these sentences:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>UD:</cell><cell>people</cell></row>
+<row><cell>Lxy:</cell><cell><m>x</m> likes <m>y</m>.</cell></row>
+<row><cell>i:</cell><cell>Imre.</cell></row>
+<row><cell>k:</cell><cell>Karl.</cell></row></tabular>
+<p>
+<ol>
+<li>Imre likes everyone that Karl likes.</li>
+<li>There is someone who likes everyone who likes everyone that they like.</li></ol></p>
+<p>Sentence 31 can be partially translated as <m>\forall x(\mbox{Karl likes</m>x<m>}\eif\mbox{Imre likes</m>x<m>})</m>. This becomes <m>\forall x(Lkx\eif Lix)</m>.</p>
+<p>Sentence 32 is complex. There is little hope of writing down the whole translation immediately, but we can proceed by small steps. An initial, partial translation might look like this: <md>\exists x\ \mbox{everyone who likes everyone that $x$ likes is liked by $x$}</md>
+The part that remains in English is a universal sentence, so we translate further: <md>\exists x\forall y(\mbox{$y$ likes everyone that $x$ likes}\eif\mbox{$x$ likes $y$}).</md>
+The antecedent of the conditional is structurally just like sentence 31, with <m>y</m> and <m>x</m> in place of Imre and Karl. So sentence 32 can be completely translated in this way <md>\exists x\forall y\bigl[\forall z(Lxz \eif Lyz) \eif Lxy\bigr]</md></p>
+<p>When symbolizing sentences with multiple quantifiers, it is best to proceed by small steps. Paraphrase the English sentence so that the logical structure is readily symbolized in QL. Then translate piecemeal, replacing the daunting task of translating a long sentence with the simpler task of translating shorter formulae.</p>
+</section>
+<section xml:id="ql-grammaticality-rules-for-ql">
+<title>Grammaticality rules for QL</title>
+<introduction>
+<p>In this section, we provide a formal definition for a <em>well-formed formula</em> (wff) and <em>sentence</em> of QL.</p></introduction>
+<subsection xml:id="ql-expressions">
+<title>Expressions</title>
+<p>There are six kinds of symbols in QL:</p>
+<tabular top="minor" left="minor"><col halign="center" right="minor"/><col halign="center" right="minor"/>
+<row><cell>predicates</cell><cell><m>A,B,C,\ldots,Z</m></cell></row>
+<row bottom="minor"><cell>with numerical subscripts, as needed</cell><cell><m>A_1, B_1, Z_1, A_2, A_{25}, J_{375},\ldots</m></cell></row>
+<row><cell>constants</cell><cell><m>a,b,c,\ldots,w</m></cell></row>
+<row bottom="minor"><cell>with numerical subscripts, as needed</cell><cell><m>a_1, w_4, h_7, m_{32},\ldots</m></cell></row>
+<row><cell>variables</cell><cell><m>x,y,z</m></cell></row>
+<row bottom="minor"><cell>with numerical subscripts, as needed</cell><cell><m>x_1, y_1, z_1, x_2,\ldots</m></cell></row>
+<row bottom="minor"><cell>sentential connectives</cell><cell><m>\enot</m>, <m>\eand</m>, <m>\eor</m>, <m>\eif</m>, <m>\eiff</m></cell></row>
+<row bottom="minor"><cell>parentheses</cell><cell>( , )</cell></row>
+<row bottom="minor"><cell>quantifiers</cell><cell><m>\forall, \exists</m></cell></row></tabular>
+<p>We define an <term>expression of QL</term> as any string of symbols of QL. Take any of the symbols of QL and write them down, in any order, and you have an expression.</p></subsection>
+<subsection xml:id="ql-well-formed-formulae">
+<title>Well-formed formulae</title>
+<p>By definition, a <term>term of QL</term> is either a constant or a variable.</p>
+<p>An <term>atomic formula of QL</term> is an n-place predicate followed by <m>n</m> terms. <m>n</m> here can be any non-negative integer, including 0. (A 0-place predicate is an atomic formula of QL just on its own. It does not require the addition of a term for meaningfulness or a truth value. Note that SL atoms are 0-place QL predicates, and so count as QL atoms too.)</p>
+<p>Just as we did for SL, we will give a <em>recursive</em> definition for a wff of QL. In fact, most of the definition will look like the definition of a wff of SL: Every atomic formula is a wff, and you can build new wffs by applying the sentential connectives.</p>
+<p>We could just add a rule for each of the quantifiers and be done with it. For instance: If <m>\metaA{}</m> is a wff, then <m>\forall x\metaA{}</m> and <m>\exists x\metaA{}</m> are wffs. However, this would allow for some confusing sentences like <m>\forall x\exists x Dx</m>. What could these possibly mean? There are possible ways to give interpretations of such sentences, but instead we will write the definition of a wff so that such abominations do not even count as well-formed. QL will include the rule that in order for <m>\forall x\metaA{}</m> or <m>\exists x\metaA{}</m> to be a wff, <m>\metaA{}</m> must not already contain an x-quantifier. So <m>\forall x \exists x Dx</m> will not count as a wff because <m>\exists x Dx</m> already contains an x-quantifier.</p>
+<p>
+<ol>
+<li>Every atomic formula is a wff.</li>
+<li>If <m>\metaA{}</m> is a wff, then <m>\enot\metaA{}</m> is a wff.</li>
+<li>If <m>\metaA{}</m> and <m>\metaB{}</m> are wffs, then <m>(\metaA{}\eand\metaB{})</m> is a wff.</li>
+<li>If <m>\metaA{}</m> and <m>\metaB{}</m> are wffs, <m>(\metaA{}\eor\metaB{})</m> is a wff.</li>
+<li>If <m>\metaA{}</m> and <m>\metaB{}</m> are wffs, then <m>(\metaA{}\eif\metaB{})</m> is a wff.</li>
+<li>If <m>\metaA{}</m> and <m>\metaB{}</m> are wffs, then <m>(\metaA{}\eiff\metaB{})</m> is a wff.</li>
+<li>If <m>\metaA{}</m> is a wff, <m>\script{x}</m> is a variable, and <m>\metaA{}</m> contains no <m>\script{x}</m>-quantifiers, then <m>\forall\script{x}\metaA{}</m> is a wff.</li>
+<li>If <m>\metaA{}</m> is a wff, <m>\script{x}</m> is a variable, and <m>\metaA{}</m> contains no <m>\script{x}</m>-quantifiers, then <m>\exists\script{x}\metaA{}</m> is a wff.</li>
+<li>All and only wffs of QL can be generated by applications of these rules.</li></ol></p>
+<p>Notice that the ‘<m>\script{x}</m>’ that appears in the definition above is not the variable <m>x</m>. It is a <em>meta-variable</em> that stands in for any variable of QL. So <m>\forall xAx</m> is a wff, but so are <m>\forall yAy</m>, <m>\forall zAz</m>, <m>\forall x_4Ax_4</m>, and <m>\forall z_9Az_9</m>.</p>
+<p>We can now give a formal definition for scope: The <term>scope</term> of a quantifier is the subformula for which the quantifier is the main logical operator.</p></subsection>
+<subsection xml:id="ql-sentences">
+<title>Sentences</title>
+<p>A sentence is something that can be either true or false. In SL, every wff was a sentence. This will not be the case in QL. Consider the following symbolization key:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>UD:</cell><cell>people</cell></row>
+<row><cell>Lxy:</cell><cell><m>x</m> loves <m>y</m></cell></row>
+<row><cell>b:</cell><cell>Boris</cell></row></tabular>
+<p>Consider the expression <m>Lzz</m>. It is an atomic formula: a two-place predicate followed by two terms. All atomic formula are wffs, so <m>Lzz</m> is a wff. Does it mean anything? You might think that it means that <m>z</m> loves themself, in the same way that <m>Lbb</m> means that Boris loves himself. But <m>z</m> is a variable; it does not name some person the way a constant would. The wff <m>Lzz</m> does not tell us how to interpret <m>z</m>. Does it mean everyone? Anyone? Someone? Someone in particular? If we had a <m>z</m>-quantifier, it would tell us how to interpret <m>z</m>. For instance, <m>\exists zLzz</m> would mean that someone loves themself.</p>
+<p>Some formal languages treat a wff like <m>Lzz</m> as implicitly having a universal quantifier in front. We will not do this for QL. If you want to say that everyone loves themself, then you need to write the quantifier: <m>\forall zLzz</m></p>
+<p>In order to make sense of a variable, we need a quantifier to tell us how to interpret that variable. The scope of an <m>x</m>-quantifier, for instance, is the part of the formula where the quantifier tells how to interpret <m>x</m>.</p>
+<p>In order to be precise about this, we define a <term>bound variable</term> to be an occurrence of a variable <m>\script{x}</m> that is within the scope of an <m>\script{x}</m>-quantifier. A <term>free variable</term> is an occurrence of a variable that is not bound.</p>
+<p>For example, consider this wff: <md>\forall x(Ex \eor Dy) \eif \exists z(Rzx \eif Lzx)</md></p>
+<p>The scope of the universal quantifier <m>\forall x</m> is <m>(Ex \eor Dy)</m>, so the first <m>x</m> is bound by the universal quantifier but the second and third <m>x</m>s are free. There is no <m>y</m>-quantifier, so the <m>y</m> is free. The scope of the existential quantifier <m>\exists z</m> is <m>(Rzx \eif Lzx)</m>, so both occurrences of <m>z</m> are bound by it. Since this wff contains variables with no instructions for how to interpret them, we don’t know how to evaluate it. It is not a sentence.</p>
+<p>We define a <term>sentence</term> of QL as a wff of QL that contains no free variables.</p></subsection>
+<subsection xml:id="ql-notational-conventions">
+<title>Notational conventions</title>
+<p>We will adopt the same notational conventions that we did for SL <xref ref="SLconventions" text="type-global"/>). First, we may leave off the outermost parentheses of a formula. Second, we will sometimes use square brackets ‘[’ and ‘]’ in place of parentheses to increase the readability of formulae. Third, we give ourselves permission to leave out parentheses between each pair of conjuncts when writing long series of conjunctions. Fourth, we may similarly leave out parentheses between each pair of disjuncts when writing long series of disjunctions.</p></subsection>
+</section>
+<section xml:id="ql-common-student-errors">
+<title>Common student errors</title>
+<p>A sentence that says everything with one property also has another property should be translated as a universal governing a conditional. Using the obvious interpretation key:</p>
+<p>
+<ul>
+<li>‘Every student is working’: <m>\forall x (Sx \eif Wx)</m></li>
+<li>‘Every student has a friend’: <m>\forall x (Sx \eif \exists y Fxy)</m></li>
+<li>‘Only students with friends are working’: <m>\forall x [(Sx \eand Wx) \eif \exists y Fxy]</m></li></ul></p>
+<p>One common error is to translate sentences of this form with a different kind of shape — for example, as a universal governing a conjunction, or as an existential governing a conditional. These are very inaccurate translations of these English sentences:</p>
+<p>
+<ul>
+<li><m>\forall x (Sx \eand Wx)</m></li>
+<li><m>\forall x (Sx \eand \exists y Fxy)</m></li>
+<li><m>\forall x [(Sx \eand Wx) \eand \exists y Fxy]</m></li></ul></p>
+<p>These say that <em>every</em> object in the UD is a student with the properties in question. Everyone is a student that is working; everyone is a student with a friend; everyone is a working student who has a friend. Any time you have a universal governing a conjunction, you are making a very strong claim — you’re not just talking about objects with a particular property, you’re saying that multiple things are true about every single object in the domain. Be very careful if you find yourself offering a universal over a conjunction, and make sure you don’t mean to use a conditional instead.</p>
+<p>It is also a serious mistake to use an existential instead of a universal for sentences like these:</p>
+<p>
+<ul>
+<li><m>\exists x (Sx \eif Wx)</m></li>
+<li><m>\exists x (Sx \eif \exists y Fxy)</m></li>
+<li><m>\exists x [(Sx \eand Wx) \eif \exists y Fxy]</m></li></ul></p>
+<p>These are very weak claims. They say that there is some object in the domain that satisfies a certain conditional. For example, <m>\exists x (Sx \eif Wx)</m> says there is something in the domain such that, if it is a student, it is working. Given the truth conditions for the material conditional, this will be true if there is even one object in the domain that is not a student, regardless of who is and isn’t working; it will also be true if there is even one object in the domain that is working, regardless of who is and isn’t a student.</p>
+<assemblage>
+<p>If you translate an English sentence as an existential governing a conditional, you are almost definitely making a mistake.</p></assemblage>
+<p>If you find yourself offering, as a translation of some English sentence, an existential governing a conditional, you are almost certainly making a mistake. This is not a reasonable translation of any ordinary English sentence. You probably want either a universal over a conditional (everything with one property has another property) or an existential over a conjunction (there is something with the following properties).</p>
+</section>
+<exercises xml:id="ql-exercises">
+<title>Practice Exercises</title>
+<subexercises xml:id="pr-QLbojackall">
+<title>Part A</title>
+<introduction>
+<p>Using the symbolization key given, translate each English-language sentence into QL. Hint: all of these sentences are well-translated as universals governing conditionals.</p>
+<p>
+<dl width="narrow">
+<li>
+<title>UD:</title>
+<p>all humans and animals in the world of <em>Bojack Horseman</em></p></li>
+<li>
+<title>Dx:</title>
+<p><m>x</m> is a dog.</p></li>
+<li>
+<title>Cx:</title>
+<p><m>x</m> is a cat.</p></li>
+<li>
+<title>Hx:</title>
+<p><m>x</m> is a horse.</p></li>
+<li>
+<title>Bx:</title>
+<p><m>x</m> is a human being.</p></li>
+<li>
+<title>Mx:</title>
+<p><m>x</m> is a movie star.</p></li>
+<li>
+<title>Lxy:</title>
+<p><m>x</m> lives with <m>y</m>.</p></li>
+<li>
+<title>Rxy:</title>
+<p><m>x</m> represents <m>y</m> (as <m>y</m>’s agent).</p></li>
+<li>
+<title>Wxy:</title>
+<p><m>x</m> worked on a movie with <m>y</m>.</p></li>
+<li>
+<title>b:</title>
+<p>Bojack</p></li>
+<li>
+<title>c:</title>
+<p>Princess Carolyn</p></li>
+<li>
+<title>d:</title>
+<p>Diane</p></li>
+<li>
+<title>p:</title>
+<p>Mr. Peanutbutter</p></li></dl></p></introduction>
+<exercise>
+<statement>
+<p>Every movie star is a dog.</p></statement></exercise>
+<exercise>
+<statement>
+<p>Every movie star is a dog or a cat.</p></statement></exercise>
+<exercise>
+<statement>
+<p>All dog movie stars live with a human being.</p></statement></exercise>
+<exercise>
+<statement>
+<p>Everyone who lives with Diane is a movie star.</p></statement></exercise>
+<exercise>
+<statement>
+<p>Princess Carolyn represents every dog movie star.</p></statement></exercise>
+<exercise>
+<statement>
+<p>Anyone who worked on a movie with Bojack lives with a movie star.</p></statement></exercise>
+<exercise>
+<statement>
+<p>Only humans live with Mr. Peanutbutter.</p></statement></exercise>
+<exercise>
+<statement>
+<p>Everyone who has ever worked on a movie with Bojack is either a dog, a cat, or someone who lives with a movie star.</p></statement></exercise>
+</subexercises>
+<subexercises xml:id="pr-QLbojacksome">
+<title>Part B</title>
+<introduction>
+<p>Using the same symbolization key, translate each English-language sentence into QL. Hint: all of these sentences are well-translated as existentials governing conjunctions.</p></introduction>
+<exercise>
+<statement>
+<p>Mr. Peanutbutter lives with a human.</p></statement>
+<solution>
+<p><m>\exists x (Lpx \eand Bx)</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Diane lives with a dog who worked on a movie with Bojack.</p></statement>
+<solution>
+<p><m>\exists x (Ldx \eand Dx \eand Wxb)</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Princess Carolyn represents a horse who lives with a human being.</p></statement>
+<solution>
+<p><m>\exists x [Rcx \eand Hx \eand \exists y (By \eand Lxy)]</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Some human being who worked on a movie with Mr. Peanutbutter lives with a dog or a cat.</p></statement>
+<solution>
+<p><m>\exists x (Bx \eand Wxp \eand [\exists y (Dy \eand Lxy) \eor \exists y (Cy \eand Lxy)])</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Bojack worked on a movie with a human movie star.</p></statement>
+<solution>
+<p><m>\exists x (Bx \eand Mx \eand Wbx)</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Bojack worked on a movie with a nonhuman movie star who lives with Diane.</p></statement>
+<solution>
+<p><m>\exists x (\enot Bx \eand Mx \eand Wbx \eand Lxd)</m></p></solution></exercise>
+</subexercises>
+<subexercises xml:id="pr-QLbojackother">
+<title>Part C</title>
+<introduction>
+<p>Using the same symbolization key, translate each English-language sentence into QL. Hint: these should have different forms than the cases above.</p></introduction>
+<exercise>
+<statement>
+<p>If Mr. Peanutbutter is a movie star, then all dogs are movie stars.</p></statement></exercise>
+<exercise>
+<statement>
+<p>A dog who lives with Diane and Princess Carolyn represents a horse.</p></statement></exercise>
+<exercise>
+<statement>
+<p>Princess Carolyn represents a horse and a dog.</p></statement></exercise>
+<exercise>
+<statement>
+<p>Princess Carolyn represents everyone.</p></statement></exercise>
+<exercise>
+<statement>
+<p>Diane doesn’t live with anyone.</p></statement></exercise>
+<exercise>
+<statement>
+<p>No movie star has ever both worked on a movie with Bojack, and worked on a movie with any cat.</p></statement></exercise>
+<exercise>
+<statement>
+<p>Princess Carolyn is a cat, but she doesn’t represent any cats.</p></statement></exercise>
+</subexercises>
+<subexercises xml:id="pr-QLalligators">
+<title>Part D</title>
+<introduction>
+<p>Using the symbolization key given, translate each English-language sentence into QL.</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>UD:</cell><cell>all animals</cell></row>
+<row><cell>Ax:</cell><cell><m>x</m> is an alligator.</cell></row>
+<row><cell>Mx:</cell><cell><m>x</m> is a monkey.</cell></row>
+<row><cell>Rx:</cell><cell><m>x</m> is a reptile.</cell></row>
+<row><cell>Zx:</cell><cell><m>x</m> lives at the zoo.</cell></row>
+<row><cell>Lxy:</cell><cell><m>x</m> loves <m>y</m>.</cell></row>
+<row><cell>a:</cell><cell>Amos</cell></row>
+<row><cell>b:</cell><cell>Bouncer</cell></row>
+<row><cell>c:</cell><cell>Cleo</cell></row></tabular></introduction>
+<exercise>
+<statement>
+<p>Amos, Bouncer, and Cleo all live at the zoo.</p></statement>
+<solution>
+<p><m>Za \eand Zb \eand Zc</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Bouncer is a reptile, but not an alligator.</p></statement>
+<solution>
+<p><m>Rb \eand \enot Ab</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>If Cleo loves Bouncer, then Bouncer is a monkey.</p></statement>
+<solution>
+<p><m>Lcb \eif Mb</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>If both Bouncer and Cleo are alligators, then Amos loves them both.</p></statement>
+<solution>
+<p><m>(Ab \eand Ac)\eif(Lab \eand Lac)</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Some reptile lives at the zoo.</p></statement>
+<solution>
+<p><m>\exists x(Rx \eand Zx)</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Every alligator is a reptile.</p></statement>
+<solution>
+<p><m>\forall x(Ax \eif Rx)</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Any animal that lives at the zoo is either a monkey or an alligator.</p></statement>
+<solution>
+<p><m>\forall x\bigl[Zx \eif (Mx \eor Ax)\bigr]</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>There are reptiles which are not alligators.</p></statement>
+<solution>
+<p><m>\exists x(Rx \eand \enot Ax)</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Cleo loves a reptile.</p></statement>
+<solution>
+<p><m>\exists x(Rx \eand Lcx)</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Bouncer loves all the monkeys that live at the zoo.</p></statement>
+<solution>
+<p><m>\forall x\bigl[(Mx \eand Zx) \eif Lbx\bigr]</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>All the monkeys that Amos loves love him back.</p></statement>
+<solution>
+<p><m>\forall x\bigl[(Mx \eand Lax) \eif Lxa\bigr]</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>If any animal is a reptile, then Amos is.</p></statement>
+<solution>
+<p><m>\exists x Rx \eif Ra</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>If any animal is an alligator, then it is a reptile.</p></statement>
+<solution>
+<p><m>\forall x(Ax \eif Rx)</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Every monkey that Cleo loves is also loved by Amos.</p></statement>
+<solution>
+<p><m>\forall x\bigl[(Mx \eand Lcx) \eif Lax\bigr]</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>There is a monkey that loves Bouncer, but Bouncer does not reciprocate this love.</p></statement>
+<solution>
+<p><m>\exists x(Mx \eand Lxb \eand \enot Lbx)</m></p></solution></exercise>
+</subexercises>
+<subexercises xml:id="pr-BarbaraEtc">
+<title>Part E</title>
+<exercise>
+<statement>
+<p>These are syllogistic argument forms identified by Aristotle and his successors, along with their medieval names. Translate each argument into QL.</p>
+<p>
+<dl width="medium">
+<li>
+<title>Barbara</title>
+<p>All <m>B</m>s are <m>C</m>s. All <m>A</m>s are <m>B</m>s.
+	∴  All <m>A</m>s are <m>C</m>s.</p></li>
+<li>
+<title>Baroco</title>
+<p>All <m>C</m>s are <m>B</m>s. Some <m>A</m> is not <m>B</m>.
+	∴  Some <m>A</m> is not <m>C</m>.</p></li>
+<li>
+<title>Bocardo</title>
+<p>Some <m>B</m> is not <m>C</m>. All <m>B</m>s are <m>A</m>s.
+	∴  Some <m>A</m> is not <m>C</m>.</p></li>
+<li>
+<title>Camestres</title>
+<p>All <m>C</m>s are <m>B</m>s. No <m>A</m>s are <m>B</m>s.
+	∴  No <m>A</m>s are <m>C</m>s.</p></li>
+<li>
+<title>Celantes</title>
+<p>No <m>B</m>s are <m>C</m>s. All <m>A</m>s are <m>B</m>s.
+	∴  No <m>C</m>s are <m>A</m>s.</p></li>
+<li>
+<title>Celarent</title>
+<p>No <m>B</m>s are <m>C</m>s. All <m>A</m>s are <m>B</m>s.
+	∴  No <m>A</m>s are <m>C</m>s.</p></li>
+<li>
+<title>Cesare</title>
+<p>No <m>C</m>s are <m>B</m>s. All <m>A</m>s are <m>B</m>s.
+	∴  No <m>A</m>s are <m>C</m>s.</p></li>
+<li>
+<title>Dabitis</title>
+<p>All <m>B</m>s are <m>C</m>s. Some <m>A</m> is <m>B</m>.
+	∴  Some <m>C</m> is <m>A</m>.</p></li>
+<li>
+<title>Darii</title>
+<p>All <m>B</m>s are <m>C</m>s. Some <m>A</m> is <m>B</m>.
+	∴  Some <m>A</m> is <m>C</m>.</p></li>
+<li>
+<title>Datisi</title>
+<p>All <m>B</m>s are <m>C</m>s. Some <m>B</m> is <m>A</m>.
+	∴  Some <m>A</m> is <m>C</m>.</p></li>
+<li>
+<title>Disamis</title>
+<p>Some <m>B</m> is <m>C</m>. All <m>B</m>s are <m>A</m>s.
+	∴  Some <m>A</m> is <m>C</m>.</p></li>
+<li>
+<title>Ferison</title>
+<p>No <m>B</m>s are <m>C</m>s. Some <m>B</m> is <m>A</m>.
+	∴  Some <m>A</m> is not <m>C</m>.</p></li>
+<li>
+<title>Ferio</title>
+<p>No <m>B</m>s are <m>C</m>s. Some <m>A</m> is <m>B</m>.
+	∴  Some <m>A</m> is not <m>C</m>.</p></li>
+<li>
+<title>Festino</title>
+<p>No <m>C</m>s are <m>B</m>s. Some <m>A</m> is <m>B</m>.
+	∴  Some <m>A</m> is not <m>C</m>.</p></li>
+<li>
+<title>Baralipton</title>
+<p>All <m>B</m>s are <m>C</m>s. All <m>A</m>s are <m>B</m>s.
+	∴  Some <m>C</m> is <m>A</m>.</p></li>
+<li>
+<title>Frisesomorum</title>
+<p>Some <m>B</m> is <m>C</m>. No <m>A</m>s are <m>B</m>s.
+	∴  Some <m>C</m> is not <m>A</m>.</p></li></dl></p></statement></exercise>
+</subexercises>
+<subexercises xml:id="pr-QLdogtrans">
+<title>Part F</title>
+<introduction>
+<p>Using the symbolization key given, translate each English-language sentence into QL.</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>UD:</cell><cell>all animals</cell></row>
+<row><cell>Dx:</cell><cell><m>x</m> is a dog.</cell></row>
+<row><cell>Sx:</cell><cell><m>x</m> likes samurai movies.</cell></row>
+<row><cell>Lxy:</cell><cell><m>x</m> is larger than <m>y</m>.</cell></row>
+<row><cell>b:</cell><cell>Bertie</cell></row>
+<row><cell>e:</cell><cell>Emerson</cell></row>
+<row><cell>f:</cell><cell>Fergis</cell></row></tabular></introduction>
+<exercise>
+<statement>
+<p>Bertie is a dog who likes samurai movies.</p></statement>
+<solution>
+<p><m>Db \eand Sb</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Bertie, Emerson, and Fergis are all dogs.</p></statement>
+<solution>
+<p><m>Db \eand De \eand Df</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Emerson is larger than Bertie, and Fergis is larger than Emerson.</p></statement>
+<solution>
+<p><m>Leb \eand Lfe</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>All dogs like samurai movies.</p></statement>
+<solution>
+<p><m>\forall x(Dx \eif Sx)</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Only dogs like samurai movies.</p></statement>
+<solution>
+<p><m>\forall x(Sx \eif Dx)</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>There is a dog that is larger than Emerson.</p></statement>
+<solution>
+<p><m>\exists x(Dx \eand Lxe)</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>If there is a dog larger than Fergis, then there is a dog larger than Emerson.</p></statement>
+<solution>
+<p><m>\exists x(Dx \eand Lxf) \eif \exists x(Dx \eand Lxe)</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>No animal that likes samurai movies is larger than Emerson.</p></statement>
+<solution>
+<p><m>\forall x(Lxe \eif \enot Sx)</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>No dog is larger than Fergis.</p></statement>
+<solution>
+<p><m>\enot \exists x(Lxf \eand Dx)</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Any animal that dislikes samurai movies is larger than Bertie.</p></statement>
+<solution>
+<p><m>\forall x(\enot Sx \eif Lxb)</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>There is an animal that is between Bertie and Emerson in size.</p></statement>
+<solution>
+<p><m>\exists x((Lxb \eand Lex) \eor (Lxe \eand Lbx))</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>There is no dog that is between Bertie and Emerson in size.</p></statement>
+<solution>
+<p><m>\enot \exists x(Dx \eand [(Lxb \eand Lex) \eor (Lxe \eand Lbx)])</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>No dog is larger than itself.</p></statement>
+<solution>
+<p><m>\enot \exists x(Dx \eand Lxx)</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>For every dog, there is some dog larger than it.</p></statement>
+<solution>
+<p><m>\forall x(Dx \eif \exists y(Dy \eand Lyx))</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>There is an animal that is smaller than every dog.</p></statement>
+<solution>
+<p><m>\exists x \forall y(Dy \eif Lyx)</m></p></solution></exercise>
+</subexercises>
+<subexercises xml:id="pr-QLarguments">
+<title>Part G</title>
+<introduction>
+<p>For each argument, write a symbolization key and translate the argument into QL.</p></introduction>
+<exercise>
+<statement>
+<p>Nothing on my desk escapes my attention. There is a computer on my desk. As such, there is a computer that does not escape my attention.</p></statement></exercise>
+<exercise>
+<statement>
+<p>All my dreams are black and white. Old TV shows are in black and white. Therefore, some of my dreams are old TV shows.</p></statement></exercise>
+<exercise>
+<statement>
+<p>Neither Holmes nor Watson has been to Australia. A person could see a kangaroo only if they had been to Australia or to a zoo. Although Watson has not seen a kangaroo, Holmes has. Therefore, Holmes has been to a zoo.</p></statement></exercise>
+<exercise>
+<statement>
+<p>No one expects the Spanish Inquisition. No one knows the troubles I’ve seen. Therefore, anyone who expects the Spanish Inquisition knows the troubles I’ve seen.</p></statement></exercise>
+<exercise>
+<statement>
+<p>An antelope is bigger than a bread box. I am thinking of something that is no bigger than a bread box, and it is either an antelope or a cantaloupe. As such, I am thinking of a cantaloupe.</p></statement></exercise>
+<exercise>
+<statement>
+<p>All babies are illogical. Nobody who is illogical can manage a crocodile. Berthold is a baby. Therefore, Berthold is unable to manage a crocodile.</p></statement></exercise>
+</subexercises>
+<subexercises xml:id="pr-QLcandies">
+<title>Part H</title>
+<introduction>
+<p>Using the symbolization key given, translate each English-language sentence into QL.</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>UD:</cell><cell>candies</cell></row>
+<row><cell>Cx:</cell><cell><m>x</m> has chocolate in it.</cell></row>
+<row><cell>Mx:</cell><cell><m>x</m> has marzipan in it.</cell></row>
+<row><cell>Sx:</cell><cell><m>x</m> has sugar in it.</cell></row>
+<row><cell>Tx:</cell><cell>Boris has tried <m>x</m>.</cell></row>
+<row><cell>Bxy:</cell><cell><m>x</m> is better than <m>y</m>.</cell></row></tabular></introduction>
+<exercise>
+<statement>
+<p>Boris has never tried any candy.</p></statement>
+<solution>
+<p><m>\enot\exists x Tx</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Marzipan is always made with sugar.</p></statement>
+<solution>
+<p><m>\forall x(Mx \eif Sx)</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Some candy is sugar-free.</p></statement>
+<solution>
+<p><m>\exists x \enot Sx</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>The very best candy is chocolate.</p></statement>
+<solution>
+<p><m>\exists x[Cx \eand \enot\exists y Byx]</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>No candy is better than itself.</p></statement>
+<solution>
+<p><m>\enot \exists x Bxx</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Boris has never tried sugar-free chocolate.</p></statement>
+<solution>
+<p><m>\enot \exists x(Cx \eand \enot Sx \eand Tx)</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Boris has tried marzipan and chocolate, but never together.</p></statement>
+<solution>
+<p><m>\exists x(Cx \eand Tx) \eand \exists x(Mx \eand Tx) \eand \enot \exists x(Cx \eand Mx \eand Tx)</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Any candy with chocolate is better than any candy without it.</p></statement>
+<solution>
+<p><m>\forall x[Cx \eif \forall y(\enot Cy \eif Bxy)]</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Any candy with chocolate and marzipan is better than any candy that lacks both.</p></statement>
+<solution>
+<p><m>\forall x\bigl((Cx \eand Mx) \eif \forall y[(\enot Cy \eand \enot My) \eif Bxy]\bigr)</m></p></solution></exercise>
+</subexercises>
+<subexercises xml:id="pr-QLpotluck">
+<title>Part I</title>
+<introduction>
+<p>Using the symbolization key given, translate each English-language sentence into QL.</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>UD:</cell><cell>people and dishes at a potluck</cell></row>
+<row><cell>Rx:</cell><cell><m>x</m> has run out.</cell></row>
+<row><cell>Tx:</cell><cell><m>x</m> is on the table.</cell></row>
+<row><cell>Fx:</cell><cell><m>x</m> is food.</cell></row>
+<row><cell>Px:</cell><cell><m>x</m> is a person.</cell></row>
+<row><cell>Lxy:</cell><cell><m>x</m> likes <m>y</m>.</cell></row>
+<row><cell>e:</cell><cell>Eli</cell></row>
+<row><cell>f:</cell><cell>Francesca</cell></row>
+<row><cell>g:</cell><cell>the guacamole</cell></row></tabular></introduction>
+<exercise>
+<statement>
+<p>All the food is on the table.</p></statement>
+<solution>
+<p><m>\forall x(Fx \eif Tx)</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>If the guacamole has not run out, then it is on the table.</p></statement>
+<solution>
+<p><m>\enot Rg \eif Tg</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Everyone likes the guacamole.</p></statement>
+<solution>
+<p><m>\forall x (Px \eif Lxg)</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>If anyone likes the guacamole, then Eli does.</p></statement>
+<solution>
+<p><m>\exists x (Px \eand Lxg) \eif Leg</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Francesca only likes the dishes that have run out.</p></statement>
+<solution>
+<p><m>\forall x ((Fx \eand Lfx) \eif Rx)</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Francesca likes no one, and no one likes Francesca.</p></statement>
+<solution>
+<p><m>\enot \exists x (Px \eand Lfx) \eand \enot \exists y (Py \eand Lyf)</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Eli likes anyone who likes the guacamole.</p></statement>
+<solution>
+<p><m>\forall x ((Px \eand Lxg) \eif Lex)</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Eli likes everyone who likes anyone that he likes.</p></statement>
+<solution>
+<p><m>\forall x \forall y ((Px \eand Py \eand Lxy \eand Ley) \eif Lex)</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>If there is a person on the table already, then all of the food must have run out.</p></statement>
+<solution>
+<p><m>\exists x (Px \eand Tx) \eif \forall y (Fy \eif Ry)</m></p></solution></exercise>
+</subexercises>
+<subexercises xml:id="pr-QLballet">
+<title>Part J</title>
+<introduction>
+<p>Using the symbolization key given, translate each English-language sentence into QL.</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>UD:</cell><cell>people</cell></row>
+<row><cell>Dx:</cell><cell><m>x</m> dances ballet.</cell></row>
+<row><cell>Fx:</cell><cell><m>x</m> is female.</cell></row>
+<row><cell>Mx:</cell><cell><m>x</m> is male.</cell></row>
+<row><cell>Cxy:</cell><cell><m>x</m> is a child of <m>y</m>.</cell></row>
+<row><cell>Sxy:</cell><cell><m>x</m> is a sibling of <m>y</m>.</cell></row>
+<row><cell>e:</cell><cell>Elmer</cell></row>
+<row><cell>j:</cell><cell>Jane</cell></row>
+<row><cell>p:</cell><cell>Patrick</cell></row></tabular></introduction>
+<exercise>
+<statement>
+<p>All of Patrick’s children are ballet dancers.</p></statement>
+<solution>
+<p><m>\forall x(Cxp \eif Dx)</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Jane is Patrick’s daughter.</p></statement>
+<solution>
+<p><m>Cjp \eand Fj</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Patrick has a daughter.</p></statement>
+<solution>
+<p><m>\exists x(Cxp \eand Fx)</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Jane is an only child.</p></statement>
+<solution>
+<p><m>\enot\exists x Sxj</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>All of Patrick’s daughters dance ballet.</p></statement>
+<solution>
+<p><m>\forall x\bigl[(Cxp \eand Fx)\eif Dx\bigr]</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Patrick has no sons.</p></statement>
+<solution>
+<p><m>\enot\exists x(Cxp \eand Mx)</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Jane is Elmer’s niece.</p></statement>
+<solution>
+<p><m>\exists x(Cjx \eand Sxe \eand Fj)</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Patrick is Elmer’s brother.</p></statement>
+<solution>
+<p><m>Spe \eand Mp</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Patrick’s brothers have no children.</p></statement>
+<solution>
+<p><m>\forall x\bigl[(Sxp \eand Mx) \eif \enot\exists y Cyx\bigr]</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Jane is an aunt.</p></statement>
+<solution>
+<p><m>\exists x(Sxj \eand \exists y Cyx \eand Fj)</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Everyone who dances ballet has a sister who also dances ballet.</p></statement>
+<solution>
+<p><m>\forall x\bigl[Dx \eif \exists y(Sxy \eand Fy \eand Dy)\bigr]</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Every man who dances ballet is the child of someone who dances ballet.</p></statement>
+<solution>
+<p><m>\forall x\bigl[(Mx \eand Dx) \eif \exists y(Cxy \eand Dy)\bigr]</m></p></solution></exercise>
+</subexercises>
+<subexercises xml:id="pr-freeQL">
+<title>Part K</title>
+<introduction>
+<p>Identify which variables are bound and which are free.</p></introduction>
+<exercise>
+<statement>
+<p><m>\exists x Lxy \eand \forall y Lyx</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>\forall x Ax \eand Bx</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>\forall x (Ax \eand Bx) \eand \forall y(Cx \eand Dy)</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>\forall x\exists y[Rxy \eif (Jz \eand Kx)] \eor Ryx</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>\forall x_1(Mx_2 \eiff Lx_2x_1) \eand \exists x_2 Lx_3x_2</m></p></statement></exercise>
+</subexercises>
+<subexercises xml:id="pr-subinstanceQL">
+<title>Part L</title>
+<exercise>
+<statement>
+<p>Identify which of the following are substitution instances of <m>\forall x Rcx</m>: <m>Rac</m>, <m>Rca</m>, <m>Raa</m>, <m>Rcb</m>, <m>Rbc</m>, <m>Rcc</m>, <m>Rcd</m>, <m>Rcx</m></p></statement>
+<solution>
+<p><m>Rca</m>, <m>Rcb</m>, <m>Rcc</m>, and <m>Rcd</m> are substitution instances of <m>\forall x Rcx</m>.</p></solution></exercise>
+<exercise>
+<statement>
+<p>Identify which of the following are substitution instances of <m>\exists x\forall y Lxy</m>:
+<m>\forall y Lby</m>, <m>\forall x Lbx</m>, <m>Lab</m>, <m>\exists x Lxa</m></p></statement>
+<solution>
+<p>Of the expressions listed, only <m>\forall y Lby</m> is a substitution instance of <m>\exists x\forall y Lxy</m>.</p></solution></exercise>
+</subexercises>
+<conclusion>
+<note component="genai">
+<title>GenAI prompts for further practice</title>
+<p>Here are some potential GenAI prompts you might use to generate further practice problems, in case you find that helpful.</p>
+<p>
+<ul>
+<li>Give me ordinary-English sentences involving quantifiers. My task is to translate them into QL. Present one sentence at a time, beginning with simple examples and gradually increasing the difficulty.</li>
+<li>Give me English sentences involving words like “all”, “some”, “none”, “every”, “someone”, and “everything”. Ask me to identify which quantifier should be used to translate each sentence into QL, and to explain my reasoning.</li>
+<li>Give me English sentences containing multiple quantifiers. My task is to translate them into QL and explain the scope of each quantifier.</li>
+<li>Give me pairs of QL sentences that differ only in quantifier order. Ask me to explain the difference in their meanings using ordinary English.</li>
+<li>Give me QL sentences and a suitable interpretation key, and ask me to translate them back into ordinary English. After I answer, compare my translation with several other acceptable translations.</li>
+<li>Give me English sentences involving relationships such as “loves”, “knows”, “admires”, or “is taller than”. Ask me to choose suitable predicates and then translate the sentence into QL.</li>
+<li>Give me English sentences involving “only”, “only if”, “unless”, or “at least one’. My task is to express them in QL.</li>
+<li>Give me ordinary-English sentences and ask me whether they are best translated using a universal quantifier, an existential quantifier, or both. Explain any mistakes I make.</li>
+<li>Give me English sentences together with a proposed translation into QL. Some translations should be correct and some incorrect. Ask me to determine which are which and explain my reasoning.</li></ul></p></note></conclusion>
+</exercises>
+</chapter>

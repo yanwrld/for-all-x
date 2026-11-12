@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated from Latex-Files/forallx-ubc-app-notation.tex by pretext/scripts/latex2ptx.py -->
+<appendix xml:id="app-notation">
+<title>Symbolic notation</title>
+<introduction>
+<p>In the history of formal logic, different symbols have been used at different times and by different authors. Often, authors were forced to use notation that their printers could typeset.</p>
+<p>In one sense, the choice of symbols used for various logical constants is arbitrary. There is nothing written in heaven that says that ‘<m>\enot</m>’ must be the symbol for truth-functional negation. We might have specified a different symbol to play that part. Once we have given definitions for well-formed formulae (wff) and for truth in our logic languages, however, using ‘<m>\enot</m>’ is no longer arbitrary. That is the symbol for negation in this textbook, and so it is the symbol for negation when writing sentences in our languages SL or QL.</p>
+<p>This appendix presents some common symbols, so that you can recognize them if you encounter them in an article or in another book.</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell colspan="2" halign="center">summary of symbols</cell></row>
+<row><cell>negation</cell><cell><m>\neg</m>, <m>{\sim}</m></cell></row>
+<row><cell>conjunction</cell><cell><m>\&amp;</m>, <m>\wedge</m>,	•</cell></row>
+<row><cell>disjunction</cell><cell><m>\vee</m></cell></row>
+<row><cell>conditional</cell><cell><m>\rightarrow</m>, <m>\supset</m></cell></row>
+<row><cell>biconditional</cell><cell><m>\leftrightarrow</m>, <m>\equiv</m></cell></row></tabular>
+<p><alert>Negation</alert> Two commonly used symbols are the <em>hoe</em>, ‘<m>\neg</m>’, and the <em>swung dash</em>, ‘<m>{\sim}</m>.’ In some more advanced formal systems it is necessary to distinguish between two kinds of negation; the distinction is sometimes represented by using both ‘<m>\neg</m>’ and ‘<m>{\sim}</m>.’</p>
+<p><alert>Disjunction</alert> The symbol ‘<m>\vee</m>’ is typically used to symbolize inclusive disjunction. The use of this symbol derives from the Latin <em>vel</em>, for ‘or’.</p>
+<p><alert>Conjunction</alert> Conjunction is often symbolized with the <em>ampersand</em>, ‘&amp;.’ The ampersand is actually a decorative form of the Latin word ‘et’ which means ‘and’; it is commonly used in English writing. As a symbol in a formal system, the ampersand is not the word ‘and’; its meaning is given by the formal semantics for the language. Perhaps to avoid this confusion, some systems use a different symbol for conjunction. For example, ‘<m>\wedge</m>’ is a counterpart to the <em>vel</em> symbol used for disjunction. Sometimes a single dot, ‘•’, is used. In some older texts, there is no symbol for conjunction at all; ‘<m>A</m> and <m>B</m>’ is simply written ‘<m>AB</m>.’</p>
+<p><alert>Material Conditional</alert> There are two common symbols for the material conditional: the <em>arrow</em>, ‘<m>\rightarrow</m>’, and the <em>hook</em>, ‘<m>\supset</m>.’ Sometimes the hook is called a <em>horseshoe</em>, after its shape.</p>
+<p><alert>Material Biconditional</alert> The <em>double-headed arrow</em>, ‘<m>\leftrightarrow</m>’, is used in systems that use the arrow to represent the material conditional. Systems that use the hook for the conditional typically use the <em>triple bar</em>, ‘<m>\equiv</m>’, for the biconditional.</p>
+<p><alert>Quantifiers</alert> The universal quantifier is typically symbolized as an upside-down A, ‘<m>\forall</m>’, and the existential quantifier as a backwards E, ‘<m>\exists</m>.’ Quantifiers are given in some systems in parentheses, as in ‘<m>(\forall x)(\exists x)Fxy</m>’, and in some systems without, as in ‘<m>\forall x\exists x Fxy</m>’.</p>
+<p>In some texts, there is no separate symbol for the universal quantifier. Instead, the variable is just written in parentheses in front of the formula that it binds. For example, ‘all <m>x</m> are <m>P</m>’ is written <m>(x)Px</m>.</p>
+<p>In some systems, the quantifiers are symbolized with larger versions of the symbols used for conjunction and disjunction. Although quantified expressions cannot be translated into expressions without quantifiers, there is a conceptual connection between the universal quantifier and conjunction and between the existential quantifier and disjunction. Consider the sentence <m>\exists x Px</m>, for example. It means that <em>either</em> the first member of the UD is a <m>P</m>, <em>or</em> the second one is, <em>or</em> the third one is, …. Such a system uses the symbol ‘<m>\bigvee</m>’ instead of ‘<m>\exists</m>.’</p></introduction>
+<section xml:id="notation-polish-notation">
+<title>Polish notation</title>
+<p>This section briefly discusses sentential logic in Polish notation, a system of notation introduced in the late 1920s by the Polish logician Jan Łukasiewicz.</p>
+<p>Lower case letters are used as sentence letters. The capital letter <m>N</m> is used for negation. <m>A</m> is used for disjunction, <m>K</m> for conjunction, <m>C</m> for the conditional, <m>E</m> for the biconditional. (‘A’ is for alternation, another name for logical disjunction. ‘E’ is for equivalence.)</p>
+<tabular><col halign="center"/><col halign="center"/>
+<row><cell>notation</cell><cell>Polish</cell></row>
+<row><cell>of SL</cell><cell>notation</cell></row>
+<row><cell><m>\enot</m></cell><cell><m>N</m></cell></row>
+<row><cell><m>\eand</m></cell><cell><m>K</m></cell></row>
+<row><cell><m>\eor</m></cell><cell><m>A</m></cell></row>
+<row><cell><m>\eif</m></cell><cell><m>C</m></cell></row>
+<row><cell><m>\eiff</m></cell><cell><m>E</m></cell></row></tabular>
+<p>In Polish notation, a binary connective is written <em>before</em> the two sentences that it connects. For example, the sentence <m>A\eand B</m> of SL would be written <m>Kab</m> in Polish notation.</p>
+<p>The sentences <m>\enot A\eif B</m> and <m>\enot (A\eif B)</m> are very different; the main logical operator of the first is the conditional, but the main connective of the second is negation. In SL, we show this by putting parentheses around the conditional in the second sentence. In Polish notation, parentheses are never required. The left-most connective is always the main connective. The first sentence would simply be written <m>CNab</m> and the second <m>NCab</m>.</p>
+<p>This feature of Polish notation means that it is possible to evaluate sentences simply by working through the symbols from right to left. If you were constructing a truth table for <m>NKab</m>, for example, you would first consider the truth-values assigned to <m>b</m> and <m>a</m>, then consider their conjunction, and then negate the result. The general rule for what to evaluate next in SL is not nearly so simple. In SL, the truth table for <m>\enot(A\eand B)</m> requires looking at <m>A</m> and <m>B</m>, then looking in the middle of the sentence at the conjunction, and then at the beginning of the sentence at the negation. Because the order of operations can be specified more mechanically in Polish notation, variants of Polish notation are used as the internal structure for many computer programming languages.</p>
+</section>
+</appendix>
