@@ -1,0 +1,857 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated from Latex-Files/forallx-ubc-2-sentential.tex by pretext/scripts/latex2ptx.py -->
+<chapter xml:id="ch-SL">
+<title>Sentential logic</title>
+<introduction>
+<p>This chapter introduces a logical language called SL. It is a version of <em>sentential logic</em>, because the basic units of the language will represent entire sentences. (Recall from §<xref ref="intro-sentences" text="global"/> that we’re only considering propositional sentences.)</p></introduction>
+<section xml:id="sl-sentence-letters">
+<title>Sentence letters</title>
+<p>In SL, capital Roman letters (<m>A</m>, <m>B</m>, <m>C</m>, etc.) are used to represent basic sentences. Considered only as a symbol of SL, the letter <m>A</m> could mean any sentence. So when translating from English into SL, it is important to provide a <em>symbolization key</em>. The key provides an English language sentence for each sentence letter used in the symbolization.</p>
+<p>For example, consider this argument:</p>
+<p>
+<dl width="narrow">
+<li>
+<title> </title>
+<p>Today is New Year’s Day.</p></li>
+<li>
+<title> </title>
+<p>If today is New Year’s Day, then people are swimming in English Bay.</p></li>
+<li>
+<title>∴</title>
+<p>People are swimming in English Bay.</p></li></dl></p>
+<p>This is obviously a valid argument in English. In symbolizing it, we want to preserve the structure of the argument that makes it valid.
+What happens if we replace each sentence with a letter? Our symbolization key would look like this:</p>
+<p>
+<dl width="narrow">
+<li>
+<title>A:</title>
+<p>Today is New Year’s Day.</p></li>
+<li>
+<title>B:</title>
+<p>If today is New Year’s Day, then people are swimming in English Bay.</p></li>
+<li>
+<title>C:</title>
+<p>People are swimming in English Bay.</p></li></dl></p>
+<p>We could then symbolize the argument in this way:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell/><cell><m>A</m></cell></row>
+<row><cell/><cell><m>B</m></cell></row>
+<row><cell>∴</cell><cell><m>C</m></cell></row></tabular>
+<p>This is a possible way to symbolize this argument, but it’s not a very interesting one. There is no necessary connection between some sentence <m>A</m>, which could be any sentence, and some other sentences <m>B</m> and <m>C</m>, which could be any sentences. Something important about the argument has been lost in translation. The original argument was valid, but this translation of the argument does not reflect that validity. Given a different symbolization key, for example, the same argument form</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell/><cell><m>A</m></cell></row>
+<row><cell/><cell><m>B</m></cell></row>
+<row><cell>∴</cell><cell><m>C</m></cell></row></tabular>
+<p>could equally well stand in for this invalid argument:</p>
+<p>
+<dl width="narrow">
+<li>
+<title> </title>
+<p>Today is Christmas Day.</p></li>
+<li>
+<title> </title>
+<p>Tiny Tim has difficulty walking without crutches.</p></li>
+<li>
+<title>∴</title>
+<p>We’re all going to die tomorrow.</p></li></dl></p>
+<p>A more interesting translation of the valid New Year’s argument will show how it is different from the invalid Christmas argument. The relevant thing about the New Year’s argument is that the second premise is not just <em>any</em> sentence. Notice that the second premise contains the first premise and the conclusion <em>as parts</em>. Our symbolization key for the argument only needs to include meanings for <m>A</m> and <m>C</m>, and we can build the second premise from those pieces. So we symbolize the argument this way:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell/><cell><m>A</m></cell></row>
+<row><cell/><cell>If <m>A</m>, then <m>C</m>.</cell></row>
+<row><cell>∴</cell><cell><m>C</m></cell></row></tabular>
+<p>This preserves the structure of the argument that makes it valid, but it still makes use of the English expression ‘If<m>\ldots</m> then<m>\ldots</m>’. For our formal language, we ultimately want to replace all of the English expressions with logical notation, but this is a good start.</p>
+<p>The sentences that can be symbolized with sentence letters are called <em>atomic sentences</em>, because they are the basic building blocks out of which more complex sentences can be built. Whatever logical structure a sentence might have is lost when it is translated as an atomic sentence. From the point of view of SL, the sentence is just a letter. It can be used to build more complex sentences, but it cannot be taken apart.</p>
+<p>We use capital Roman alphabet letters to represent SL sentences. There are only twenty-six such letters. We don’t want to impose this artificial limit onto our formal language; it’s better to work with a language that allows an arbitrary number of atomic sentences. To achieve this, we allow atomic sentences that have a capital letter with a numeric subscript. So we could have a symbolization key that looks like this:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>A<m>_1</m>:</cell><cell>Aang is from the Air Nation.</cell></row>
+<row><cell>A<m>_2</m>:</cell><cell>Aang is vegetarian.</cell></row>
+<row><cell>A<m>_3</m>:</cell><cell>Aang can bend water.</cell></row>
+<row><cell>T<m>_1</m>:</cell><cell>Toph is blind.</cell></row>
+<row><cell>T<m>_2</m>:</cell><cell>Toph likes badgers.</cell></row>
+<row><cell>T<m>_3</m>:</cell><cell>Toph invented metal bending.</cell></row></tabular>
+<p>Keep in mind that each of these is a different atomic sentence. Although it is often convenient, for making it easier to remember what each letter stands for, to use letters corresponding to the sentences’ subject matters, as in the example above, no such requirement is built into the rules of SL. There is no special relationship between <m>A_{1}</m> and <m>A_{2}</m>, as far as SL goes. It’s just for our convenience that we might choose to make all the <m>A</m> sentences about Aang.</p>
+</section>
+<section xml:id="sl-connectives">
+<title>Connectives</title>
+<p>Logical connectives are used to build complex sentences from atomic components. There are five logical connectives in SL. This table summarizes them. They are explained below.</p>
+<table xml:id="table-3"><title/>
+<tabular top="minor" left="minor"><col halign="center" right="minor"/><col halign="center" right="minor"/><col halign="center" right="minor"/>
+<row bottom="minor"><cell>symbol</cell><cell>what it is called</cell><cell>rough translation</cell></row>
+<row><cell><m>\enot</m></cell><cell>negation</cell><cell>‘It is not the case that<m>\ldots</m>’</cell></row>
+<row><cell><m>\eand</m></cell><cell>conjunction</cell><cell>‘Both<m>\ldots</m> and <m>\ldots</m>’</cell></row>
+<row><cell><m>\eor</m></cell><cell>disjunction</cell><cell>‘Either<m>\ldots</m> or <m>\ldots</m>’</cell></row>
+<row><cell><m>\eif</m></cell><cell>conditional</cell><cell>‘If <m>\ldots</m> then <m>\ldots</m>’</cell></row>
+<row bottom="minor"><cell><m>\eiff</m></cell><cell>biconditional</cell><cell>‘<m>\ldots</m> if and only if <m>\ldots</m>’</cell></row></tabular></table>
+<p>Natural languages like English are vague and imprecise, and carry many complex subtleties of meaning. Our formal language, SL, has none of these properties. It is defined by precise rigid rules. Consequently, the ‘translation’ provided in the table is only an approximate one. We’ll see some of the differences below.</p>
+</section>
+<section xml:id="sl-negation">
+<title>Negation</title>
+<p>Consider how we might symbolize these sentences:</p>
+<p>
+<ol>
+<li>Logic is hard.</li>
+<li>It is false that logic is hard.</li>
+<li>Logic isn’t hard.</li></ol></p>
+<p>In order to symbolize sentence 1, we will need one sentence letter. We can provide a symbolization key:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>H:</cell><cell>Logic is hard.</cell></row></tabular>
+<p>Now, sentence 1 is simply <m>H</m>.</p>
+<p>Since sentence 2 is obviously related to sentence 1, we do not want to introduce a different sentence letter. To put it partly in English, the sentence means ‘It is false that <m>H</m>.’ In order to symbolize this, we need a symbol for logical negation. We will use ‘<m>\enot</m>.’ Now we can translate ‘Not <m>H</m>’ to <m>\enot H</m>. In general, ‘<m>\enot</m>’ means ‘it is false that’.</p>
+<p>A sentence of this type — one that begins with a ‘<m>\enot</m>’ symbol, is called a <term>negation</term>. The sentence it negates — in this case, <m>H</m>, is called the <term>negand</term>. A negation says that its negand is false.</p>
+<p>What of Sentence 3? It looks like a more natural  way of saying the same thing as sentence 2. It’s saying that logic isn’t hard, which is just another way of negating the proposition that logic is hard. So sentences 2 and 3 have the same truth conditions. In the terminology of Ch. <xref ref="ch-intro" text="global"/>, they are logically equivalent.
+So we can translate both sentence 2 and sentence 3 as <m>\enot H</m>.</p>
+<p>When translating from English into SL, the word ‘not’ is usually a pretty good clue that ‘<m>\enot</m>’ will be an appropriate symbol to use. But it’s important to think about the actual meaning of the sentence, and not rely too much on which words appear in it.</p>
+<assemblage>
+<p>For any sentence <m>\metaA{}</m>, a sentence can be symbolized as <m>\enot\metaA{}</m> if it can be paraphrased in English as ‘It is not the case that <m>\metaA{}</m>.’</p></assemblage>
+<p>(For more on the ‘<m>\metaA{}</m>’ notation, see the ‘note about notation’ in <xref ref="notationnote" text="type-global"/>.)</p>
+<p>Consider these further examples:</p>
+<p>
+<ol>
+<li>Rodrigo is mortal.</li>
+<li>Rodrigo is immortal.</li>
+<li>Rodrigo is not immortal.</li></ol></p>
+<p>If we let <m>R</m> mean ‘Rodrigo is mortal’, then sentence 4 can be translated as <m>R</m>.</p>
+<p>What about sentence 5? Being immortal is pretty much the same as not being mortal. So it makes sense to treat 5 as the negation of 4, symbolizing it as <m>\enot{R}</m>.</p>
+<p>Sentence 6 can be paraphrased as ‘It is not the case that Rodrigo is immortal.’ Using negation twice, we translate this as <m>\enot\enot R</m>. The two negations in a row each work as negations, so the sentence means ‘It is not the case that<m>\ldots</m> it is not the case that<m>\ldots R</m>.’ It is the negation of the negation of <m>R</m>. One can negate <em>any</em> sentence of SL — even a negation — by putting the ‘<m>\enot{}</m>’ symbol in front of it. It’s not only for atomic sentences. In the case of <m>\enot\enot R</m>, this is a negation whose negand is <m>\enot R</m>. (That in turn is a negation whose negand is <m>R</m>.)</p>
+<p>Here is an example that illustrates some of the complexities of translation.</p>
+<p>
+<ol>
+<li>Elliot is happy.</li>
+<li>Elliot is unhappy.</li></ol></p>
+<p>If we let <m>H</m> mean ‘Elliot is happy’, then we can symbolize sentence 7 as <m>H</m>.</p>
+<p>We might be tempted to symbolize sentence 8 as <m>\enot{H}</m>. But is being unhappy the same thing as not being happy? This is perhaps debatable. One might think that it is possible to be neither happy nor unhappy. Maybe Elliot is in this in-between zone. If so, then we shouldn’t treat 8 as the negation of 7. If we’re allowing that ‘unhappy’ means something different from ‘not happy’, then we will need to use a different atomic sentence to translate 8.</p>
+<p>What of the <em>truth conditions</em> for negated sentences?</p>
+<p>For any sentence <m>\metaA{}</m>: If <m>\metaA{}</m> is true, then <m>\enot\metaA{}</m> is false. If <m>\metaA{}</m> is false, then <m>\enot\metaA{}</m> is true. Using ‘1’ for true and ‘0’ for false, we can summarize this in a <em>characteristic truth table</em> for negation:</p>
+<tabular><col halign="center" right="minor"/><col halign="center"/>
+<row bottom="minor"><cell><m>\metaA{}</m></cell><cell><m>\enot\metaA{}</m></cell></row>
+<row><cell>1</cell><cell>0</cell></row>
+<row><cell>0</cell><cell>1</cell></row></tabular>
+<p>The left column shows the possible truth values for the negand; the right column shows the truth value of the negation.</p>
+<p>We will discuss truth tables at greater length in Chapter <xref ref="ch-TruthTables" text="global"/>.</p>
+</section>
+<section xml:id="sl-conjunction">
+<title>Conjunction</title>
+<introduction>
+<p>Consider these sentences:</p>
+<p>
+<ol>
+<li>Jessica is strong.</li>
+<li>Luke is strong.</li>
+<li>Jessica is strong, and Luke is also strong.</li></ol></p>
+<p>We will need separate sentence letters for 9 and 10, so we define this symbolization key:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>J:</cell><cell>Jessica is strong.</cell></row>
+<row><cell>L:</cell><cell>Luke is strong.</cell></row></tabular>
+<p>Sentence 9, of course, is simply symbolized as <m>J</m>, and sentence 10 is symbolized as <m>L</m>.</p>
+<p>Sentence 11 can be paraphrased as ‘<m>J</m> and <m>L</m>.’ In order to fully symbolize this sentence, we need another symbol. We will use ‘<m>\eand</m>’. We translate ‘<m>J</m> and <m>L</m>’ as (<m>J\eand L</m>). The logical connective ‘<m>\eand</m>’ is called a <term>conjunction</term>, and <m>J</m> and <m>L</m> are each called <term>conjuncts</term>.</p>
+<p>Notice that we make no attempt to symbolize ‘also’ in sentence 11. Words like ‘both’ and ‘also’ function to draw our attention to the fact that two things are being conjoined. They are not doing any further logical work, so we do not need to represent them in SL. Note that Sentence 11 would have meant the same thing had it simply said ‘Jessica is strong, and Luke is strong.’</p>
+<p>Here are some more examples:</p>
+<p>
+<ol>
+<li>Jessica is strong and grumpy.</li>
+<li>Jessica and Matt are both strong.</li>
+<li>Although Luke is strong, he is not grumpy.</li>
+<li>Matt is strong, but Jessica is stronger than Matt.</li></ol></p>
+<p>Sentence 12 is obviously a conjunction. The sentence says two things about Jessica, so in English it is permissible to use her name only once. It might be tempting to try this when translating the argument: Since <m>J</m> means ‘Jessica is strong’, one might attempt to paraphrase sentence 12 as ‘<m>J</m> and grumpy.’ But this would be a mistake. Once we translate part of a sentence as <m>J</m>, any further structure within the original sentence is lost. <m>J</m> is an atomic sentence; SL doesn’t keep track of the fact that it was intended to be about Jessica. Moreover, ‘grumpy’ is not a sentence; on its own it is neither true nor false. So instead, we paraphrase sentence 12 as ‘<m>J</m> and Jessica is grumpy.’ Now we need to add a sentence letter to the symbolization key. Let <m>G_{1}</m> mean ‘Jessica is grumpy.’ Now the sentence can be translated as <m>J \eand G_{1}</m>.</p>
+<assemblage>
+<p>A sentence can be symbolized as (<m>\metaA{}\eand\metaB{}</m>) if it can be paraphrased in English as ‘Both <m>\metaA{}</m>, and <m>\metaB{}</m>.’ Each of the conjuncts must be a sentence.</p></assemblage>
+<p>Sentence 13 says one thing about two different subjects. It says of both Jessica and Matt that they are strong, and in English we use the word ‘strong’ only once. In translating to SL, we want to make sure each conjunct is a sentence on its own, so once again, we’ll paraphrase it by repeating the elements: ‘Jessica is strong, and Matt is strong.’ Once we add a new atomic sentence <m>M</m> for ‘Matt is strong’, this translates as <m>J\eand M</m>.</p>
+<p>Sentence 14 is a bit more complicated. The word ‘although’ tends to suggest a kind of contrast between the first part of the sentence and the second part. Nevertheless, the sentence is still telling us two things: Luke is strong, and he’s not grumpy. So we can paraphrase sentence 14 as, ‘<em>Both</em> Luke is strong, <em>and</em> Luke is not grumpy.’ The second conjunct contains a negation, so we paraphrase further: ‘<em>Both</em> Luke is strong <em>and</em> <em>it is not the case that</em> Luke is grumpy.’ Let’s let <m>G_{2}</m> stand for ‘Luke is grumpy’, and we can translate sentence 14 as <m>L\eand\enot G_{2}</m>.</p>
+<p>Once again, this is an imperfect translation of the English sentence 14. That sentence implicated that there was a contrast between Luke’s two properties. Our translation merely says that he has both of them. Still, it is a translation that preserves some of the important features of the original. In particular, it says that Luke is strong, and it also says that he’s not grumpy.</p>
+<p>Sentence 15’s use of the word ‘but’ indicates a similar contrastive structure. It is irrelevant for the purpose of translating to SL, so we can paraphrase the sentence as ‘<em>Both</em> Matt is strong, <em>and</em> Jessica is stronger than Matt.’ How should we translate the second conjunct? We already have the sentence letters <m>J</m> and <m>M</m>, which each say that one of Jessica and Matt is strong, but neither of these says anything comparative. We need a new sentence letter. Let <m>S</m> mean ‘Jessica is stronger than Matt.’ Now the sentence translates as (<m>M \eand S</m>).</p>
+<assemblage>
+<p>Sentences that can be paraphrased ‘<m>\metaA{}</m>, but <m>\metaB{}</m>’ or ‘Although <m>\metaA{}</m>, <m>\metaB{}</m>’ are best symbolized using conjunction: (<m>\metaA{}\eand\metaB{}</m>).</p></assemblage>
+<p>It is important to keep in mind that the sentence letters <m>J</m>, <m>M</m>, <m>G_{1}</m>, <m>G_{2}</m>, and <m>S</m> are atomic sentences. Considered as symbols of SL, they have no meaning beyond being true or false. We used <m>J</m> and <m>M</m> to symbolize different English language sentences that are about people being strong, but this similarity is completely lost when we translate to SL. Nor does SL recognize any particular similarity between <m>G_{1}</m> and <m>G_{2}</m>.</p>
+<p>For any two sentences <m>\metaA{}</m> and <m>\metaB{}</m>, the conjunction (<m>\metaA{}\eand\metaB{}</m>) is true if and only if the conjuncts — <m>\metaA{}</m> and <m>\metaB{}</m> — are both true. We can summarize this in the characteristic truth table for conjunction:</p>
+<tabular><col halign="center" right="minor"/><col halign="center" right="minor"/><col halign="center"/>
+<row bottom="minor"><cell><m>\metaA{}</m></cell><cell><m>\metaB{}</m></cell><cell>(<m>\metaA{}\eand\metaB{}</m>)</cell></row>
+<row><cell>1</cell><cell>1</cell><cell>1</cell></row>
+<row><cell>1</cell><cell>0</cell><cell>0</cell></row>
+<row><cell>0</cell><cell>1</cell><cell>0</cell></row>
+<row><cell>0</cell><cell>0</cell><cell>0</cell></row></tabular>
+<p>The two left columns indicate the truth values of the conjuncts. Since there are four possible combinations of truth values, there are four rows. The conjunction is true when both conjuncts are true, and false in all other cases.</p></introduction>
+<subsection xml:id="notationnote">
+<title>A Note About Notation</title>
+<p>In speaking generally about connectives, we’ve used the ‘<m>\metaA{}</m>’ and ‘<m>\metaB{}</m>’ symbols as variables to stand in for sentences of SL. We saw, for instance, that for any sentence <m>\metaA{}</m>, <m>\enot\metaA{}</m> is the negation of <m>\metaA{}</m>. This means:</p>
+<p>
+<ul>
+<li><m>\enot A</m> is the negation of <m>A</m></li>
+<li><m>\enot B_1</m> is the negation of <m>B_1</m></li>
+<li><m>\enot B_2</m> is the negation of <m>B_2</m></li>
+<li><m>\enot \enot C</m> is the negation of <m>\enot C</m></li>
+<li><m>\enot (A \eand B)</m> is the negation of <m>(A\eand B)</m></li>
+<li>etc.</li></ul></p>
+<p>Note that <m>\metaA{}</m> and <m>\metaB{}</m> are <em>not</em> sentences of SL. They are symbols we use to talk about SL sentences, but they’re not themselves part of our formal language. (Compare the use of variables like <m>x</m> in algebra. An ‘<m>x</m>’ symbol is used to stand in for any number, but <m>x</m> is not itself a number.) We’ll return to this distinction in §<xref ref="sec-sentencesofSL" text="global"/>, and again later on when we discuss proving generalities about SL.</p></subsection>
+</section>
+<section xml:id="sl-disjunction">
+<title>Disjunction</title>
+<p>Consider these sentences:</p>
+<p>
+<ol>
+<li>Denison will golf with me or he will watch movies.</li>
+<li>Either Denison or Ellery will golf with me.</li></ol></p>
+<p>For these sentences we can use this symbolization key:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>D:</cell><cell>Denison will golf with me.</cell></row>
+<row><cell>E:</cell><cell>Ellery will golf with me.</cell></row>
+<row><cell>M:</cell><cell>Denison will watch movies.</cell></row></tabular>
+<p>Sentence 16 is ‘Either <m>D</m> or <m>M</m>.’ To fully symbolize this, we introduce a new symbol. The sentence becomes <m>(D \eor M)</m>. The ‘<m>\eor</m>’ connective is a <term>disjunction</term>, and <m>D</m> and <m>M</m> are called <term>disjuncts</term>.</p>
+<p>Sentence 17 is only slightly more complicated. There are two subjects, but the English sentence only gives the verb once. In translating, we can paraphrase it as ‘Either Denison will golf with me, or Ellery will golf with me.’ Now it obviously translates as <m>(D \eor E)</m>.</p>
+<assemblage>
+<p>A sentence can be symbolized as <m>(\metaA{}\eor\metaB{})</m> if it can be paraphrased in English as ‘Either <m>\metaA{}</m>, or <m>\metaB{}</m>.’ Each of the disjuncts must be a sentence.</p></assemblage>
+<p>What truth conditions should we offer for ‘<m>\eor</m>’ sentences? If I say, ‘Denison will golf with me or he will watch movies’, under what circumstances will that sentence be true? When will it be false? Well, suppose he doesn’t do either activity. Suppose he goes swimming, and doesn’t watch movies, and doesn’t golf with me. Then my sentence is false.</p>
+<p>Suppose Denison skips the movies and golfs with me instead. Then it seems pretty clear that my disjunctive claim was true. Likewise if he goes to the movies and leaves me without a golf partner. It’s a little less obvious what to think about the English sentence if <em>both</em> disjuncts end up true. Suppose that Denison comes golfing with me, <em>and also</em> stays up late afterward to come with me to the movies. Then is it true that ‘he golfed with me or went to the movies’? This is not entirely clear. Certainly it would be strange to assert such a sentence if you know that both elements were true. On the other hand, it doesn’t exactly seem <em>false</em> that he’ll golf with me or watch movies, if in fact he’ll do both. In a study of the semantics of English, it would be appropriate to pursue this question much further. In this introduction to formal logic, we’ll simply stipulate the features of our formal symbol. ‘<m>\eor</m>’ stands for an <em>inclusive or</em>, which means it is true if and only if <em>at least one disjunct</em> is true.</p>
+<p>So <m>(D \eor E)</m> is true if <m>D</m> is true, if <m>E</m> is true, or if both <m>D</m> and <m>E</m> are true. It is false only if both <m>D</m> and <m>E</m> are false. We can summarize this with the characteristic truth table for disjunction:</p>
+<tabular><col halign="center" right="minor"/><col halign="center" right="minor"/><col halign="center"/>
+<row bottom="minor"><cell><m>\metaA{}</m></cell><cell><m>\metaB{}</m></cell><cell>(<m>\metaA{}\eor\metaB{}</m>)</cell></row>
+<row><cell>1</cell><cell>1</cell><cell>1</cell></row>
+<row><cell>1</cell><cell>0</cell><cell>1</cell></row>
+<row><cell>0</cell><cell>1</cell><cell>1</cell></row>
+<row><cell>0</cell><cell>0</cell><cell>0</cell></row></tabular>
+<p>Note that both conjunction and disjunction are symmetrical. (<m>\metaA{}\eand\metaB{}</m>) is logically equivalent to (<m>\metaB{}\eand\metaA{}</m>), and (<m>\metaA{}\eor\metaB{}</m>) is logically equivalent to (<m>\metaB{}\eor\metaA{}</m>).</p>
+<p>These sentences are somewhat more complicated:</p>
+<p>
+<ol>
+<li>Either you will not have soup, or you will not have salad.</li>
+<li>You will have neither soup nor salad.</li>
+<li>You get soup or salad, but not both.</li></ol></p>
+<p>Here’s a symbolization key:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>S<m>_1</m>:</cell><cell>You will get soup.</cell></row>
+<row><cell>S<m>_2</m>:</cell><cell>You will get salad.</cell></row></tabular>
+<p>Sentence 18 can be paraphrased in this way: ‘Either <em>it is not the case that</em> you get soup, or <em>it is not the case that</em> you get salad.’ Translating this requires both disjunction and negation. It is a disjunction of two negations: <m>(\enot S_1 \eor \enot S_2)</m>.</p>
+<p>Sentence 19 also requires negation. It can be paraphrased as, ‘<em>It is not the case that</em> either that you get soup or that you get salad.’ In other words, it is the negation of a disjunction. We need some way of indicating that the negation does not just negate the right or left disjunct; the entire disjunction is the negand. In order to do this, we put parentheses around the disjunction: ‘It is not the case that <m>(S_1 \eor S_2)</m>.’ This becomes simply <m>\enot (S_1 \eor S_2)</m>. (A second, equivalent, way to translate this sentence is <m>(\enot S_1 \eand \enot S_2)</m>. We’ll see why this is equivalent later on.)</p>
+<p>Notice that the parentheses are doing important work here. The sentence <m>(\enot S_1 \eor S_2)</m> would mean ‘Either you will not have soup, or you will have salad,’ which is very different.</p>
+<p>Sentence 20 has a more complex structure. We can break it into two parts. The first part says that you get one or the other. We translate this as <m>(S_1 \eor S_2)</m>. The second part says that you do not get both. We can paraphrase this as, ‘It is not the case that you both get soup and get salad.’ Using both negation and conjunction, we translate this as <m>\enot(S_1 \eand S_2)</m>. Now we just need to put the two parts together. As we saw above, ‘but’ can usually be translated as a conjunction. Sentence 20 can thus be translated as <m>((S_1 \eor S_2) \eand \enot(S_1 \eand S_2))</m>.</p>
+</section>
+<section xml:id="sl-conditional">
+<title>Conditional</title>
+<p>For the following sentences, use this symbolization key:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>R:</cell><cell>You will cut the red wire.</cell></row>
+<row><cell>B:</cell><cell>The bomb will explode.</cell></row></tabular>
+<p>
+<ol>
+<li>If you cut the red wire, then the bomb will explode.</li>
+<li>The bomb will explode only if you cut the red wire.</li></ol></p>
+<p>Sentence 21 can be translated partially as ‘If <m>R</m>, then <m>B</m>.’ We will use the symbol ‘<m>\eif</m>’ to represent this conditional relationship. The sentence becomes <m>(R\eif B)</m>. The connective is called a <term>conditional</term>. The sentence on the left-hand side of the conditional (<m>R</m> in this example) is called the <term>antecedent</term>. The sentence on the right-hand side (<m>B</m>) is called the <term>consequent</term>.</p>
+<p>Sentence 22 is also a conditional. Since the word ‘if’ appears in the second half of the sentence, it might be tempting to symbolize this in the same way as sentence 21. That would be a mistake.</p>
+<p>The conditional <m>(R\eif B)</m> says that <em>if</em> <m>R</m> were true, <em>then</em> <m>B</m> would also be true. It does not say that your cutting the red wire is the <em>only</em> way that the bomb could explode. Someone else might cut the wire, or the bomb might be on a timer. The sentence <m>(R\eif B)</m> does not say anything about what to expect if <m>R</m> is false. Sentence 22 is different. It says that the only conditions under which the bomb will explode are ones where you cut the red wire; i.e., if the bomb explodes, then you must have cut the wire. As such, sentence 22 should be symbolized as <m>(B \eif R)</m>.</p>
+<p>It is important to remember that the connective ‘<m>\eif</m>’ says only that, if the antecedent is true, then the consequent is true. It says nothing about the <em>causal</em> connection between the two events. Translating sentence 22 as <m>(B \eif R)</m> does not mean that the bomb exploding would somehow have caused your cutting the wire. Both sentence 21 and 22 suggest that, if you cut the red wire, your cutting the red wire would be the cause of the bomb exploding. They differ on the <em>logical</em> connection. If sentence 22 were true, then an explosion would tell us — those of us safely away from the bomb — that you had cut the red wire. Without an explosion, sentence 22 tells us nothing about what you did with the wire.</p>
+<assemblage>
+<p>The paraphrased sentence ‘<m>\metaA{}</m> only if <m>\metaB{}</m>’ is logically equivalent to ‘If <m>\metaA{}</m>, then <m>\metaB{}</m>.’</p></assemblage>
+<p>‘If <m>\metaA{}</m> then <m>\metaB{}</m>’ means that if <m>\metaA{}</m> is true then so is <m>\metaB{}</m>. So we know that if the antecedent <m>\metaA{}</m> is true but the consequent <m>\metaB{}</m> is false, then the conditional ‘If <m>\metaA{}</m> then <m>\metaB{}</m>’ is false. What is the truth value of ‘If <m>\metaA{}</m> then <m>\metaB{}</m>’ under other circumstances? Suppose, for instance, that the antecedent <m>\metaA{}</m> happened to be false. ‘If <m>\metaA{}</m> then <m>\metaB{}</m>’ would then not tell us anything about the actual truth value of the consequent <m>\metaB{}</m>, and it is unclear what the truth value of ‘If <m>\metaA{}</m> then <m>\metaB{}</m>’ would be.</p>
+<p>In English, the truth of conditionals often depends on what <em>would</em> be the case if the antecedent <em>were true</em> — even if, as a matter of fact, the antecedent is false. This poses a serious challenge for translating conditionals into SL.  Considered as sentences of SL, <m>R</m> and <m>B</m> in the above examples have nothing intrinsic to do with each other. In order to consider what the world would be like if <m>R</m> were true, we would need to analyze what <m>R</m> says about the world. Since <m>R</m> is an atomic symbol of SL, however, there is no further structure to be analyzed. When we replace a sentence with a sentence letter, we consider it merely as some atomic sentence that might be true or false.</p>
+<p>In order to translate conditionals into SL, we will not try to capture all the subtleties of English’s ‘if<m>\ldots</m> then<m>\ldots</m>’ construction. Instead, the symbol ‘<m>\eif</m>’ will signify a <em>material conditional</em>. This means that when <m>\metaA{}</m> is false, the conditional (<m>\metaA{}\eif\metaB{}</m>) is automatically true, regardless of the truth value of <m>\metaB{}</m>. If both <m>\metaA{}</m> and <m>\metaB{}</m> are true, then the conditional (<m>\metaA{}\eif\metaB{}</m>) is true.</p>
+<p>In short, (<m>\metaA{}\eif\metaB{}</m>) is false if and only if <m>\metaA{}</m> is true and <m>\metaB{}</m> is false. We can summarize this with a characteristic truth table for the conditional.</p>
+<tabular><col halign="center" right="minor"/><col halign="center" right="minor"/><col halign="center"/>
+<row bottom="minor"><cell><m>\metaA{}</m></cell><cell><m>\metaB{}</m></cell><cell><m>\metaA{}\eif\metaB{}</m></cell></row>
+<row><cell>1</cell><cell>1</cell><cell>1</cell></row>
+<row><cell>1</cell><cell>0</cell><cell>0</cell></row>
+<row><cell>0</cell><cell>1</cell><cell>1</cell></row>
+<row><cell>0</cell><cell>0</cell><cell>1</cell></row></tabular>
+<p>More than any other connective, the SL translation of the conditional is a rough approximation. It has some very counterintuitive consequences about the truth-values of conditionals. You can see from the truth table, for example, that an SL conditional is true any time the consequent is true, no matter what the antecedent is. (Look at lines 1 and 3 in the chart.) And it is also true any time the antecedent is false, no matter what the consequent is. (Look at lines 3 and 4.) This is an odd consequence. In English, some conditionals with true consequents and/or false antecedents seem clearly to be false. For example:</p>
+<p>
+<ol>
+<li>If there are no philosophy courses at UBC, then PHIL 220 is a philosophy course at UBC.</li>
+<li>If this book has fewer than thirty pages, then it will win the 2028 Pulitzer prize for poetry.</li></ol></p>
+<p>Both 23 and 24 seem clearly false. But each of them, translated into SL, would come out true. (If this isn’t obvious, it’s worth taking a moment to translate them and consider the truth table.) I told you before that English translations into SL are only approximate! Despite these odd results, the approach to conditionals offered here actually preserves many of the most important logical features of conditionals. We’ll see this in more detail once we start working with proofs. For now, I’ll just ask you to go along with this approach to conditionals, even though it will seem strange.</p>
+<p>Note that unlike conjunction and disjunction, the conditional is <em>asymmetrical</em>. You cannot swap the antecedent and consequent without changing the meaning of the sentence, because (<m>\metaA{}\eif\metaB{}</m>) and (<m>\metaB{}\eif\metaA{}</m>) are not logically equivalent.</p>
+</section>
+<section xml:id="sl-biconditional">
+<title>Biconditional</title>
+<p>Consider these sentences:</p>
+<p>
+<ol>
+<li>The figure on the board is a triangle only if it has exactly three sides.</li>
+<li>The figure on the board is a triangle if it has exactly three sides.</li>
+<li>The figure on the board is a triangle if and only if it has exactly three sides.</li></ol></p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>T:</cell><cell>The figure is a triangle.</cell></row>
+<row><cell>S:</cell><cell>The figure has three sides.</cell></row></tabular>
+<p>To appreciate the difference between these three sentences, do not be distracted by your geometrical knowledge. (Try substituting out different ideas for <m>T</m> and <m>S</m> to practice thinking abstractly.)</p>
+<p>Sentence 25, for reasons discussed above, can be translated as <m>(T\eif S)</m>.</p>
+<p>Sentence 26 is importantly different. It can be paraphrased as, ‘If the figure has three sides, then it is a triangle.’ So it can be translated as <m>(S\eif T)</m>.</p>
+<p>Sentence 27 says that <m>T</m> is true <em>if and only if</em> <m>S</m> is true; we can infer <m>S</m> from <m>T</m>, and we can infer <m>T</m> from <m>S</m>. This is called a <term>biconditional</term>, because it entails the two conditionals <m>S\eif T</m> and <m>T \eif S</m>. We will use ‘<m>\eiff</m>’ to represent the biconditional; sentence 27 can be translated as <m>(S \eiff T)</m>.</p>
+<p>We could abide without a new symbol for the biconditional. Since sentence 27 means ‘<m>(T \eif S)</m> and <m>(S\eif T)</m>,’ we could translate it as a conjunction of those two conditionals — as <m>((T \eif S)\eand(S\eif T))</m>. Notice how the parentheses work: we need to add a new set of parentheses for the conjunction, in addition to the ones that were already there for the conditionals.</p>
+<p>Because we could always write <m>((\metaA{}\eif\metaB{})\eand(\metaB{}\eif\metaA{}))</m> instead of <m>(\metaA{}\eiff\metaB{})</m>, we do not strictly speaking <em>need</em> to introduce a new symbol for the biconditional. Nevertheless, logical languages usually have such a symbol. SL will have one, which makes it easier to translate phrases like ‘if and only if.’</p>
+<p><m>(\metaA{}\eiff\metaB{})</m> is true if and only if <m>\metaA{}</m> and <m>\metaB{}</m> have the same truth value: they’re either both true, or they’re both false. This is the characteristic truth table for the biconditional:</p>
+<tabular><col halign="center" right="minor"/><col halign="center" right="minor"/><col halign="center"/>
+<row bottom="minor"><cell><m>\metaA{}</m></cell><cell><m>\metaB{}</m></cell><cell><m>\metaA{}\eiff\metaB{}</m></cell></row>
+<row><cell>1</cell><cell>1</cell><cell>1</cell></row>
+<row><cell>1</cell><cell>0</cell><cell>0</cell></row>
+<row><cell>0</cell><cell>1</cell><cell>0</cell></row>
+<row><cell>0</cell><cell>0</cell><cell>1</cell></row></tabular>
+<p>We call the sentence written before the biconditional symbol the <term>left-hand side</term>. The sentence after it is the <term>right-hand side</term>. A biconditional tells you that the left-hand side and the right-hand side have the same truth value.</p>
+</section>
+<section xml:id="sl-other-symbolization">
+<title>Other symbolization</title>
+<p>We have now introduced all of the connectives of SL. We can use them together to translate many kinds of sentences. Consider these examples of sentences that use the English word ‘unless’, with an associated symbolization key:</p>
+<p>
+<ol>
+<li>Unless you wear a jacket, you will catch a cold.</li>
+<li>You will catch a cold unless you wear a jacket.</li></ol></p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>J:</cell><cell>You will wear a jacket.</cell></row>
+<row><cell>D:</cell><cell>You will catch a cold.</cell></row></tabular>
+<p>We can paraphrase sentence 28 as ‘Unless <m>J</m>, <m>D</m>.’ This means that if you do not wear a jacket, then you will catch a cold; with this in mind, we might translate it as <m>\enot J \eif D</m>. It also means that if you do not catch a cold, then you must have worn a jacket; with this in mind, we might translate it as <m>\enot D \eif J</m>.</p>
+<p>We needn’t ask which of these is <em>the correct</em> translation of sentence 28. Both translations are perfectly correct, because the two translations are logically equivalent in SL. And since sentence 29, in English, is logically equivalent to sentence 28, it can also be translated as either <m>\enot J \eif D</m> or <m>\enot D \eif J</m>.</p>
+<p>When symbolizing sentences like sentence 28 and sentence 29, it is easy to get turned around. Since the conditional is not symmetric, it would be wrong to translate either sentence as <m>J \eif \enot D</m>. There are also other logically equivalent expressions that do not use conditionals. Both sentences mean that you will wear a jacket or — if you do not wear a jacket — then you will catch a cold. So we can translate them as <m>J \eor D</m> (or equivalently as <m>D \eor J</m>, since disjunction, unlike conditionals, is symmetric).</p>
+<assemblage>
+<p>If a sentence can be paraphrased as ‘Unless <m>\metaA{}</m>, <m>\metaB{}</m>,’ then it can be symbolized as <m>(\enot\metaA{}\eif\metaB{})</m>, <m>(\enot\metaB{}\eif\metaA{})</m>, <m>(\metaA{}\eor\metaB{})</m>, or <m>(\metaB{}\eor\metaA{})</m>.</p></assemblage>
+</section>
+<section xml:id="sec-sentencesofSL">
+<title>Sentences of SL</title>
+<introduction>
+<p>The sentence ‘Apples are red, or berries are blue’ is a sentence of English, and the sentence ‘<m>(A\eor B)</m>’ is a sentence of SL. Although we can identify sentences of English when we encounter them, we do not have a formal definition of ‘sentence of English’. (Students used to learn grammarians’ attempts to formalize some such rules, but contemporary linguists agree that this was a hopeless project. Natural languages like English are just not susceptible to such precisification.) In SL, it is possible to formally define what counts as a sentence. This is one respect in which a formal language like SL is more precise than a natural language like English.</p>
+<p>It is important to distinguish between the logical language SL, which we are developing, and the language that we use to talk about SL. When we talk about a language, the language that we are talking about is called the <term>object language</term>. The language that we use to talk about the object language is called the <term>metalanguage</term>.</p>
+<p>The object language in this chapter is SL. The metalanguage is English — not conversational English, but English supplemented with some logical and mathematical vocabulary (including the ‘<m>\metaA{}</m>’ and ‘<m>\metaB{}</m>’ symbols). The sentence ‘<m>(A\eor B)</m>’ is a sentence in the object language, because it uses only symbols of SL. The word ‘sentence’ is not itself part of SL, however, so the sentence ‘This expression is a sentence of SL’ is not a sentence of SL. It is a sentence in the metalanguage, a sentence that we use to talk <em>about</em> SL.</p>
+<p>In this section, we will give a formal definition for ‘sentence of SL.’ The definition itself will be given in mathematical English, the metalanguage. We’re going to give that definition in a very precise and technical way. It may seem odd to express what are, at their core, fairly simple ideas in such a complicated way, but doing so will be important later on, because we will be constructing algorithms that operate on SL sentences. To do that, we need a very precise definition of what counts as a sentence.</p>
+<p>We’ll build that definition from simpler parts, starting with <em>expressions</em>.</p></introduction>
+<subsection xml:id="sl-expressions">
+<title>Expressions</title>
+<p>There are three kinds of symbols in SL:</p>
+<tabular top="minor" left="minor"><col halign="center" right="minor"/><col halign="center" right="minor"/>
+<row><cell>sentence letters</cell><cell><m>A,B,C,\ldots,Z</m></cell></row>
+<row bottom="minor"><cell>with numerical subscripts, as needed</cell><cell><m>A_1, B_1,Z_1,A_2,A_{25},J_{375},\ldots</m></cell></row>
+<row bottom="minor"><cell>connectives</cell><cell><m>\enot</m>,<m>\eand</m>,<m>\eor</m>,<m>\eif</m>,<m>\eiff</m></cell></row>
+<row bottom="minor"><cell>parentheses</cell><cell>( , )</cell></row></tabular>
+<p>We define an <term>expression of SL</term> as any string of symbols of SL. Take any of the symbols of SL and write them down, in any order, and you have an expression.</p></subsection>
+<subsection xml:id="sl-well-formed-formulae">
+<title>Well-formed formulae</title>
+<p>Since any sequence of symbols is an expression, many expressions of SL will be gobbledegook. For example, these expressions don’t mean anything:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell/><cell><m>\enot\enot\enot\enot</m></cell></row>
+<row><cell/><cell>))<m>\eiff</m></cell></row>
+<row><cell/><cell><m>A_4 \eor</m></cell></row></tabular>
+<p>None of these are sentences in SL. A meaningful expression is called a <term>well-formed formula</term>. It is common to use the acronym <em>wff</em>; the plural is wffs. (It is pronounced like the canine onomatopoeia.)</p>
+<p>Individual sentence letters like <m>A</m> and <m>G_{13}</m> are certainly wffs. We can form further wffs out of these by using the various connectives. Using negation, we can get <m>\enot A</m> and <m>\enot G_{13}</m>. Using conjunction, we can get <m>(A \eand G_{13})</m>, <m>(G_{13} \eand A)</m>, <m>(A \eand A)</m>, and <m>(G_{13} \eand G_{13})</m>. We could also apply negation repeatedly to get wffs like <m>\enot \enot A</m> or apply negation along with conjunction to get wffs like <m>\enot(A \eand G_{13})</m> and <m>\enot(G_{13} \eand \enot G_{13})</m>. The possible combinations are endless, even starting with just these two sentence letters, and there are infinitely many sentence letters. So there is no point in trying to list all the wffs.</p>
+<p>Instead, we will describe the rules that govern how wffs can be constructed. Consider negation: Given any wff <m>\metaA{}</m> of SL, <m>\enot\metaA{}</m> is a wff of SL. Remember, <m>\metaA{}</m> is not itself a sentence letter; it is a variable that stands in for any wff at all (atomic or not). Since the variable <m>\metaA{}</m> is not a symbol of SL, <m>\enot\metaA{}</m> is not an expression of SL. Instead, it is an expression of the metalanguage that allows us to talk about infinitely many expressions of SL: all of the expressions that start with the negation symbol. Because <m>\metaA{}</m> is part of the metalanguage, it is called a <em>metavariable</em>.</p>
+<p>Another way of saying that given any wff <m>\metaA{}</m> of SL, <m>\enot\metaA{}</m> is a wff of SL is to say that any time you have a wff of SL, you can make a new wff by adding a ‘<m>\enot</m>’ symbol to the front of it.</p>
+<p>We can say similar things for each of the other connectives. For instance, if <m>\metaA{}</m> and <m>\metaB{}</m> are wffs of SL, then <m>(\metaA{}\eand\metaB{})</m> is a wff of SL. (That is to say, given any two wffs in SL, you can put a ‘<m>\eand</m>’ symbol between them, a ‘(’ in front of the first, and a ‘)’ after the second, and the whole thing will add up to a new wff.)  Providing clauses like this for all of the connectives, we arrive at the following formal definition for a well-formed formula of SL:</p>
+<p>
+<ol>
+<li>Every atomic sentence is a wff.</li>
+<li>
+<p>For all expressions <m>\metaA{}</m> and <m>\metaB{}</m>,</p>
+<p>
+<ol>
+<li>If <m>\metaA{}</m> is a wff, then <m>\enot\metaA{}</m> is a wff.</li>
+<li>If <m>\metaA{}</m> and <m>\metaB{}</m> are wffs, then <m>(\metaA{}\eand\metaB{})</m> is a wff.</li>
+<li>If <m>\metaA{}</m> and <m>\metaB{}</m> are wffs, then <m>(\metaA{}\eor\metaB{})</m> is a wff.</li>
+<li>If <m>\metaA{}</m> and <m>\metaB{}</m> are wffs, then <m>(\metaA{}\eif\metaB{})</m> is a wff.</li>
+<li>If <m>\metaA{}</m> and <m>\metaB{}</m> are wffs, then <m>(\metaA{}\eiff\metaB{})</m> is a wff.</li></ol></p></li>
+<li>Nothing else is a wff.</li></ol></p>
+<p>This is a <em>recursive</em> definition of a wff, illustrating how one can, starting with the simplest cases (atomic sentences), build up more complicated sentences of SL. If you have a wff, you can stick a ‘<m>\enot</m>’ in front of it to make a new wff. If you have two wffs, you can put a ‘(’ in front of the first one, followed by a ‘<m>\eand</m>’, followed by the second one, then finally a ‘)’, and end up with a new wff. Etc.</p>
+<p>Note that these are purely <em>syntactic</em> rules. They tell you how to construct an admissible (‘grammatical’) sentence in SL. They do not tell you what the sentence will <em>mean</em>. (We’ve touched on that already, in introducing characteristic truth tables. We’ll return to this topic in much more detail in Ch. <xref ref="ch-TruthTables" text="global"/>.)</p>
+<p>Suppose we want to know whether or not <m>\enot \enot \enot D</m> is a wff of SL. Looking at the second clause of the definition, we know that <m>\enot \enot \enot D</m> is a wff <em>if</em> <m>\enot \enot D</m> is a wff. So now we need to ask whether or not <m>\enot \enot D</m> is a wff. Again looking at the second clause of the definition, <m>\enot \enot D</m> is a wff <em>if</em> <m>\enot D</m> is. Again, <m>\enot D</m> is a wff <em>if</em> <m>D</m> is a wff. Now <m>D</m> is a sentence letter, an atomic sentence of SL, so we know that <m>D</m> is a wff by the first clause of the definition. So for a compound formula like <m>\enot \enot \enot D</m>, we must apply the definition repeatedly. Eventually we arrive at the atomic sentences from which the wff is built up.</p>
+<p>The connective that you look to first in decomposing a sentence is called the <term>main connective</term> (or <em>main logical operator</em>) of that sentence. For example: The main connective of <m>\enot (E \eor (F \eif G))</m> is negation, <m>\enot</m>. The main connective of <m>(\enot E \eor (F \eif G))</m> is disjunction, <m>\eor</m>. Conversely, if you’re building up a wff from simpler sentences, the connective introduced by the last rule you apply is the main connective. It is the connective that governs the interpretation of the entire sentence.</p></subsection>
+<subsection xml:id="sl-sentences">
+<title>Sentences</title>
+<p>Recall that a sentence is a meaningful expression that can be true or false. Since the meaningful expressions of SL are the wffs and since every wff of SL is either true or false, the definition for a sentence of SL is the same as the definition for a wff. (Not every formal language will have this nice feature. In the language QL, which is developed later in the book, there are wffs which are not sentences.)</p>
+<p>The recursive structure of sentences in SL will be important when we consider the circumstances under which a particular sentence would be true or false. The sentence <m>\enot \enot \enot D</m> is true if and only if the sentence <m>\enot \enot D</m> is false, and so on through the structure of the sentence until we arrive at the atomic components: <m>\enot \enot \enot D</m> is true if and only if the atomic sentence <m>D</m> is false. We will return to this point in much more detail in Chapters <xref ref="ch-TruthTables" text="global"/> and <xref ref="ch-SLmodels" text="global"/>.</p></subsection>
+<subsection xml:id="SLconventions">
+<title>Notational conventions</title>
+<p>A wff like <m>(Q \eand R)</m> must be surrounded by parentheses, because we might apply the definition again to use this as part of a more complicated sentence. If we negate <m>(Q \eand R)</m>, we get <m>\enot(Q \eand R)</m>. If we just had <m>Q \eand R</m> without the parentheses and put a negation in front of it, we would have <m>\enot Q \eand R</m>. It is most natural to read this as meaning the same thing as <m>(\enot Q \eand R)</m>, something very different than <m>\enot(Q\eand R)</m>. The sentence <m>\enot(Q \eand R)</m> means that it is not the case that both <m>Q</m> and <m>R</m> are true; <m>Q</m> might be false or <m>R</m> might be false, but the sentence does not tell us which. The sentence <m>(\enot Q \eand R)</m> means specifically that <m>Q</m> is false and that <m>R</m> is true. So parentheses are crucial to the meaning of the sentence.</p>
+<p>Consequently, strictly speaking, <m>Q \eand R</m> without parentheses is <em>not</em> a sentence of SL. When using SL, however, we will sometimes be able to relax the precise definition so as to make things easier for ourselves. We will do this in several ways.</p>
+<p>First,  we understand that <m>Q \eand R</m> means the same thing as <m>(Q \eand R)</m>. As a matter of convention, we can leave off parentheses that occur <em>around the entire sentence</em>. Think of this as a kind of shorthand; we don’t always write out the parentheses that we know are really there.</p>
+<p>Second, it can sometimes be confusing to look at long sentences with nested sets of parentheses. We adopt the convention of using square brackets ‘[’ and ‘]’ in place of parenthesis. There is no logical difference between <m>(P\eor Q)</m> and <m>[P\eor Q]</m>, for example. The unwieldy sentence
+<md>(((H \eif I) \eor (I \eif H)) \eand (J \eor K))</md>
+could be written in this way, omitting the outer parentheses and using square brackets to make the inner structure easier to see:
+<md>\bigl[(H \eif I) \eor (I \eif H)\bigr] \eand (J \eor K)</md>
+Third, we will sometimes want to translate the conjunction of three or more sentences. For the sentence ‘Alice, Bob, and Candice all went to the party’, suppose we let <m>A</m> mean ‘Alice went’, <m>B</m> mean ‘Bob went’, and <m>C</m> mean ‘Candice went.’ The definition only allows us to form a conjunction out of two sentences, so we can translate it as <m>(A \eand B) \eand C</m> or as <m>A \eand (B \eand C)</m>. There is no reason to distinguish between these, since the two translations are logically equivalent. There is no logical difference between the first, in which <m>(A \eand B)</m> is conjoined with <m>C</m>, and the second, in which <m>A</m> is conjoined with <m>(B \eand C)</m>.  So we might as well just write <m>A \eand B \eand C</m>. As a matter of convention, we can leave out parentheses when we conjoin three or more sentences.</p>
+<p>Fourth, a similar situation arises with multiple disjunctions. ‘Either Alice, Bob, or Candice went to the party’ can be translated as <m>(A \eor B) \eor C</m> or as <m>A \eor (B \eor C)</m>. Since these two translations are logically equivalent, we may write <m>A \eor B \eor C</m>.</p>
+<p>These latter two conventions only apply to multiple conjunctions or multiple  disjunctions. If a series of connectives includes both disjunctions and conjunctions, then the parentheses are essential; as with <m>(A \eand B) \eor C</m> and <m>A \eand (B \eor C)</m>. The parentheses are also required if there is a series of conditionals or biconditionals, as with <m>(A \eif B) \eif C</m> and <m>A \eiff (B \eiff C)</m>.</p>
+<p>We have adopted these four rules as <em>notational conventions</em>, not as changes to the definition of a sentence. Strictly speaking, <m>A \eor B \eor C</m> is still not a sentence. Instead, it is a kind of shorthand. We write it for the sake of convenience, but we really mean the sentence <m>(A \eor (B \eor C))</m>.</p>
+<p>Unless and until you are very confident about wffs and the use of parentheses, it is probably good advice to stick to the formal rules. These notational conventions are a way to skip steps when writing things down; if you’re unsure about whether it’s OK to take the shortcut, the safest thing is to go by the formal definition.</p>
+<p>If we had given a different definition for a wff, then these could count as wffs. We might have written rule 2 in this way: “If <m>\metaA{}</m>, <m>\metaB{}</m>, <m>\ldots \script{Z}</m> are wffs, then <m>(\metaA{}\eand\metaB{}\eand\ldots\eand\script{Z})</m>, is a wff.” This would make it easier to translate some English sentences, but would have the cost of making our formal language more complicated. We would have to keep the complex definition in mind when we develop truth tables and a proof system. We want a logical language that is <em>expressively simple</em> and allows us to translate easily from English, but we also want a <em>formally simple</em> language. (As we’ll see later, this is important if we want to be able to prove things <em>about</em> our language.) Adopting notational conventions is a compromise between these two desires.</p></subsection>
+</section>
+<section xml:id="sec-mostdescriptiveform">
+<title>Most Descriptive Form</title>
+<p>There are many ways one can translate a given English sentence into SL, which means that a translator has some choices to make. Many of the choices are quite arbitrary. Suppose one wishes to translate this sentence into SL:</p>
+<p>
+<dl width="narrow">
+<li>
+<title> </title>
+<p>Shuri is the Black Panther and Everett is American.</p></li></dl></p>
+<p>One obvious way to translate it would be to use this symbolization key:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>S:</cell><cell>Shuri is the Black Panther.</cell></row>
+<row><cell>E:</cell><cell>Everett is American.</cell></row></tabular>
+<p>And of course the sentence is trivially translated as <m>S \eand E</m>. But we could equally well have used a different symbolization key, calling for a different translation, e.g.:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>A:</cell><cell>Shuri is the Black Panther.</cell></row>
+<row><cell>B:</cell><cell>Everett is American.</cell></row></tabular>
+<p>If we made this key, we would translate the English sentence as <m>A \eand B</m>. These are equally good translations, and it doesn’t matter which one we pick. But there can be better and worse choices of symbolization keys. Suppose we used this one:</p>
+<p>
+<dl width="narrow">
+<li>
+<title>P:</title>
+<p>Shuri is the Black Panther and Everett is American.</p></li>
+<li>
+<title>Q:</title>
+<p>Everett is American.</p></li></dl></p>
+<p>There is nothing in the rules of SL that prohibits the use of such symbolization keys. Given this key, our target sentence could be translated trivially as <m>P</m>. This would not be an <em>incorrect</em> translation, but there is something unfortunate about it. By translating an English conjunction as an atomic sentence in SL, we lose important information. This translation has failed to encode the conjunctive information that was given in the English sentence. It will be unable to explain why “Shuri is the Black Panther and Everett is American” implies that Everett is American — <m>Q</m> does not follow from <m>P</m> in SL.</p>
+<p>We will say that a translation gives the <term>most descriptive form</term> when atomic sentences in SL are assigned only to sententially atomic sentences in English — i.e., sentences that are not negations, conjunctions, disjunctions, conditionals, or biconditionals. This ensures that the sentential form of every given English sentence is reflected in the SL translation. When translating from English to SL, one should typically do so in most descriptive form.</p>
+</section>
+<exercises xml:id="sl-exercises">
+<title>Practice Exercises</title>
+<subexercises xml:id="pr-monkeysuits">
+<title>Part A</title>
+<introduction>
+<p>Using the symbolization key given, translate each English-language sentence into SL.</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>M:</cell><cell>Those creatures are men in suits.</cell></row>
+<row><cell>C:</cell><cell>Those creatures are chimpanzees.</cell></row>
+<row><cell>G:</cell><cell>Those creatures are gorillas.</cell></row></tabular></introduction>
+<exercise>
+<statement>
+<p>Those creatures are not men in suits.</p></statement>
+<solution>
+<p><m>\enot M</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Those creatures are men in suits, or they are not.</p></statement>
+<solution>
+<p><m>M \eor \enot M</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Those creatures are either gorillas or chimpanzees.</p></statement>
+<solution>
+<p><m>G \eor C</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Those creatures are neither gorillas nor chimpanzees.</p></statement>
+<solution>
+<p><m>\enot G \eand \enot C</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>If those creatures are chimpanzees, then they are neither gorillas nor men in suits.</p></statement>
+<solution>
+<p><m>C \eif (\enot G \eand \enot M)</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Unless those creatures are men in suits, they are either chimpanzees or they are gorillas.</p></statement>
+<solution>
+<p><m>M \eor (C \eor G)</m></p></solution></exercise>
+</subexercises>
+<subexercises xml:id="sl-part-b">
+<title>Part B</title>
+<introduction>
+<p>Using the symbolization key given, translate each English-language sentence into SL.</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>K:</cell><cell>Korra is the Avatar.</cell></row>
+<row><cell>T:</cell><cell>Tenzin is an airbender.</cell></row>
+<row><cell>A:</cell><cell>Asami is an engineer.</cell></row>
+<row><cell>M:</cell><cell>Mako is a police officer.</cell></row>
+<row><cell>B:</cell><cell>Bolin is a lavabender.</cell></row>
+<row><cell>V:</cell><cell>Varrick is wealthy.</cell></row>
+<row><cell>J:</cell><cell>Jinora is an airbender.</cell></row></tabular>
+<p>Using the symbolization key above, translate each sentence into SL.</p></introduction>
+<exercise>
+<statement>
+<p>Korra is the Avatar and Tenzin is an airbender.</p></statement></exercise>
+<exercise>
+<statement>
+<p>Asami is an engineer, but Mako is not a police officer.</p></statement></exercise>
+<exercise>
+<statement>
+<p>Either Bolin is a lavabender or Varrick is wealthy.</p></statement></exercise>
+<exercise>
+<statement>
+<p>If Korra is the Avatar, then Jinora is an airbender.</p></statement></exercise>
+<exercise>
+<statement>
+<p>Korra is the Avatar only if Tenzin is an airbender.</p></statement></exercise>
+<exercise>
+<statement>
+<p>Asami is an engineer if Mako is a police officer.</p></statement></exercise>
+<exercise>
+<statement>
+<p>Bolin is a lavabender if and only if Korra is the Avatar.</p></statement></exercise>
+<exercise>
+<statement>
+<p>If Varrick is wealthy, then either Asami is an engineer or Mako is a police officer.</p></statement></exercise>
+<exercise>
+<statement>
+<p>Neither Mako nor Bolin is a police officer.</p></statement></exercise>
+<exercise>
+<statement>
+<p>Either Korra is not the Avatar or Tenzin is an airbender.</p></statement></exercise>
+<exercise>
+<statement>
+<p>If Asami is an engineer, then if Mako is a police officer, Korra is the Avatar.</p></statement></exercise>
+<exercise>
+<statement>
+<p>Varrick is wealthy and either Bolin is a lavabender or Jinora is an airbender.</p></statement></exercise>
+</subexercises>
+<subexercises xml:id="pr-avacareer">
+<title>Part C</title>
+<introduction>
+<p>Using the symbolization key given, translate each English-language sentence into SL.</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>E<m>_1</m>:</cell><cell>Ava is an electrician.</cell></row>
+<row><cell>E<m>_2</m>:</cell><cell>Harrison is an electrician.</cell></row>
+<row><cell>F<m>_1</m>:</cell><cell>Ava is a firefighter.</cell></row>
+<row><cell>F<m>_2</m>:</cell><cell>Harrison is a firefighter.</cell></row>
+<row><cell>S<m>_1</m>:</cell><cell>Ava is satisfied with her career.</cell></row>
+<row><cell>S<m>_2</m>:</cell><cell>Harrison is satisfied with his career.</cell></row></tabular></introduction>
+<exercise>
+<statement>
+<p>Ava and Harrison are both electricians.</p></statement>
+<solution>
+<p><m>E_1 \eand E_2</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>If Ava is a firefighter, then she is satisfied with her career.</p></statement>
+<solution>
+<p><m>F_1 \eif S_1</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Ava is a firefighter, unless she is an electrician.</p></statement>
+<solution>
+<p><m>F_1 \eor E_1</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Harrison is an unsatisfied electrician.</p></statement>
+<solution>
+<p><m>E_2 \eand \enot S_2</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Neither Ava nor Harrison is an electrician.</p></statement>
+<solution>
+<p><m>\enot E_1 \eand \enot E_2</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Both Ava and Harrison are electricians, but neither of them find it satisfying.</p></statement>
+<solution>
+<p><m>E_1 \eand E_2 \eand \enot(S_1 \eor S_2)</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Harrison is satisfied only if he is a firefighter.</p></statement>
+<solution>
+<p><m>S_2 \eif F_2</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>If Ava is not an electrician, then neither is Harrison, but if she is, then he is too.</p></statement>
+<solution>
+<p><m>(\enot E_1 \eif \enot E_2) \eand (E_1 \eif E_2)</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Ava is satisfied with her career if and only if Harrison is not satisfied with his.</p></statement>
+<solution>
+<p><m>S_1 \eiff \enot S_2</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>If Harrison is both an electrician and a firefighter, then he must be satisfied with his work.</p></statement>
+<solution>
+<p><m>(E_2 \eand F_2) \eif S_2</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>It cannot be that Harrison is both an electrician and a firefighter.</p></statement>
+<solution>
+<p><m>\enot(E_2 \eand F_2)</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Harrison and Ava are both firefighters if and only if neither of them is an electrician.</p></statement>
+<solution>
+<p><m>(F_1 \eand F_2) \eiff (\enot E_1 \eand \enot E_2)</m></p></solution></exercise>
+</subexercises>
+<subexercises xml:id="pr-spies">
+<title>Part D</title>
+<introduction>
+<p>Give a symbolization key and symbolize the following sentences in SL, using most descriptive form.</p></introduction>
+<exercise>
+<statement>
+<p>Alice and Bob are both spies.</p></statement>
+<solution>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>A:</cell><cell>Alice is a spy.</cell></row>
+<row><cell>B:</cell><cell>Bob is a spy.</cell></row>
+<row><cell>C:</cell><cell>The code has been broken.</cell></row>
+<row><cell>G:</cell><cell>The German embassy will be in an uproar.</cell></row></tabular>
+<p><m>A \eand B</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>If either Alice or Bob is a spy, then the code has been broken.</p></statement>
+<solution>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>A:</cell><cell>Alice is a spy.</cell></row>
+<row><cell>B:</cell><cell>Bob is a spy.</cell></row>
+<row><cell>C:</cell><cell>The code has been broken.</cell></row>
+<row><cell>G:</cell><cell>The German embassy will be in an uproar.</cell></row></tabular>
+<p><m>(A \eor B) \eif C</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>If neither Alice nor Bob is a spy, then the code remains unbroken.</p></statement>
+<solution>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>A:</cell><cell>Alice is a spy.</cell></row>
+<row><cell>B:</cell><cell>Bob is a spy.</cell></row>
+<row><cell>C:</cell><cell>The code has been broken.</cell></row>
+<row><cell>G:</cell><cell>The German embassy will be in an uproar.</cell></row></tabular>
+<p><m>\enot(A \eor B) \eif \enot C</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>The German embassy will be in an uproar, unless someone has broken the code.</p></statement>
+<solution>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>A:</cell><cell>Alice is a spy.</cell></row>
+<row><cell>B:</cell><cell>Bob is a spy.</cell></row>
+<row><cell>C:</cell><cell>The code has been broken.</cell></row>
+<row><cell>G:</cell><cell>The German embassy will be in an uproar.</cell></row></tabular>
+<p><m>G \eor C</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Either the code has been broken or it has not, but the German embassy will be in an uproar regardless.</p></statement>
+<solution>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>A:</cell><cell>Alice is a spy.</cell></row>
+<row><cell>B:</cell><cell>Bob is a spy.</cell></row>
+<row><cell>C:</cell><cell>The code has been broken.</cell></row>
+<row><cell>G:</cell><cell>The German embassy will be in an uproar.</cell></row></tabular>
+<p><m>(C \eor \enot C) \eand G</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Either Alice or Bob is a spy, but not both.</p></statement>
+<solution>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>A:</cell><cell>Alice is a spy.</cell></row>
+<row><cell>B:</cell><cell>Bob is a spy.</cell></row>
+<row><cell>C:</cell><cell>The code has been broken.</cell></row>
+<row><cell>G:</cell><cell>The German embassy will be in an uproar.</cell></row></tabular>
+<p><m>(A \eor B) \eand \enot(A \eand B)</m></p></solution></exercise>
+</subexercises>
+<subexercises xml:id="pr-gregorbaseball">
+<title>Part E</title>
+<introduction>
+<p>Give a symbolization key and symbolize the following sentences in SL, using most descriptive form.</p></introduction>
+<exercise>
+<statement>
+<p>If Gregor plays first base, then the team will lose.</p></statement>
+<solution>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>G:</cell><cell>Gregor plays first base.</cell></row>
+<row><cell>L:</cell><cell>The team will lose.</cell></row>
+<row><cell>M:</cell><cell>There is a miracle.</cell></row>
+<row><cell>C:</cell><cell>Gregor’s mom will bake cookies.</cell></row></tabular>
+<p><m>G \eif L</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>The team will lose unless there is a miracle.</p></statement>
+<solution>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>G:</cell><cell>Gregor plays first base.</cell></row>
+<row><cell>L:</cell><cell>The team will lose.</cell></row>
+<row><cell>M:</cell><cell>There is a miracle.</cell></row>
+<row><cell>C:</cell><cell>Gregor’s mom will bake cookies.</cell></row></tabular>
+<p><m>\enot M \eif L</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>The team will either lose or it won’t, but Gregor will play first base regardless.</p></statement>
+<solution>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>G:</cell><cell>Gregor plays first base.</cell></row>
+<row><cell>L:</cell><cell>The team will lose.</cell></row>
+<row><cell>M:</cell><cell>There is a miracle.</cell></row>
+<row><cell>C:</cell><cell>Gregor’s mom will bake cookies.</cell></row></tabular>
+<p><m>(L \eor \enot L) \eand G</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>Gregor’s mom will bake cookies if and only if Gregor plays first base.</p></statement>
+<solution>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>G:</cell><cell>Gregor plays first base.</cell></row>
+<row><cell>L:</cell><cell>The team will lose.</cell></row>
+<row><cell>M:</cell><cell>There is a miracle.</cell></row>
+<row><cell>C:</cell><cell>Gregor’s mom will bake cookies.</cell></row></tabular>
+<p><m>C \eiff G</m></p></solution></exercise>
+<exercise>
+<statement>
+<p>If there is a miracle, then Gregor’s mom will not bake cookies.</p></statement>
+<solution>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>G:</cell><cell>Gregor plays first base.</cell></row>
+<row><cell>L:</cell><cell>The team will lose.</cell></row>
+<row><cell>M:</cell><cell>There is a miracle.</cell></row>
+<row><cell>C:</cell><cell>Gregor’s mom will bake cookies.</cell></row></tabular>
+<p><m>M \eif \enot C</m></p></solution></exercise>
+</subexercises>
+<subexercises xml:id="pr-choresSL">
+<title>Part F</title>
+<introduction>
+<p>For each argument, write a symbolization key and translate the argument as well as possible into SL.</p></introduction>
+<exercise>
+<statement>
+<p>If Pavi enters the Spirit World, then Jae becomes worried. Pavi enters the Spirit World unless she is being watched by the White Lotus. So if Jae does not become worried, then Pavi must be being watched by the White Lotus.</p></statement></exercise>
+<exercise>
+<statement>
+<p>Either a storm will strike the Harshlands or a spirit disturbance will occur there. If a storm strikes, Nisha will cancel her voyage. If a spirit disturbance occurs, Nisha will remain ashore. Therefore, Nisha will either cancel her voyage or remain ashore.</p></statement></exercise>
+<exercise>
+<statement>
+<p>If the the twins have mastered airbending but not waterbending, then the training is successful but not complete. If the twins can spiritbend, then the training is complete. If the training is complete, then the twins have mastered waterbending. Therefore, if the training is complete, then it is successful.</p></statement></exercise>
+</subexercises>
+<subexercises xml:id="HW2-A">
+<title>Part G</title>
+<introduction>
+<p>For each, indicate (yes/no) whether it is a sentence of SL.</p></introduction>
+<exercise>
+<statement>
+<p><m>P_{2}</m></p></statement></exercise>
+<exercise>
+<statement>
+<p>if <m>P</m>, then <m>Q</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>(P \eor Q \eand R)</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>((P \eand (P \eand P)) \eif P)</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>(p \eif q)</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>(P \eor Q) \eor R)</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>\enot \enot \enot \enot P</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>(\Sigma \eand \Phi)</m></p></statement></exercise>
+</subexercises>
+<subexercises xml:id="pr-wiffSL">
+<title>Part H</title>
+<introduction>
+<p>For each of the following: (a) Is it, by the strictest formal standards, a sentence of SL? (b) Is it an acceptable way to write down a sentence of SL, allowing for our notational conventions?</p></introduction>
+<exercise>
+<statement>
+<p><m>(A)</m></p></statement>
+<solution>
+<p>(a) no (b) no</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>J_{374} \eor \enot J_{374}</m></p></statement>
+<solution>
+<p>(a) no (b) yes</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>\enot \enot \enot \enot F</m></p></statement>
+<solution>
+<p>(a) yes (b) yes</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>\enot \eand S</m></p></statement>
+<solution>
+<p>(a) no (b) no</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>(G \eand \enot G)</m></p></statement>
+<solution>
+<p>(a) yes (b) yes</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>\metaA{} \eif \metaA{}</m></p></statement>
+<solution>
+<p>(a) no (b) no</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>(A \eif (A \eand \enot F)) \eor (D \eiff E)</m></p></statement>
+<solution>
+<p>(a) no (b) yes</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>[(Z \eiff S) \eif W] \eand [J \eor X]</m></p></statement>
+<solution>
+<p>(a) no (b) yes</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>(F \eiff \enot D \eif J) \eor (C \eand D)</m></p></statement>
+<solution>
+<p>(a) no (b) no</p></solution></exercise>
+</subexercises>
+<subexercises xml:id="sl-part-i">
+<title>Part I</title>
+<exercise>
+<statement>
+<p>Are there any wffs of SL that contain no sentence letters? Why or why not?</p></statement></exercise>
+</subexercises>
+<subexercises xml:id="HW2-B">
+<title>Part J</title>
+<introduction>
+<p>For each, first, indicate whether it is a conjunction, disjunction, conditional, biconditional, negation, or none of these.</p>
+<p>Second, unless the answer is ‘none of these,’ identify its relevant propositional components. (For example, if it is a conjunction, identify the conjuncts; etc.) In the case of complex propositions, you do not need to identify components of the components. (For example, if one of the conjuncts is itself a conjunction, you don’t need to identify the conjuncts of that conjunct.)</p></introduction>
+<exercise>
+<statement>
+<p>If your computer crashes and you don’t have a backup, then you’ll have to work all night or ask for an extension.</p></statement></exercise>
+<exercise>
+<statement>
+<p>If the blue team scores, the crowd will not cheer.</p></statement></exercise>
+<exercise>
+<statement>
+<p>I’m very hungry and if I have to wait any longer, I’m going to start getting angry.</p></statement></exercise>
+<exercise>
+<statement>
+<p>I did not tell Mother or Father.</p></statement></exercise>
+</subexercises>
+<subexercises xml:id="HW2-C">
+<title>Part K</title>
+<introduction>
+<p>Translate these English sentences into SL, using this symbolization key:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>P:</cell><cell>John will get a good grade.</cell></row>
+<row><cell>Q:</cell><cell>John will get a good job.</cell></row>
+<row><cell>R:</cell><cell>John’s mother learns John’s grade.</cell></row>
+<row><cell>S:</cell><cell>John will be in trouble.</cell></row></tabular></introduction>
+<exercise>
+<statement>
+<p>If John doesn’t get a good grade, he won’t get a good job.</p></statement></exercise>
+<exercise>
+<statement>
+<p>If John doesn’t get a good grade, then if his mother learns his grade, he’ll be in
+trouble.</p></statement></exercise>
+<exercise>
+<statement>
+<p>John will be in trouble, but he will get a good grade.</p></statement></exercise>
+<exercise>
+<statement>
+<p>If his grade isn’t good, John won’t be in trouble unless his mother learns his grade.</p></statement></exercise>
+</subexercises>
+<subexercises xml:id="HW2-D">
+<title>Part L</title>
+<introduction>
+<p>Translate these SL sentences into English, using this symbolization key:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>P:</cell><cell>logic is awesome</cell></row>
+<row><cell>Q:</cell><cell>opera is sexy</cell></row>
+<row><cell>R:</cell><cell>the moon is made of cheese</cell></row>
+<row><cell>S:</cell><cell>every PHIL 220 student will get an A</cell></row></tabular></introduction>
+<exercise>
+<statement>
+<p><m>(P \eif \enot Q)</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>(S \eif (P \eor R))</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>(Q \eand \enot S)</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>\enot \enot Q</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>(Q \eiff R)</m></p></statement></exercise>
+</subexercises>
+<conclusion>
+<note component="genai">
+<title>GenAI prompts for further practice</title>
+<p>Here are some potential GenAI prompts you might use to generate further practice problems, in case you find that helpful.</p>
+<p>(A note of caution: unless you explain the specific conventions we are using, GenAI will probably give you symbolizations slightly different from the ones we use in this course. Make sure you adjust accordingly.)</p>
+<p>
+<ul>
+<li>I am studying sentential logic. Give me English sentences and ask me to translate them into SL. Start with simple uses of negation, conjunction, and disjunction, and gradually introduce conditionals and biconditionals. After each answer, check my translation and explain any mistakes.</li>
+<li>Give me a series of English sentences involving “if”, “only if”, and “if and only if”. Present them one at a time. My task is to translate each sentence into SL. After each answer, explain whether I got the direction of the conditional correct.</li>
+<li>Give me English sentences containing words such as “but”, “although”, “unless”, “either … or …”, and “neither … nor …”. Ask me to translate each one into SL and explain the logical form of the sentence.</li>
+<li>Give me SL sentences and ask me to identify their main connective. Start with simple examples and gradually increase the complexity. After each answer, explain how to determine the main connective.</li></ul></p></note></conclusion>
+</exercises>
+</chapter>

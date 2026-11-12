@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- PreTeXt project manifest for forall x: UBC edition.                  -->
+<!-- Build the interactive web version with:  pretext build web            -->
+<!-- (see pretext/README.md for regenerating sources and images)           -->
+<project ptx-version="2">
+  <targets>
+    <target name="web" format="html" latex-engine="pdflatex" />
+    <target name="print" format="pdf" latex-engine="pdflatex" />
+  </targets>
+</project>

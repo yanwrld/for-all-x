@@ -1,0 +1,1368 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated from Latex-Files/forallx-ubc-10-QLtrees.tex by pretext/scripts/latex2ptx.py -->
+<chapter xml:id="ch-QLTrees">
+<title>QL Trees</title>
+<introduction>
+<p>In Chapter <xref ref="ch-QL-models" text="global"/> we saw that the more structured models of QL make reasoning about all possible models rather complex. In SL, where a model was just an assignment of truth values to atomic sentences, reasoning about all models was relatively straightforward: we could simply survey them via truth tables. In QL there is no method for considering
+claims about validity or satisfiability that is as simple as the truth table method. So we must rely more heavily on proof systems.</p>
+<p>This chapter considers a tree method for QL. Like the tree method for SL discussed in Chapter <xref ref="ch-sl-trees" text="global"/>, the QL tree method is a method that attempts to generate an interpretation satisfying a given set of sentences. When it succeeds, it shows a way to satisfy them; when it fails, it shows that they are unsatisfiable. As we did in the initial presentation of trees in Chapter <xref ref="ch-sl-trees" text="global"/>, we’ll begin by working through a couple of examples at an intuitive level, before laying out the formal tree rules.</p></introduction>
+<section xml:id="sec-fixedrules">
+<title>Trees with fixed domains</title>
+<p>Let’s begin with a simplifying assumption. Let’s suppose that we’re only interested in models with particular fixed domain sizes. (By the time we get to the formal tree rules later in this chapter, we’ll dispense with this assumption, but it’s helpful for introducing the general idea.) Let’s confine our attention to models that have two members in the UD. Consider whether there are any such models that satisfy the following QL sentences: <m>\{\forall x (Fx \eif Gx), \enot\exists x Gx, \exists x (Fx \eor Gx)\}</m>. To evaluate this question, we put those sentences in the root of a tree.</p>
+<image width="28%"><latex-image label="tree-15ad6b01b6">
+\begin{prooftree}
+{
+}
+[\forall x (Fx \eif Gx), name=p1, 
+[\enot\exists x Gx, grouped, name=p2, 
+[\exists x (Fx \eor Gx), grouped, name=p3, 
+]
+]
+]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image>
+<p>Let’s start by considering the universal claim on line 1. A universal says that each of its instances is true. Since at the moment we are assuming that there are two objects in our UD, let’s also assume we have just two names, <m>a</m> and <m>b</m>, corresponding to our two objects. So we can just write down the two instances as a linear development. We also put a check at line 1 to indicate that we’ve resolved that sentence.</p>
+<image width="32%"><latex-image label="tree-7041506b19">
+\begin{prooftree}
+{
+}
+[\forall x (Fx \eif Gx), name=p1, checked
+[\enot\exists x Gx, grouped, name=p2, 
+[\exists x (Fx \eor Gx), grouped, name=p3, 
+	[Fa \eif Ga, 
+	[Fb \eif Gb, grouped, 
+	]
+	]
+]
+]
+]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image>
+<p>Next let’s consider the negated existential at line 2. It says that each instance is false. So it develops into the negation of both instances, and we add a check mark at line 2.</p>
+<image width="32%"><latex-image label="tree-acc9bf2978">
+\begin{prooftree}
+{
+}
+[\forall x (Fx \eif Gx), name=p1, checked
+[\enot\exists x Gx, grouped, name=p2, checked
+[\exists x (Fx \eor Gx), grouped, name=p3, 
+	[Fa \eif Ga, 
+	[Fb \eif Gb, grouped, 
+		[\enot Ga
+		[\enot Gb, grouped
+		]
+		]
+	]
+	]
+]
+]
+]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image>
+<p>There is one more quantified sentence to resolve, on line 3, but before we do that, let’s handle the conditionals on lines 4 and 5. We do these exactly the same way we handled conditionals in SL trees. They each branch into the negation of the antecedent and the consequent; the latter branch closes each time.</p>
+<image width="34%"><latex-image label="tree-db9462711b">
+\begin{prooftree}
+{
+}
+[\forall x (Fx \eif Gx), name=p1, checked
+[\enot\exists x Gx, grouped, name=p2, checked
+[\exists x (Fx \eor Gx), grouped, name=p3, 
+	[Fa \eif Ga, checked
+	[Fb \eif Gb, grouped, checked
+		[\enot Ga, name=Ga
+		[\enot Gb, grouped, name=Gb
+			[\enot Fa
+				[\enot Fb
+				]
+				[Gb, close={:Gb, !c}]
+			]
+			[Ga, close={:Ga, !c}
+			]
+		]
+		]
+	]
+	]
+]
+]
+]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image>
+<p>Now let’s look at line 3. It is an existential claim, so it says that at least one of its instances is true. Again, we’re assuming for now that there are only two instances. So we branch into those two disjunctions at line 10. After that, we apply the approach to disjunctions from SL trees, and the tree closes.</p>
+<image width="59%"><latex-image label="tree-dcb67414a2">
+\begin{prooftree}
+{
+}
+[\forall x (Fx \eif Gx), name=p1, checked
+[\enot\exists x Gx, grouped, name=p2, checked
+[\exists x (Fx \eor Gx), grouped, name=p3, checked
+	[Fa \eif Ga, checked
+	[Fb \eif Gb, grouped, checked
+		[\enot Ga, name=Ga
+		[\enot Gb, grouped, name=Gb
+			[\enot Fa, name=Fa
+				[\enot Fb, name=Fb
+					[Fa \eor Ga, checked
+						[Fa, close={:Fa, !c}]
+						[Ga, close={:Ga, !c}]
+					]
+					[Fb \eor Gb, checked
+						[Fb, close={:Fb, !c}]
+						[Gb, close={:Gb, !c}]
+					]
+				]
+				[Gb, close={:Gb, !c}]
+			]
+			[Ga, close={:Ga, !c}
+			]
+		]
+		]
+	]
+	]
+]
+]
+]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image>
+<p>The closed tree indicates that our attempt to find a model satisfying the root has failed. We’re not quite in a position to say that we’ve proven the root entirely unsatisfiable, because we’ve been assuming for simplicity that we’re only interested in models that have two members of the UD. But we’ve shown at least that it’s impossible to satisfy the root with any model with a two-object domain. We’ll consider a more generalized procedure soon.</p>
+<p>Before moving on to the official tree rules, let’s look at one more  example that assumes a two-object domain.</p>
+<p>Is there any model with a two-object UD that satisfies <m>\{\forall x Fxa, \forall y (Gy \eif \enot Fya)\}</m>? To find out, we put both sentences in the root of a tree, and continue as before. We start by taking both instances of each universal claim, then process the two conditionals. This tree remains open.</p>
+<image width="38%"><latex-image label="tree-1b47ab3490">
+\begin{prooftree}
+{
+}
+[\forall x Fxa, name=p1, checked
+[\forall y (Gy \eif \enot Fya), grouped, name=p2, checked
+	[Faa, name=Faa
+	[Fba, name=Fba, grouped
+		[Ga \eif \enot Faa, checked
+		[Gb \eif \enot Fba, grouped, checked
+			[\enot Ga
+				[\enot Gb, open]
+				[\enot Fba, close={:Fba, !c}]
+			]
+    			[\enot Faa, close={:Faa, !c}]
+		]
+		]
+	]
+	]
+]
+]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image>
+<p>As in SL trees, a completed QL tree with an open branch describes a way of satisfying the root. We’re assuming a two-object UD; for simplicity, let’s let our objects be the letters ‘a’ and ‘b’, and have ‘a’ be the referent of the QL name <m>a</m>, and ‘b’ be the referent of the QL name <m>b</m>. We look to the two QL atoms and two negated QL atoms in the branch; they indicate what needs to be included in the extension of each predicate in our model. Since <m>Faa</m> is in the branch, we need to include <m>\ntuple{a, a}</m> in the extension of <m>F</m>. Since <m>\enot Ga</m> is in the branch, we need for a <em>not</em> to be in the extension of <m>G</m>.</p>
+<p>Here is a partial model that suffices to satisfy the root of the above tree:</p>
+<tabular><col halign="right"/><col halign="center"/><col halign="left"/>
+<row><cell>UD</cell><cell>=</cell><cell><m>\{a, b\}</m></cell></row>
+<row><cell><m>\extension{G}</m></cell><cell>=</cell><cell><m>\begin{array}{l|l}
+	           &amp; G \\ \hline
+		\mathbf{a} &amp; 0          \\
+		\mathbf{b} &amp; 0         
+		\end{array}</m></cell></row>
+<row><cell><m>\extension{F}</m></cell><cell>=</cell><cell><m>\begin{array}{l|ll} Fxy        &amp; \mathbf{a} &amp; \mathbf{b} \\ \hline
+		\mathbf{a} &amp; 1          &amp; -  \\
+		\mathbf{b} &amp; 1          &amp;  -
+		\end{array}</m></cell></row></tabular>
+<p>Notice that we’ve put blanks for two of the cells in the extension of <m>Fxy</m>. That is to indicate that it doesn’t matter whether or not <m>\ntuple{a, b}</m> or <m>\ntuple{b, b}</m> are included in the extension of <m>Fxy</m>. (This is also why neither <m>Fab</m>, <m>Fbb</m>, <m>\enot Fab</m>, nor <m>\enot Fbb</m> appeared in the open branch.) So the tree method for QL is similar to that for SL in this respect as well. An open branch in a completed tree describes a way to satisfy the root.</p>
+</section>
+<section xml:id="qltrees-generalizing-the-tree-method">
+<title>Generalizing the tree method</title>
+<p>Trees are supposed to show something about <em>all</em> possible models, not only those with two-object UDs. So we don’t want our official tree rules to build in the idea that there are just two objects. For a three-object UD, we’d want our universal statements to develop into all three instances, and we’d want our existentials to branch into the three instances. For a ten-object UD like the one described in <xref ref="ql-models-extensions-of-predicates" text="type-global"/>, we’d need to give ten instances. For an infinite UD like the set of all natural numbers, we’d need an <em>infinite</em> number of developments. Obviously such rules would be impractical, to say the least. Worse than that, we often won’t know at the start of the process what size domain we should be thinking of. So we need a version of the tree rules that is flexible as to domain size.</p>
+<p>In order to state our rule formally, we need one new bit of formalism. For any QL wff <m>\metaA{}</m>, a constant <m>\script{c}</m>, and variable <m>\script{x}</m>, define <m>\metaA{}\substitute{\script{x}}{\script{c}}</m> to mean the wff that we get by replacing every occurrence of <m>\script{x}</m> in <m>\metaA{}</m> with <m>\script{c}</m>. So for example, <md>Fx\substitute{x}{a} = Fa</md></p>
+<p>For any quantified QL sentence <m>\forall \script{x} \metaA{}</m> or <m>\exists \script{x} \metaA{}</m>, we call <m>\metaA{}\substitute{\script{x}}{\script{c}}</m> a <term>substitution instance</term> of <m>\forall x\metaA{}</m> and <m>\exists x\metaA{}</m>, and <m>c</m> is called the <term>instantiating constant</term>.</p>
+<p>This, more formally, is the same notion we were working with in our discussion of trees for models with two-object UDs. For example:</p>
+<p>
+<ul>
+<li><m>Aa \eif Ba</m>, <m>Af \eif Bf</m>, and <m>Ak \eif Bk</m> are all substitution instances of <m>\forall x(Ax \eif Bx)</m>; the instantiating constants are <m>a</m>, <m>f</m>, and <m>k</m>, respectively.</li>
+<li><m>Raj</m>, <m>Rdj</m>, and <m>Rjj</m> are substitution instances of <m>\exists zRzj</m>; the instantiating constants are <m>a</m>, <m>d</m>, and <m>j</m>, respectively.</li></ul></p>
+<p>With this terminology in hand, we can begin with our official tree rules.</p>
+</section>
+<section xml:id="qltrees-existentials">
+<title>Existentials</title>
+<p>This will be our official tree rule for existentials:</p>
+<assemblage>
+<image width="42%"><latex-image label="tree-00411f0a93">
+\begin{prooftree}
+{not line numbering}
+[\exists\script{x}\metaA{}, checked={\script{a}}
+	[\metaA{}\substitute{\script{x}}{\script{a}}, just=where \script{a} is new]
+]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image></assemblage>
+<p>Just as <m>\metaA{}</m> stands in for any sentence of QL, the <m>\script{x}</m> is meant to stand in for any variable, and <m>\script{a}</m> stands in for any name. The requirement that the name be <em>new</em> means that the name chosen for the substitution instance must be a name that has not appeared anywhere in the branch so far.</p>
+<p>What is the rationale for this restriction? The existential claim says that some substitution instance is true, but it doesn’t say which one it is. If we knew how many objects we were looking at in the UD, we could make a new branch for each object — that’s what we did in the examples above — but here we see a different way to model this kind of flexibility. Remember, there is no prohibition in QL of two different names referring to the very same object. So by using an instance involving a new name, we are remaining open-minded about whether, in the model we’re attempting to construct with that branch, it is also a name for some object we’ve already been discussing.</p>
+<p>For example, consider this tree:</p>
+<image width="37%"><latex-image label="tree-a101c6249a">
+\begin{prooftree}
+{
+}
+[Fa
+[\exists x \enot Fx, grouped, name=p2, checked=b
+	[\enot Fb, just=$\exists$:p2]
+]
+]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image>
+<p>The appropriate substitution instance of the existential on line 2 is <m>Fb</m>, not <m>Fa</m>, because <m>a</m> is a name that is already in use. We want to say that <em>something</em> is not <m>F</m>, not necessarily that <m>a</m> is. Had we taken the <m>a</m> instance, the tree would have closed, even though the root is satisfiable. Note also that in marking the existential as having been processed, we also make a note of the instantiating constant. That’s why there is a <m>b</m> next to the check mark in line 2.</p>
+</section>
+<section xml:id="qltrees-universals">
+<title>Universals</title>
+<p>Here is the tree rule for universals.</p>
+<assemblage>
+<image width="34%"><latex-image label="tree-669af8a041">
+\begin{prooftree}
+{not line numbering}
+[\forall\script{x}\metaA{}, subs=\script{a} 
+	[\metaA{}\substitute{\script{x}}{\script{a}}, just=for any \script{a}
+	]
+]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image></assemblage>
+<p>The universal rule, like the existential rule, invites you to take an instance. But unlike the existential rule, we don’t limit ourselves to instances with new names. The other major difference is that one can use this rule multiple times. That makes this rule different from all the other tree rules we’ve seen so far. You’re not necessarily finished processing a universal sentence after you’ve performed the rule once. We mark this by indicating a <m>\backslash</m> instead of a <m>\checkmark</m> next to the universal sentence.</p>
+<p>Here is an example illustrating the importance of taking multiple instances. Here is a partially completed tree.</p>
+<image width="45%"><latex-image label="tree-fdad336315">
+\begin{prooftree}
+{
+}
+[\forall x (Fx \eand Gx), name=p1, subs={a}
+[\enot Fa \eor \enot Gb, grouped, name=p2, checked
+	[Fa \eand Ga, name=p3, just=$\forall$:p1, checked
+		[Fa, just=$\eand$:p3
+		[Ga, grouped
+			[\enot Fa, just=\eor:p2, close]
+			[\enot Gb
+			]
+		]
+		]
+	]
+]
+]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image>
+<p>The root of this tree is pretty obviously unsatisfiable, but so far, the tree hasn’t closed. On line 3 we take the <m>a</m> instance of the universal at line 1, but the tree won’t close until we take the <m>b</m> instance as well. We can do so at any time. In this way of developing the tree, we take that instance at line 7, and then the tree will close:</p>
+<image width="49%"><latex-image label="tree-2301427567">
+\begin{prooftree}
+{
+}
+[\forall x (Fx \eand Gx), name=p1, subs={a,b}
+[\enot Fa \eor \enot Gb, grouped, name=p2, checked
+	[Fa \eand Ga, name=p3, just=$\forall$:p1, checked
+		[Fa, just=$\eand$:p3
+		[Ga, grouped
+			[\enot Fa, just=\eor:p2, close]
+			[\enot Gb
+				[Fb \eand Gb, just=$\forall$:p1, checked, name=con
+					[Fb, just=\eand:con
+					[Gb, grouped, close
+					]
+					]
+				]
+			]
+		]
+		]
+	]
+]
+]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image>
+<p>Of course, we could also have taken the <m>b</m> instance at the same time as we took the <m>a</m> instance on line 3, and the tree would have worked just as well. But taking things in this order illustrates that sometimes we can go back to universal claims that have already been considered, to take an additional instance. (Later on, we will see some examples of trees that <em>require</em> this kind of backtracking.)</p>
+</section>
+<section xml:id="qltrees-negated-existentials">
+<title>Negated existentials</title>
+<p>Negated existential claims are quite similar to universals. They say that no instance is true, which is another way of saying that every instance is false. So like the universal rule, the negated existential rule will allow us to take as many instances as we like; this time, we take the instances of the <em>negation</em> of the wff in the scope of the quantifier.</p>
+<assemblage>
+<image width="36%"><latex-image label="tree-4e7714ed11">
+\begin{prooftree}
+{not line numbering}
+[\enot\exists\script{x}\metaA{}, subs=\script{a} 
+	[\enot\metaA{}\substitute{\script{x}}{\script{a}}, just=for any \script{a}
+	]
+]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image></assemblage>
+<p>For example, if <m>\enot\exists x Fx</m> is in the tree, one can use the negated existential rule to develop a tree branch with <m>\enot Fa</m>, <m>\enot Fb</m>, etc.</p>
+</section>
+<section xml:id="qltrees-negated-universals">
+<title>Negated universals</title>
+<p>Conversely, a negated universal is similar to an existential. It says that not all instances are true, so at least one instance is false. So like the existential rule, we only perform it once (marking it with a check), and ensuring that we use a new name, so as not to assume anything in particular about the instance chosen.</p>
+<assemblage>
+<image width="44%"><latex-image label="tree-231079b3c4">
+\begin{prooftree}
+{not line numbering}
+[\enot\forall\script{x}\metaA{}, checked={\script{a}}
+	[\enot\metaA{}\substitute{\script{x}}{\script{a}}, just=where \script{a} is \emph{new}
+	]
+]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image></assemblage>
+</section>
+<section xml:id="qltrees-whither-branching">
+<title>Whither branching?</title>
+<p>When we learned the tree rules for sentential connectives, there was an important distinction between <em>linear</em> rules and <em>branching</em> rules. We retained this when we assumed two-object domains in §<xref ref="sec-fixedrules" text="global"/>, where universal quantifiers had linear rules, and existentials had branching rules. Our new quantifier rules, however, all have the same linear shape. Nothing branches. Why not?</p>
+<p>In SL, and for QL models where finite domains were specified in advance, we used branching to represent the particular possible ways one could satisfy the formula above. For some interpretation <m>\script{I}</m> to satisfy <m>P \eor Q</m>, either <m>\script{I}(P)=1</m> or <m>\script{I}(Q)=1</m>. If we assume there are only two objects, <m>a</m> and <m>b</m>, then in order for <m>\script{I}</m> to satisfy <m>\exists x Fx</m>, <m>\script{I}</m> must either have <m>a</m> in the extension of <m>F</m> or have <m>b</m> in the extension of <m>F</m>. So we can branch the tree to represent those two possibilities.</p>
+<p>But if we do not assume anything in particular about the UD, we can’t just list all the possible ways to satisfy an existential (or a negated universal). We’d need as many branches as there are objects in the UD. So instead we just take one instance, but give it a new name, which may or may not be co-referential with another name we’ve already considered. The novelty of the name is playing the functional role of branching.</p>
+</section>
+<section xml:id="qltrees-the-other-development-rules">
+<title>The other development rules</title>
+<p>So far this chapter we’ve introduced four tree development rules for QL: we have rules for universals, existentials, negated universals, and negated existentials. There are nine more resolution rules, but they are all familiar: they are the same nine resolution rules given in Chapter <xref ref="ch-sl-trees" text="global"/>. We’ll use all the same resolution rules for conjunction, negated conjunction, disjunction, negated disjunction, conditional, negated conditional, biconditional, negated biconditional, and double negation as we did before. They were introduced in <xref ref="sec-SLtreerules" text="type-global"/>.</p>
+</section>
+<section xml:id="branchclosure-defined">
+<title>Branch closure rules</title>
+<p>Our branch closure rules also remain unchanged. A branch closes if and only if it contains some sentence <m>\metaA{}</m> along with its negation, <m>\enot\metaA{}</m>. We mark closed branches with an ‘<m>\times</m>’.</p>
+</section>
+<section xml:id="qltrees-tree-completion-rules">
+<title>Tree completion rules</title>
+<p>The completion rules, however, require a modification. The SL tree completion rule, given in §<xref ref="sec-SL-tree-completion" text="global"/>, said that a branch was complete if every sentence, other than atoms and negated atoms, has been resolved. 
+In the QL tree system, our tree completion rules need to take account of the fact that some sentences must be acted on multiple times.
+The universal rule, for example, lets one take whatever instance one likes; we need our completion rules to ensure that we’ve taken <em>enough</em> instances.</p>
+<p>For example, this should not count as a completed tree:</p>
+<image width="33%"><latex-image label="tree-1b0ee5cf23">
+\begin{prooftree}
+{
+}
+[\forall x (Fx \eif Ga), name=p1, subs=a
+[\enot Ga, grouped
+[Fb, grouped
+	[Fa \eif Ga, checked
+		[\enot Fa]
+		[Ga, close]
+	]
+]
+]
+]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image>
+<p>Our universal rule can be processed multiple times. This tree has only taken the <m>a</m> instance of <m>(Fx \eif Ga)</m>; if it also took the <m>b</m> instance, the tree would close:</p>
+<image width="37%"><latex-image label="tree-39ea41cea2">
+\begin{prooftree}
+{
+}
+[\forall x (Fx \eif Ga), name=p1, subs={a,b}
+[\enot Ga, grouped
+[Fb, grouped
+	[Fa \eif Ga, checked
+		[\enot Fa
+			[Fb \eif Ga, checked
+				[\enot Fb, close]
+				[Ga, close]
+			]
+		]
+		[Ga, close]
+	]
+]
+]
+]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image>
+<p>We don’t want this tree to count as complete until it’s taken both the <m>a</m> and the <m>b</m> instance. The universal says that every instance must be true; we don’t ensure that this is satisfied if only some instances have been taken.</p>
+<p>If we knew how many names our model used, we could simply require that every instance be taken. But we don’t know in advance how many names our models are going to use. QL trees construct their interpretations as they go. (Remember that resolving existentials and negated universals involves introducing new names.) Here is the requirement we want: we require that we’ve taken the instance corresponding to <em>every name in the branch</em>. If, after taking an instance or two, we go on to introduce a new name within the same branch, that branch isn’t complete until we’ve taken that instance as well. Once again, this is why we use the  <m>\backslash</m> instead of a <m>\checkmark</m>. We can’t be sure that we’re finished with that line until we’ve done the rest of the tree.</p>
+<p>A wff is <term>resolvable</term> if it is the kind of wff that gets a check mark upon processing it. (That’s everything except for atoms, negated atoms, universals, and negated existentials.) A wff is <term>general</term> if it is a universal or a negated existential. Here is our new tree completion rule:</p>
+<assemblage>
+<p>A branch is <term>complete</term> if and only if either (i) it is closed, or (ii) every resolvable sentence in the branch has been resolved, and for every general sentence in the branch, at least one instance has been taken, and for every name <m>\script{a}</m> in the branch, the <m>\script{a}</m> instance of that general sentence has been taken.</p>
+<p>A tree is complete if and only if every branch in that tree is complete.</p></assemblage>
+</section>
+<section xml:id="qltrees-constructing-models-from-completed-open">
+<title>Constructing models from completed open branches</title>
+<p>As in the case of SL trees, a completed open branch in a QL tree can be used to describe a model that satisfies the root. To construct that model, we focus only on atoms and negated atoms in that branch. Here is an example of a tree with a completed open branch, with the atoms and negated atoms in it highlighted:</p>
+<image width="39%"><latex-image label="tree-fb1c833e92">
+\begin{highlightprooftree}
+{
+}
+[\forall x (Fx \eif Rxa), subs={a,b}
+[\exists x Fx, grouped, checked={b}
+[\focusnode{\enot Raa}, grouped
+	[\focusnode{Fb}
+		[Fa \eif Raa, checked
+			[\focusnode{\enot Fa}
+				[Fb \eif Rba, checked
+					[\enot Fb, close]
+					[\focusnode{Rba}, open]
+				]
+			]
+			[Raa, close]
+		]
+	]
+]
+]
+]
+\end{highlightprooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image>
+<p>The four highlighted sentences are the only atoms or negated atoms in the completed open branch. Note that the root is part of the branch, so we include the <m>\enot Raa</m> on line 3. The <m>Raa</m> on line 6 is not part of the open branch, so we don’t include it. To construct a model corresponding to the completed open branch, we follow these steps:</p>
+<p>First define the UD. If there is at least one name in the branch, let the UD be the set of names in the branch. In this example, the UD will be <m>\{a, b\}</m>. In a QL model, the UD can be a set of objects of any kind; for these purposes, we choose a set of QL names. (If there are no names in the branch, then let the UD contain one arbitrary object. QL models are designed such that the UD must be non-empty.)</p>
+<p>Second, for each name in the UD, let that name refer to itself. In this example, that means we make <m>a</m> refer to <m>a</m>, and <m>b</m> refer to <m>b</m>. This is just one convenient way to construct a model; making the names refer to themselves makes them easier to keep track of. There are also possible models that assign names to members of the UD in different ways, including ones that assign multiple names to the same objects. But for our standard recipe for constructing a model from a completed open branch, let each name refer to itself.</p>
+<p>Third, assign the extensions of the predicates to make any atoms in the branch true, and any atoms whose negations are in the branch false. In this case, since <m>Fb</m> is in the branch, the extension of <m>F</m> will include <m>b</m>. And since <m>\enot Fa</m> is in the branch, the extension of <m>F</m> will not include <m>a</m>. Since <m>\enot Raa</m> is in the branch, we’ll set the extension of <m>R</m> as excluding <m>\ntuple{a,a}</m>. And since <m>Rba</m> is in the branch, we’ll include <m>\ntuple{b,a}</m> in the extension of <m>R</m>.</p>
+<p>It is often easiest to represent these extensions in tables:</p>
+<tabular><col halign="right"/><col halign="center"/><col halign="left"/>
+<row><cell><m>\extension{F}</m></cell><cell>=</cell><cell><m>\begin{array}{l|l}
+	           &amp; F \\ \hline
+		\mathbf{a} &amp; 0          \\
+		\mathbf{b} &amp; 1         
+		\end{array}</m></cell></row>
+<row><cell><m>\extension{R}</m></cell><cell>=</cell><cell><m>\begin{array}{l|ll} Rxy &amp; \mathbf{a} &amp; \mathbf{b} \\ \hline
+		\mathbf{a} &amp; 0 &amp; - \\
+		\mathbf{b} &amp; 1 &amp; -
+		\end{array}</m></cell></row></tabular>
+<p>Note that in the extension of <m>R</m>, two cells are left blank. The partial model we’re constructing does not specify whether <m>Rab</m> or <m>Rbb</m> is true or false.</p>
+<p>We can be sure that this procedure does not impose conflicting requirements on the model. A conflict would require the branch both to require that some tuple be included in the extension of a predicate and to require that the same tuple be excluded. But that would mean that the branch contained both an atom and its negation, in which case the branch would already be closed.</p>
+</section>
+<section xml:id="qltrees-resolution-order">
+<title>Resolution order</title>
+<p>As in the SL tree system, the rules do not indicate any particular resolution order. But — also as in the SL system — some strategies are going to be more efficient than others. In fact, given the increased complexity of our rules and the fact that some resolutions introduce new names, it is even more important, from an efficiency perspective, than it used to be to employ sensible strategies. It is still a good idea to do linear rules before branching rules, and when possible, to perform a branching rule when you can see that one branch will close right away. Now, we can use similar strategies to take instances from general sentences in a strategic way. If you’re not sure which instance to take first, look a step ahead and see if one of the instances will close a branch.</p>
+<p>Here is a simple tree illustrating the point. Let’s consider whether <m>Gb \eif \forall x \enot Fx</m> and <m>\exists x Fx</m> entail <m>\enot Gb</m>. We begin by putting the first two sentences and the negation of the third in the root of a tree:</p>
+<image width="28%"><latex-image label="tree-1f5bb2ea00">
+\begin{prooftree}
+{
+}
+[Gb \eif \forall x \enot Fx, name=p1
+[\exists x Fx, grouped, name=p2
+[\enot \enot Gb, grouped, name=p3
+]
+]
+]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image>
+<p>Ordinarily, it is efficient not to branch too early. But in this case, if we look ahead a step, we can see that resolving the conditional on line 1 will close one branch immediately. So that’s a good place to start.</p>
+<image width="44%"><latex-image label="tree-9e6b88aa6c">
+\begin{prooftree}
+{
+}
+[Gb \eif \forall x \enot Fx, name=p1, checked
+[\exists x Fx, grouped, name=p2
+[\enot \enot Gb, grouped, name=p3
+	[\enot Gb, close={:p3, !c}, just=\eif:{p1}
+	]
+	[\forall x \enot Fx
+	]
+]
+]
+]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image>
+<p>From here we have three choices to consider: lines 2, 3, and 4. Line 3 pretty obviously won’t get us anywhere interesting, so let’s consider either the existential at line 2 or the universal at line 4. It’s usually a good rule of thumb to do the new instances first — that way we’ll have more information when we make decisions about which instances to take for the general rules. So let’s take the <m>a</m> instance of line 2.</p>
+<image width="44%"><latex-image label="tree-6b5dc50c24">
+\begin{prooftree}
+{
+}
+[Gb \eif \forall x \enot Fx, name=p1, checked
+[\exists x Fx, grouped, name=p2, checked=a
+[\enot \enot Gb, grouped, name=p3
+	[\enot Gb, close={:p3, !c}, just=\eif:{p1}
+	]
+	[\forall x \enot Fx
+		[Fa, just=$\exists$:{p2}, name=fa
+		]
+	]
+]
+]
+]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image>
+<p>Now we turn our attention to the universal at line 4. We can take whatever instance we want. Let’s be intelligent about it. The <m>b</m> instance won’t help us; <m>Fb</m> won’t interact with that <m>\enot\enot Gb</m> in a useful way. But the <m>a</m> instance will close the tree. So we take that one.</p>
+<image width="47%"><latex-image label="tree-1c1d68a7cf">
+\begin{prooftree}
+{
+}
+[Gb \eif \forall x \enot Fx, name=p1, checked
+[\exists x Fx, grouped, name=p2, checked=a
+[\enot \enot Gb, grouped, name=p3
+	[\enot Gb, close={:p3, !c}, just=\eif:{p1}
+	]
+	[\forall x \enot Fx, subs={a}, name=all
+		[Fa, just=$\exists$:{p2}, name=fa
+			[\enot Fa, just=$\forall$:{all}, close={:fa, !c}
+			]
+		]
+	]
+]
+]
+]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image>
+<p>Planning ahead can help make your trees more efficient. The general principle you should keep in mind is, if you have a choice for what resolvable sentence to resolve, or what instance of a general sentence to take, make a choice that will allow you to close branches more quickly.</p>
+</section>
+<section xml:id="qltrees-infinite-trees">
+<title>Infinite trees</title>
+<p>In the SL tree system, every development of the tree took us closer to a completed tree, because we checked sentences above as resolved, and wrote simpler sentences in one or two branches below. SL trees are guaranteed to be completed in a finite number of steps — they will either close, or they will reach a point where everything resolvable has been resolved.</p>
+<p>Because of the way our QL system works, it is possible for trees to continue indefinitely without closing. General sentences require that instances be taken for all names in the branch; but the rules for existentials and negated universals require that new names be introduced. Often, we can introduce the new names before dealing with the general instances, as in this simple, complete tree:</p>
+<image width="35%"><latex-image label="tree-25b91e707a">
+\begin{prooftree}
+{
+}
+[\exists x Fx, name=p1, checked=a
+[\forall x Gx, grouped, name=p2, subs={a}
+	[Fa, just=$\exists$:{p1}
+	[Ga, just=$\forall$:{p2}, open
+	]
+	]
+]
+]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image>
+<p>In this tree, we introduce the name <m>a</m> for the existential, then take the instance for the one and only name in the branch for the universal, and the tree is complete. But things won’t always be so simple. Consider a tree with this single sentence in its root: <m>\forall x \exists y Rxy</m>. In this case, we must begin by performing the universal rule, as our one and only sentence is a universal. This rule allows us to take an instance with any name. Ordinarily, we use the names that already exist in the branch, but since there are no names, we’ll just take the <m>a</m> instance from the start, putting that instance — an existential — on line 2.</p>
+<p>To resolve that existential, we must use a new name. So on line 3, we take the <m>b</m> instance from line 2.</p>
+<image width="39%"><latex-image label="tree-5c82ae1df3">
+\begin{prooftree}
+{
+}
+[\forall x \exists y Rxy, name=p1, subs={a}
+	[\exists y Ray, just=1 $\forall$, checked=b
+		[Rab, just=2 $\exists$
+		]
+	]
+]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image>
+<p>This tree has not closed, but note that it is not complete. We haven’t taken the <m>b</m> instance of the universal on line 1. When we do so, we will find ourselves with another existential on line 4; it in turn requires an instance involving a new name, and the process will continue indefinitely.</p>
+<image width="44%"><latex-image label="tree-69635c033c">
+\begin{prooftree}
+{
+}
+[\forall x \exists y Rxy, name=p1, subs={a,b,c}
+	[\exists y Ray, just=1 $\forall$, checked=b
+		[Rab, just=2 $\exists$
+			[\exists y Rby, just=1 $\forall$, checked=c
+				[Rbc, just=4 $\exists$
+					[\exists y Rcy, just=1 $\forall$, checked=d
+						[Rcd, just=6 $\exists$
+							[\vdots]
+						]
+					]
+				]
+			]
+		]
+	]
+]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image>
+<p>As the pattern makes clear, this tree will never close, but it will also never be complete. It will just keep taking instances of an existential with new names, then taking those instances of the universal, which in turn require a new existential, and so on. (Eventually we will run out of letters in the alphabet, but we have subscripts available too, so we’ll never run out of names.) Because the tree will never close, its open branch is describing a model that satisfies the root, but the model suggested is an infinite one. Line 3 tells us that <m>\ntuple{a, b}</m> should be in the extension of <m>R</m>; line 5 says that <m>\ntuple{b, c}</m> should too. There is a clear pattern that tells us what <m>R</m>’s extension must be like:</p>
+<tabular><col halign="right"/><col halign="center"/><col halign="left"/>
+<row><cell><m>\extension{R}</m></cell><cell>=</cell><cell><m>\{\ntuple{a, b}, \ntuple{b, c}, \ntuple{c, d}, \ntuple{d, e}, \ldots\}</m></cell></row></tabular>
+<p>Or we can represent it graphically, thus:</p>
+<tabular><col halign="right"/><col halign="center"/><col halign="left"/>
+<row><cell><m>\extension{R}</m></cell><cell>=</cell><cell><m>\begin{array}{l|lllll}
+Rxy   &amp; a &amp; b &amp; c &amp; d &amp; \ldots  \\ \hline
+a   &amp; - &amp; 1 &amp; - &amp; - &amp; -   \\
+b   &amp; - &amp; - &amp; 1 &amp; - &amp; -   \\
+c   &amp; - &amp; - &amp; - &amp; 1 &amp; -   \\
+d   &amp; - &amp; - &amp; - &amp; - &amp; 1   \\
+\vdots &amp; - &amp; - &amp; - &amp; - &amp; -
+\end{array}</m></cell></row></tabular>
+<p>The blanks indicate that it doesn’t matter whether those pairs fall under the extension of <m>R</m> or not.</p>
+<p>What this suggests is that if one had a UD comprising an infinite list of objects, with each object related via <m>R</m> to the next item in the list, this model would satisfy the root of the tree. For example, suppose that our UD were the set of all natural numbers, and that we interpreted <m>Rxy</m> as <m>x+1=y</m>. For every number <m>x</m>, there is a number <m>y</m> that is equal to <m>x+1</m>.</p>
+<p>Note, however, that this is only one of many possible ways to construct a model meeting the constraint described. In fact, we don’t necessarily require that our UD be infinite. Our tree ended up using an infinite number of names, but there’s no rule requiring that each name be assigned to a unique object.</p>
+<p>The extension of <m>R</m> requires that certain pairs be included. Note that it doesn’t require that any pairs be excluded. There are no 0s in the chart above. The blanks mean it doesn’t matter whether you include them. A model that included every ordered pair in the extension of <m>R</m> would be an example of the kind of model indicated:</p>
+<table xml:id="table-7"><title/>
+<tabular><col halign="left" right="minor"/><col halign="left"/><col halign="left"/><col halign="left"/><col halign="left"/><col halign="left"/>
+<row bottom="minor"><cell><m>Rxy</m></cell><cell>a</cell><cell>b</cell><cell>c</cell><cell>d</cell><cell>…</cell></row>
+<row><cell>a</cell><cell>1</cell><cell>1</cell><cell>1</cell><cell>1</cell><cell>1</cell></row>
+<row><cell>b</cell><cell>1</cell><cell>1</cell><cell>1</cell><cell>1</cell><cell>1</cell></row>
+<row><cell>c</cell><cell>1</cell><cell>1</cell><cell>1</cell><cell>1</cell><cell>1</cell></row>
+<row><cell>d</cell><cell>1</cell><cell>1</cell><cell>1</cell><cell>1</cell><cell>1</cell></row>
+<row><cell><m>\vdots</m></cell><cell>1</cell><cell>1</cell><cell>1</cell><cell>1</cell><cell>1</cell></row></tabular></table>
+<p>Once we put it this way, we can see that the <m>R</m> predicate needn’t draw any distinctions between the various objects in the domain. Each object could be the same, as far as <m>R</m> is concerned. So we could even offer a simpler model, with a UD comprising a simple object that is <m>R</m>-related to itself.</p>
+<tabular><col halign="right"/><col halign="center"/><col halign="left"/>
+<row><cell>UD</cell><cell>=</cell><cell>{a}</cell></row>
+<row><cell><m>\extension{R}</m></cell><cell>=</cell><cell>{<m>\ntuple{a, a}</m>}</cell></row></tabular>
+<p>When a tree being developed in a systematic way continues indefinitely without closing, its infinite branch describes a model that satisfies the root. You can describe that model using an infinite domain, taking advantage of the pattern indicated by the infinite branch; or you can often find a way to simplify it into a model with a finite UD.</p>
+<p>Let’s consider another example of an infinite tree. This time, we’ll use names with subscripts. Everything is straightforward up until line 6; at line 7, we need to go back and take a second instance of line 2, and the infinite cycle begins.</p>
+<image width="67%"><latex-image label="tree-b9812ddc83">
+\begin{prooftree}
+{
+}
+[\exists x \forall y \exists z (\enot Rxy \eand Rzx), checked={a_{1}}
+	[\forall y \exists z (\enot Ra_{1}y \eand Rza_{1}), just=1 $\exists$, subs={a_{1}, a_{2}, a_{3}}
+		[\exists z (\enot Ra_{1}a_{1} \eand Rza_{1}), just=2 $\forall$, checked={a_{2}}
+			[\enot Ra_{1}a_{1} \eand Ra_{2}a_{1}, just=3 $\exists$, checked
+				[\enot Ra_{1}a_{1}, just=4 \eand
+				[Ra_{2}a_{1}, grouped
+					[\exists z (\enot Ra_{1}a_{2} \eand Rza_{1}), just=2 $\forall$, checked={a_{3}}
+						[\enot Ra_{1}a_{2} \eand Ra_{3}a_{1}, just=8 $\exists$, checked
+							[\enot Ra_{1}a_{2}, just=9 \eand
+							[Ra_{3}a_{1}, grouped
+								[\exists z (\enot Ra_{1}a_{3} \eand Rza_{1}), just=2 $\forall$, checked={a_{4}}
+									[\enot Ra_{1}a_{3} \eand Ra_{4}a_{1}, just=11 $\exists$, checked
+										[\enot Ra_{1}a_{3}, just=12 \eand
+										[Ra_{4}a_{1}, grouped
+											[\vdots]	
+										]
+										]
+									]
+								]
+							]
+							]
+						]
+					]
+				]
+				]
+			]
+		]
+	]
+]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image>
+<p>If we continued drawing the tree, we’d take the <m>a_{4}</m> instance of the universal at line 2 on line 15, then introduce a new name by resolving that existential. The tree will continue forever, again with a clear pattern. Lines 5, 9, 13, etc. tell us that for every integer <m>i</m>, <m>Ra_{1}a_{i}</m>=0. Lines 6, 10, 14, etc. tell us that for every <m>i &gt; 1</m>, <m>Ra_{i}a_{1}</m>=1. Or in chart form:</p>
+<table xml:id="table-8"><title/>
+<tabular><col halign="left" right="minor"/><col halign="left"/><col halign="left"/><col halign="left"/><col halign="left"/><col halign="left"/>
+<row bottom="minor"><cell><m>Rxy</m></cell><cell><m>a_{1}</m></cell><cell><m>a_{2}</m></cell><cell><m>a_{3}</m></cell><cell><m>a_{4}</m></cell><cell>…</cell></row>
+<row><cell><m>a_{1}</m></cell><cell>0</cell><cell>0</cell><cell>0</cell><cell>0</cell><cell>0</cell></row>
+<row><cell><m>a_{2}</m></cell><cell>1</cell><cell>-</cell><cell>-</cell><cell>-</cell><cell>-</cell></row>
+<row><cell><m>a_{3}</m></cell><cell>1</cell><cell>-</cell><cell>-</cell><cell>-</cell><cell>-</cell></row>
+<row><cell><m>a_{4}</m></cell><cell>1</cell><cell>-</cell><cell>-</cell><cell>-</cell><cell>-</cell></row>
+<row><cell><m>\vdots</m></cell><cell>1</cell><cell>-</cell><cell>-</cell><cell>-</cell><cell>-</cell></row></tabular></table>
+<p>This chart describes the extension of <m>R</m> that, as part of a model with the infinite UD {<m>a_{1}</m>, <m>a_{2}</m>, <m>a_{3}</m>, …}, would satisfy <m>\exists x \forall y \exists z (\enot Rxy \eand Rzx)</m>. As in the previous example, we do not <em>need</em> an infinite model to satisfy this sentence; the extension of <m>R</m> here can be collapsed into a finite one. In the previous example, our extension required no distinctions between any of the objects; here, we do have some required differences. <m>Ra_{1}a_{1}=0</m>, but <m>Ra_{2}a_{1}=1</m>. So our model is treating <m>a_{1}</m> and <m>a_{2}</m> differently. But it requires no further distinctions than that. Every object after <m>a_{2}</m> can be the same as <m>a_{2}</m>, as far as this model is concerned.  So a two-object model would also suffice to satisfy this sentence. Here is a graphical representation of the denotation for <m>R</m>:</p>
+<table xml:id="table-9"><title/>
+<tabular><col halign="left" right="minor"/><col halign="left"/><col halign="left"/><col halign="left"/><col halign="left"/><col halign="left"/>
+<row bottom="minor"><cell><m>Rxy</m></cell><cell><m>a_{1}</m></cell><cell><m>a_{2}</m></cell></row>
+<row><cell><m>a_{1}</m></cell><cell>0</cell><cell>0</cell></row>
+<row><cell><m>a_{2}</m></cell><cell>1</cell><cell>-</cell></row></tabular></table>
+<p>Or, describing the model in question with sets and n-tuples:</p>
+<tabular><col halign="right"/><col halign="center"/><col halign="left"/>
+<row><cell>UD</cell><cell>=</cell><cell>{<m>a_{1}</m>, <m>a_{2}</m>}</cell></row>
+<row><cell><m>\extension{R}</m></cell><cell>=</cell><cell>{<m>\ntuple{a_{2}, a_{1}}</m>}</cell></row></tabular>
+<p>The reasoning involved in collapsing models with infinite domains into finite ones centrally involves reasoning about what distinctions are required: do we need to suppose that the objects named are <em>different objects</em>, or can we treat it as a case of multiple names for the <em>same thing</em>. In Chapter <xref ref="ch-identity" text="global"/>, we’ll foreground this kind of question in more detail, and introduce a way to talk about it in QL.</p>
+<p>Note that, for purposes of answering questions about entailment, you needn’t go through the reasoning that allows you to move from infinite models to finite ones that would serve just as well. The tree method, most fundamentally, is a question about whether there is any possible model of the root. If a tree developed systematically continues infinitely, then it is answering that question: yes, there is an infinite model for it. It’s not necessary, for the question of whether there is any model satisfying the root, to determine whether there is a <em>finite</em> model that does so.</p>
+</section>
+<section xml:id="qltrees-common-student-errors">
+<title>Common student errors</title>
+<subsection xml:id="qltrees-using-old-names">
+<title>Using old names</title>
+<p>The most frequent errors for trees in QL involve ignoring the restrictions on names involved in taking instances. Particular sentences (existentials and negated universals) require a <em>new</em> name — if the name appears anywhere in the branch at the time the existential is taken (including below it), it is not suitable for substitution via these rules.</p>
+<p>For example, this tree is a mistake:</p>
+<image width="41%"><latex-image label="tree-e7647f2792">
+\begin{prooftree}
+{
+}
+[\forall x \exists y \enot Rxy, subs={a}
+[Rab, grouped
+	[\exists y \enot Ray, just=1 $\forall$, checked=b
+		[\enot Rab, just=3 $\exists$, close={2, 4}
+		]
+	]
+]
+]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image>
+<p>Line 3 here is fine; but at line 4, this tree takes the <m>b</m> instance of the existential on line 3, even though <m>b</m> appeared in line 2. The existential rule requires a new name. The correct version of this tree will remain open. (It will extend infinitely.)</p></subsection>
+<subsection xml:id="qltrees-main-connectives">
+<title>Main Connectives</title>
+<p>Always work on the main connectives. If you have a sentence like <md>\forall x \exists y \enot Ryx \eand (Fa \eif Fb)</md> don’t use the universal rule. This sentence is a conjunction, so you must perform the conjunction rule on it. That will give you a universal, at which point you can take an instance.</p></subsection>
+</section>
+<exercises xml:id="qltrees-exercises">
+<title>Practice Exercises</title>
+<subexercises xml:id="pr-qltreesubs">
+<title>Part A</title>
+<exercise>
+<statement>
+<p>For each of the following partially developed trees, consider the indicated quantified sentence and identify which of the constants <m>a</m>, <m>b</m>, <m>c</m>, and <m>d</m> may legally be used as instantiating constants in the next application of the relevant quantifier rule. Where the tree branches, consider the relevant branch separately. Explain your answers.</p>
+<p>
+<ol>
+<li>
+<image width="13%"><latex-image label="tree-c412820a71">
+\begin{prooftree}
+{not line numbering}
+[Ga \eand Hb
+[\forall x Fx, name=p1, grouped
+	[Ga
+		[Hb, grouped
+		]
+	]
+]
+]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image></li>
+<li>
+<image width="13%"><latex-image label="tree-a178421396">
+\begin{prooftree}
+{not line numbering}
+[Ga \eand Hb
+[\exists x Fx, name=p1, grouped
+	[Ga
+		[Hb, grouped
+		]
+	]
+]
+]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image></li>
+<li>
+<image width="13%"><latex-image label="tree-34318fdcc4">
+\begin{prooftree}
+{not line numbering}
+[Ga \eand Hb
+[\enot\exists x Fx, name=p1, grouped
+	[Ga
+		[Hb, grouped
+		]
+	]
+]
+]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image></li>
+<li>
+<image width="13%"><latex-image label="tree-f81ebca442">
+\begin{prooftree}
+{not line numbering}
+[Ga \eand Hb
+[\enot\forall x Fx, name=p1, grouped
+	[Ga
+		[Hb, grouped
+		]
+	]
+]
+]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image></li>
+<li>
+<image width="23%"><latex-image label="tree-c912e4642a">
+\begin{prooftree}
+{not line numbering}
+[\forall x(Fx \eif Gx), name=p1, subs={a}
+[Fa \eand \enot Gb, grouped
+	[Fa \eif Ga
+		[Fa
+		[\enot Gb, grouped
+		]
+		]
+	]
+]
+]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image></li>
+<li>
+<image width="20%"><latex-image label="tree-44bb64e1cf">
+\begin{prooftree}
+{not line numbering}
+[Fa \eand Gb \eand Hc
+[\exists x(Fx \eand Gx), name=p1, grouped
+	[Fa
+	[Gb, grouped
+	[Hc, grouped
+	]
+	]
+	]
+]
+]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image></li>
+<li>
+<image width="25%"><latex-image label="tree-8484d5e6bb">
+\begin{prooftree}
+{not line numbering}
+[Fa \eand Gb
+[\enot\exists x(Fx \eor Gx), name=p1, grouped, subs={a}
+	[Fa
+	[Gb, grouped
+	[\enot(Fa \eor Ga)
+	]
+	]
+	]
+]
+]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image></li>
+<li>
+<image width="21%"><latex-image label="tree-a107892d5b">
+\begin{prooftree}
+{not line numbering}
+[Fa \eand Gb
+[\enot\forall x(Fx \eif Gx), name=p1, grouped
+	[Fa
+	[Gb, grouped
+	]
+	]
+]
+]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image></li>
+<li>
+<image width="31%"><latex-image label="tree-25df26fee8">
+\begin{prooftree}
+{not line numbering}
+[\exists x \enot Gx
+[\exists x Gx \eor \exists x Hx, checked, grouped
+	[\exists x Gx, checked=a 
+		[Ga]
+	]
+	[\exists x Hx, checked=b
+		[Hb]
+	]
+]
+]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image>
+<p>For this tree, answer separately for the left and right branches.</p></li></ol></p></statement></exercise>
+</subexercises>
+<subexercises xml:id="pr-QL-completingbranches">
+<title>Part B</title>
+<exercise>
+<statement>
+<p>Examine the trees below. In the case of trees that involve branching, focus on the highlighted branch, and indicate whether the branch is closed, complete and open, or incomplete. If it is incomplete, describe what would need to be done in order to complete it. (The check marks and substitution instances have not been marked in these examples; you may find it helpful to mark them yourself.)</p>
+<p>
+<ol>
+<li>
+<image width="21%"><latex-image label="tree-7fd42b9cf4">
+\begin{prooftree}
+{not line numbering}
+[Fa \eand Gb
+[\enot\forall x(Fx \eif Gx), name=p1, grouped
+	[Fa
+	[Gb, grouped
+		[\enot (Fc \eif Gc)
+			[Fc
+			[\enot Gc, grouped
+			]
+			]
+		]
+	]
+	]
+]
+]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image></li>
+<li>
+<image width="23%"><latex-image label="tree-ac0eb14985">
+\begin{highlightprooftree}
+{not line numbering}
+[\focusnode{\forall x Fx}
+[\focusnode{\exists x Gx \eor \exists x \enot Fx}, grouped
+	[\focusnode{\exists x Gx}
+		[\focusnode{Ga}
+			[\focusnode{Fa}]
+		]
+	]
+	[\exists x \enot Fx
+		[\enot Fa
+			[Fa]
+		]
+	]
+]
+]
+\end{highlightprooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image></li>
+<li>
+<image width="23%"><latex-image label="tree-f05acf41e8">
+\begin{highlightprooftree}
+{not line numbering}
+[\focusnode{\forall x Fx}
+[\focusnode{\exists x Gx \eor \exists x \enot Fx}, grouped
+	[\exists x Gx
+		[Ga
+			[Fa]
+		]
+	]
+	[\focusnode{\exists x \enot Fx}
+		[\focusnode{\enot Fa}
+			[\focusnode{Fa}]
+		]
+	]
+]
+]
+\end{highlightprooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image></li>
+<li>
+<image width="19%"><latex-image label="tree-d263b5ef30">
+\begin{highlightprooftree}
+{not line numbering}
+[\focusnode{\forall x(Fx \eif Gx)}, name=p1
+[\focusnode{\exists x Fx}, grouped
+	[\focusnode{Fa}
+		[\focusnode{Fa \eif Ga}
+			[\enot Fa]
+			[\focusnode{Ga}]
+		]
+	]
+]
+]
+\end{highlightprooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image></li>
+<li>
+<image width="8%"><latex-image label="tree-d364ea21d2">
+\begin{prooftree}
+{not line numbering}
+[\forall x Fx, name=p1
+[\exists x Gx, grouped
+	[Fa
+		[Gb
+		]
+	]
+]
+]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image></li>
+<li>
+<image width="15%"><latex-image label="tree-a1f406fc43">
+\begin{highlightprooftree}
+{not line numbering}
+[\focusnode{\forall x Fx}
+[\focusnode{Ga \eor \enot Fa}, grouped
+	[\focusnode{Ga}
+		[\focusnode{Fa}
+		]
+	]
+	[\enot Fa
+		[Fa]
+	]
+]
+]
+\end{highlightprooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image></li>
+<li>
+<image width="21%"><latex-image label="tree-3c12d1872a">
+\begin{highlightprooftree}
+{not line numbering}
+[\focusnode{\forall x \enot Gx}
+[\focusnode{\exists x Gx \eor \exists x Hx}, grouped
+	[\exists x Gx
+		[Ga]
+	]
+	[\focusnode{\exists x Hx}
+		[\focusnode{Hb}
+			[\focusnode{\enot Gb}]
+		]
+	]
+]
+]
+\end{highlightprooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image></li>
+<li>
+<image width="49%"><latex-image label="tree-d3dafe25c9">
+\begin{highlightprooftree}
+{not line numbering}
+[\focusnode{\forall x Fx \eand \bigl((Ga \eor Hb) \eand \enot(Ga \eor Hb)\bigr)}
+	[\focusnode{\forall x Fx}
+	[\focusnode{(Ga \eor Hb) \eand \enot(Ga \eor Hb)}, grouped
+		[\focusnode{Ga \eor Hb}
+			[Ga
+				[\enot(Ga \eor Hb)
+				]
+			]
+			[\focusnode{Hb}
+				[\focusnode{\enot(Ga \eor Hb)}
+				]
+			]
+		]
+	]
+	]
+]
+\end{highlightprooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image></li></ol></p></statement>
+<solution>
+<p>
+<ol>
+<li><m>a</m>, <m>b</m>, <m>c</m>, or <m>d</m></li>
+<li><m>c</m> or <m>d</m></li>
+<li><m>a</m>, <m>b</m>, <m>c</m>, or <m>d</m></li>
+<li><m>c</m> or <m>d</m></li>
+<li><m>a</m>, <m>b</m>, <m>c</m>, or <m>d</m> (even though the <m>a</m> instance has already been taken)</li>
+<li><m>d</m> only</li>
+<li><m>a</m>, <m>b</m>, <m>c</m>, or <m>d</m> (even though the <m>a</m> instance has already been taken)</li>
+<li><m>c</m> or <m>d</m></li>
+<li>Left branch: <m>b</m>, <m>c</m>, or <m>d</m>. Right branch: <m>a</m>, <m>c</m>, or <m>d</m></li></ol></p></solution></exercise>
+</subexercises>
+<subexercises xml:id="pr-QL-trees-tautology">
+<title>Part C</title>
+<introduction>
+<p>Use a tree to test whether the following sentences are tautologies. If they are not tautologies, describe a model on which they are false.</p></introduction>
+<exercise>
+<statement>
+<p><m>\forall x \forall y (Gxy \eif \exists z Gxz)</m></p></statement>
+<solution>
+<p><m>\forall x \forall y (Gxy \eif \exists z Gxz)</m> is a tautology.</p>
+<image width="60%"><latex-image label="tree-4d23ca2154">
+\begin{prooftree}
+	{
+	}
+	[\enot \forall x \forall y (Gxy \eif \exists z Gxz), checked=a
+		[\enot \forall y (Gay \eif \exists z Gaz), just=1 \enot $\forall$, checked=b
+			[\enot (Gab \eif \exists z Gaz), just=2 \enot $\forall$, checked
+				[Gab, just=3 \enot \eif
+				[\enot \exists z Gaz, grouped, subs={b}
+					[\enot Gab, close={4, 6}
+					]
+				]
+				]
+			]
+		]
+	]
+	\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image></solution></exercise>
+<exercise>
+<statement>
+<p><m>\forall x Fx \eor \forall x (Fx \eif Gx)</m></p></statement>
+<solution>
+<p><m>\forall x Fx \eor \forall x (Fx \eif Gx)</m> is not a tautology.</p>
+<image width="62%"><latex-image label="tree-03d802299c">
+\begin{prooftree}
+	{
+	}
+	[\enot (\forall x Fx \eor \forall x (Fx \eif Gx)), checked
+		[\enot \forall x Fx, checked=a, just=1 \enot \eor
+		[\enot \forall x (Fx \eif Gx), grouped, checked=b
+			[\enot Fa, just=2 \enot $\forall$
+				[\enot (Fb \eif Gb), just=3 \enot $\forall$, checked
+					[Fb, just=5 \enot \eif
+					[\enot Gb, grouped, open
+					]
+					]
+				]
+			]
+		]
+		]
+	]
+	\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image>
+<p>UD={a, b}, extension(<m>F</m>)={b}, extension(<m>G</m>)=<m>\emptyset</m></p></solution></exercise>
+<exercise>
+<statement>
+<p><m>\forall x (Fx \eif (\enot Fx \eif \forall y Gy))</m></p></statement>
+<solution>
+<p><m>\forall x (Fx \eif (\enot Fx \eif \forall y Gy))</m> is a tautology.</p>
+<image width="67%"><latex-image label="tree-a0597160de">
+\begin{prooftree}
+	{
+	}
+	[\enot \forall x (Fx \eif (\enot Fx \eif \forall y Gy)), checked=a
+		[\enot (Fa \eif (\enot Fa \eif \forall y Gy)), checked, just=1 \enot $\forall$
+			[Fa, just=2 \enot \eif
+			[\enot (\enot Fa \eif \forall y Gy), checked, grouped
+				[\enot Fa, just=4 \enot \eif
+				[\enot \forall y Gy, grouped, close={3, 5}
+				]
+				]
+			]
+			]
+		]
+	]
+	\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image></solution></exercise>
+<exercise>
+<statement>
+<p><m>\exists x (Fx \eor \enot Fx)</m></p></statement>
+<solution>
+<p><m>\exists x (Fx \eor \enot Fx)</m> is a tautology.</p>
+<image width="51%"><latex-image label="tree-ce73d9dd5c">
+\begin{prooftree}
+	{
+	}
+	[\enot \exists x (Fx \eor \enot Fx), subs={a}
+		[\enot (Fa \eor \enot Fa), checked, just=1 \enot $\exists$
+			[\enot Fa, just=2 \enot \eor
+			[\enot\enot Fa, grouped, close={3, 4}
+			]
+			]
+		]
+	]
+	\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image></solution></exercise>
+<exercise>
+<statement>
+<p><m>\exists x Jx \eiff \enot \forall x \enot Jx</m></p></statement>
+<solution>
+<p><m>\exists x Jx \eiff \enot \forall x \enot Jx</m> is a tautology.</p>
+<image width="63%"><latex-image label="tree-f4837ea8e8">
+\begin{prooftree}
+	{
+	}
+	[\enot (\exists x Jx \eiff \enot \forall x \enot Jx), checked
+		[\exists x Jx, just=1 \eiff, checked=a
+		[\enot \enot \forall x \enot Jx, grouped, checked, name=dna
+			[Ja, name=ja1, just=2 $\exists$, move by=1
+				[\forall x \enot Jx, just={\enot \enot: dna}, subs={a}, name=noJ, move by=1
+					[\enot Ja, just={$\forall$: noJ}, close={:ja1,!c}]
+				]
+			]
+		]
+		]
+		[\enot \exists x Jx, just=1 \eiff, subs={a}, name=nej2
+		[\enot \forall x \enot Jx, grouped, checked=a, name=nanj 
+				[\enot \enot Ja, just={\enot $\forall$: nanj}, name=nnj
+				[\enot Ja, just={\enot $\exists$: nej2}, close={:nnj,!c}, move by=1
+				]
+			]
+		]
+		]
+	]
+	\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image></solution></exercise>
+<exercise>
+<statement>
+<p><m>\forall x (Fx \eor Gx) \eif (\forall y Fy \eor \exists x Gx)</m></p></statement>
+<solution>
+<p><m>\forall x (Fx \eor Gx) \eif (\forall y Fy \eor \exists x Gx)</m> is a tautology.</p>
+<image width="76%"><latex-image label="tree-a03984f287">
+\begin{prooftree}
+	{
+	}
+	[\enot (\forall x (Fx \eor Gx) \eif (\forall y Fy \eor \exists x Gx)), checked
+		[\forall x (Fx \eor Gx), just=1 \enot \eif, subs={a}
+		[\enot (\forall y Fy \eor \exists x Gx), checked, grouped
+			[\enot\forall y Fy, just=3 \enot \eor, checked=a
+			[\enot \exists x Gx, grouped, subs={a}
+				[\enot Fa, just=4 \enot $\forall$
+					[\enot Ga, just=5 \enot $\exists$
+						[Fa \eor Ga, checked, just=2 $\forall$
+							[Fa, just=8 \eor, close]
+							[Ga, close]
+						]
+					]
+				]
+			]
+			]
+		]
+		]
+	]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image></solution></exercise>
+</subexercises>
+<subexercises xml:id="pr-QL-trees-validity">
+<title>Part D</title>
+<introduction>
+<p>Use a tree to test whether the following argument forms are valid. If they are not, give a model as a counterexample.</p></introduction>
+<exercise>
+<statement>
+<p><m>Fa</m>, <m>Ga</m>, ∴ <m>\forall x (Fx \eif Gx)</m></p></statement>
+<solution>
+<p><m>Fa</m>, <m>Ga</m>, ∴ <m>\forall x (Fx \eif Gx)</m> is invalid.</p>
+<image width="50%"><latex-image label="tree-8e030e90f1">
+\begin{prooftree}
+	{
+	}
+	[Fa
+	[Ga, grouped
+	[\enot \forall x (Fx \eif Gx), grouped, checked=b
+		[\enot (Fb \eif Gb), checked, just=3 \enot$\forall$
+			[Fb, just=4 \enot\eif
+			[\enot Gb, grouped, open
+			]
+			]
+		]
+	]
+	]
+	]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image>
+<p>UD={a, b}, extension(<m>F</m>)={a, b}, extension(<m>G</m>)={a}</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>Fa</m>, <m>Ga</m>, ∴ <m>\exists x (Fx \eand Gx)</m></p></statement>
+<solution>
+<p><m>Fa</m>, <m>Ga</m>, ∴ <m>\exists x (Fx \eand Gx)</m> is valid.</p>
+<image width="49%"><latex-image label="tree-48fb1a47a3">
+\begin{prooftree}
+	{}
+	[Fa
+	[Ga, grouped
+	[\enot \exists x (Fx \eand Gx), grouped, subs={a}
+		[\enot (Fa \eand Ga), checked, just=3 \enot $\exists$
+			[\enot Fa, close, just=4 \enot \eand]
+			[\enot Ga, close, just=4 \enot \eand]
+		]
+	]
+	]
+	]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image></solution></exercise>
+<exercise>
+<statement>
+<p><m>\forall x \exists y Lxy</m>, ∴ <m>\exists x \forall y Lxy</m></p></statement>
+<solution>
+<p><m>\forall x \exists y Lxy</m>, ∴ <m>\exists x \forall y Lxy</m> is invalid.</p>
+<image width="54%"><latex-image label="tree-89a837b4d6">
+\begin{prooftree}
+	{}
+	[\forall x \exists y Lxy, subs={a, b, c, ...}
+	[\enot \exists x \forall y Lxy, subs={a, b, c, ...}, grouped
+	[\exists y Lay, checked=b, just=1 $\forall$
+	[Lab, just=3 $\exists$
+	[\enot \forall y Lay, checked=c, just=2 \enot $\exists$
+	[\enot Lac, just=5 \enot $\forall$
+	[\exists y Lby, checked=d, just=1 $\forall$
+	[Lbd, just=7 $\exists$
+	[\enot \forall y Lby, checked=e, just=2 \enot $\exists$
+	[\enot Lbe, just=9 \enot $\forall$
+	[\exists y Lcy, checked=f, just=1 $\forall$
+	[Lcf, just=11 $\exists$, grouped
+	[\enot \forall y Lcy, checked=g, just=2 \enot $\exists$
+	[\enot Lcg, just=13 \enot $\forall$
+	[\vdots
+	]
+	]
+	]
+	]
+	]
+	]
+	]
+	]
+	]
+	]
+	]
+	]
+	]
+	]
+	]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image>
+<p>This tree continues in an infinite way; each new name requires additional instances at line 1 and line 2, which in turn require two more new names. We can represent a model with an infinite UD, giving the extension of <m>L</m> as either a chart or an infinite set of ordered pairs. It is also possible to collapse this interpretation into a finite one; examining the chart, we can see that there is no reason the names couldn’t be repeating names for the same two objects; we could let <m>d</m> and <m>e</m> be additional names for <m>b</m> and <m>c</m>, respectively, and so on for <m>f</m> and <m>g</m>, etc. So a two-object model will also suffice to satisfy the premises and falsify the conclusion, with UD={b, c} and extension(<m>L</m>)={<m>\ntuple{b, b}</m>, <m>\ntuple{c, b}</m>}. This is also shown in a second chart.</p>
+<table xml:id="table"><title/>
+<tabular><col halign="left" right="minor"/><col halign="left"/><col halign="left"/><col halign="left"/><col halign="left"/><col halign="left"/><col halign="left"/><col halign="left"/><col halign="left"/><col halign="left"/>
+<row bottom="minor"><cell><m>Lxy</m></cell><cell><alert>a</alert></cell><cell><alert>b</alert></cell><cell><alert>c</alert></cell><cell><alert>d</alert></cell><cell><alert>e</alert></cell><cell><alert>f</alert></cell><cell><alert>g</alert></cell><cell>…</cell><cell/></row>
+<row><cell><alert>a</alert></cell><cell>-</cell><cell>1</cell><cell>0</cell><cell/><cell/><cell/><cell/><cell/><cell/></row>
+<row><cell><alert>b</alert></cell><cell/><cell/><cell/><cell>1</cell><cell>0</cell><cell/><cell/><cell/><cell/></row>
+<row><cell><alert>c</alert></cell><cell/><cell/><cell/><cell/><cell/><cell>1</cell><cell>0</cell><cell/><cell/></row>
+<row><cell><alert>d</alert></cell><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell>1</cell><cell>0</cell></row>
+<row><cell><m>\vdots</m></cell><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/><cell/></row></tabular></table>
+<table xml:id="table-2"><title/>
+<tabular><col halign="left" right="minor"/><col halign="left"/><col halign="left"/>
+<row bottom="minor"><cell><m>Lxy</m></cell><cell><alert>b</alert></cell><cell><alert>c</alert></cell></row>
+<row><cell><alert>b</alert></cell><cell>1</cell><cell>0</cell></row>
+<row><cell><alert>c</alert></cell><cell>1</cell><cell>0</cell></row></tabular></table></solution></exercise>
+<exercise>
+<statement>
+<p><m>\exists x (Fx \eand Gx)</m>, <m>Fb \eiff Fa</m>, <m>Fc \eif Fa</m>, ∴ <m>Fa</m></p></statement>
+<solution>
+<p><m>\exists x (Fx \eand Gx)</m>, <m>Fb \eiff Fa</m>, <m>Fc \eif Fa</m>, ∴ <m>Fa</m> is invalid.</p>
+<image width="48%"><latex-image label="tree-bfce748266">
+\begin{prooftree}
+	{
+	}
+	[\exists x (Fx \eand Gx), checked=d
+	[Fb \eiff Fa, checked, grouped
+	[Fc \eif Fa, checked, grouped
+	[\enot Fa, grouped
+		[Fd \eand Gd, checked, just=1 $\exists$
+			[Fd, just=5 \eand
+			[Gd, grouped
+				[Fb, just=2 \eiff
+				[Fa, grouped, close={4, 9}
+				]
+				]
+				[\enot Fb
+				[\enot Fa, grouped
+					[\enot Fc, just=3 \eif, open]
+					[Fa, close={9, 10}]
+				]
+				]
+			]
+			]
+		]
+	]
+	]
+	]
+	]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image>
+<p>UD={a, b, c, d}, extension(<m>F</m>)={d}, extension(<m>G</m>)={d}</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>\forall x \exists y Gyx</m>, ∴ <m>\forall x \exists y (Gxy \eor Gyx)</m></p></statement>
+<solution>
+<p><m>\forall x \exists y Gyx</m>, ∴ <m>\forall x \exists y (Gxy \eor Gyx)</m> is valid.</p>
+<image width="56%"><latex-image label="tree-41fff3cba7">
+\begin{prooftree}
+	{
+	}
+	[\forall x \exists y Gyx, subs={a}
+	[\enot \forall x \exists y (Gxy \eor Gyx), checked=a, grouped
+		[\enot \exists y (Gay \eor Gya), subs={b}, just=2 \enot$\forall$
+			[\exists y Gya, checked=b, just=1 $\forall$
+				[Gba, just=4 $\exists$
+					[\enot (Gab \eor Gba), checked, just=3 \enot $\exists$
+						[\enot Gab, just=6 \enot\eor
+						[\enot Gba, close={5, 8}, grouped
+						]
+						]
+					]
+				]
+			]
+		]
+	]
+	]
+\end{prooftree}
+</latex-image>
+<shortdescription>Proof tree</shortdescription></image></solution></exercise>
+</subexercises>
+<subexercises xml:id="pr-QL-trees-translation-and-validity">
+<title>Part E</title>
+<introduction>
+<p>Translate each argument into QL, specifying a UD, then use a tree to evaluate the resulting form for validity. If it is invalid, give a model as a counterexample.</p></introduction>
+<exercise>
+<statement>
+<p>Every logic student is studying. Deborah is not studying. Therefore, Deborah is not a logic student.</p></statement></exercise>
+<exercise>
+<statement>
+<p>Kirk is a white male Captain. Therefore, some Captains are white.</p></statement></exercise>
+<exercise>
+<statement>
+<p>The Red Sox are going to win the game. Every team who wins the game will be celebrated. Therefore, the Red Sox will be celebrated.</p></statement></exercise>
+<exercise>
+<statement>
+<p>The Red Sox are going to win the game. Therefore, the Yankees are not going to win the game.</p></statement></exercise>
+<exercise>
+<statement>
+<p>All cats make Frank sneeze, unless they are hairless. Some hairless cats are cuddly. Therefore, some cuddly things make Frank sneeze.</p></statement></exercise>
+</subexercises>
+<conclusion>
+<note component="genai">
+<title>GenAI prompts for further practice</title>
+<p>Here are some potential GenAI prompts you might use to generate further practice problems, in case you find that helpful.</p>
+<p>
+<ul>
+<li>Give me a partially described branch of a QL tree, including the names that have already appeared on that branch and a quantified sentence that I want to resolve. Ask me which of several names I could legally use as an instantiating constant. (Do not require me to type out the resulting tree.)</li>
+<li>Give me QL sentences involving universal quantifiers, existential quantifiers, negated universal quantifiers, and negated existential quantifiers. Ask me to classify each according to whether it may need to be instantiated multiple times or should be resolved only once, if I am using it in a tree proof.</li>
+<li>Give me descriptions of partially completed QL tree branches. Ask me whether each branch is closed, complete and open, or incomplete. If I say it is incomplete, ask me to explain what would still need to be done.</li>
+<li>Give me a QL tree problem and ask me what root I should use to test whether a sentence is a tautology, whether a set of sentences is consistent, or whether an argument is valid. Present one problem at a time and check my answer.</li>
+<li>Give me examples of proposed uses of the existential, universal, negated existential, or negated universal tree rule. Some should correctly use a new name and some should incorrectly reuse a name already on the branch. Ask me to identify which applications are legal and explain why.</li>
+<li>I want to practice developing QL trees that continue infinitely. Give me some examples of sets of QL sentences that will generate such trees.</li></ul></p></note></conclusion>
+</exercises>
+</chapter>

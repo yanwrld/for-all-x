@@ -1,0 +1,14 @@
+// Serves the built web edition (output/web) as a static-assets Cloudflare Worker
+// at https://fax.minegahara.net.  Deploy after ./build.sh with:  npx wrangler deploy
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "forallx",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": "./output/web"
+  },
+  "routes": [
+    { "pattern": "fax.minegahara.net", "custom_domain": true }
+  ],
+  "workers_dev": false
+}

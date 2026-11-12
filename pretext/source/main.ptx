@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- forall x: UBC edition, PreTeXt version.                                  -->
+<!-- Chapter files are generated from Latex-Files/ by scripts/latex2ptx.py;  -->
+<!-- this file, docinfo.ptx, frontmatter.ptx and backmatter.ptx are written  -->
+<!-- by hand.                                                                 -->
+<pretext xml:lang="en-US" xmlns:xi="http://www.w3.org/2001/XInclude">
+  <xi:include href="./docinfo.ptx"/>
+
+  <book xml:id="forallx">
+    <title><em>forall x</em></title>
+    <subtitle>UBC edition</subtitle>
+
+    <xi:include href="./frontmatter.ptx"/>
+
+    <xi:include href="./ch-intro.ptx"/>
+    <xi:include href="./ch-SL.ptx"/>
+    <xi:include href="./ch-TruthTables.ptx"/>
+    <xi:include href="./ch-SLmodels.ptx"/>
+    <xi:include href="./ch-sl-trees.ptx"/>
+    <xi:include href="./ch-SLsoundcomplete.ptx"/>
+    <xi:include href="./ch-ND-proofs.ptx"/>
+    <xi:include href="./ch-QL.ptx"/>
+    <xi:include href="./ch-QL-models.ptx"/>
+    <xi:include href="./ch-QLTrees.ptx"/>
+    <xi:include href="./ch-QLsoundcomplete.ptx"/>
+    <xi:include href="./ch-identity.ptx"/>
+    <xi:include href="./ch-QLND.ptx"/>
+
+    <xi:include href="./backmatter.ptx"/>
+  </book>
+</pretext>

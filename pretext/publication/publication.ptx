@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<publication>
+  <common>
+    <!-- trees and Fitch proofs are typeset with pdflatex -->
+    <exercise-inline statement="yes" hint="yes" answer="yes" solution="yes"/>
+    <exercise-divisional statement="yes" hint="yes" answer="yes" solution="yes"/>
+  </common>
+
+  <source>
+    <directories generated="../generated-assets"/>
+  </source>
+
+  <numbering>
+    <divisions level="3"/>
+  </numbering>
+
+  <latex latex-style="" print="no" sides="two" pageref="no" font-size="11"/>
+
+  <html>
+    <css theme="default-modern" palette="blues"/>
+    <search variant="default"/>
+    <knowl theorem="no" proof="yes" definition="no" example="no" example-solution="yes" project="no" task="no" remark="no" figure="no" table="no" listing="no" exercise-inline="no" exercise-divisional="no" exercise-worksheet="no" exercise-reading="no"/>
+    <tableofcontents focused="yes" preexpanded-levels="1"/>
+    <navigation logic="linear" upbutton="no"/>
+  </html>
+</publication>

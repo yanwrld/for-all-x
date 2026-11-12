@@ -1,0 +1,1024 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated from Latex-Files/forallx-ubc-13-QLND.tex by pretext/scripts/latex2ptx.py -->
+<chapter xml:id="ch-QLND">
+<title>Natural Deduction Proofs in QL</title>
+<introduction>
+<p>Trees employ a kind of ‘brute force’ strategy for proving entailment claims. When the logical structure of the relevant sentences is rather simple, as they are in SL and in some QL cases, it can be an effective strategy, but in some cases they can become very tedious and complex. It is useful to have a proof system that allows one to reason in a more targeted way — especially if you already have an intuitive understanding of why a given argument should be expected to turn out valid. As we did in Chapter <xref ref="ch-ND-proofs" text="global"/> for SL, in this chapter we will consider a natural deduction system for quantified logic. As in the case of trees, our QL natural deduction system is an extension of the one we learned previously for SL.</p>
+<p>Like our SL natural deduction system, our system can only be used to demonstrate that an argument <em>is</em> valid. We do not have a formal method, as part of our natural deduction system, for demonstrating an argument <em>invalid</em>. In this respect natural deduction differs from trees. We won’t go through the proof in this book, but the natural deduction system is both sound and complete. That means that there are natural deduction proofs corresponding to all and only the valid arguments in QL.</p></introduction>
+<section xml:id="qlnd-natural-deduction-the-basics">
+<title>Natural Deduction: the basics</title>
+<p>In a natural deduction system, one begins by writing down the assumptions one begins with — these correspond to the premises of an argument — then adds a series of additional sentences, justified via a series of particular rules by the sentences above. Additional assumptions may be made and discharged along the way. If one succeeds in writing down the conclusion of the argument on a new line, with no additional undischarged assumptions, consistent with the natural deduction rules, one has proven that the conclusion follows from those premises. If you need a refresher on how that works, review Chapter <xref ref="ch-ND-proofs" text="global"/>.</p>
+<p>Our QL system will use all the same sentential rules that our SL system did. All the introduction and elimination rules for the sentential connectives, as well as the derived and replacement rules, will be part of this system too. (These are summarized, along with our new rules, in the Quick Reference guide at the end of this book.) We’ll add introduction and elimination rules for the existential and universal quantifiers, and some other derived rules as well.</p>
+</section>
+<section xml:id="qlnd-basic-quantifier-rules">
+<title>Basic quantifier rules</title>
+<introduction>
+<p>Recall the relationship between quantified sentences and their instances. The sentence <m>Pa</m> is a particular instance of the general claim <m>\forall x Px</m>. For any wff <m>\metaA{}</m>, constant <m>\script{c}</m>, and variable <m>\script{x}</m>, we define <m>\metaA{}\substitute{\script{x}}{\script{c}}</m> to mean the wff that we get by replacing every occurrence of <m>\script{x}</m> in <m>\metaA{}</m> with <m>\script{c}</m>. <m>\metaA{}\substitute{\script{x}}{\script{c}}</m> is called a <term>substitution instance</term> of <m>\forall x\metaA{}</m> and <m>\exists x\metaA{}</m>, and <m>\script{c}</m> is called the <term>instantiating constant</term>. This should be familiar from our discussion of our tree rules for quantifiers in Chapter <xref ref="ch-QLTrees" text="global"/>. We will also use this notation to describe our quantifier rules.</p></introduction>
+<subsection xml:id="qlnd-universal-elimination">
+<title>Universal elimination</title>
+<p>If you have <m>\forall x Ax</m>, it is legitimate to infer, of anything, that it is <m>A</m>. You can infer <m>Aa</m>, or <m>Ab</m>, or <m>Ac</m>, or <m>Ad_3</m>, etc. That is, you can infer any substitution instance — in short, you can infer <m>A\script{c}</m> for any constant <m>\script{c}</m>. This is the general form of the universal elimination rule (<m>\forall</m>E):</p>
+<image width="37%"><latex-image label="proof-676255e474">
+$\begin{nd}
+	\have[m]{a}{\forall \script{x}\metaA{}}
+	\have[\ ]{c}{\metaA{}\substitute{\script{x}}{\script{c}}} \Ae{a}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p>Remember that the box notation for a substitution instance is not a symbol of QL, so you cannot write it directly in a proof. Instead, you write the substituted sentence with the constant <m>\script{c}</m> replacing all occurrences of the variable <m>\script{x}</m> in <m>\metaA{}</m>, as in this example:</p>
+<image width="42%"><latex-image label="proof-58002b50c4">
+$\begin{nd}
+	\hypo{a}{\forall x(Mx \eif Rxd)}
+	\have{c}{Ma \eif Rad} \Ae{a}
+	\have{d}{Md \eif Rdd} \Ae{a}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p>This rule is very similar to the tree rule for universals, which, in our tree system, allowed one to develop a branch containing a universal with any instance of it one likes. Here you are permitted to write down any instance you like on a new line. In this example, we have used the rule twice, to take two instances — the <m>a</m> instance and the <m>d</m> instance.</p></subsection>
+<subsection xml:id="qlnd-existential-introduction">
+<title>Existential introduction</title>
+<p>When is it legitimate to infer <m>\exists x Ax</m>? If you know that something satisfies <m>Ax</m> — for instance, if you have <m>Aa</m> available in the proof.</p>
+<p>This is the existential introduction rule (<m>\exists</m>I):</p>
+<image width="42%"><latex-image label="proof-edd6ff2c48">
+$\begin{nd}
+	\have[m]{a}{\metaA{}}
+	\have[\ ]{c}{\exists \script{x}\metaA{}\substitutesome{\script{c}}{\script{x}}} \Ei{a}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p>It is important to notice that <m>\metaA{}\substitutesome{\script{c}}{\script{x}}</m> is not necessarily a substitution instance. We write it with double boxes to show that the variable <m>\script{x}</m> does not need to replace all occurrences of the name <m>\script{c}</m>. You can decide which occurrences to replace and which to leave in place. For example, each of lines 2–6 can be justified by <m>\exists{}</m>I:</p>
+<image width="48%"><latex-image label="proof-d02522cac5">
+$\begin{nd}
+	\hypo{a}{Ma \eif Rad}
+	\have{b}{\exists x(Mx \eif Rad)} \Ei{a}
+	\have{c}{\exists x(Ma \eif Rxd)} \Ei{a}
+	\have{d}{\exists x(Mx \eif Rxd)} \Ei{a}
+	\have{e}{\exists y\exists x(Mx \eif Ryd)} \Ei{b}
+	\have{f}{\exists z\exists y\exists x(Mx \eif Ryz)} \Ei{e}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p>There are two instances of the name <m>a</m> in the premise on line 1; when using <m>\exists{}</m>I, one can introduce a variable to replace the first instance, as in line 2, the second instance, as in line 3, or both, as in line 4. Line 5 in this example does a second existential introduction, generalizing the remaining <m>a</m> on line 2 into the variable <m>y</m>; line 6 does a third generalization, changing the last remaining name, <m>d</m>, into a <m>z</m>.</p></subsection>
+<subsection xml:id="qlnd-universal-introduction">
+<title>Universal introduction</title>
+<p>A universal claim like <m>\forall x Px</m> would be proven if every substitution instance of it had been proven, if every sentence <m>Pa</m>, <m>Pb</m>, <m>\ldots</m> were available in a proof. Alas, there is no hope of proving <em>every</em> substitution instance. That would require proving <m>Pa</m>, <m>Pb</m>, <m>\ldots</m>, <m>Pj_2</m>, <m>\ldots</m>, <m>Ps_7</m>, <m>\ldots</m>, and so on to infinity. There are infinitely many constants in QL, and so this process would never come to an end.</p>
+<p>Consider a simple argument: <m>\forall x Mx</m>, ∴ <m>\forall y My</m></p>
+<p>It makes no difference to the truth conditions of the QL sentence whether we use the variable <m>x</m> or the variable <m>y</m>, so this argument is obviously valid. Suppose we begin in this way:</p>
+<image width="39%"><latex-image label="proof-fb94b12da3">
+$\begin{nd}
+	\hypo{x}{\forall x Mx} \by{want $\forall y My$}{}
+	\have{a}{Ma} \Ae{x}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p>We have derived <m>Ma</m>. Nothing stops us from using the same justification to derive <m>Mb</m>, <m>\ldots</m>, <m>Mj_2</m>, <m>\ldots</m>, <m>Ms_7</m>, <m>\ldots</m>, and so on until we run out of space or patience. We have effectively shown the way to prove <m>M\script{c}</m> for any constant <m>\script{c}</m>. From this, <m>\forall y My</m> follows.</p>
+<image width="39%"><latex-image label="proof-3092760c9e">
+$\begin{nd}
+	\hypo{x}{\forall x Mx} \by{want $\forall y My$}{}
+	\have{a}{Ma} \Ae{x}
+	\have{y}{\forall y My} \Ai{a}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p>It is important here that <m>a</m> was just some arbitrary constant. We had not made any special assumptions about it. If <m>a</m> had already been mentioned, say as a premise in the argument, then this would not show anything about <em>all</em> <m>y</m>. For example:</p>
+<image width="41%"><latex-image label="proof-0f6d42ccd8">
+$\begin{nd}
+	\hypo{x}{\forall x Rxa}
+	\have{a}{Raa} \Ae{x}
+	\have{y}{\forall y Ryy} \by{not allowed!}{}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p>This is the schematic form of the universal introduction rule (<m>\forall</m>I):</p>
+<image width="37%"><latex-image label="proof-67ff222333">
+$\begin{nd}
+	\have[m]{a}{\metaA{}\substitute{\script{x}}{\script{c}^\ast}}
+	\have[\ ]{c}{\forall \script{x}\metaA{}} \Ai{a}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p><m>^\ast</m> The constant <m>\script{c}</m> must not occur in <m>\metaA{}</m> or in any undischarged assumption.</p>
+<p>Note that we can do this for any variable and any constant, so long as that constant that does not occur in an undischarged assumption or in <m>\metaA{}</m>.</p>
+<p>The constant may not occur in any <em>undischarged</em> assumption, but it may occur as the assumption of a subproof that we have already closed. For example, here is a valid proof of <m>\forall z(Dz \eif Dz)</m> that does not use any premises.</p>
+<image width="45%"><latex-image label="proof-bc82376a5b">
+$\begin{nd}
+	\open
+		\hypo{f1}{Df}\by{want $Df$}{}
+		\have{f2}{Df}\by{R}{f1}
+	\close
+	\have{ff}{Df \eif Df}\ci{f1-f2}
+	\have{zz}{\forall z(Dz \eif Dz)}\Ai{ff}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p>Requiring that the constant not occur in any undischarged assumption is our way of ensuring that it is suitably <em>arbitrary</em>. We could just as easily have established any other substitution instance.</p></subsection>
+<subsection xml:id="qlnd-existential-elimination">
+<title>Existential elimination</title>
+<p>A sentence with an existential quantifier tells us that there is <em>some</em> member of the UD that satisfies a formula. For example, <m>\exists x Sx</m> tells us that at least one object in the UD satisfies <m>Sx</m>. It does not tell us <em>which</em> object does that, however. We cannot immediately conclude <m>Sa</m>, <m>Sf_{23}</m>, or any other substitution instance of the sentence. What can we do?</p>
+<p>Suppose that we knew both <m>\exists x Sx</m> and <m>\forall x(Sx \eif Tx)</m>. We could reason in this way:</p>
+<blockquote>
+<p>Since <m>\exists x Sx</m>, there is something that is an <m>S</m>. We do not know which constants refer to this thing, if any do, so call this thing ‘Ishmael’. From <m>\forall x(Sx \eif Tx)</m>, it follows that if Ishmael is an <m>S</m>, then it is a <m>T</m>. Therefore, Ishmael is a <m>T</m>.  Because Ishmael is a <m>T</m>, we know that <m>\exists x Tx</m>.</p></blockquote>
+<p>In this paragraph, we introduced a name for the thing that is an <m>S</m>. We gave it an arbitrary name (‘Ishmael’) so that we could reason about it and derive some consequences from there being an <m>S</m>. Since ‘Ishmael’ is just a bogus name introduced for the purpose of the proof and not a genuine constant, we could not mention it in the conclusion. Yet we could derive a sentence that does not mention Ishmael; namely, <m>\exists x Tx</m>. This sentence does follow from the two premises.</p>
+<p>We want the existential elimination rule to work in a similar way. Yet since English language words like ‘Ishmael’ are not symbols of QL, we cannot use them in formal proofs. Instead, just as we did in the analogous rule within our tree system, we will use names that are <em>new</em> — names which do not appear anywhere else in the proof. (This includes the conclusion you are aiming for.)</p>
+<p>A constant that is used to stand in for whatever it is that satisfies an existential claim is called a <term>proxy</term>. When we reason with a proxy, we introduce that proxy in an assumption, taking care that there is nothing special about the name we use as the proxy: in particular, that name must not occur anywhere earlier in the proof, and it also must not occur in the sentence we want to use existential elimination to derive.</p>
+<p>This is the schematic form of the existential elimination rule (<m>\exists</m>E):</p>
+<image width="50%"><latex-image label="proof-b8d1e140ef">
+$\begin{nd}
+	\have[m]{a}{\exists \script{x}\metaA{}}
+	\open	
+		\hypo[n]{b}{\metaA{}\substitute{\script{x}}{\script{c}^\ast}} \by{for $\exists${}E}{}
+		\have[p]{c}{\metaB{}}
+	\close
+	\have[\ ]{d}{\metaB{}} \Ee{a,b-c}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p><m>^\ast</m> The constant <m>\script{c}</m> must not occur anywhere earlier in the proof or in <m>\metaB{}</m>.</p>
+<p>Remember that the proxy constant cannot appear in <m>\metaB{}</m>, the sentence you prove using <m>\exists</m>E. (It would actually be enough just to require that the proxy constant not appear in <m>\exists\script{x}\metaA{}</m>, in <m>\metaB{}</m>, or in any undischarged assumption. In recognition of the fact that it is just a place holder that we use inside the subproof, though, we require an entirely new constant which does not appear anywhere above in the proof.)</p>
+<p>The existential elimination rule, like the rules for conditional introduction and negation introduction and elimination, is a rule that involves discharging an assumption. Assume a proxy instance, and see what would follow from that instance; if you have the existential, then, you can stop making the assumption about the proxy, and help yourself to what would have followed from it. We draw the horizontal line at the point where the assumption is discharged, defining a box of lines that were only conditionally derived. As with those other assumption-involving rules, instead of a justification, one includes a note — in this case, ‘for <m>\exists{}</m>E’ — about the role of the assumption in the proof. Remember that assumptions must be discharged before your proof is complete, so you should only make an assumption that goes beyond your premises when you have a plan for discharging it.</p>
+<p>With this rule, we can give a formal proof that <m>\exists x Sx</m> and <m>\forall x(Sx \eif Tx)</m> together entail <m>\exists x Tx</m>.</p>
+<image width="48%"><latex-image label="proof-903b9e78a1">
+$\begin{nd}
+	\hypo{es}{\exists x Sx}
+	\hypo{ast}{\forall x(Sx \eif Tx)}\by{want $\exists x Tx$}{}
+	\open
+		\hypo{s}{Sa}\by{for $\exists${}E}{}
+		\have{st}{Sa \eif Ta}\Ae{ast}
+		\have{t}{Ta} \ce{s,st}
+		\have{et1}{\exists x Tx}\Ei{t}
+	\close
+	\have{et2}{\exists x Tx}\Ee{es,s-et1}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image></subsection>
+<subsection xml:id="qlnd-quantifier-negation">
+<title>Quantifier negation</title>
+<p><m>\enot\exists \script{x}\enot\metaA{}</m> is logically equivalent to <m>\forall \script{x}\metaA{}</m>. The first says that <em>nothing falsifies</em> <m>\metaA{}</m>; the second says <em>everything satisfies</em> <m>\metaA{}</m>. In QL, they are provably equivalent. Here is a proof schema for half of that equivalence via a natural deduction <em>reductio</em>. For any wff <m>\metaA{}</m>, variable <m>\script{x}</m>, and new name <m>\script{a}</m>:</p>
+<image width="67%"><latex-image label="proof-5923f3680e">
+$\begin{nd}
+	\have{Aa}{\forall \script{x} \metaA{}} \by{want $\enot\exists \script{x}\enot \metaA{}$}{}
+	\open
+		\hypo{Ena}{\exists \script{x}\enot \metaA{}}\by{for \emph{reductio}}{}
+		\open
+			\hypo{nc}{\enot \metaA{\substitute{\script{x}}{\script{a}^\ast}}}\by{for $\exists$E}{}
+			\open
+				\hypo{Aa2}{\forall \script{x} \metaA{}}\by{for \emph{reductio}}{}
+				\have{c2}{\metaA{\substitute{\script{x}}{\script{a}^\ast}}}\Ae{Aa}
+				\have{nc2}{\enot \metaA{\substitute{\script{x}}{\script{a}^\ast}}}\by{R}{nc}
+			\close
+			\have{nAa}{\enot\forall \script{x} \metaA{}}\ni{Aa2-nc2}
+		\close
+		\have{nAa3}{\enot\forall \script{x} \metaA{}}\Ee{Ena, nc-nAa}
+		\have{Aa3}{\forall \script{x} \metaA{}}\by{R}{Aa}
+		\close
+	\have{nEna}{\enot\exists \script{x}\enot \metaA{}}\ni{Ena-Aa3, Ena-nAa3}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p><m>^\ast</m> Where name <m>\script{a}</m> does not appear outside the subproof.</p>
+<p>This is a proof <em>schema</em> — it is not itself a proof in QL, as its lines are not QL sentences. But it describes how a proof of this form can be given. For example, here is one instance of the above schema:</p>
+<image width="58%"><latex-image label="proof-252824f749">
+$\begin{nd}
+	\hypo{Aa}{\forall y Ay} \by{want $\enot\exists y\enot Ay$}{}
+	\open
+		\hypo{Ena}{\exists y\enot Ay}\by{for \emph{reductio}}{}
+		\open
+			\hypo{nc}{\enot Ac}\by{for $\exists$E}{}
+			\open
+				\hypo{Aa2}{\forall y Ay}\by{for \emph{reductio}}{}
+				\have{c2}{Ac}\Ae{Aa}
+				\have{nc2}{\enot Ac}\by{R}{nc}
+			\close
+			\have{nAa}{\enot\forall y Ay}\ni{Aa2-nc2}
+		\close
+		\have{nAa3}{\enot\forall y Ay}\Ee{Ena, nc-nAa}
+		\have{Aa3}{\forall y Ay}\by{R}{Aa}
+	\close
+	\have{nEna}{\enot\exists y\enot Ay}\ni{Ena-Aa3, Ena-nAa3}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p>(Note that this proof encodes the same form of reasoning one would employ to demonstrate via a tree that <m>\forall y Ay \models \enot \exists y \enot Ay</m>. A good exercise would be to draw out the tree to compare it.)</p>
+<p>In order to fully demonstrate that <m>\enot\exists \script{x}\enot\metaA{}</m> is logically equivalent to <m>\forall \script{x}\metaA{}</m>, we would also need a second proof that assumes <m>\enot\exists \script{x}\enot\metaA{}</m> and derives <m>\forall \script{x}\metaA{}</m>. We leave that proof as an exercise for the reader.</p>
+<p>It will often be useful to translate between quantifiers by adding or subtracting negations in this way, so we add two derived rules for this purpose. These rules are called quantifier negation (QN):</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell><m>\enot\forall\script{x}\metaA{} \Longleftrightarrow \exists\script{x}\enot\metaA{}</m></cell></row>
+<row><cell><m>\enot\exists\script{x}\metaA{} \Longleftrightarrow \forall\script{x}\enot\metaA{}</m></cell><cell>QN</cell></row></tabular>
+<p>QN is a replacement rule. Like our SL replacement rules (DeMorgan, Double Negation, etc.), it can be used on whole sentences or on subformulae.</p></subsection>
+</section>
+<section xml:id="qlnd-identity-introduction">
+<title>Identity Introduction</title>
+<p>The introduction rule for identity is very simple. Everything is identical to itself; so, for any name <m>\script{a}</m>, one may write — regardless of what one has on the previous lines of the proof — that <m>\script{a}{=}\script{a}</m>:</p>
+<image width="21%"><latex-image label="proof-68b0964116">
+$\begin{nd}
+	\have[\ \,\,\,]{x}{\script{a}=\script{a}} \by{=I}{}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p>The =I rule is unlike our other rules in that it does not require referring to any prior lines of the proof. We need only cite the rule itself; it does not reference any line numbers.</p>
+</section>
+<section xml:id="qlnd-identity-elimination">
+<title>Identity Elimination</title>
+<p>If you have shown that <m>a{=}b</m>, then anything that is true of <m>a</m> must also be true of <m>b</m>. For any sentence with <m>a</m> in it, you can replace some or all of the occurrences of <m>a</m> with <m>b</m> and produce an equivalent sentence. For example, if you already know <m>Raa</m>, then you are justified in concluding <m>Rab</m>, <m>Rba</m>, <m>Rbb</m>. Recall that <m>\metaA{}\substitutesome{a}{b}</m> is the sentence produced by replacing <m>a</m> in <m>\metaA{}</m> with <m>b</m>. This is not the same as a substitution instance, because <m>b</m> may replace some or all occurrences of <m>a</m>. The identity elimination rule (=E) justifies replacing terms with other terms that are identical to it:</p>
+<image width="43%"><latex-image label="proof-2bcaee49bd">
+$\begin{nd}
+	\have[m]{e}{\script{c}{=}\script{d}}
+	\have[n]{a}{\metaA{}}
+	\have[\ ]{ea1}{\metaA{}\substitutesome{\script{c}}{\script{d}}} \by{=E}{e,a}
+	\have[\ ]{ea2}{\metaA{}\substitutesome{\script{d}}{\script{c}}} \by{=E}{e,a}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p>Here is a simple proof of an instance of the <em>transitivity of identity</em>. Let’s prove that if <m>a{=}b</m> and <m>b{=}c</m>, then <m>a{=}c</m>:</p>
+<image width="54%"><latex-image label="proof-baa32611e1">
+$\begin{nd}
+	\open
+		\hypo{p}{a{=}b \eand b{=}c}\by{want $a{=}c$}{}
+		\have{ab}{a{=}b}\ae{p}
+		\have{bc}{b{=}c}\ae{p}
+		\have{ac}{a{=}c}\by{{=}E}{ab,bc}
+	\close
+	\have{conc}{(a{=}b \eand b{=}c)\eif a{=}c} \ci{p-ac}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p>At line 4, we took advantage of the identity claim <m>b{=}c</m> on line 3, and replaced the <m>b</m> in line 2 with a <m>c</m>. Then we used the familiar <m>\eif{}</m>I rule to discharge the assumption of line 1, proving the conditional we were aiming for.</p>
+</section>
+<section xml:id="qlnd-translation-and-evaluation">
+<title>Translation and evaluation</title>
+<p>Consider this argument: There is at most one button in my pocket. There is a blue button in my pocket. So there is no non-blue button in my pocket.</p>
+<p>We begin by defining a symbolization key:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>UD:</cell><cell>buttons in my pocket</cell></row>
+<row><cell>Bx:</cell><cell><m>x</m> is blue.</cell></row></tabular>
+<p>Because we have no need to discuss anything other than buttons in my pocket, we’ve restricted the UD accordingly. If we included other things (buttons elsewhere and/or things other than buttons), we’d need predicates corresponding to being a button and things’ locations. The simple version here is adequate for our present needs. The argument is translated as:</p>
+<p>
+<ol>
+<li><m>\forall x \forall y\ x{=}y</m></li>
+<li><m>\exists x Bx</m></li>
+<li>∴ <m>\enot \exists x \enot Bx</m></li></ol></p>
+<p>So the set-up for a natural deduction proof will be:</p>
+<image width="48%"><latex-image label="proof-b2268b666f">
+$\begin{nd}
+	\hypo{one}{\forall x\forall y\ x{=}y}
+	\hypo{eb}{\exists x Bx} \by{want $\enot\exists x \enot Bx$}{}
+	\have{}{}{}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p>There are various strategies one might employ. Here are two clues that point toward one promising strategy. Note again that we have an existential on line 2 — this suggests existential elimination as a possible strategy. Note also that we are aiming for <m>\enot \exists x \enot Bx</m>, which is equivalent to <m>\enot \enot \forall x Bx</m> by QN. This in turn is equivalent, by DN, to <m>\forall x Bx</m>, which suggests that universal introduction is going to be an important step. If we introduce an assumption with a proxy instance of <m>\exists x Bx</m>, we’ll be able to work toward a generic instance of <m>Bx</m>. In this example, we’ll take <m>e</m> as our proxy, and show that <m>Bf</m> follows from <m>\exists x Bx</m>:</p>
+<image width="49%"><latex-image label="proof-55296f1df9">
+$\begin{nd}
+	\hypo{one}{\forall x\forall y\ x{=}y}
+	\hypo{eb}{\exists x Bx} \by{want $\enot\exists x \enot Bx$}{}
+	\open
+		\hypo{be1}{Be}\by{for $\exists${}E}{}
+		\have{all1}{\forall y\ e{=}y}\Ae{one}
+		\have{ef1}{e{=}f}\Ae{all1}
+		\have{bf1}{Bf}\by{{=}E}{ef1,be1}
+	\close
+	\have{bf}{Bf}\Ee{eb,be1-bf1}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<p>By line 7, we have discharged the assumption about the proxy — we are no longer assuming anything about <m>e</m> in particular. We have established that <m>Bf</m> follows from the two premises. Since <m>f</m> is an arbitrary name — one that does not appear in any undischarged assumption — we can perform universal introduction on that instance. This in turn lets us complete the proof via the two substitution rules mentioned above:</p>
+<image width="51%"><latex-image label="proof-5a8654da6d">
+$\begin{nd}
+	\hypo{one}{\forall x\forall y\ x{=}y}
+	\hypo{eb}{\exists x Bx} \by{want $\enot\exists x \enot Bx$}{}
+	\open
+		\hypo{be1}{Be}\by{for $\exists${}E}{}
+		\have{all1}{\forall y\ e{=}y}\Ae{one}
+		\have{ef1}{e{=}f}\Ae{all1}
+		\have{bf1}{Bf}\by{{=}E}{ef1,be1}
+	\close
+	\have{bf}{Bf}\Ee{eb,be1-bf1}
+	\have{ab}{\forall x Bx}\Ai{bf}
+	\have{nnab}{\enot\enot\forall x Bx}\by{DN}{ab}
+	\have{nenb}{\enot\exists x\enot Bx}\by{QN}{nnab}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+</section>
+<section xml:id="qlnd-natural-deduction-strategy">
+<title>Natural deduction strategy</title>
+<p>All the strategy advice given in §<xref ref="sec-SL-ND-strategy" text="global"/> is equally applicable to natural deduction proofs in QL. Review the suggestions there for general advice for natural deduction proofs. Applied to our new QL rules, if you have a universal, you can think about taking any instances that look useful. (Taking random instances is unlikely to be useful.) If you have an existential, consider using the existential elimination rule, which begins by assuming an instance with a proxy, then deriving a conclusion that does not contain that proxy name.</p>
+<p>Back in Chapter <xref ref="ch-ND-proofs" text="global"/>, I emphasized that one should never make an assumption without a specific plan for discharging it. That advice was so important that I put it in a special highlighted box in <xref ref="nd-proofs-reductio-and-the-negation-rules" text="type-global"/>. It’s even more important now, since our natural deduction proofs have become increasingly complicated. So let me emphasize it a second time:</p>
+<assemblage>
+<p>You should <em>never</em> make an assumption without a plan for how to discharge it.</p></assemblage>
+<p>There are only four possible good reasons to make a new assumption in a natural deduction proof, and each of those reasons requires you to design your assumption in a specific way. Never make an assumption unless you’re doing one of these four things:</p>
+<tabular top="minor" left="minor"><col halign="left" right="minor"/><col halign="left" right="minor"/><col halign="left" right="minor"/><col halign="left" right="minor"/>
+<row bottom="minor"><cell><alert>Rule</alert></cell><cell><alert>To prove...</alert></cell><cell><alert>Assume...</alert></cell><cell><alert>Derive...</alert></cell></row>
+<row bottom="minor"><cell><m>\eif</m>I</cell><cell><m>\metaA{}\eif\metaB{}</m></cell><cell><m>\metaA{}</m></cell><cell><m>\metaB{}</m></cell></row>
+<row bottom="minor"><cell><m>\enot</m>I</cell><cell><m>\enot\metaA{}</m></cell><cell><m>\metaA{}</m></cell><cell><m>\metaB{}</m> and <m>\enot\metaB{}</m> (for any <m>\metaB{}</m>)</cell></row>
+<row bottom="minor"><cell><m>\enot</m>E</cell><cell><m>\metaA{}</m></cell><cell><m>\enot\metaA{}</m></cell><cell><m>\metaB{}</m> and <m>\enot\metaB{}</m> (for any <m>\metaB{}</m>)</cell></row>
+<row bottom="minor"><cell><m>\exists</m>E</cell><cell><m>\metaB{}</m> (given <m>\exists\script{x}\metaA{}</m> on another line)</cell><cell><m>\metaA{}\substitute{\script{x}}{\script{c}}</m>, using a new proxy <m>\script{c}</m></cell><cell><m>\metaB{}</m></cell></row></tabular>
+</section>
+<section xml:id="qlnd-soundness-and-completeness">
+<title>Soundness and completeness</title>
+<p>The proofs for soundness and completeness of our natural deduction system are beyond the scope of this textbook. But if you are interested in thinking through how those proofs would go, here are a few hints to get you started. Soundness in a natural deduction system amounts to the claim that if any sentence <m>\metaA{}</m> is derivable from a set of sentences <m>\metaSetX{}</m>, then <m>\metaSetX{}\models\metaA{}</m>. To prove this, you would need to demonstrate that any possible natural deduction proof meets this constraint. This is trivial for ‘proofs’ that only contain premises; you’d next have to show, for every possible way of extending the proof (i.e., everything permitted by any one of our rules), that any newly added lines with no undischarged assumptions are entailed by the premises.</p>
+<p>Undischarged assumptions would require special treatment. You can think of an assumption as being similar to a ‘temporary premise’ — what you really want to prove is that, for every possible line in a proof, that line is entailed by the premises <em>in addition to</em> any undischarged assumptions.</p>
+<p>The completeness proof is more complex. We need some way to guarantee that there is a proof corresponding to every QL entailment. The way to do this is to find an algorithmic procedure that is guaranteed to find a proof if one exists, and to prove that this is so. One good way to do this is to take advantage of the proven completeness of our <em>tree</em> system for QL, presented in Chapter <xref ref="ch-QLsoundcomplete" text="global"/>, and find a way to demonstrate that any tree proof can be converted to a natural deduction proof.</p>
+<p>Here is a hint if you’re interested in undertaking that project: the tree method encodes the same kind of reasoning that <em>reductio</em> proofs do.</p>
+</section>
+<exercises xml:id="qlnd-exercises">
+<title>Practice Exercises</title>
+<subexercises xml:id="pr-justifyQLproof">
+<title>Part A</title>
+<exercise>
+<statement>
+<p>Provide a justification (rule and line numbers) for each line of proof that requires one.</p>
+<p>
+<ol cols="2">
+<li>
+<image width="31%"><latex-image label="proof-2dfd61a337">
+$\begin{nd}
+\hypo{p1}{\forall x\exists y(Rxy \eor Ryx)}
+\hypo{p2}{\forall x\enot Rmx}
+\have{3}{\exists y(Rmy \eor Rym)}{}
+	\open
+		\hypo{a1}{Rma \eor Ram}
+		\have{a2}{\enot Rma}{}
+		\have{a3}{Ram}{}
+		\have{a4}{\exists x Rxm}{}
+	\close
+\have{n}{\exists x Rxm} {}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image></li>
+<li>
+<image width="36%"><latex-image label="proof-846ef2baac">
+$\begin{nd}
+\hypo{1}{\forall x(\exists yLxy \eif \forall zLzx)}
+\hypo{2}{Lab}
+\have{3}{\exists y Lay \eif \forall zLza}{}
+\have{4}{\exists y Lay} {}
+\have{5}{\forall z Lza} {}
+\have{6}{Lca}{}
+\have{7}{\exists y Lcy \eif \forall zLzc}{}
+\have{8}{\exists y Lcy}{}
+\have{9}{\forall z Lzc}{}
+\have{10}{Lcc}{}
+\have{11}{\forall x Lxx}{}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image></li>
+<li>
+<image width="34%"><latex-image label="proof-e2c456cc75">
+$\begin{nd}
+\hypo{a}{\forall x(Jx \eif Kx)}
+\hypo{b}{\exists x\forall y Lxy}
+\hypo{c}{\forall x Jx}
+\open
+	\hypo{2}{\forall y Lay}
+	\have{d}{Ja}{}
+	\have{e}{Ja \eif Ka}{}
+	\have{f}{Ka}{}
+	\have{3}{Laa}{}
+	\have{4}{Ka \eand Laa}{}
+	\have{5}{\exists x(Kx \eand Lxx)}{}
+\close
+\have{j}{\exists x(Kx \eand Lxx)}{}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image></li>
+<li>
+<image width="41%"><latex-image label="proof-60b8ef1cb6">
+$\begin{nd}
+	\open
+		\hypo{p1}{\enot (\exists x Mx \eor \forall x\enot Mx)}
+		\have{p2}{\enot \exists x Mx \eand \enot \forall x\enot Mx}{}
+		\have{p3}{\enot \exists x Mx}{}
+		\have{p4}{\forall x\enot Mx}{}
+		\have{p5}{\enot \forall x\enot Mx}{}
+	\close
+\have{n}{\exists x Mx \eor \forall x\enot Mx} {}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image></li></ol></p></statement>
+<solution>
+<image width="52%"><latex-image label="proof-fde8c81497">
+$\begin{nd}
+\hypo{p1}{\forall x\exists y(Rxy \eor Ryx)}
+\hypo{p2}{\forall x\enot Rmx}
+\have{3}{\exists y(Rmy \eor Rym)}\Ae{p1}
+	\open
+		\hypo{a1}{Rma \eor Ram} \by{for $\exists${}E}{}
+		\have{a2}{\enot Rma}\Ae{p2}
+		\have{a3}{Ram}\oe{a1,a2}
+		\have{a4}{\exists x Rxm}\Ei{a3}
+	\close
+\have{n}{\exists x Rxm} \Ee{3,a1-a4}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<image width="55%"><latex-image label="proof-ab62cd029b">
+$\begin{nd}
+\hypo{1}{\forall x(\exists yLxy \eif \forall zLzx)}
+\hypo{2}{Lab}
+\have{3}{\exists y Lay \eif \forall zLza}\Ae{1}
+\have{4}{\exists y Lay} \Ei{2}
+\have{5}{\forall z Lza} \ce{3,4}
+\have{6}{Lca}\Ae{5}
+\have{7}{\exists y Lcy \eif \forall zLzc}\Ae{1}
+\have{8}{\exists y Lcy}\Ei{6}
+\have{9}{\forall z Lzc}\ce{7,8}
+\have{10}{Lcc}\Ae{9}
+\have{11}{\forall x Lxx}\Ai{10}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<image width="56%"><latex-image label="proof-70d601d3d6">
+$\begin{nd}
+\hypo{a}{\forall x(Jx \eif Kx)}
+\hypo{b}{\exists x\forall y Lxy}
+\hypo{c}{\forall x Jx}
+\open
+	\hypo{2}{\forall y Lay} \by{for $\exists${}E}{}
+	\have{d}{Ja}\Ae{c}
+	\have{e}{Ja \eif Ka}\Ae{a}
+	\have{f}{Ka}\ce{e,d}
+	\have{3}{Laa}\Ae{2}
+	\have{4}{Ka \eand Laa}\ai{f,3}
+	\have{5}{\exists x(Kx \eand Lxx)}\Ei{4}
+\close
+\have{j}{\exists x(Kx \eand Lxx)}\Ee{b,2-5}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image>
+<image width="64%"><latex-image label="proof-881c447cab">
+$\begin{nd}
+	\open
+		\hypo{p1}{\enot (\exists x Mx \eor \forall x\enot Mx)} \by{for \emph{reductio}}{}
+		\have{p2}{\enot \exists x Mx \eand \enot \forall x\enot Mx} \by{DeM}{p1}
+		\have{p3}{\enot \exists x Mx}\ae{p2}
+		\have{p4}{\forall x\enot Mx}\by{QN}{p3}
+		\have{p5}{\enot \forall x\enot Mx}\ae{p2}
+	\close
+\have{n}{\exists x Mx \eor \forall x\enot Mx} \ne{p1-p4, p1-p5}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image></solution></exercise>
+</subexercises>
+<subexercises xml:id="pr-someQLproofs">
+<title>Part B</title>
+<introduction>
+<p>Provide a natural deduction proof of each claim.</p></introduction>
+<exercise>
+<statement>
+<p><m>\vdash \forall x Fx \eor \enot \forall x Fx</m></p></statement>
+<solution>
+<image width="62%"><latex-image label="proof-4d3942d5f8">
+$\begin{nd}
+	\open
+		\hypo{p1}{\enot(\forall x Fx \eor \enot\forall x Fx)} \by{for \emph{reductio}}{}
+		\have{s1}{\enot\forall x Fx \eand \enot\enot\forall x Fx} \by{DeM}{p1}
+		\have{s2}{\enot \forall x Fx}\ae{s1}
+		\have{s3}{\enot\enot\forall x Fx}\ae{s1}
+	\close
+	\have{c}{\forall x Fx \eor \enot\forall x Fx} \ne{p1-s2, p1-s3}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image></solution></exercise>
+<exercise>
+<statement>
+<p><m>\{\forall x(Mx \eiff Nx), Ma\eand\exists x Rxa\}\vdash \exists x Nx</m></p></statement>
+<solution>
+<image width="50%"><latex-image label="proof-fec779ee89">
+$\begin{nd}
+	\hypo{p1}{\forall x(Mx \eiff Nx)}
+	\hypo{p2}{Ma \eand \exists x Rxa} \by{want $\exists x Nx$}{}
+	\have{a1}{Ma \eiff Na} \Ae{p1}
+	\have{a2}{Ma} \ae{p2}
+	\have{a3}{Na} \be{a1,a2}
+	\have{c}{\exists x Nx} \Ei{a3}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image></solution></exercise>
+<exercise>
+<statement>
+<p><m>\{\forall x(\enot Mx \eor Ljx), \forall x(Bx\eif Ljx), \forall x(Mx\eor Bx)\}\vdash \forall xLjx</m></p></statement>
+<solution>
+<image width="53%"><latex-image label="proof-be341d1cb7">
+$\begin{nd}
+	\hypo{a1}{\forall x(\enot Mx \eor Ljx)}
+	\hypo{a2}{\forall x(Bx \eif Ljx)}
+	\hypo{a3}{\forall x(Mx \eor Bx)} \by{want $\forall x Ljx$}{}
+	\have{a4}{\enot Ma \eor Lja} \Ae{a1}
+	\have{a5}{Ma \eif Lja} \by{MC}{a4}
+	\have{a6}{Ba \eif Lja} \Ae{a2}
+	\have{a7}{Ma \eor Ba} \Ae{a3}
+	\have{a8}{Lja}  \by{DIL}{a7, a5, a6}
+	\have{a9}{\forall x Ljx} \Ai{a8}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image></solution></exercise>
+<exercise>
+<statement>
+<p><m>\forall x(Cx \eand Dt)\vdash \forall xCx \eand Dt</m></p></statement>
+<solution>
+<image width="55%"><latex-image label="proof-295072255e">
+$\begin{nd}
+	\hypo{a1}{\forall x(Cx \eand Dt)} \by{want $\forall x Cx \eand Dt$}{}
+	\have{a2}{Ca \eand Dt} \Ae{a1}
+	\have{a3}{Ca} \ae{a2}
+	\have{a4}{\forall x Cx} \Ai{a3}
+	\have{a5}{Dt} \ae{a2}
+	\have{a6}{\forall x Cx \eand Dt} \ai{a4, a5}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image></solution></exercise>
+<exercise>
+<statement>
+<p><m>\exists x(Cx \eor Dt)\vdash \exists x Cx \eor Dt</m></p></statement>
+<solution>
+<image width="69%"><latex-image label="proof-022681118a">
+$\begin{nd}
+	\hypo{a1}{\exists x(Cx \eor Dt)} \by{want $\exists x Cx \eor Dt$}{}
+	\open
+		\hypo{a2}{Ca \eor Dt} \by{for {$\exists$}E}{}
+		\open
+			\hypo{a3}{\enot(\exists x Cx \eor Dt)} \by{for \emph{reductio}}{}
+			\have{a4}{\enot\exists x Cx \eand \enot Dt} \by{DeM}{a3}
+			\have{a5}{\enot Dt} \ae{a4}
+			\have{a6}{Ca} \oe{a2,a5}
+			\have{a7}{\exists x Cx} \Ei{a6}
+			\have{a8}{\enot\exists x Cx} \ae{a4}
+		\close
+		\have{a9}{\exists x Cx \eor Dt} \ne{a3-a7, a3-a8}
+	\close
+	\have{a10}{\exists x Cx \eor Dt} \Ee{a1,a2-a9}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image></solution></exercise>
+</subexercises>
+<subexercises xml:id="qlnd-part-c">
+<title>Part C</title>
+<introduction>
+<p>Examine the highlighted line of each natural deduction proof below, and determine whether it is a legal development according to our natural deduction rules. If it isn’t, explain why not.</p></introduction>
+<exercise>
+<statement>
+<image width="45%"><latex-image label="proof-3b49c3a98f">
+$\begin{nd}
+\hypo{1}{Fa}
+\hypo{2}{\forall x Gx}
+\have{3}{Fa}\by{R}{1}
+\have{4}{Ga}\forallE{2}
+\have{5}{Fa \eand Ga}\andI{3,4}
+\havehighlight{6}{\forall x (Fx \eand Gx)}\forallI{5}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image></statement></exercise>
+<exercise>
+<statement>
+<image width="40%"><latex-image label="proof-c6a43f27b8">
+$\begin{nd}
+\hypo{1}{\forall x(Fx \eif Gx)}
+\hypo{2}{Fa}
+\havehighlight{3}{Fa \eif Ga}\forallE{1}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image></statement></exercise>
+<exercise>
+<statement>
+<image width="41%"><latex-image label="proof-48dfb7c886">
+$\begin{nd}
+\hypo{1}{Fa}
+\have{2}{Fa \eor Ga}\orI{1}
+\havehighlight{3}{\exists x(Fx \eor Gx)}\existsI{2}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image></statement></exercise>
+<exercise>
+<statement>
+<image width="41%"><latex-image label="proof-268a9389d6">
+$\begin{nd}
+\hypo{1}{Fa \eif Ga}
+\havehighlight{2}{\exists x(Fx \eif Gx)}\existsI{1}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image></statement></exercise>
+<exercise>
+<statement>
+<image width="41%"><latex-image label="proof-963327b0f8">
+$\begin{nd}
+\hypo{1}{Fa \eif Ga}
+\havehighlight{2}{\forall x(Fx \eif Gx)}\forallI{1}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image></statement></exercise>
+<exercise>
+<statement>
+<image width="42%"><latex-image label="proof-9b8e898f46">
+$\begin{nd}
+\hypo{1}{\forall x(Fx \eif Gx)}
+\have{2}{Fb \eif Gb}\forallE{1}
+\havehighlight{3}{\forall y(Fy \eif Gy)}\forallI{2}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image></statement></exercise>
+<exercise>
+<statement>
+<image width="51%"><latex-image label="proof-dcbd8ec6b8">
+$\begin{nd}
+\hypo{1}{\exists x Fx}
+\open
+	\hypo{2}{Fa}\by{for $\exists$E}{}
+	\have{3}{Fa \eor Ga}\orI{2}
+	\have{4}{\exists x(Fx \eor Gx)}\existsI{3}
+\close
+\havehighlight{5}{\exists x(Fx \eor Gx)}\existsE{1,2-4}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image></statement></exercise>
+<exercise>
+<statement>
+<image width="45%"><latex-image label="proof-458aa4f725">
+$\begin{nd}
+\hypo{1}{\exists x Fx}
+\open
+	\hypo{2}{Fa}\by{for $\exists$E}{}
+	\have{3}{Fa \eor Ga}\orI{2}
+\close
+\havehighlight{4}{Fa \eor Ga}\existsE{1,2-3}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image></statement></exercise>
+<exercise>
+<statement>
+<image width="51%"><latex-image label="proof-ae9c0d7c64">
+$\begin{nd}
+\hypo{1}{\exists x Fx}
+\hypo{2}{\exists x Gx \eif H}
+\open
+	\hypo{3}{Fa}\by{for $\exists$E}{}
+	\have{4}{Fa \eor Ga}\orI{3}
+	\have{5}{\exists x(Fx \eor Gx)}\existsI{4}
+\close
+\havehighlight{6}{\exists x Gx}\existsE{1,3-5}
+\have{7}{H}\ifE{2,6}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image></statement></exercise>
+<exercise>
+<statement>
+<image width="31%"><latex-image label="proof-f1d4f6253d">
+$\begin{nd}
+\hypo{1}{Fa}
+\hypo{2}{a{=}b}
+\havehighlight{3}{Fb}\by{$=$E}{1,2}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image></statement></exercise>
+<exercise>
+<statement>
+<image width="51%"><latex-image label="proof-dbda053937">
+$\begin{nd}
+\hypo{1}{\exists x Fx}
+\hypo{2}{\forall x\forall y(Fx \eif Gy)}
+\open
+	\hypo{3}{Fa}\by{for $\exists$E}{}
+	\have{4}{\forall y(Fa \eif Gy)}\forallE{2}
+	\have{5}{Fa \eif Gb}\forallE{4}
+	\have{6}{Gb}\ifE{3,5}
+	\havehighlight{7}{\forall y Gy}\forallI{6}
+\close
+\have{8}{\forall y Gy}\existsE{1,3-7}
+\have{9}{\exists x Fx \eand \forall y Gy}\andI{1,8}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image></statement></exercise>
+</subexercises>
+<subexercises xml:id="qlnd-part-d">
+<title>Part D</title>
+<exercise>
+<statement>
+<p>Provide a proof of the argument about Billy in <xref ref="ql-ambiguous-predicates" text="type-global"/>.</p></statement></exercise>
+</subexercises>
+<subexercises xml:id="pr-BarbaraEtc-proof1">
+<title>Part E</title>
+<exercise>
+<statement>
+<p>Look back at Part <xref ref="pr-BarbaraEtc" text="custom">E of the Chapter 8 exercises</xref>. Provide proofs to show that each of the argument forms is valid in QL.</p></statement></exercise>
+</subexercises>
+<subexercises xml:id="pr-QLproofsNDe">
+<title>Part F</title>
+<introduction>
+<p>Provide a natural deduction proof of each claim.</p></introduction>
+<exercise>
+<statement>
+<p><m>\forall x \forall y Gxy\vdash\exists x Gxx</m></p></statement>
+<solution>
+<image width="45%"><latex-image label="proof-a855ff975f">
+$\begin{nd}
+		\hypo{1}{\forall x \forall y Gxy}\by{want $\exists x Gxx$}{}
+		\have{2}{\forall y Gay} \Ae{1}
+		\have{3}{Gaa}\Ae{2}
+		\have{4}{\exists x Gxx}\Ei{3}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image></solution></exercise>
+<exercise>
+<statement>
+<p><m>\forall x \forall y (Gxy \eif Gyx) \vdash \forall x\forall y (Gxy \eiff Gyx)</m></p></statement>
+<solution>
+<image width="50%"><latex-image label="proof-609f1aa794">
+$\begin{nd}
+	\hypo{1}{\forall x\forall y(Gxy \eif Gyx)}
+	\have{2}{\forall y(Gay \eif Gya)}\Ae{1}
+	\have{3}{Gab \eif Gba}\Ae{2}
+	\have{4}{\forall y(Gby \eif Gyb)}\Ae{1}
+	\have{5}{Gba \eif Gab}\Ae{4}
+	\have{6}{Gab \eiff Gba}\bi{3,5}
+	\have{7}{\forall y(Gay \eiff Gya)}\Ai{6}
+	\have{8}{\forall x\forall y(Gxy \eiff Gyx)}\Ai{7}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image></solution></exercise>
+<exercise>
+<statement>
+<p><m>\{\forall x(Ax\eif Bx), \exists x Ax\} \vdash \exists x Bx</m></p></statement>
+<solution>
+<image width="49%"><latex-image label="proof-1c82b53d1e">
+$\begin{nd}
+	\hypo{a1}{\forall x(Ax \eif Bx)}
+	\hypo{a2}{\exists x Ax} \by{want $\exists x Bx$}{}
+	\open
+		\hypo{a3}{Aa} \by{for {$\exists$}E}{} 
+		\have{a4}{Aa \eif Ba} \Ae{a1}
+		\have{a5}{Ba} \ce{a3, a4}
+		\have{a6}{\exists x Bx} \Ei{a5}
+	\close
+	\have{a7}{\exists x Bx} \Ee{a2, a3-a6}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image></solution></exercise>
+<exercise>
+<statement>
+<p><m>\{Na \eif \forall x(Mx \eiff Ma), Ma, \enot Mb\}\vdash \enot Na</m></p></statement>
+<solution>
+<image width="59%"><latex-image label="proof-e0983c5283">
+$\begin{nd}
+	\hypo{1}{Na \eif \forall x(Mx \eiff Ma)}
+	\hypo{2}{Ma}
+	\hypo{3}{\enot Mb} \by{want $\enot Na$}{}
+	\open
+		\hypo{4}{Na} \by{for \emph{reductio}}{}
+		\have{5}{\forall x (Mx \eiff Ma)} \ce{1, 4}
+		\have{6}{Mb \eiff Ma} \Ae{5}
+		\have{7}{Mb} \be{2, 6}
+		\have{8}{\enot Mb} \by{R}{3}
+	\close
+	\have{9}{\enot Na} \ni{4-7, 4-8}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image></solution></exercise>
+<exercise>
+<statement>
+<p><m>\vdash\forall z (Pz \eor \enot Pz)</m></p></statement>
+<solution>
+<image width="46%"><latex-image label="proof-1d8b14a7e8">
+$\begin{nd}
+	\open
+		\hypo{1}{Pa} \by{want $Pa$}{}
+		\have{2}{Pa} \by{R}{1}
+	\close
+	\have{3}{Pa \eif Pa} \ci{1-2}
+	\have{4}{\enot Pa \eor Pa}\by{MC}{3}
+	\have{5}{Pa \eor \enot Pa}\by{Comm}{4}	
+	\have{6}{\forall z (Pz \eor \enot Pz)}\Ai{5}	
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image></solution></exercise>
+<exercise>
+<statement>
+<p><m>\vdash\forall x Rxx\eif \exists x \exists y Rxy</m></p></statement>
+<solution>
+<image width="65%"><latex-image label="proof-099c0ccc35">
+$\begin{nd}
+\open
+	\hypo{1}{\forall x Rxx}\by{want $\eif \exists x \exists y Rxy$}{}
+	\have{2}{Raa}\Ae{1}
+	\have{3}{\exists y Ray}\Ei{2}
+	\have{4}{\exists x \exists y Rxy}\Ei{3}
+\close
+\have{5}{\forall x Rxx \eif \exists x \exists y Rxy}\ci{1-4}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image></solution></exercise>
+<exercise>
+<statement>
+<p><m>\vdash\forall y \exists x (Qy \eif Qx)</m></p></statement>
+<solution>
+<image width="48%"><latex-image label="proof-b762b71c05">
+$\begin{nd}
+\open
+		\hypo{1}{Qa}\by{want $Qa$}{}
+		\have{2}{Qa}\by{R}{1}
+	\close
+	\have{3}{Qa \eif Qa}\ci{1-2}
+	\have{4}{\exists x (Qa \eif Qx)}\Ei{3}
+	\have{5}{\forall y \exists x (Qy \eif Qx)}\Ai{4}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image></solution></exercise>
+</subexercises>
+<subexercises xml:id="qlnd-part-g">
+<title>Part G</title>
+<introduction>
+<p>Show that each pair of sentences is provably equivalent.</p></introduction>
+<exercise>
+<statement>
+<p><m>\forall x (Ax\eif \enot Bx)</m>, <m>\enot\exists x(Ax \eand Bx)</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>\forall x (\enot Ax\eif Bd)</m>, <m>\forall x Ax \eor Bd</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>\exists x Px \eif Qc</m>, <m>\forall x (Px \eif Qc)</m></p></statement></exercise>
+</subexercises>
+<subexercises xml:id="qlnd-part-h">
+<title>Part H</title>
+<introduction>
+<p>Show that each of the following is provably inconsistent.</p></introduction>
+<exercise>
+<statement>
+<p>{<m>Sa\eif Tm</m>, <m>Tm \eif Sa</m>, <m>Tm \eand \enot Sa</m>}</p></statement></exercise>
+<exercise>
+<statement>
+<p>{<m>\enot\exists x Rxa</m>, <m>\forall x \forall y Ryx</m>}</p></statement></exercise>
+<exercise>
+<statement>
+<p>{<m>\enot\exists x \exists y Lxy</m>, <m>Laa</m>}</p></statement></exercise>
+<exercise>
+<statement>
+<p>{<m>\forall x(Px \eif Qx)</m>, <m>\forall z(Pz \eif Rz)</m>, <m>\forall y Py</m>, <m>\enot Qa \eand \enot Rb</m>}</p></statement></exercise>
+</subexercises>
+<subexercises xml:id="pr-likes">
+<title>Part I</title>
+<exercise>
+<statement>
+<p>Write a symbolization key for the following argument, translate it, and prove it:</p>
+<blockquote>
+<p>There is someone who likes everyone who likes everyone that first person likes. Therefore, there is someone who likes themself.</p></blockquote></statement>
+<solution>
+<p>Regarding the translation of this argument, see 32.</p>
+<image width="76%"><latex-image label="proof-9583633e92">
+$\begin{nd}
+\hypo{1}{\exists x\forall y[\forall z(Lxz \eif Lyz) \eif Lxy]}
+\open
+	\hypo{a}{\forall y[\forall z(Laz \eif Lyz) \eif Lay]} \by{for $\exists${}E}{}
+	\have{b}{\forall z(Laz \eif Laz) \eif Laa} \Ae{a}
+	\open
+		\hypo{c1}{\enot \exists x Lxx} \by{for \emph{reductio}}{}
+		\have{c2}{\forall x\enot Lxx} \by{QN}{c1}
+		\have{c3}{\enot Laa} \Ae{c2}
+		\have{c4}{\enot \forall z(Laz \eif Laz)} \by{MT}{b,c3}
+		\open
+			\hypo{d1}{Lab} \by{want $Lab$}{}
+			\have{d2}{Lab} \by{R}{d1}
+		\close
+		\have{c5}{Lab \eif Lab} \ci{d1-d2}
+		\have{c6}{\forall z(Laz \eif Laz)} \Ai{c5}
+		\have{cn}{\enot \forall z(Laz \eif Laz)} \by{R}{c4}
+	\close
+	\have{h}{\exists x Lxx} \ne{c1-c6, c1-cn}
+\close
+\have{n}{\exists x Lxx} \Ee{1, a-h}
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image></solution></exercise>
+</subexercises>
+<subexercises xml:id="pr-identity">
+<title>Part J</title>
+<introduction>
+<p>Provide a proof of each claim.</p></introduction>
+<exercise>
+<statement>
+<p><m>\{Pa \eor Qb, Qb \eif b{=}c, \enot Pa\}\vdash Qc</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>\{m{=}n \eor n{=}o, An\}\vdash Am \eor Ao</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>\{\forall x \: x{=}m, Rma\}\vdash \exists x Rxx</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>\enot \exists x \: x {\neq} m \vdash \forall x\forall y (Px \eif Py)</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>\forall x\forall y(Rxy \eif x{=}y)\vdash Rab \eif Rba</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>\{\exists x Jx, \exists x \enot Jx\}\vdash \exists x \exists y\ x{\neq} y</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>\{\forall x(x{=}n \eiff Mx), \forall x(Ox \eor \enot Mx)\}\vdash On</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>\{\exists x Dx, \forall x(x{=}p \eiff Dx)\}\vdash Dp</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>\{\exists x\bigl[Kx \eand \forall y(Ky \eif x{=}y) \eand Bx\bigr], Kd\}\vdash Bd</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>\vdash Pa \eif \forall x(Px \eor x {\neq} a)</m></p></statement></exercise>
+</subexercises>
+<subexercises xml:id="pr-QLequivornot">
+<title>Part K</title>
+<exercise>
+<statement>
+<p>For each of the following pairs of sentences: If they are logically equivalent in QL, give proofs to show this. If they are not, construct a model to show this.</p>
+<p>
+<ol>
+<li><m>\forall x Px \eif Qc</m>, <m>\forall x (Px \eif Qc)</m></li>
+<li><m>\forall x Px \eand Qc</m>, <m>\forall x (Px \eand Qc)</m></li>
+<li><m>Qc \eor \exists x Qx</m>, <m>\exists x (Qc \eor Qx)</m></li>
+<li><m>\forall x\forall y \forall z Bxyz</m>, <m>\forall x Bxxx</m></li>
+<li><m>\forall x\forall y Dxy</m>, <m>\forall y\forall x Dxy</m></li>
+<li><m>\exists x\forall y Dxy</m>, <m>\forall y\exists x Dxy</m></li></ol></p></statement>
+<solution>
+<p>2, 
+3, 
+and 5 
+are logically equivalent.</p></solution></exercise>
+</subexercises>
+<subexercises xml:id="pr-QLvalidornot">
+<title>Part L</title>
+<introduction>
+<p>For each of the following arguments: If it is valid in QL, give a proof. If it is invalid, construct a model to show that it is invalid.</p></introduction>
+<exercise>
+<statement>
+<p><m>\forall x\exists y Rxy</m>, ∴ <m>\exists y\forall x Rxy</m></p></statement>
+<solution>
+<p>2, 
+4, 
+5, 
+7, 
+and 10 
+are valid. Here are complete answers for some of them:</p>
+<tabular><col halign="right"/><col halign="center"/><col halign="left"/>
+<row><cell>UD</cell><cell>=</cell><cell>{mocha, freddo}</cell></row>
+<row><cell><m>\extension{R}</m></cell><cell>=</cell><cell>{<m>\ntuple{mocha, freddo}</m>, <m>\ntuple{freddo, mocha}</m>}</cell></row></tabular></solution></exercise>
+<exercise>
+<statement>
+<p><m>\exists y\forall x Rxy</m>, ∴ <m>\forall x\exists y Rxy</m></p></statement>
+<solution>
+<p>2, 
+4, 
+5, 
+7, 
+and 10 
+are valid. Here are complete answers for some of them:</p>
+<image width="53%"><latex-image label="proof-58bad686c2">
+$\begin{nd}
+		\hypo{p}{\exists y\forall x Rxy} \by{want $\forall x\exists y Rxy$}{}
+		\open
+			\hypo{ass}{\forall x Rxa} \by{for $\exists${}E}{}
+			\have{R}{Rba} \Ae{ass}
+			\have{ER}{\exists y Rby} \Ei{R}
+			\have{AER}{\forall x \exists y Rxy} \Ai{ER}
+		\close
+		\have{c}{\forall x\exists y Rxy} \Ee{p, ass-AER}
+	
+\end{nd}$
+</latex-image>
+<shortdescription>Natural deduction proof</shortdescription></image></solution></exercise>
+<exercise>
+<statement>
+<p><m>\exists x(Px \eand \enot Qx)</m>, ∴ <m>\forall x(Px \eif \enot Qx)</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>\forall x(Sx \eif Ta)</m>, <m>Sd</m>, ∴ <m>Ta</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>\forall x(Ax\eif Bx)</m>, <m>\forall x(Bx \eif Cx)</m>, ∴ <m>\forall x(Ax \eif Cx)</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>\exists x(Dx \eor Ex)</m>, <m>\forall x(Dx \eif Fx)</m>, ∴ <m>\exists x(Dx \eand Fx)</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>\forall x\forall y(Rxy \eor Ryx)</m>, ∴ <m>Rjj</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>\exists x\exists y(Rxy \eor Ryx)</m>, ∴ <m>Rjj</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>\forall x Px \eif \forall x Qx</m>, <m>\exists x \enot Px</m>, ∴ <m>\exists x \enot Qx</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>\exists x Mx \eif \exists x Nx</m>, <m>\enot \exists x Nx</m>, ∴ <m>\forall x \enot Mx</m></p></statement></exercise>
+</subexercises>
+<conclusion>
+<note component="genai">
+<title>GenAI prompts for further practice</title>
+<p>Here are some potential GenAI prompts you might use to generate further practice problems, in case you find that helpful.</p>
+<p>
+<ul>
+<li>Give me short descriptions of proposed applications of the quantifier rules in natural deduction. Ask me whether each application is legal or illegal, paying particular attention to the restrictions on Universal Introduction and Existential Elimination. After I answer, explain your reasoning.</li>
+<li>Give me natural deduction problems involving quantifiers. Before I attempt each proof, ask me which quantifier rules seem likely to be useful and why. Help me think through a proof strategy without giving me the proof itself.</li>
+<li>Give me an existential sentence and a proposed conclusion. Ask me how I would set up an Existential Elimination subproof: what proxy instance I should assume, what I would need to derive inside the subproof, and what restriction the proxy must satisfy.</li>
+<li>Give me pairs consisting of a quantified sentence and a proposed application of Existential Introduction or Universal Elimination. Ask me whether the proposed inference is licensed, and explain any mistakes I make.</li>
+<li>Give me short QL arguments involving identity. Ask me which applications of Identity Introduction or Identity Elimination might be useful in proving the conclusion. Do not give me a complete proof unless I ask for one.</li>
+<li>Give me natural deduction problems involving both Existential Elimination and Universal Introduction. Ask me to explain how I can choose the proxy and arbitrary constants so that the restrictions on both rules are respected.</li></ul></p></note></conclusion>
+</exercises>
+</chapter>

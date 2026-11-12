@@ -1,0 +1,684 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated from Latex-Files/forallx-ubc-1-intro.tex by pretext/scripts/latex2ptx.py -->
+<chapter xml:id="ch-intro">
+<title>What is logic?</title>
+<introduction>
+<p>Logic is the business of evaluating arguments, sorting good ones from bad ones. In everyday language, we sometimes use the word ‘argument’ to refer to belligerent shouting matches. If you and a friend have an argument in this sense, things are not going well between the two of you. This is not the kind of ‘argument’ that will concern us. Arguments in the logical sense aren’t events that happen between people; a logical argument is structured to give someone a reason to believe some conclusion. Here are two examples of such arguments:</p>
+<p>
+<dl width="narrow">
+<li>
+<title>(1)</title>
+<p>It is raining heavily.</p></li>
+<li>
+<title>(2)</title>
+<p>When it rains, everyone outside without an umbrella gets wet.</p></li>
+<li>
+<title>∴</title>
+<p>You should take an umbrella.</p></li></dl></p>
+<p>
+<dl width="narrow">
+<li>
+<title>(1)</title>
+<p>It is either raining or snowing.</p></li>
+<li>
+<title>(2)</title>
+<p>If it is colder than -10 degrees, it is not raining.</p></li>
+<li>
+<title>(3)</title>
+<p>It is -18 degrees.</p></li>
+<li>
+<title>∴</title>
+<p>It is snowing.</p></li></dl></p>
+<p>The three dots on the last line of each argument mean ‘Therefore’ and they indicate that the final sentence is the <em>conclusion</em> of the argument. The other sentences are <em>premises</em> of the argument. If you believe the premises, then the argument provides you with a reason to believe the conclusion.</p>
+<p>This chapter discusses some basic logical notions that apply to arguments in a natural language like English. It is important to begin with a clear understanding of what arguments are and of what it means for an argument to be valid. Later we will translate arguments from English into a formal language. We want formal validity, as defined in the formal language, to have at least some of the important features of natural-language validity.</p></introduction>
+<section xml:id="intro-arguments">
+<title>Arguments</title>
+<p>A crucial part of analyzing an argument is identifying its conclusion. Every argument has a conclusion — the conclusion is the claim the argument is trying to establish. Premises are starting-points, used to lend support to the conclusion. Often, the conclusion will be signified by words like ‘so’ or ‘therefore’. Premises might be marked by words like ‘because’. These words can give a clue as to just what the argument is supposed to be.</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>premise indicators:</cell><cell>since, because, given that</cell></row>
+<row><cell>conclusion indicators:</cell><cell>therefore, hence, thus, then, so</cell></row></tabular>
+<p>In a natural language like English, <em>sometimes</em>, arguments start with their premises and end with their conclusions, but not always. For some purposes in this course, we will be working with <em>idealizations</em> of natural language, where we work as if some generally applicable rules of thumb held without exception. Let’s define (a slightly technical notion of) an <term>argument</term> as a series of sentences. The sentences at the beginning of the series are premises. The final sentence in the series is the conclusion.</p>
+<p>Here is an example of an argument:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell/><cell>People get wet whenever it rains.</cell></row>
+<row><cell/><cell>It often rains in Vancouver.</cell></row>
+<row><cell>∴</cell><cell>People often get wet in Vancouver.</cell></row></tabular>
+<p>The idea of an argument is that the premises are supposed to give you reason to accept the conclusion. If I’m trying to convince you that people often get wet in Vancouver — the conclusion of the argument above — convincing you of the two premises might be a good way to get you there.</p>
+<p>Notice that our definition of an argument is quite general. Consider this example:</p>
+<p>
+<dl width="narrow">
+<li>
+<title> </title>
+<p>Vancouver has more churches than any other Canadian city.</p></li>
+<li>
+<title> </title>
+<p>Two oboes are fighting a duel under the fireworks.</p></li>
+<li>
+<title>∴</title>
+<p>J. Edgar Hoover was an honest man.</p></li></dl></p>
+<p>It may seem odd to call this an argument, but that is because it would be a terrible argument. The two premises have nothing at all to do with the conclusion. (Moreover, they aren’t very plausible.) Nevertheless, given our definition, it still counts as an argument — albeit a bad one. One of our central aims in formal logic is to provide rigorous, formal tests for evaluating arguments.</p>
+</section>
+<section xml:id="intro-sentences">
+<title>Sentences and propositions</title>
+<p>The premises and conclusions of arguments are sentences. But not just any English sentence is suitable for figuring into an argument. For example, questions count as grammatical sentences of English, but logical arguments never have questions as premises or conclusions. We are interested especially in sentences that can be true or false. Think of these as the sentences that purport to describe the way things are. Such sentences are sometimes described as expressing <em>propositions</em>.</p>
+<p>We will not be theorizing in terms of questions and other non-propositional sentences in formal logic. Since we are only interested in sentences that can figure as a premise or conclusion of an argument, we’ll define a technical notion of a <term>sentence</term> as a sentence expressing a proposition, i.e., a sentence that can be true or false.</p>
+<p>Don’t confuse the idea of a sentence that can be true or false with the difference between fact and opinion. Often, sentences in logic will express things that would count as facts — such as ‘Kierkegaard was a hunchback’ or ‘Kierkegaard liked almonds.’ They can also express things that you might think of as matters of opinion — such as, ‘Almonds are yummy’ or ‘the U.S. invasion of Iraq was unjustified’. There are interesting metaphysical questions about the status of such subjective or evaluative claims, but for our purposes, we’ll treat all declarative sentences, including these, as examples of things that are either true or false.</p>
+<p>It is also important to keep clear the distinction between something’s being <em>true</em> and something’s being <em>known</em>. A sentence is the kind of thing that can be true or false; that doesn’t mean you’ll always be able to tell whether it is true or false. For example, ‘there are an even number of humans on Earth right now’ is a sentence. It is either true or false, even though it is pretty much impossible to tell which. Similarly, there are controversial propositions, where people disagree about whether they are true or false, and where it seems very difficult to settle the debate. (I think that ‘Freedom of expression requires restricting oppressive speech’ is an example.) This is either true or false, even if debates about which it is aren’t likely to resolve the question. So it counts as a propositional sentence.</p>
+<p>What are some examples of grammatical English sentences that do not express propositions? We’ve discussed one category already:</p>
+<paragraphs>
+<title>Questions</title>
+<p>In a grammar class, ‘Are you sleepy yet?’ would count as an interrogative sentence. Although you might be sleepy or you might be alert, the question itself is neither true nor false. So ‘Are you sleepy yet?’ is not a sentence in our technical, propositional sense. Suppose you answer the question: ‘I am not sleepy.’ This <em>is</em> either true or false, and so it <em>is</em> a sentence in the logical sense. Generally, <em>questions</em> will not count as sentences, but <em>answers</em> will.</p></paragraphs>
+<p>‘What is this course about?’ is not a sentence. ‘No one knows what this course is about’ is a sentence.</p>
+<paragraphs>
+<title>Imperatives</title>
+<p>Commands are often phrased as imperatives like ‘Wake up!’, ‘Sit up straight’, and so on. In a grammar class, these would count as imperative sentences. Although it might be good for you to sit up straight or it might not, the command is neither true nor false. Note, however, that commands are not always phrased as imperatives. ‘You will respect my authority’ <em>is</em> either true or false — either you will or you will not — and so it counts as a sentence in the logical sense.</p></paragraphs>
+<paragraphs>
+<title>Exclamations</title>
+<p>Expressions like ‘Ouch!’ or ‘Boo, Yankees!’ are sometimes described as exclamatory sentences, but they are neither true nor false. We will treat ‘Ouch, I hurt my toe!’ as meaning the same thing as ‘I hurt my toe.’ The ‘ouch’ does not add anything that could be true or false.</p></paragraphs>
+<p>To recap: <em>sentences</em>, in the technical sense we’re interested in, are claims that can be true or false. One pretty good test you can run to see whether something is a sentence is to ask whether it makes sense to insert ‘it is true that’ or ‘it is false that’ in front of it. It’s perfectly fine to say ‘it is true that Kierkegaard liked almonds’ or ‘it is true that the U.S. invasion of Iraq was unjustified’. But it doesn’t make sense to say ‘it is true that are you sleepy yet’ or ‘it is true that sit up straight’.</p>
+<p>We will call truth or falsity the <term>truth-value</term> of a sentence.</p>
+</section>
+<section xml:id="intro-two-ways-that-arguments-can-go-wrong">
+<title>Two ways that arguments can go wrong</title>
+<p>Consider the argument that you should take an umbrella (in <xref ref="ch-intro" text="type-global"/>, above).</p>
+<p>
+<dl width="narrow">
+<li>
+<title>(1)</title>
+<p>It is raining heavily.</p></li>
+<li>
+<title>(2)</title>
+<p>When it rains, everyone outside without an umbrella gets wet.</p></li>
+<li>
+<title>∴</title>
+<p>You should take an umbrella.</p></li></dl></p>
+<p>If premise (1) is false — if it is sunny outside — then the argument fails. It does not establish that you should take an umbrella. Or suppose that premise (2) is false. Maybe not everyone without an umbrella gets wet. (Maybe some people are able to stay under the awnings.) In this case, too, the argument does not establish its conclusion. Arguments only succeed when all their premises are true.</p>
+<p>Suppose both premises <em>are</em> true. It really is raining heavily, and we’re talking about an area where there’s no protection from the rain other than umbrellas, so that anyone outside without an umbrella will get wet when it rains. Now does the argument show you that you should take an umbrella? It certainly seems to lend some support in that direction. But notice that it’s still not <em>conclusive</em>. There are still <em>possible</em> ways the conclusion might be false. For example, suppose you like getting wet. Then, even if it is raining heavily, and even if everyone who goes outside without an umbrella when it rains gets wet, maybe you have no reason to take the umbrella.</p>
+<p>A good argument — or at least, an argument that is good in one particularly interesting way — <em>compels</em> its conclusion.</p>
+<p>So it seems that there are two ways an argument could be weak. First, one or more of the premises might be false. An argument gives you a reason to believe its conclusion only if you believe its premises. Second, the premises might fail to support the conclusion, or fail to support it sufficiently strongly. Even if the premises were true, the form of the argument might be weak. The example we just considered is weak in both ways.</p>
+<p>Once again, we are working with a particular kind of idealization regarding arguments and what makes them good. Consider another example:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell/><cell>You are reading this book.</cell></row>
+<row><cell/><cell>This is a logic book.</cell></row>
+<row><cell>∴</cell><cell>You are a logic student.</cell></row></tabular>
+<p>In a straightforward and ordinary sense, this is not a terrible argument. The premises are true. And they do offer some support for the conclusion. Most people who read this book are logic students. Still, it is <em>possible</em> for someone besides a logic student to read this book. If the deans carefully read this book in order to find out whether I’m criticizing the UBC administration, that wouldn’t make them logic students. So the premises of this argument, even though they are true, do not guarantee the truth of the conclusion.</p>
+<p>By contrast, the sample argument about snow <em>is</em> valid. There’s just no possible way for all three of its premises to be true without it snowing.</p>
+<p>In logic, we are interested in arguments whose premises <em>guarantee</em> their conclusions. We call such arguments ‘deductively valid’ or just ‘valid.’ Even though we might count the rain argument, or the logic book argument, as a good argument in some sense, they are not valid; that is, they are ‘invalid.’ One important task of logic is to sort valid arguments from invalid arguments.</p>
+</section>
+<section xml:id="sec-validity">
+<title>Validity</title>
+<p>An argument is deductively <term>valid</term> if and only if it is impossible for all the premises to be true while the conclusion is false. (We’ll say a bit more about just what we mean by ‘impossible’ in §<xref ref="sec-impossible" text="global"/> below.)</p>
+<p>That’s our official <em>definition</em> of validity. Once again (get used to this pattern), our formal definition is related to, but not quite the same as, the ordinary colloquial notion with the same name. In ordinary English, to say something is ‘valid’ means, somewhat vaguely, that it is good. (Think of a ‘valid point’ or a ‘valid perspective’.) In logic, a valid argument is one that has this very specific feature: it’s impossible for the premises to be true if the conclusion is false. (Side note: this is a good terminological distinction to keep in mind when writing essays in philosophy courses. Philosophy professors tend to wince and get annoyed when students use the word ‘valid’ in its imprecise sense. You can help stay on their good sides by only saying something is ‘valid’ when you mean that it is an argument whose premises are inconsistent with the falsity of its conclusion.)</p>
+<p>Notice that validity does <em>not</em> require that the premises be true. Consider this example:</p>
+<p>
+<dl width="narrow">
+<li>
+<title>(1)</title>
+<p>Oranges are either fruits or musical instruments.</p></li>
+<li>
+<title>(2)</title>
+<p>Oranges are not fruits.</p></li>
+<li>
+<title>∴</title>
+<p>Oranges are musical instruments.</p></li></dl></p>
+<p>This is a valid argument. It is impossible for the premises to be true if the conclusion is false. Since it has a false premise — premise (2) — it does not actually establish its conclusion, but it does have a <em>valid logical form</em>. <em>If</em> both premises were true, <em>then</em> the conclusion would necessarily be true.</p>
+<p>Since this is a valid argument that is, in some important sense, a bad argument, this shows that validity isn’t the only feature we care about in arguments. An argument is <term>sound</term> if and only if it is valid and all of its premises are true. For example, this variant of the above argument is sound:</p>
+<p>
+<dl width="narrow">
+<li>
+<title>(1)</title>
+<p>Oranges are either fruits or musical instruments.</p></li>
+<li>
+<title>(2)</title>
+<p>Oranges are not musical instruments.</p></li>
+<li>
+<title>∴</title>
+<p>Oranges are fruits.</p></li></dl></p>
+<p>For reasons that will emerge, logic tends to focus primarily on validity, rather than soundness.</p>
+<p>We’ve seen that a valid argument does not need to have true premises or a true conclusion. Conversely, having true premises and a true conclusion is also not enough to make an argument valid. Consider this example:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell/><cell>Donald Trump is a U.S. citizen.</cell></row>
+<row><cell/><cell>Mark Carney is a Canadian citizen.</cell></row>
+<row><cell>∴</cell><cell>UBC is the largest employer in Vancouver.</cell></row></tabular>
+<p>The premises and conclusion of this argument are, as a matter of fact, all true. Nevertheless, this is quite a poor argument. This is related to the fact that the premises have nothing to do with the conclusion. More precisely, the definition of validity is not satisfied: it is possible for the premises to be true while the conclusion is false. Although the conclusion is <em>actually</em> true, it is <em>possible</em> for the premises of this argument to be true while the conclusion is false. We may imagine, for example, that Lululemon hired an additional 100,000 employees in Vancouver, while UBC remained the same size, and without any world leaders changing their citizenship statuses. In such a possible scenario, the premises would be true, while the conclusion is false.</p>
+<p>The important thing to remember is that validity is not about the actual truth or falsity of the sentences in the argument. Instead, it is about the form of the argument: The truth of the premises is incompatible with the falsity of the conclusion.</p>
+<p>Here are some more valid arguments. Can you see why each is valid?</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell/><cell>Socrates is a man.</cell></row>
+<row><cell/><cell>All men are carrots.</cell></row>
+<row><cell>∴</cell><cell>Socrates is a carrot.</cell></row></tabular>
+<p>
+<dl width="narrow">
+<li>
+<title> </title>
+<p>Abe Lincoln was either born in Illinois or he was once president.</p></li>
+<li>
+<title> </title>
+<p>Abe Lincoln was never president.</p></li>
+<li>
+<title>∴</title>
+<p>Abe Lincoln was born in Illinois.</p></li></dl></p>
+<p>
+<dl width="narrow">
+<li>
+<title> </title>
+<p>Justin Trudeau is either from France or from Luxembourg.</p></li>
+<li>
+<title> </title>
+<p>Justin Trudeau is not from Luxembourg.</p></li>
+<li>
+<title>∴</title>
+<p>Justin Trudeau is from France.</p></li></dl></p>
+<p>
+<dl width="narrow">
+<li>
+<title> </title>
+<p>If the world were to end today, then I would not need to get up tomorrow morning.</p></li>
+<li>
+<title> </title>
+<p>I will need to get up tomorrow morning.</p></li>
+<li>
+<title>∴</title>
+<p>The world will not end today.</p></li></dl></p>
+</section>
+<section xml:id="sec-impossible">
+<title>Impossibility</title>
+<p>The definition of validity centrally invokes the notion of impossibility. What it means for a sentence to be <em>impossible</em> is that there is no possible way for it to be true. Impossible sentences don’t just <em>happen</em> to be false; they <em>must</em> be false. Consider the sentence, ‘The Whitecaps lost their last game.’ As it happens, at the time I’m writing, that’s false. They actually won. But it’s not impossible; they might have lost, if a few things had gone differently. So that sentence is false, but not impossible.</p>
+<p>The following sentences are all logically possible, even though they are not at all likely or plausible:</p>
+<p>
+<ul>
+<li>There was a hurricane in Vancouver this morning.</li>
+<li>Every penguin in the world is about to migrate to Texas.</li>
+<li>Birds aren’t really animals, they’re all drone robots.</li>
+<li>No human has ever existed.</li></ul></p>
+<p>By contrast, blatant contradictions like ‘the Whitecaps won the game and the Whitecaps lost the game’ <em>are</em> impossible. This sentence doesn’t just <em>happen</em> to be false. It couldn’t <em>possibly</em> be true.</p>
+<p>Even falsehoods that are really obviously false, and for which it’s hard to imagine how they could be true, might be <em>possible</em>. It’s not <em>impossible</em> that pigs could fly. Someone might invent powerful wings for them. When we’re interested in impossible sentences in logic, we really mean <em>impossible</em>. The best examples are contradictions.</p>
+<p>These sentences are all logically impossible:</p>
+<p>
+<ul>
+<li>Vancouver gets snow tomorrow and Vancouver does not get snow tomorrow.</li>
+<li>Every penguin is purple, but some penguins are not purple.</li>
+<li>There are exactly three moons orbiting Earth, and there are at least five moons orbiting Earth.</li>
+<li>Alice is taller than Beth, Beth is taller than Cara, Cara is taller than Alice.</li></ul></p>
+<p>To apply the definition of validity, we consider whether there is any possibility, no matter how far-fetched, where the premises are true and the conclusion is false.</p>
+</section>
+<section xml:id="intro-validity-and-impossible-premises">
+<title>Validity and Impossible Premises</title>
+<p>Students are often surprised to learn that this argument is valid:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell/><cell>Jonathan ran the Boston Marathon.</cell></row>
+<row><cell/><cell>Jonathan has never run a marathon.</cell></row>
+<row><cell>∴</cell><cell>PHIL 220 is a very popular course at UBC.</cell></row></tabular>
+<p>There is no intuitive connection between the premises and the conclusion in this strange argument. Even if you happen to know that Jonathan often teaches PHIL 220, whether an instructor has run the Boston Marathon or any marathon has nothing to do with how popular their courses are likely to be. Even worse, you might think, these two premises seem to be <em>contradictory</em>! They couldn’t possibly be true, so how could they be part of a valid argument?</p>
+<p>But remember, validity has a very specific definition. It’s not about whether arguments are good in any intuitive sense; it’s about whether they satisfy the definition of validity. An argument is valid if and only if it is impossible for all the premises to be true while the conclusion is false. And in fact, the very point we just observed that seems to make this argument rather stupid — the fact that its premises couldn’t possibly be true together — is exactly why this argument <em>is</em> in fact valid. It’s impossible for the premises to be true while the conclusion is false, because it’s impossible for the premises to be true <em>whether or not</em> the conclusion is false.</p>
+<p>For an argument to be <em>invalid</em>, there has to be some possible way that the premises could be true while the conclusion is false. Here, that would mean that there’s some possible situation where:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>(1)</cell><cell>Jonathan ran the Boston Marathon.</cell></row>
+<row><cell>(2)</cell><cell>Jonathan has never run a marathon.</cell></row>
+<row><cell>(3)</cell><cell>PHIL 220 is not a very popular course at UBC.</cell></row></tabular>
+<p>There’s no way for all three of these to be true, so the argument is valid. All arguments whose premises are not jointly possible are valid, regardless of their conclusion. This is a surprising fact about validity, and one that often confuses students. Let me emphasize it by repeating it in a box:</p>
+<assemblage>
+<p>All arguments whose premises are not jointly possible are valid, regardless of their conclusion.</p></assemblage>
+<p>This follows from the definition of validity: if the premises can’t all be true in any circumstances, it follows trivially that the premises can’t all be true while the conclusion is false. (This is an instance of the more general truth that if there’s no possible way to do <m>X</m>, then that means there’s no possible way to do both <m>X</m> and <m>Y</m>.)</p>
+</section>
+<section xml:id="intro-other-logical-notions">
+<title>Other logical notions</title>
+<introduction>
+<p>Here are a few more relevant terms we’ll be working with.</p></introduction>
+<subsection xml:id="sec-tautologydef">
+<title>Logical truth</title>
+<p>In considering arguments formally, we care about what would be true <em>if</em> the premises were true. Generally, we are not concerned with the actual truth value of any particular sentences — whether they are <em>actually</em> true or false. (As indicated above, we will be more interested in validity than in soundness.) Yet there are some sentences that must be true, just as a matter of logic.</p>
+<p>Compare these sentences:</p>
+<p>
+<ol>
+<li>It is raining.</li>
+<li>Either it is hot outside, or it is not hot outside.</li>
+<li>There is an earthquake happening here right now and there are never earthquakes here.</li></ol></p>
+<p>Sentence 1 could be true or it could be false. (As I’m typing these words on a sunny Vancouver summer day, it is false.) Sentences that could be true, or could be false, are called <em>contingent</em> sentences.</p>
+<p>Sentence 2 is different. Even though I don’t know what the weather is like as you’re reading this book, I still know that it’s true. Sentence 2 <em>must</em> be true. This sentence is <em>logically true</em>; no matter how the weather or anything else happens to be, this sentence has to be true. We call a sentence like this a <term>logical truth</term> or a <term>tautology</term>.</p>
+<p>You do not need to check the weather to know about sentence 3, either. It must be false, simply as a matter of logic. There could be an earthquake now, but if so, it couldn’t be the case that there are never earthquakes here. Or there might never be any earthquakes, but if so, there couldn’t be one now. The third sentence is <term>logically false</term>; it is false regardless of what the world is like. A logically false sentence is called a <term>contradiction</term>.</p>
+<p>I said above that a contingent sentence could be true and it also could be false. We can also define contingency in terms of tautologies and contradictions thus: a <term>contingent sentence</term> is a sentence that is neither a tautology nor a contradiction.</p></subsection>
+<subsection xml:id="intro-logical-equivalence">
+<title>Logical equivalence</title>
+<p>We can also ask about the logical relations <em>between</em> two sentences. For example:</p>
+<p>
+<dl width="narrow">
+<li>
+<title> </title>
+<p>Sunil went to the store after he washed the dishes.</p></li>
+<li>
+<title> </title>
+<p>Sunil washed the dishes before he went to the store.</p></li></dl></p>
+<p>These two sentences are both contingent. (Do you see why?) Yet they must have the same truth-value. If either of the sentences is true, then they both are; if either of the sentences is false, then they both are. When two sentences necessarily have the same truth value, we say that they are <term>logically equivalent</term>.</p>
+<p>Notice that both of these arguments are valid:</p>
+<p>
+<dl width="narrow">
+<li>
+<title> </title>
+<p>Sunil went to the store after he washed the dishes.</p></li>
+<li>
+<title>∴</title>
+<p>Sunil washed the dishes before he went to the store.</p></li></dl></p>
+<p>
+<dl width="narrow">
+<li>
+<title> </title>
+<p>Sunil washed the dishes before he went to the store.</p></li>
+<li>
+<title>∴</title>
+<p>Sunil went to the store after he washed the dishes.</p></li></dl></p>
+<p>In general, if two sentences are equivalent, then an argument with either one as a premise, and the other as the conclusion, will be valid.</p></subsection>
+<subsection xml:id="intro-consistency">
+<title>Consistency</title>
+<p>Consider these two sentences:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>B1</cell><cell>My only brother is taller than I am.</cell></row>
+<row><cell>B2</cell><cell>My only brother is shorter than I am.</cell></row></tabular>
+<p>Logic alone cannot tell us which, if either, of these sentences is true. Yet we can say that <em>if</em> the first sentence (B1) is true, <em>then</em> the second sentence (B2) must be false. And if B2 is true, then B1 must be false. It cannot be the case that both of these sentences are true.</p>
+<p>If a set of sentences could not all be true at the same time, like B1–B2, they are said to be <term>inconsistent</term>. Otherwise, they are <term>consistent</term>.</p>
+<p>We can ask about the consistency of any number of sentences. For example, consider the following list of sentences:</p>
+<p>
+<dl width="narrow">
+<li>
+<title>G1</title>
+<p>There are at least four giraffes at the wild animal park.</p></li>
+<li>
+<title>G2</title>
+<p>There are exactly seven gorillas at the wild animal park.</p></li>
+<li>
+<title>G3</title>
+<p>There are not more than two Martians at the wild animal park.</p></li>
+<li>
+<title>G4</title>
+<p>Every giraffe at the wild animal park is a Martian.</p></li></dl></p>
+<p>Here is some reasoning that shows that G1–G4 is inconsistent. G1 says that there are at least four giraffes, and G4 says that every giraffe is Martian. So if these were both true, there would have to be at least four Martians in the park. But G3 says there are no more than two Martians in the park. So they can’t all be true; the set is inconsistent. (Notice that in this example the inconsistency has nothing at all to do with G2. G2 just happens to be part of an inconsistent set.)</p></subsection>
+</section>
+<section xml:id="intro-formal-languages">
+<title>Formal languages</title>
+<p>So far, we have been working with arguments expressed in English. But there are some general argumentative structures that transcend English or any other particular natural language. Consider, for example, the following simple argument:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell/><cell>Vancouver is in Canada.</cell></row>
+<row><cell/><cell>Moscow is in Russia.</cell></row>
+<row><cell>∴</cell><cell>Vancouver is in Canada and Moscow is in Russia.</cell></row></tabular>
+<p>Hopefully by now it is obvious to you that this argument is valid. (Not just that — it is even sound.) That argument has something important in common with this one:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell/><cell>Vancouver is on Mars.</cell></row>
+<row><cell/><cell>Moscow is on Venus.</cell></row>
+<row><cell>∴</cell><cell>Vancouver is on Mars and Moscow is on Venus.</cell></row></tabular>
+<p>Although this one has false premises, and so can’t be sound, it is also valid. It is impossible for the premises to be true if the conclusion is false. Not only that — it seems that the argument is valid in, in a sense to be articulated, <em>exactly the same way</em>. The validity of the first argument is very similar to that of the second. Even though they are expressed by different strings of English sentences, it is useful to develop a language that emphasizes the interesting respects in which they are the same. Over the course of this textbook, we’ll be developing and working with such a language. We’ll begin with a simple version of our logical language, called SL, for <em>sentential logic</em>. Later on, we’ll develop a more complicated logical language, QL, for <em>quantified logic</em>. Both languages are <em>formal</em> in the sense that there are precise rules that govern how we should evaluate sentences within them.</p>
+<p>English is a natural language, not a formal one. Its rules are vague and messy, and constantly changing. We will spend some time translating between English and our formal languages, but the translations will not always be precise. There is a tension between wanting to capture as much of the structure of English as possible and wanting a simple formal language with tractable rules — simpler formal languages will approximate natural languages less closely. There is no perfect formal language. Some will do a better job than others in translating particular English-language arguments.</p>
+<p>In this book, we make the assumption that <em>true</em> and <em>false</em> are the only possible truth-values. Logical languages that make this assumption are called <em>bivalent</em>, which means <em>two-valued</em>. SL and QL are both bivalent, but some philosophers have emphasized limits to the power of bivalent logic. Some logics, beyond the scope of this book, allow for sentences that are neither true nor false. Others allow for sentences that are both true <em>and</em> false. Our logical system, which is often called <em>classical logic</em>, will give every sentence exactly one truth value: either true or false.</p>
+</section>
+<section xml:id="intro-summary-of-logical-notions">
+<title>Summary of logical notions</title>
+<p>
+<ul>
+<li>An <term>argument</term> is a structured set of sentences, with <em>premises</em> intended to offer support for a <em>conclusion</em>.</li>
+<li>A <term>sentence</term>, in our logical terminology, is a sentence that expresses a proposition, and can be either true or false.</li>
+<li>An argument is (deductively) <term>valid</term> if it is impossible for the premises to be true and the conclusion false; it is <term>invalid</term> otherwise.</li>
+<li>A <term>tautology</term> is a sentence that must be true, as a matter of logic.</li>
+<li>A <term>contradiction</term> is a sentence that must be false, as a matter of logic.</li>
+<li>A <term>contingent sentence</term> is neither a tautology nor a contradiction.</li>
+<li>Two sentences are <term>logically equivalent</term> if they necessarily have the same truth value.</li>
+<li>A set of sentences is <term>consistent</term> if it is logically possible for all the members of the set to be true at the same time; it is <term>inconsistent</term> otherwise.</li></ul></p>
+</section>
+<exercises xml:id="intro-exercises">
+<title>Practice Exercises</title>
+<introduction>
+<p>At the end of each chapter, you will find a series of practice problems that review and explore the material covered in the chapter. There is no substitute for actually working through some problems, because logic is more about a way of thinking than it is about memorizing facts. The answers to some of the problems are provided at the end of the book in appendix <xref ref="solutions" text="global"/>; in this web edition you can also reveal each of those solutions directly beneath its exercise, and many exercises check your answer for you when you click <em>Check Me</em>.</p></introduction>
+<subexercises xml:id="pr-Sentences1">
+<title>Part A</title>
+<introduction>
+<p>Which of the following are ‘sentences’ in the logical sense?</p></introduction>
+<exercise>
+<statement>
+<p>England is smaller than China.</p></statement><choices><choice correct="yes">
+<statement>
+<p>A sentence</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>Not a sentence</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>A sentence.</p></solution></exercise>
+<exercise>
+<statement>
+<p>Greenland is south of Jerusalem.</p></statement><choices><choice correct="yes">
+<statement>
+<p>A sentence</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>Not a sentence</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>A sentence.</p></solution></exercise>
+<exercise>
+<statement>
+<p>Is New Jersey east of Wisconsin?</p></statement><choices><choice>
+<statement>
+<p>A sentence</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice><choice correct="yes">
+<statement>
+<p>Not a sentence</p></statement><feedback>
+<p>Correct.</p></feedback></choice></choices>
+<solution>
+<p>Not a sentence.</p></solution></exercise>
+<exercise>
+<statement>
+<p>The atomic number of helium is 2.</p></statement><choices><choice correct="yes">
+<statement>
+<p>A sentence</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>Not a sentence</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>A sentence.</p></solution></exercise>
+<exercise>
+<statement>
+<p>The atomic number of helium is <m>\pi</m>.</p></statement><choices><choice correct="yes">
+<statement>
+<p>A sentence</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>Not a sentence</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>A sentence.</p></solution></exercise>
+<exercise>
+<statement>
+<p>I hate overcooked noodles.</p></statement><choices><choice correct="yes">
+<statement>
+<p>A sentence</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>Not a sentence</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>A sentence.</p></solution></exercise>
+<exercise>
+<statement>
+<p>Blech! Overcooked noodles!</p></statement><choices><choice>
+<statement>
+<p>A sentence</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice><choice correct="yes">
+<statement>
+<p>Not a sentence</p></statement><feedback>
+<p>Correct.</p></feedback></choice></choices>
+<solution>
+<p>Not a sentence.</p></solution></exercise>
+<exercise>
+<statement>
+<p>Overcooked noodles are disgusting.</p></statement><choices><choice correct="yes">
+<statement>
+<p>A sentence</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>Not a sentence</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>A sentence.</p></solution></exercise>
+<exercise>
+<statement>
+<p>Take your time.</p></statement><choices><choice>
+<statement>
+<p>A sentence</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice><choice correct="yes">
+<statement>
+<p>Not a sentence</p></statement><feedback>
+<p>Correct.</p></feedback></choice></choices>
+<solution>
+<p>Not a sentence.</p></solution></exercise>
+<exercise>
+<statement>
+<p>This is the last question.</p></statement><choices><choice correct="yes">
+<statement>
+<p>A sentence</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>Not a sentence</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>A sentence.</p></solution></exercise>
+</subexercises>
+<subexercises xml:id="hw1-B">
+<title>Part B</title>
+<introduction>
+<p>Which of the following are ‘sentences’ in the logical sense?</p></introduction>
+<exercise>
+<statement>
+<p>I would like a double cheeseburger with no onions.</p></statement></exercise>
+<exercise>
+<statement>
+<p>Thank you very much for that gracious reception.</p></statement></exercise>
+<exercise>
+<statement>
+<p>If you strike me down, I shall become more powerful than you could possibly imagine.</p></statement></exercise>
+<exercise>
+<statement>
+<p>There are more trees at UBC than there are flowers in my office and my Uncle Jack really seems to like drinking apple juice, or if that’s not apple juice, then he really seems to like whatever it is that he’s drinking, but anyway, what I’m really trying to say is, I’m hungry and I could really go for a burger or a bag of scorpions right about now.</p></statement></exercise>
+<exercise>
+<statement>
+<p>I did it.</p></statement></exercise>
+<exercise>
+<statement>
+<p>No invalid arguments have impossible premises.</p></statement></exercise>
+</subexercises>
+<subexercises xml:id="pr-EnglishTautology">
+<title>Part C</title>
+<introduction>
+<p>For each of the following: Is it a tautology, a contradiction, or a contingent sentence?</p></introduction>
+<exercise>
+<statement>
+<p>Caesar crossed the Rubicon.</p></statement></exercise>
+<exercise>
+<statement>
+<p>Someone once crossed the Rubicon.</p></statement></exercise>
+<exercise>
+<statement>
+<p>No one has ever crossed the Rubicon.</p></statement></exercise>
+<exercise>
+<statement>
+<p>If Caesar crossed the Rubicon, then someone has.</p></statement></exercise>
+<exercise>
+<statement>
+<p>Even though Caesar crossed the Rubicon, no one has ever crossed the Rubicon.</p></statement></exercise>
+<exercise>
+<statement>
+<p>If anyone has ever crossed the Rubicon, it was Caesar.</p></statement></exercise>
+</subexercises>
+<subexercises xml:id="pr-MartianGiraffes">
+<title>Part D</title>
+<introduction>
+<p>Look back at the sentences G1–G4 in <xref ref="intro-consistency" text="type-global"/>, and consider each of the following sets of sentences. Which are consistent? Which are inconsistent?</p></introduction>
+<exercise>
+<statement>
+<p>G2, G3, and G4</p></statement><choices><choice correct="yes">
+<statement>
+<p>Consistent</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>Inconsistent</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>consistent</p></solution></exercise>
+<exercise>
+<statement>
+<p>G1, G3, and G4</p></statement><choices><choice>
+<statement>
+<p>Consistent</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice><choice correct="yes">
+<statement>
+<p>Inconsistent</p></statement><feedback>
+<p>Correct.</p></feedback></choice></choices>
+<solution>
+<p>inconsistent</p></solution></exercise>
+<exercise>
+<statement>
+<p>G1, G2, and G4</p></statement><choices><choice correct="yes">
+<statement>
+<p>Consistent</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>Inconsistent</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>consistent</p></solution></exercise>
+<exercise>
+<statement>
+<p>G1, G2, and G3</p></statement><choices><choice correct="yes">
+<statement>
+<p>Consistent</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>Inconsistent</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>consistent</p></solution></exercise>
+</subexercises>
+<subexercises xml:id="pr-EnglishCombinations">
+<title>Part E</title>
+<introduction>
+<p>Which of the following is possible? If it is possible, give an example. If it is not possible, explain why.</p></introduction>
+<exercise>
+<statement>
+<p>A valid argument that has one false premise and one true premise</p></statement>
+<solution>
+<p>Possible. For example:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell/><cell>Vancouver is in Canada.</cell></row>
+<row><cell/><cell>Seattle is in Canada.</cell></row>
+<row><cell>∴</cell><cell>Seattle and Vancouver are both in Canada.</cell></row></tabular></solution></exercise>
+<exercise>
+<statement>
+<p>A valid argument that has a false conclusion</p></statement>
+<solution>
+<p>Possible. The previous argument is an example.</p></solution></exercise>
+<exercise>
+<statement>
+<p>A valid argument, the conclusion of which is a contradiction</p></statement>
+<solution>
+<p>Possible. For example:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell/><cell>Vancouver is in Canada.</cell></row>
+<row><cell/><cell>Vancouver is not in Canada.</cell></row>
+<row><cell>∴</cell><cell>Vancouver is in Canada and it is not in Canada.</cell></row></tabular></solution></exercise>
+<exercise>
+<statement>
+<p>An invalid argument, the conclusion of which is a tautology</p></statement>
+<solution>
+<p>Impossible. If the conclusion is a tautology, the argument is guaranteed to be valid.</p></solution></exercise>
+<exercise>
+<statement>
+<p>A tautology that is contingent</p></statement>
+<solution>
+<p>Impossible. By definition, a tautology is not contingent.</p></solution></exercise>
+<exercise>
+<statement>
+<p>Two logically equivalent sentences, both of which are tautologies</p></statement>
+<solution>
+<p>Possible. Any two tautologies will do.</p></solution></exercise>
+<exercise>
+<statement>
+<p>Two logically equivalent sentences, one of which is a tautology and one of which is contingent</p></statement>
+<solution>
+<p>Impossible. Anything logically equivalent to a tautology is a tautology.</p></solution></exercise>
+<exercise>
+<statement>
+<p>Two logically equivalent sentences that together are an inconsistent set</p></statement>
+<solution>
+<p>Possible. For example:</p>
+<p>
+<dl width="narrow">
+<li>
+<title> </title>
+<p>Vancouver is in Canada and Vancouver is not in Canada.</p></li>
+<li>
+<title> </title>
+<p>Seattle is in Canada and Seattle is not in Canada.</p></li></dl></p></solution></exercise>
+<exercise>
+<statement>
+<p>A consistent set of sentences that contains a contradiction</p></statement>
+<solution>
+<p>Impossible. If it contains a contradiction, it is inconsistent.</p></solution></exercise>
+<exercise>
+<statement>
+<p>An inconsistent set of sentences that contains a tautology</p></statement>
+<solution>
+<p>Possible. For example:</p>
+<p>
+<dl width="narrow">
+<li>
+<title> </title>
+<p>Vancouver is in Canada or Vancouver is not in Canada.</p></li>
+<li>
+<title> </title>
+<p>Seattle is in Canada and Seattle is not in Canada.</p></li></dl></p></solution></exercise>
+</subexercises>
+<subexercises xml:id="hw1-C">
+<title>Part F</title>
+<introduction>
+<p>For each, give an argument with the indicated features, or explain why it is impossible to do so:</p></introduction>
+<exercise>
+<statement>
+<p>Valid, but not sound.</p></statement></exercise>
+<exercise>
+<statement>
+<p>Valid, with an impossible conclusion.</p></statement></exercise>
+<exercise>
+<statement>
+<p>Sound, with an impossible premise.</p></statement></exercise>
+<exercise>
+<statement>
+<p>Sound, and an instance of this form:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell/><cell>if <m>P</m> then Q</cell></row>
+<row><cell/><cell>R</cell></row>
+<row><cell>∴</cell><cell><m>Q</m></cell></row></tabular></statement></exercise>
+</subexercises>
+<subexercises xml:id="pr-ImpossiblePremises">
+<title>Part G</title>
+<exercise>
+<statement>
+<p>Is this argument valid? Why or why not? (Hint: here and elsewhere in logic, read the definitions of our formal terms literally.)</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>(1)</cell><cell>PHIL 220 is a course with a final exam.</cell></row>
+<row><cell>(2)</cell><cell>No courses ever have final exams.</cell></row>
+<row><cell>∴</cell><cell>Everyone is going to get an A+ in PHIL 220.</cell></row></tabular></statement></exercise>
+</subexercises>
+<subexercises xml:id="hw1-A">
+<title>Part H</title>
+<introduction>
+<p>For each, indicate whether it is true or false.</p></introduction>
+<exercise>
+<statement>
+<p>All arguments with true premises and true conclusions are sound.</p></statement></exercise>
+<exercise>
+<statement>
+<p>Only valid arguments are sound.</p></statement></exercise>
+<exercise>
+<statement>
+<p>If an argument to the conclusion <m>A</m> is sound, then an argument to the conclusion not <m>A</m> is not sound.</p></statement></exercise>
+<exercise>
+<statement>
+<p>All arguments with at least one impossible premise are valid.</p></statement></exercise>
+<exercise>
+<statement>
+<p>All invalid arguments are instances of invalid argument forms.</p></statement></exercise>
+<exercise>
+<statement>
+<p>No invalid arguments have impossible premises.</p></statement></exercise>
+</subexercises>
+<conclusion>
+<note component="genai">
+<title>GenAI prompts for further practice</title>
+<p>Here are some potential GenAI prompts you might use to generate further practice problems, in case you find that helpful.</p>
+<p>
+<ul>
+<li>I am studying validity. Give me a mixture of valid and invalid arguments. One at a time, ask me whether the argument is valid. If it is valid, ask me to explain why. If it is invalid, ask me to describe a situation in which the premises are true and the conclusion is false.</li>
+<li>I am learning to identify premises and conclusions in arguments. Give me 10 short arguments written in ordinary English. One at a time, ask me to identify the premises and conclusion. After each answer, explain the correct analysis and give me another example.</li>
+<li>Give me a series of invalid arguments. Present them one at a time. My task is to find a counterexample: a situation in which the premises are true and the conclusion is false. Check my answer and help me improve it before moving on.</li>
+<li>Give me a list of sentences. One at a time, ask me whether each is a tautology, contradiction, or contingency. After I answer, explain the correct classification and why the alternatives are incorrect.</li>
+<li>Give me sets of sentences and ask whether they are jointly consistent. Start with very easy examples and gradually make them more difficult. After each answer, explain your reasoning carefully.</li></ul></p></note></conclusion>
+</exercises>
+</chapter>

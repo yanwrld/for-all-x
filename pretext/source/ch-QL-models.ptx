@@ -1,0 +1,956 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated from Latex-Files/forallx-ubc-9-QLmodels.tex by pretext/scripts/latex2ptx.py -->
+<chapter xml:id="ch-QL-models">
+<title>A formal semantics for QL</title>
+<introduction>
+<p>In this chapter, we describe a <em>formal semantics</em> for QL. This corresponds to the discussion of interpretations and truth in SL given in Chapter <xref ref="ch-SLmodels" text="global"/>. Like truth in SL, truth in QL is defined relative to a particular interpretation; entailment is a matter of truth in all interpretations. In SL, we emphasized the partial valuation functions provided by interpretations, limiting the domain to the atomic sentences involved in a given set of sentences. These corresponded to rows of the truth table. For example, a model <m>\script{I}</m> might have provided these assignments:</p>
+<p><md>\script{I} :
+\left\{
+	\begin{array}{ll}
+	P = 0\\
+	Q = 1\\
+	R = 0
+	\end{array}
+\right.</md></p>
+<p>Interpretation <m>\script{I}</m> settles the truth value of any SL sentence one can construct from <m>P</m>, <m>Q</m>, and <m>R</m>. All the elements of SL, beyond the atoms, were truth-functional. Because QL involves richer notions and a more complex vocabulary than SL, it requires correspondingly richer information from its models.</p></introduction>
+<section xml:id="ql-models-interpretations-in-ql">
+<title>Interpretations in QL</title>
+<p>What is an interpretation in QL? Like a symbolization key for QL, an interpretation requires a universe of discourse, a schematic meaning for each of the predicates, and an object that is picked out by each constant. For example:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>UD:</cell><cell>Marvel characters</cell></row>
+<row><cell>Hx:</cell><cell><m>x</m> is a hero.</cell></row>
+<row><cell>Sx:</cell><cell><m>x</m> has spider powers.</cell></row>
+<row><cell>m:</cell><cell>Miles Morales</cell></row>
+<row><cell>p:</cell><cell>Peter Parker</cell></row>
+<row><cell>r:</cell><cell>The Red Skull</cell></row>
+<row><cell>s:</cell><cell>Susan Storm</cell></row>
+<row><cell>u:</cell><cell>Ultimate Spider-Man</cell></row></tabular>
+<p>This interpretation is given in terms of English descriptions. To apply it, you need to know some details about the characters in question. For example, <m>Sm</m> is true on this interpretation, because Miles Morales does have spider powers. But the interpretation itself doesn’t tell us that — to get that information from this way of setting out the interpretation, you need to know some details about what happens in the story. You need to know, for example, that Miles Morales, like his more famous mentor Peter Parker, also has spider powers. If you do know a bit about Marvel comics, you may know that Miles Morales is actually the Ultimate Spider-Man. So <m>u</m> and <m>m</m> in this interpretation are two different names for the same member of the UD. There is no rule against having multiple names for the same member. (We’ll discuss this issue in much more detail in Chapter <xref ref="ch-identity" text="global"/>.)</p>
+<p>We want our QL models to encode this kind of information too. Like a good SL model, a QL model shouldn’t require prior knowledge of comic books. One way we could try to do this would be to just give a truth value assignment, as we did for SL. The truth value assignment would assign 0 or 1 to each atomic wff: <m>Sm=1</m>, <m>Sp=1</m>, <m>Sr=0</m>, and so on. If we were to do that, however, we might just as well translate the sentences from QL to SL by replacing <m>Sp</m> and <m>Sm</m> with sentence letters. We could then rely on the definition of truth for SL, but at the cost of ignoring all the logical structure of predicates and terms. In writing a symbolization key for QL, we do not give separate definitions for <m>Sp</m> and <m>Sm</m>. Instead, we give meanings to the components <m>S</m>, <m>p</m>, and <m>m</m>. This is essential because we want to be able to reflect the logical relationships between e.g. <m>Sp</m> and <m>\exists x Sx</m>.</p>
+<p>Our interpretations should include explanations for predicates and names, not just for sentences. We cannot use a truth value assignment for this, because a predicate by itself (except a 0-place predicate) is neither true nor false. In the interpretation given above, <m>H</m> is true <em>of</em> Peter Parker (i.e., <m>Hp</m> is true), but it makes no sense at all to ask whether <m>H</m> on its own is true. It would be like asking whether the English language fragment ‘<m>\ldots</m>is a hero’ is true.</p>
+<p>What does an interpretation do for a predicate, if it does not make it true or false? An interpretation helps to pick out the objects to which the predicate applies. Interpreting <m>Hx</m> to mean ‘<m>x</m> is a hero’ picks out some characters as the things that are <m>H</m>s. Formally, this is a set of members of the UD to which the predicate applies; this set is called the <term>extension</term> of the predicate.</p>
+<p>Some predicates have indefinitely large extensions. It would be impractical to try and write down all of the Marvel characters individually, so instead we use an English language expression to interpret the predicate. This is somewhat imprecise, because the interpretation alone does not tell you which members of the UD are in the extension of the predicate. In order to figure out whether a particular member of the UD is in the extension of the predicate (to figure out whether The Red Skull is a hero, for instance), you need to know about comic books. (As you might guess from his name, he’s not.) In general, the extension of a predicate is the result of an interpretation <em>along with</em> some facts.</p>
+<p>Sometimes it is possible to list all of the things that are in the extension of a predicate. Instead of writing a schematic English sentence, we can write down the extension as a set of things. Suppose we wanted to add a one-place predicate <m>F</m> to the key above, meaning ‘<m>x</m> is a founding member of the Fantastic Four’, so we write the extension as a set of characters:</p>
+<tabular><col halign="right"/><col halign="center"/><col halign="left"/>
+<row><cell><m>\extension{F}</m></cell><cell>=</cell><cell>{Reed Richards, Susan Storm, Johnny Storm, Ben Grimm}</cell></row></tabular>
+<p>You do not need to know anything about comic books to be able to determine that, on this interpretation, <m>Fs</m> is true: Susan Storm, whose name is given as <m>s</m>, is just specified to be one of the things that is <m>F</m>. Similarly, <m>\exists x Fx</m> is obviously true on this interpretation: There is at least one member of the UD that is an <m>F</m> — in fact, there are four of them.</p>
+<p>What about the sentence <m>\forall x Fx</m>? The sentence is false, because it is not true that all members of the UD are <m>F</m>. It requires the barest minimum of knowledge about comic books to know that there are other characters besides just these four. Although we specified the extension of <m>F</m> in a formally precise way, we still specified the UD with an English language description. Formally speaking, a UD is just a set of members.</p>
+<p>The formal significance of a predicate is determined by its extension, but what should we say about constants like <m>m</m> and <m>s</m>? The meaning of a constant determines which member of the UD is picked out by the constant. The individual that the constant picks out is called the <term>referent</term> of the constant. Both <m>m</m> and <m>u</m> have the same referent, since they both refer to the same comic book character. You can think of a constant letter as a name and the referent as the thing named. In English, we can use the different names ‘Miles’ and ‘Ultimate Spider-Man’ to refer to the same comic book character. In this interpretation, we also use the different constants ‘<m>m</m>’ and ‘<m>u</m>’ to refer to the same member of the UD.</p>
+</section>
+<section xml:id="ql-models-sets">
+<title>Sets</title>
+<p>We use curly brackets ‘{’ and ‘}’ to denote sets. The members of the set can be listed in any order, separated by commas. This means that {foo, bar} and {bar, foo} are the same set.</p>
+<p>It is possible to have a set with no members in it. This is called the <term>empty set</term>. The empty set is sometimes written as {}, but usually it is written as the single symbol <m>\emptyset</m>.</p>
+</section>
+<section xml:id="ql-models-extensions-of-predicates">
+<title>Extensions of predicates</title>
+<p>As we have seen, an interpretation in QL is only formally significant insofar as it determines a UD, an extension for each predicate, and a referent for each constant. We call this formal structure a <term>model</term> for QL.</p>
+<p>To see how this works, consider this symbolization key:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>UD:</cell><cell>The first ten natural numbers</cell></row>
+<row><cell><m>Px</m>:</cell><cell><m>x</m> is prime.</cell></row>
+<row><cell><m>n_{4}</m></cell><cell>: 4</cell></row></tabular>
+<p>Given some basic mathematical knowledge, it is obvious that <m>Pn_{4}</m> is false. Let’s consider the model this key suggests, to show why it makes this wff false. Instead of just giving a description in the UD, we can list the members as a set. We also define the extension of the predicate <m>P</m>, and the referent of the constant <m>n_{4}</m>:</p>
+<tabular><col halign="right"/><col halign="center"/><col halign="left"/>
+<row><cell>UD</cell><cell>=</cell><cell><m>\{1, 2, 3, 4, 5, 6, 7, 8, 9, 10\}</m></cell></row>
+<row><cell><m>\extension{P}</m></cell><cell>=</cell><cell>{2, 3, 5, 7}</cell></row>
+<row><cell><m>\referent{n_{4}}</m></cell><cell>=</cell><cell>4</cell></row></tabular>
+<p>This is not a full model for this interpretation, but it is a detailed enough partial model to show that <m>Pn_{4}</m> is false. You do not need to know anything about mathematics to see that this sentence is false in this model. The UD member named by <m>n_{4}</m> is not in the extension of <m>P</m>. In this way, the model captures all of the formal significance of the interpretation.</p>
+<p>Suppose we enrich this symbolization key with more predicates:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>UD:</cell><cell>The first ten natural numbers</cell></row>
+<row><cell><m>Ex</m>:</cell><cell><m>x</m> is even.</cell></row>
+<row><cell><m>Nx</m>:</cell><cell><m>x</m> is negative.</cell></row>
+<row><cell><m>Lxy</m>:</cell><cell><m>x</m> is less than <m>y</m>.</cell></row>
+<row><cell><m>Txyz</m>:</cell><cell><m>x</m> times <m>y</m> equals <m>z</m>.</cell></row></tabular>
+<p>What do we need to add to the model for our new predicates?</p>
+<p>The extension of <m>E</m> in our model should be the subset <m>\{2, 4, 6, 8, 10\}</m>. There are no negative numbers in the UD, so <m>N</m> has an empty extension; i.e. <m>\extension{N}=\emptyset</m>.</p>
+<p>Sometimes it will be convenient to represent extensions graphically, similar to the way we did with truth tables. We can represent the extensions just described for <m>P</m>, <m>E</m>, and <m>N</m> thus:</p>
+<table xml:id="table-5"><title/>
+<tabular><col halign="left" right="minor"/><col halign="left" right="minor"/><col halign="left" right="minor"/><col halign="left"/>
+<row bottom="minor"><cell/><cell><m>P</m></cell><cell><m>E</m></cell><cell><m>N</m></cell></row>
+<row><cell><alert>1</alert></cell><cell>0</cell><cell>0</cell><cell>0</cell></row>
+<row><cell><alert>2</alert></cell><cell>1</cell><cell>1</cell><cell>0</cell></row>
+<row><cell><alert>3</alert></cell><cell>1</cell><cell>0</cell><cell>0</cell></row>
+<row><cell><alert>4</alert></cell><cell>0</cell><cell>1</cell><cell>0</cell></row>
+<row><cell><alert>5</alert></cell><cell>1</cell><cell>0</cell><cell>0</cell></row>
+<row><cell><alert>6</alert></cell><cell>0</cell><cell>1</cell><cell>0</cell></row>
+<row><cell><alert>7</alert></cell><cell>1</cell><cell>0</cell><cell>0</cell></row>
+<row><cell><alert>8</alert></cell><cell>0</cell><cell>1</cell><cell>0</cell></row>
+<row><cell><alert>9</alert></cell><cell>0</cell><cell>0</cell><cell>0</cell></row>
+<row><cell><alert>10</alert></cell><cell>0</cell><cell>1</cell><cell>0</cell></row></tabular></table>
+<p>The members of the UD are listed as rows; the one-place predicates are given as columns. The 0s and 1s indicate whether each member satisfies each predicate. Notice that the same information is conveyed in this chart as in the three sets of integers described above. Either is an acceptable way of indicating the extension of the predicates.</p>
+<p>The extension of a two-place predicate like <m>L</m> is more complicated. No individual number falls under the extension of this predicate; it is about the relation between members. Note also that sets of pairs of numbers aren’t suitable for the extension of <m>L</m> either, because 1 is less than 8, but 8 is not less than 1. (Remember, the set {1,8} is the very same set as the set {8,1}.) The solution is to have the extension of <m>L</m> consist in a set of <term>ordered pairs</term> of numbers. An ordered pair is like a set with two members, except that the order <em>does</em> matter. We write ordered pairs with angle brackets ‘<m>\openntuple</m>’ and ‘<m>\closentuple</m>’. The ordered pair <m>\ntuple{foo, bar}</m> is different than the ordered pair <m>\ntuple{bar, foo}</m>. The extension of <m>L</m> is a set of ordered pairs — all of the pairs of numbers in the UD such that the first number is less than the second. Writing this out completely:</p>
+<p><m>\extension{L}=</m> {<m>\ntuple{1, 2}</m>, <m>\ntuple{1, 3}</m>, <m>\ntuple{1, 4}</m>, <m>\ntuple{1, 5}</m>, <m>\ntuple{1, 6}</m>, <m>\ntuple{1, 7}</m>, <m>\ntuple{1, 8}</m>, <m>\ntuple{1, 9}</m>, <m>\ntuple{1, 10}</m>,
+<m>\ntuple{2, 3}</m>, <m>\ntuple{2, 4}</m>, <m>\ntuple{2, 5}</m>, <m>\ntuple{2, 6}</m>, <m>\ntuple{2, 7}</m>, <m>\ntuple{2, 8}</m>, <m>\ntuple{2, 9}</m>, <m>\ntuple{2, 10}</m>,
+<m>\ntuple{3, 4}</m>, <m>\ntuple{3, 5}</m>, <m>\ntuple{3, 6}</m>, <m>\ntuple{3, 7}</m>, <m>\ntuple{3, 8}</m>, <m>\ntuple{3, 9}</m>, <m>\ntuple{3, 10}</m>,
+<m>\ntuple{4, 5}</m>, <m>\ntuple{4, 6}</m>, <m>\ntuple{4, 7}</m>, <m>\ntuple{4, 8}</m>, <m>\ntuple{4, 9}</m>, <m>\ntuple{4, 10}</m>,
+<m>\ntuple{5, 6}</m>, <m>\ntuple{5, 7}</m>, <m>\ntuple{5, 8}</m>, <m>\ntuple{5, 9}</m>, <m>\ntuple{5, 10}</m>,
+<m>\ntuple{6, 7}</m>, <m>\ntuple{6, 8}</m>, <m>\ntuple{6, 9}</m>, <m>\ntuple{6, 10}</m>, 
+<m>\ntuple{7, 8}</m>, <m>\ntuple{7, 9}</m>, <m>\ntuple{7, 10}</m>,
+<m>\ntuple{8, 9}</m>, <m>\ntuple{8, 10}</m>,
+<m>\ntuple{9, 10}</m>
+}</p>
+<p>Formally, the extension of a two-place predicate is a set of ordered pairs. Sometimes we will find it easier to represent extensions in a chart, with the two variable positions represented on the two axes. For example, the extension above could be expressed via a table like the one below. The ‘0’ in the first cell of the table says that <m>\ntuple{1, 1}</m> is not in the extension of <m>L</m>; the next cell in the first row says that <m>\ntuple{1, 2}</m> is. Etc. Sometimes drawing out a chart like this will be the easiest way to represent models for the extensions of two-place predicates.</p>
+<table xml:id="table-6"><title/>
+<tabular><col halign="left" right="minor"/><col halign="left"/><col halign="left"/><col halign="left"/><col halign="left"/><col halign="left"/><col halign="left"/><col halign="left"/><col halign="left"/><col halign="left"/><col halign="left"/>
+<row bottom="minor"><cell><m>Lxy</m></cell><cell><alert>1</alert></cell><cell><alert>2</alert></cell><cell><alert>3</alert></cell><cell><alert>4</alert></cell><cell><alert>5</alert></cell><cell><alert>6</alert></cell><cell><alert>7</alert></cell><cell><alert>8</alert></cell><cell><alert>9</alert></cell><cell><alert>10</alert></cell></row>
+<row><cell><alert>1</alert></cell><cell>0</cell><cell>1</cell><cell>1</cell><cell>1</cell><cell>1</cell><cell>1</cell><cell>1</cell><cell>1</cell><cell>1</cell><cell>1</cell></row>
+<row><cell><alert>2</alert></cell><cell>0</cell><cell>0</cell><cell>1</cell><cell>1</cell><cell>1</cell><cell>1</cell><cell>1</cell><cell>1</cell><cell>1</cell><cell>1</cell></row>
+<row><cell><alert>3</alert></cell><cell>0</cell><cell>0</cell><cell>0</cell><cell>1</cell><cell>1</cell><cell>1</cell><cell>1</cell><cell>1</cell><cell>1</cell><cell>1</cell></row>
+<row><cell><alert>4</alert></cell><cell>0</cell><cell>0</cell><cell>0</cell><cell>0</cell><cell>1</cell><cell>1</cell><cell>1</cell><cell>1</cell><cell>1</cell><cell>1</cell></row>
+<row><cell><alert>5</alert></cell><cell>0</cell><cell>0</cell><cell>0</cell><cell>0</cell><cell>0</cell><cell>1</cell><cell>1</cell><cell>1</cell><cell>1</cell><cell>1</cell></row>
+<row><cell><alert>6</alert></cell><cell>0</cell><cell>0</cell><cell>0</cell><cell>0</cell><cell>0</cell><cell>0</cell><cell>1</cell><cell>1</cell><cell>1</cell><cell>1</cell></row>
+<row><cell><alert>7</alert></cell><cell>0</cell><cell>0</cell><cell>0</cell><cell>0</cell><cell>0</cell><cell>0</cell><cell>0</cell><cell>1</cell><cell>1</cell><cell>1</cell></row>
+<row><cell><alert>8</alert></cell><cell>0</cell><cell>0</cell><cell>0</cell><cell>0</cell><cell>0</cell><cell>0</cell><cell>0</cell><cell>0</cell><cell>1</cell><cell>1</cell></row>
+<row><cell><alert>9</alert></cell><cell>0</cell><cell>0</cell><cell>0</cell><cell>0</cell><cell>0</cell><cell>0</cell><cell>0</cell><cell>0</cell><cell>0</cell><cell>1</cell></row>
+<row><cell><alert>10</alert></cell><cell>0</cell><cell>0</cell><cell>0</cell><cell>0</cell><cell>0</cell><cell>0</cell><cell>0</cell><cell>0</cell><cell>0</cell><cell>0</cell></row></tabular></table>
+<p>The extension of a three-place predicate is a set of ordered triples where the predicate is true of those three things <em>in that order</em>. So the extension of <m>T</m> in this model will contain ordered triples like <m>\ntuple{2, 4, 8}</m>, because <m>2\times 4 = 8</m>. Because the surface of a sheet of paper is for all intents and purposes two-dimensional, it is usually not convenient to represent 3-or-more place predicates with tables.</p>
+<p>Generally, the extension of an <m>n</m>-place predicate is a set of ordered <m>n</m>-tuples <m>{\langle}a_1, a_2,\ldots, a_n{\rangle}</m> such that <m>a_1</m>–<m>a_n</m> are members of the UD and the predicate is true of <m>a_1</m>–<m>a_n</m> in that order.</p>
+</section>
+<section xml:id="sec-0PlaceModels">
+<title>Extensions of 0-place predicates</title>
+<p>What of a 0-place predicate? Recall from Chapter <xref ref="ch-QL" text="global"/> that a 0-place predicate corresponds to an SL sentence letter — it will take a truth value in an interpretation without reference to any particular objects. So a QL model will provide truth values to 0-place predicates directly, just like an SL valuation function did.</p>
+<p>This actually follows from the general description of <m>n</m>-place predicates given in the previous section: the extension of an <m>n</m>-place predicate is a set of ordered <m>n</m>-tuples. In the special case where <m>n=0</m>, the extension of the predicate will be a set of 0-tuples. But there is only one possible 0-tuple: the empty set, <m>\emptyset</m>. So there are only two possible extensions of a 0-place predicate, corresponding to the choice of whether <m>\emptyset</m> is included in the extension or not. (Formally, the extension will either be the set containing the empty set — {<m>\emptyset</m>} — or it will be the empty set <m>\emptyset</m> itself.)</p>
+<p>For clarity and convenience, when indicating the extension of 0-place predicates in QL models, we’ll simply indicate the truth values for the sentences themselves, like we did in SL. So we might indicate the extensions of 0-place predicates, for instance, by writing</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell><m>P</m></cell><cell>= 1</cell></row>
+<row><cell><m>Q</m></cell><cell>= 0</cell></row></tabular>
+<p>instead of the more confusing</p>
+<tabular><col halign="right"/><col halign="center"/><col halign="left"/>
+<row><cell><m>\extension{P}</m></cell><cell>=</cell><cell>{<m>\emptyset</m>}</cell></row>
+<row><cell><m>\extension{Q}</m></cell><cell>=</cell><cell><m>\emptyset</m>.</cell></row></tabular>
+<p>So in the special case where we are <em>only</em> working with 0-place predicates, QL models directly provide SL valuation functions. This is another respect in which QL is simply a generalization of SL. If you ignore the UD and the extensions of higher-place predicates, a QL model provides the same information we were using to discuss SL models in Chapter <xref ref="ch-SLmodels" text="global"/>.</p>
+</section>
+<section xml:id="sec-UsingModels">
+<title>Working with models</title>
+<p>We will use the double turnstile symbol for QL much as we did for SL. ‘<m>\metaA{}\models\metaB{}</m>’ means that ‘<m>\metaA{}</m> entails <m>\metaB{}</m>’: When <m>\metaA{}</m> and <m>\metaB{}</m> are two sentences of QL, <m>\metaA{}\models\metaB{}</m> means that there is no model in which <m>\metaA{}</m> is true and <m>\metaB{}</m> is false. <m>\models\metaA{}</m> is shorthand for <m>\emptyset\models\metaA{}</m>, which means that <m>\metaA{}</m> is true in every model. This allows us to give definitions for various concepts in QL. In fact, we can use the same definitions offered in Chapter <xref ref="ch-SLmodels" text="global"/>.</p>
+<blockquote>
+<p>A <term>tautology in QL</term> is a sentence <m>\metaA{}</m> that is true in every model; i.e.,  <m>\models\metaA{}</m>.</p>
+<p>A <term>contradiction in QL</term> is a sentence <m>\metaA{}</m> that is false in every model; i.e., <m>\models\enot\metaA{}</m>.</p>
+<p>A sentence is <term>contingent in QL</term> if and only if it is neither a tautology nor a contradiction.</p>
+<p>An argument “ <m>\script{P}_1, \script{P}_2, \cdots</m>, ∴ <m>\metaC{}</m> ” is <term>valid in QL</term> if and only if there is no model in which all of the premises are true and the conclusion is false; i.e., <m>\{\script{P}_1,\script{P}_2,\cdots\}\models\metaC{}</m>. It is <term>invalid in QL</term> otherwise.</p>
+<p>Two sentences <m>\metaA{}</m> and <m>\metaB{}</m> are <term>logically equivalent in QL</term> if and only if both <m>\metaA{}\models\metaB{}</m> and <m>\metaB{}\models\metaA{}</m>.</p>
+<p>The set <m>\{\metaA{}_1,\metaA{}_2,\metaA{}_3,\cdots\}</m> is <term>consistent in QL</term> if and only if there is at least one model in which all of the sentences are true. The set is <term>inconsistent in QL</term> if and only if there is no such model.</p></blockquote>
+</section>
+<section xml:id="ql-models-constructing-models">
+<title>Constructing models</title>
+<p>Suppose we want to show that <m>\forall xAxx \eif Bd</m> is <em>not</em> a tautology. In other words, we need to give a model where this sentence is false. What would such a model look like? In order for <m>\forall xAxx \eif Bd</m> to be false, the antecedent (<m>\forall x Axx</m>) must be true, and the consequent (<m>Bd</m>) must be false.</p>
+<p>To construct such a model, we start with a UD. It will be easier to specify extensions for predicates if we have a small UD, so start with a UD that has just one member. Formally, this single member might be anything. Let’s say it is Miles Morales.</p>
+<p>We want <m>\forall x Axx</m> to be true, so we want all members of the UD to be paired with themself in the extension of <m>A</m>; this means that the extension of <m>A</m> must be {<m>\ntuple{Miles Morales, Miles Morales}</m>}.</p>
+<p>We want <m>Bd</m> to be false, so the referent of <m>d</m> must not be in the extension of <m>B</m>. We give <m>B</m> an empty extension.</p>
+<p>Since Miles is the only member of the UD, it must be the referent of <m>d</m>. The model we have constructed looks like this:</p>
+<tabular><col halign="right"/><col halign="center"/><col halign="left"/>
+<row><cell>UD</cell><cell>=</cell><cell>{Miles Morales}</cell></row>
+<row><cell><m>\extension{A}</m></cell><cell>=</cell><cell>{<m>\ntuple{Miles Morales, Miles Morales}</m>}</cell></row>
+<row><cell><m>\extension{B}</m></cell><cell>=</cell><cell><m>\emptyset</m></cell></row>
+<row><cell><m>\referent{d}</m></cell><cell>=</cell><cell>Miles Morales</cell></row></tabular>
+<p>Strictly speaking, a model specifies an extension for <em>every</em> predicate of QL and a referent for <em>every</em> constant. As such, it is generally impossible to write down a complete model. That would require writing down infinitely many extensions and infinitely many referents. However, we do not need to consider every predicate in order to show that there are models in which <m>\forall xAxx \eif Bd</m> is false. Predicates like <m>H</m> and constants like <m>f_{13}</m> make no difference to the truth or falsity of this sentence. It is enough to specify extensions for <m>A</m> and <m>B</m> and a referent for <m>d</m>, as we have done. This provides a <em>partial model</em> in which the sentence is false.</p>
+<p>Perhaps you are wondering: What does the predicate <m>A</m> mean in English? It doesn’t really matter. For formal purposes, the existence of models like the ones described above is enough to show that <m>\forall x Axx \eif Bd</m> is not a tautology. But we can offer an interpretation in English if we like. How about this one?</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>UD:</cell><cell>Miles Morales</cell></row>
+<row><cell><m>Axy</m>:</cell><cell><m>x</m> knows <m>y</m>’s biggest secret.</cell></row>
+<row><cell><m>Bx</m>:</cell><cell><m>x</m>’s powers derive from gamma radiation.</cell></row>
+<row><cell><m>d</m>:</cell><cell>Miles Morales</cell></row></tabular>
+<p>This is one way we can interpret the model above. <m>Add</m> is true, because Miles does know Miles’s biggest secret. (It’s that he’s the Ultimate Spider-Man. Now you know it too!) <m>Bd</m> is false: Miles’s powers came from a genetically enhanced spider, not from gamma radiation. But the partial model constructed above includes none of these interpretative details. All it says is that <m>A</m> is a predicate which is true of Miles and Miles, and that <m>B</m> is a predicate which does not apply to Miles. There are indefinitely many predicates in English that have this extension. <m>Axy</m> might instead translate ‘<m>x</m> is the same size as <m>y</m>’ or ‘<m>x</m> and <m>y</m> live in the same city’; <m>Bx</m> might  translate ‘<m>x</m> is a billionaire’ or ‘<m>x</m>’s uncle was killed by a robber’ or ‘Donald Trump has written a tweet about <m>x</m>’. In constructing a model and giving extensions for <m>A</m> and <m>B</m>, we do not specify what English predicates <m>A</m> and <m>B</m> should be used to translate. We are concerned with whether the <m>\forall xAxx \eif Bd</m> comes out true or false, and all that matters for truth and falsity in QL is the information in the model: the UD, the extensions of predicates, and the referents of constants.</p>
+<p>We can just as easily show that <m>\forall xAxx \eif Bd</m> is not a contradiction. We need only specify a model in which <m>\forall xAxx \eif Bd</m> is true; i.e., a model in which either <m>\forall x Axx</m> is false or <m>Bd</m> is true. Here is one such partial model:</p>
+<tabular><col halign="right"/><col halign="center"/><col halign="left"/>
+<row><cell>UD</cell><cell>=</cell><cell>{The Red Skull}</cell></row>
+<row><cell><m>\extension{A}</m></cell><cell>=</cell><cell>{<m>\ntuple{The Red Skull, The Red Skull}</m>}</cell></row>
+<row><cell><m>\extension{B}</m></cell><cell>=</cell><cell>{The Red Skull}</cell></row>
+<row><cell><m>\referent{d}</m></cell><cell>=</cell><cell>The Red Skull</cell></row></tabular>
+<p>I’ve switched our object from Miles Morales to The Red Skull to emphasize that it doesn’t matter what object you pick. (Changing the examples all back to Miles would make no difference.) On this model, <m>\forall xAxx \eif Bd</m> is true, because it is a conditional with a true consequent (as well as a true antecedent). We have now shown that <m>\forall xAxx \eif Bd</m> is neither a tautology nor a contradiction. By the definition of ‘contingent in QL,’ this means that 
+<m>\forall xAxx \eif Bd</m> is contingent. In general, showing that a sentence is contingent will require two models: one in which the sentence is true and another in which the sentence is false.</p>
+<p>Suppose we want to show that <m>\forall x Sx</m> and <m>\exists x Sx</m> are not logically equivalent. We need to construct a model in which the two sentences have different truth values; we want one of them to be true and the other to be false. We start by specifying a UD. Again, we make the UD reasonably small so that we can specify extensions easily. But this time we will need at least two members. If we only had one member of the domain, we wouldn’t be able to illustrate the difference between <em>all</em> and <em>some</em>. Let’s let our UD be {The Red Skull, Miles Morales}.</p>
+<p>We can make <m>\exists x Sx</m> true by including something in the extension of <m>S</m>, and we can make <m>\forall x Sx</m> false by leaving something out of the extension of <m>S</m>. It does not matter which one we include and which one we leave out. Making Miles the only <m>S</m>, we get a partial model that looks like this:</p>
+<tabular><col halign="right"/><col halign="center"/><col halign="left"/>
+<row><cell>UD</cell><cell>=</cell><cell>{Miles, The Red Skull}</cell></row>
+<row><cell><m>\extension{S}</m></cell><cell>=</cell><cell>{Miles}</cell></row></tabular>
+<p>This partial model shows that the two sentences are <em>not</em> logically equivalent. <m>\exists x Sx</m> is assigned 1 on this model, but <m>\forall x Sx</m> is assigned 0.</p>
+<p>Back in <xref ref="ql-ambiguous-predicates" text="type-global"/>, we said that this argument would be invalid in QL:</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell/><cell><m>(Rc \eand K_1c) \eand Tc</m></cell></row>
+<row><cell>∴</cell><cell><m>Tc \eand K_2c</m></cell></row></tabular>
+<p>Now we can prove that this is so. To show that this argument is invalid, we need to show that there is some model in which the premise is true and the conclusion is false. We can construct such a model deliberately. Here is one way to do it:</p>
+<tabular><col halign="right"/><col halign="center"/><col halign="left"/>
+<row><cell>UD</cell><cell>=</cell><cell>{Reed Richards}</cell></row>
+<row><cell><m>\extension{T}</m></cell><cell>=</cell><cell>{Reed Richards}</cell></row>
+<row><cell><m>\extension{K_1}</m></cell><cell>=</cell><cell>{Reed Richards}</cell></row>
+<row><cell><m>\extension{K_2}</m></cell><cell>=</cell><cell><m>\emptyset</m></cell></row>
+<row><cell><m>\extension{R}</m></cell><cell>=</cell><cell>{Reed Richards}</cell></row>
+<row><cell><m>\referent{c}</m></cell><cell>=</cell><cell>Reed Richards</cell></row></tabular>
+<p>Similarly, we can show that a set of sentences is consistent by constructing a model in which all of the sentences are true.</p>
+<table xml:id="table-ModelOrArgument">
+<title>It is relatively easy to answer a question if you can do it by constructing a model or two. It is much harder if you need to reason about all possible models. This table shows when constructing models is enough.</title>
+<tabular><col halign="left"/><col halign="left"/><col halign="left"/>
+<row><cell/><cell>YES</cell><cell bottom="minor">NO</cell></row>
+<row><cell>Is <m>\metaA{}</m> a tautology?</cell><cell>show that <m>\metaA{}</m> must be true in any model</cell><cell bottom="minor"><em>construct a model</em> in which <m>\metaA{}</m> is false</cell></row>
+<row><cell>Is <m>\metaA{}</m> a contradiction?</cell><cell bottom="minor">show that <m>\metaA{}</m> must be false in any model</cell><cell bottom="minor"><em>construct a model</em> in which <m>\metaA{}</m> is true</cell></row>
+<row><cell>Is <m>\metaA{}</m> contingent?</cell><cell bottom="minor"><em>construct two models</em>, one in which <m>\metaA{}</m> is true and another in which <m>\metaA{}</m> is false</cell><cell bottom="minor">either show that <m>\metaA{}</m> is a tautology or show that <m>\metaA{}</m> is a contradiction</cell></row>
+<row><cell>Are <m>\metaA{}</m> and <m>\metaB{}</m> equivalent?</cell><cell bottom="minor">show that <m>\metaA{}</m> and <m>\metaB{}</m> must have the same truth value in any model</cell><cell bottom="minor"><em>construct a model</em> in which <m>\metaA{}</m> and <m>\metaB{}</m> have different truth values</cell></row>
+<row><cell>Is the set <m>\model{A}</m> consistent?</cell><cell bottom="minor"><em>construct a model</em> in which all the sentences in <m>\model{A}</m> are true</cell><cell bottom="minor">show that the sentences in <m>\model{A}</m> could not all be true in any model</cell></row>
+<row><cell>Is the argument ‘<m>\script{P}</m>, ∴ <m>\metaC{}</m>’ valid?</cell><cell>show that any model in which <m>\script{P}</m> is true must be a model in which <m>\metaC{}</m> is true</cell><cell bottom="minor"><em>construct a model</em> in which <m>\script{P}</m> is true and <m>\metaC{}</m> is false</cell></row></tabular></table>
+</section>
+<section xml:id="sec-allmodelreasoning">
+<title>Reasoning about all models</title>
+<p>We can show that a sentence is <em>not</em> a tautology just by providing one carefully specified model: a model in which the sentence is false. To show that something is a tautology, on the other hand, it would not be enough to construct ten, one hundred, or even a thousand models in which the sentence is true. It is only a tautology if it is true in <em>every</em> model, and there are infinitely many models. This cannot be avoided just by constructing partial models, because there are infinitely many partial models.</p>
+<p>Consider, for example, the sentence <m>Raa\eiff Raa</m>. There are two logically distinct partial models of this sentence that have a 1-member UD. There are 32 distinct partial models that have a 2-member UD. There are 1,536 distinct partial models that have a 3-member UD. There are 262,144 distinct partial models that have a 4-member UD. And so on to infinity. In order to show that this sentence is a tautology, we need to show something about <em>all</em> of these models. There is obviously no hope of doing so by dealing with them one at a time.</p>
+<p>Nevertheless, <m>Raa\eiff Raa</m> is obviously a tautology. We can prove it with a simple argument:</p>
+<blockquote>
+<p>There are two kinds of models: those in which <m>\langle</m>referent(a), referent(a)<m>\rangle</m> is in the extension of <m>R</m>, and those in which it is not. In the first kind of model, <m>Raa</m> is true; by the truth table for the biconditional, <m>Raa\eiff Raa</m> is also true. In the second kind of model, <m>Raa</m> is false; this makes <m>Raa\eiff Raa</m> true. Since the sentence is true in both kinds of model, and since every model is one of the two kinds, <m>Raa\eiff Raa</m> is true in every model. Therefore, it is a tautology.</p></blockquote>
+<p>This is a sound argument; it should convince us of its conclusion. But note that it is not an argument in QL. Rather, it is an argument in English <em>about</em> QL; it is an argument in the metalanguage. There is no formal procedure for evaluating or constructing natural language arguments like this one. The imprecision of natural language is the very reason we began thinking about formal languages.</p>
+<p>There are further difficulties with this approach.</p>
+<p>Consider the sentence <m>\forall x(Rxx\eif Rxx)</m>, another obvious tautology. It might be tempting to reason in this way: ‘<m>Rxx\eif Rxx</m> is true in every model, so <m>\forall x(Rxx\eif Rxx)</m> must be true.’ The problem is that <m>Rxx\eif Rxx</m> is <em>not</em> true in every model. It is not a sentence, and so it is <em>neither</em> true <em>nor</em> false. We do not yet have the vocabulary to say what we want to say about <m>Rxx\eif Rxx</m>. In the next section, we introduce the concept of <em>satisfaction</em>; after doing so, we will be better able to provide an argument that <m>\forall x(Rxx\eif Rxx)</m> is a tautology.</p>
+<p>It is necessary to reason about an infinity of models to show that a sentence is a tautology. Similarly, it is necessary to reason about an infinity of models to show that a sentence is a contradiction, that two sentences are equivalent, that a set of sentences is inconsistent, or that an argument is valid. There are other things we can show by carefully constructing a model or two. <xref ref="table-ModelOrArgument" text="type-global"/> summarizes which things are which.</p>
+</section>
+<section xml:id="sec-TruthInQL">
+<title>Truth in QL</title>
+<p>In our discussion of SL, we split the definition of truth into two parts: a truth value assignment (<m>a</m>) for sentence letters and a truth function (<m>v</m>) for all sentences. The truth function covered the way that complex sentences could be built out of sentence letters and connectives.</p>
+<p>Just as for SL, truth for QL is relative: it is <em>truth in a model</em>. The atomic sentences, again, are <m>n</m>-place predicates followed by <m>n</m> constants, like <m>Pj</m>. It is true in a model <m>\model{M}</m> if and only if the referent of <m>j</m> is in the extension of <m>P</m> in <m>\model{M}</m>.</p>
+<p>We could go on in this way to define truth for all atomic sentences that contain only predicates and constants: Consider any sentence of the form <m>\script{R}\script{a}_1\ldots\script{a}_n</m> where <m>\script{R}</m> is an n-place predicate and the <m>\script{a}</m>s are constants. It is true in <m>\model{M}</m> if and only if <m>{\langle}\referent{\script{a}_1},\ldots,\referent{\script{a}_n}{\rangle}</m> is in <m>\extension{\script{R}}</m> in <m>\model{M}</m>.</p>
+<p>We could then define truth for sentences built up with sentential connectives in the same way we did for SL. For example, the sentence <m>(Pj \eif Mda)</m> is true in <m>\model{M}</m> if either <m>Pj</m> is false in <m>\model{M}</m> or <m>Mda</m> is true in <m>\model{M}</m>.</p>
+<p>Unfortunately, this approach will fail when we consider sentences containing quantifiers. Consider <m>\forall x Px</m>. When is it true in a model <m>\model{M}</m>? The answer cannot depend on whether <m>Px</m> is true or false in <m>\model{M}</m>, because the <m>x</m> in <m>Px</m> is a free variable. <m>Px</m> is not a sentence. It is neither true nor false.</p>
+<p>We were able to give a recursive definition of truth for SL because every well-formed formula of SL has a truth value. This is not true in QL, so we cannot define truth by starting with the truth of atomic sentences and building up. We also need to consider the atomic formulae which are not sentences. In order to do this we will define <em>satisfaction</em>; every well-formed formula of QL will be satisfied or not satisfied, even if it does not have a truth value. We will then be able to define <em>truth</em> for sentences of QL in terms of satisfaction.</p>
+</section>
+<section xml:id="ql-models-satisfaction">
+<title>Satisfaction</title>
+<p>The formula <m>Px</m> says, roughly, that <m>x</m> is one of the <m>P</m>s. This cannot be quite right, however, because <m>x</m> is a variable and not a constant. It does not name any particular member of the UD. Instead, its meaning in a sentence is determined by the quantifier that binds it. The variable <m>x</m> must stand-in for every member of the UD in the sentence <m>\forall xPx</m>, but it only needs to stand-in for one member in <m>\exists xPx</m>. Since we want the definition of satisfaction to cover <m>Px</m> without any quantifier whatsoever, we will start by saying how to interpret a free variable like the <m>x</m> in <m>Px</m>.</p>
+<p>We do this by introducing a <em>variable assignment</em>. Formally, this is a function that matches up each variable with a member of the UD. Call this function ‘a’. (The ‘a’ is for ‘assignment’, but this is not the same as the truth value assignment that we used in defining truth for SL.)</p>
+<p>The formula <m>Px</m> is satisfied in a model <m>\model{M}</m> by a variable assignment <m>a</m> if and only if <m>a(x)</m>, the object that <m>a</m> assigns to <m>x</m>, is in the  extension of P in <m>\model{M}</m>.</p>
+<p>When is <m>\forall x Px</m> satisfied? It is not enough if <m>Px</m> is satisfied in <m>\model{M}</m> by <m>a</m>, because that just means that <m>a(x)</m> is in <m>\extension{P}</m>. <m>\forall x Px</m> requires that every other member of the UD be in <m>\extension{P}</m> as well.</p>
+<p>So we need another bit of technical notation: For any member <m>\pi</m> of the UD and any variable <m>\script{x}</m>, let <m>a[\pi|\script{x}]</m> be the variable assignment that assigns <m>\pi</m> to <m>\script{x}</m> but agrees with <m>a</m> in all other respects. We have used <m>\pi</m>, the Greek letter <em>pi</em>, to underscore the fact that it is some member of the UD and not some symbol of QL. Suppose, for example, that the UD is presidents of the United States. The function <m>a[\mbox{Grover Cleveland}|x]</m> assigns Grover Cleveland to the variable <m>x</m>, regardless of what <m>a</m> assigns to <m>x</m>; for any other variable, <m>a[\mbox{Grover Cleveland}|x]</m> agrees with <m>a</m>.</p>
+<p>We can now say concisely that <m>\forall x Px</m> is satisfied in a model <m>\model{M}</m> by a variable assignment <m>a</m> if and only if, for every object <m>\pi</m> in the UD of <m>\model{M}</m>, <m>Px</m> is satisfied in <m>\model{M}</m> by <m>a[\pi|x]</m>.</p>
+<p>The intuitive thought here is that wff satisfaction is relative to a variable assignment. A variable assignment is a way of treating each variable as if it were a name for some object or other; a wff is satisfied by <m>a</m> in a given model iff, in that model, treating the variables the way <m>a</m> suggests would yield a true wff.</p>
+<p>You may worry that our statement of satisfaction by a variable assignment in a model is circular, because it gives the satisfaction conditions for the sentence <m>\forall x Px</m> using the phrase ‘for every object.’ However, it is important to remember the difference between a logical symbol like ‘<m>\forall</m>’ and an English language word like ‘every.’ The word is part of the metalanguage that we use in defining satisfaction conditions for object language sentences that contain the symbol. (Recall the parallel discussion of sentential connectives in <xref ref="slmodels-defining-truth-in-sl" text="type-global"/>.)</p>
+<p>We can now give a general definition of satisfaction, extending from the cases we have already discussed. We define a function <m>s</m> (for ‘satisfaction’) in a model <m>\model{M}</m> such that for any wff <m>\metaA{}</m> and variable assignment <m>a</m>, <m>s(\metaA{}, a)=1</m> if <m>\metaA{}</m> is satisfied in <m>\model{M}</m> by <m>a</m>; otherwise <m>s(\metaA{}, a)=0</m>.</p>
+<p>
+<ol>
+<li>
+<p>If <m>\metaA{}</m> is an atomic wff of the form <m>\script{P}\script{t}_1\ldots\script{t}_n</m> and <m>\pi_i</m> is the object picked out by <m>t_i</m>, then
+<md>s(\metaA{}, a) =
+	\left\{\begin{array}{ll}
+	1 &amp; \mbox{if ${\langle}\pi_1\ldots\pi_n{\rangle}$ is in \extension{\script{P}} in \model{M}},\\
+	0 &amp; \mbox{otherwise.}
+	\end{array}\right.</md></p>
+<p>For each term <m>t_i</m>: If <m>t_i</m> is a constant, then <m>\pi_i = \referent{t_i}</m>. If <m>t_i</m> is a variable, then <m>\pi_i = a(t_i)</m>.</p></li>
+<li>If <m>\metaA{}</m> is <m>{\enot}\metaB{}</m> for some wff <m>\metaB{}</m>, then
+<md>s(\metaA{}, a) =
+	\left\{\begin{array}{ll}
+	1 &amp; \mbox{if $s(\metaB{}, a) = 0$},\\
+	0 &amp; \mbox{otherwise.}
+	\end{array}\right.</md></li>
+<li>If <m>\metaA{}</m> is <m>(\metaB{}\eand\metaC{})</m> for some wffs <m>\metaB{}</m>, <m>\metaC{}</m>, then
+<md>s(\metaA{}, a) =
+	\left\{\begin{array}{ll}
+	1 &amp; \mbox{if $s(\metaB{}, a) = 1$ and $s(\metaC{}, a) = 1$,}\\
+	0 &amp; \mbox{otherwise.}
+	\end{array}\right.</md></li>
+<li>If <m>\metaA{}</m> is <m>(\metaB{}\eor\metaC{})</m> for some wffs <m>\metaB{}</m>, <m>\metaC{}</m>, then
+<md>s(\metaA{}, a) =
+	\left\{\begin{array}{ll}
+	0 &amp; \mbox{if $s(\metaB{}, a) = 0$  and $s(\metaC{}, a) = 0$,}\\
+	1 &amp; \mbox{otherwise.}
+	\end{array}\right.</md></li>
+<li>If <m>\metaA{}</m> is <m>(\metaB{}\eif\metaC{})</m> for some wffs <m>\metaB{}</m>, <m>\metaC{}</m>, then
+<md>s(\metaA{}, a) =
+	\left\{\begin{array}{ll}
+	0 &amp; \mbox{if $s(\metaB{}, a) = 1$ and $s(\metaC{}, a) = 0$,}\\
+	1 &amp; \mbox{otherwise.}
+	\end{array}\right.</md></li>
+<li>If <m>\metaA{}</m> is <m>(\metaB{}\eiff\metaC{})</m> for some wffs <m>\metaB{}</m>, <m>\metaC{}</m>, then
+<md>s(\metaA{}, a) =
+	\left\{\begin{array}{ll}
+	1 &amp; \mbox{if $s(\metaB{}, a) = s(\metaC{}, a)$},\\
+	0 &amp; \mbox{otherwise.}
+	\end{array}\right.</md></li>
+<li>If <m>\metaA{}</m> is <m>\forall\script{x} \metaB{}</m> for some wff <m>\metaB{}</m> and some variable <m>\script{x}</m>, then
+<md>s(\metaA{}, a) =
+	\left\{\begin{array}{ll}
+	1 &amp; \mbox{if $s(\metaB{}, a[\pi|\script{x}])=1$ for every member $\pi$ of the UD},\\
+	0 &amp; \mbox{otherwise.}
+	\end{array}\right.</md></li>
+<li>If <m>\metaA{}</m> is <m>\exists\script{x} \metaB{}</m> for some wff <m>\metaB{}</m> and some variable <m>\script{x}</m>, then
+<md>s(\metaA{}, a) =
+	\left\{\begin{array}{ll}
+	1 &amp; \mbox{if $s(\metaB{}, a[\pi|\script{x}])=1$ for at least one member $\pi$ of the UD},\\
+	0 &amp; \mbox{otherwise.}
+	\end{array}\right.</md></li></ol></p>
+<p>This definition follows the same structure as the definition of a wff for QL, so we know that every wff of QL will be covered by this definition. For a model <m>\model{M}</m> and a variable assignment <m>a</m>, any wff will either be satisfied or not. No wffs are left out or assigned conflicting values.</p>
+</section>
+<section xml:id="ql-models-truth-in-ql">
+<title>Truth in QL</title>
+<p>Consider a simple quantified sentence like <m>\forall xPx</m>. By part 7 in the definition of satisfaction, this sentence is satisfied if <m>a[\pi|x]</m> satisfies <m>Px</m> in <m>\model{M}</m> for every <m>\pi</m> in the UD. In other words, assign that <m>x</m> to any object in the UD you like, and the resultant wff will come out true. By part 1 of the definition, this will be the case if every <m>\pi</m> is in the extension of <m>P</m>. Whether <m>\forall xPx</m> is satisfied does not depend on the particular variable assignment <m>a</m>. If this sentence is satisfied, then it is true. This is a formalization of what we have said all along: <m>\forall xPx</m> is true if everything in the UD is in the extension of <m>P</m>.</p>
+<p>The same thing holds for any sentence of QL. Because all of the variables are bound, a sentence is satisfied or not regardless of the details of the variable assignment. So we can define truth in this way: A sentence <m>\metaA{}</m> is <term>true in</term> <m>\model{M}</m> if and only if some variable assignment satisfies <m>\metaA{}</m> in <m>\model{M}</m>; <m>\metaA{}</m> is <term>false in</term> <m>\model{M}</m> otherwise.</p>
+<p>Truth in QL is <em>truth in a model</em>. Sentences of QL are not flat-footedly true or false as mere symbols, but only relative to a model. A model provides the meaning of the symbols, insofar as it makes any difference to truth and falsity.</p>
+</section>
+<section xml:id="ql-models-reasoning-about-all-models-reprise">
+<title>Reasoning about all models (reprise)</title>
+<p>At the end of section <xref ref="sec-allmodelreasoning" text="global"/>, we were stymied when we tried to show that <m>\forall x(Rxx\eif Rxx)</m> is a tautology. Having defined satisfaction, we can now reason in this way:</p>
+<blockquote>
+<p>Consider some arbitrary model <m>\model{M}</m>. Now consider an arbitrary member of the UD; for the sake of convenience, call it <m>\pi</m>. It must be the case either that <m>\langle\pi,\pi\rangle</m> is in the extension of <m>R</m> or that it is not. If <m>\langle\pi,\pi\rangle</m> is in the extension of <m>R</m>, then <m>Rxx</m> is satisfied by a variable assignment that assigns <m>\pi</m> to <m>x</m> (by part 1 of the definition of  satisfaction); since the consequent of <m>Rxx\eif Rxx</m> is satisfied, the conditional is satisfied (by part 5). If <m>\langle\pi,\pi\rangle</m> is not in the extension of <m>R</m>, then <m>Rxx</m> is not satisfied by a variable assignment that assigns <m>\pi</m> to <m>x</m> (by part 1); since the antecedent of <m>Rxx\eif Rxx</m> is not satisfied, the conditional is satisfied (by part 5). In either case, <m>Rxx\eif Rxx</m> is satisfied. This is true for any member of the UD, so <m>\forall x(Rxx \eif Rxx)</m> is satisfied by any variable assignment (by part 7). So <m>\forall x(Rxx \eif Rxx)</m> is true in <m>\model{M}</m> (by the definition of truth). This argument holds regardless of the exact UD and regardless of the exact extension of <m>R</m>, so <m>\forall x(Rxx \eif Rxx)</m> is true in any model. Therefore, it is a tautology.</p></blockquote>
+<p>Giving arguments about all possible models typically requires clever combination of two strategies:</p>
+<p>1. Divide cases between two possible kinds, such that every case must be one kind or the other.  In the argument in <xref ref="sec-allmodelreasoning" text="type-global"/>, for example, we distinguished two kinds of models based on whether or not a specific ordered pair was in <m>\extension{R}</m>. In the argument above, we distinguished cases in which an ordered pair was in <m>\extension{R}</m> and cases in which it was not.</p>
+<p>2. Consider an arbitrary object as a way of showing something more general. In the argument above, it was crucial that <m>\pi</m> was just some arbitrary member of the UD. We did not assume anything special about it. As such, whatever we could show to hold of <m>\pi</m> must hold of every member of the UD — if we could show it for <m>\pi</m>, we could show it for anything. In the same way, we did not assume anything special about <m>\model{M}</m>, and so whatever we could show about <m>\model{M}</m> must hold for all models.</p>
+<p>Consider one more example. The argument <m>\forall x(Hx \eand Jx)</m> ∴  <m>\forall x Hx</m> is obviously valid. We can only show that the argument is valid by considering what must be true in every model in which the premise is true.</p>
+<blockquote>
+<p>Consider an arbitrary model <m>\model{M}</m> in which the premise <m>\forall x(Hx \eand Jx)</m> is true. The conjunction <m>Hx \eand Jx</m> is satisfied regardless of what is assigned to <m>x</m>, so <m>Hx</m> must be also (by part 3 of the definition of satisfaction). As such, <m>\forall x Hx</m> is satisfied by any variable assignment (by part 7 of the definition of satisfaction) and true in <m>\model{M}</m> (by the definition of truth).
+Since we did not assume anything about <m>\model{M}</m> besides <m>\forall x(Hx \eand Jx)</m> being true, <m>\forall x Hx</m> must be true in any model in which <m>\forall x(Hx \eand Jx)</m> is true. So <m>\forall x(Hx \eand Jx) \models \forall x Hx</m>.</p></blockquote>
+<p>Even for a simple argument like this one, the reasoning is somewhat complicated. For longer arguments, the reasoning can be insufferable. The problem arises because talking about an infinity of models requires reasoning things out in English. What are we to do? The answer won’t surprise readers of the first half of the book: we’ll make use of some formal proof systems. We have seen two kinds of proof systems for SL: the tree method, and natural deduction proofs. In the coming chapters, we’ll extend both kinds of systems to QL as well.</p>
+</section>
+<exercises xml:id="ql-models-exercises">
+<title>Practice Exercises</title>
+<subexercises xml:id="pr-varass1">
+<title>Part A</title>
+<introduction>
+<p>Consider the following model and variable assignment:</p>
+<tabular><col halign="right"/><col halign="center"/><col halign="left"/>
+<row><cell>UD</cell><cell>=</cell><cell>{Alia, Ben, Cleo}</cell></row>
+<row><cell><m>\extension{P}</m></cell><cell>=</cell><cell>{Alia, Cleo}</cell></row>
+<row><cell><m>\extension{R}</m></cell><cell>=</cell><cell>{<m>\ntuple{Alia, Ben}</m>, <m>\ntuple{Cleo, Alia}</m>}</cell></row></tabular>
+<p>Let <m>a</m> be a variable assignment such that:</p>
+<p><md>a(x)=\text{Alia},\qquad
+a(y)=\text{Ben},\qquad
+a(z)=\text{Cleo}.</md></p>
+<p>The wffs below are not QL sentences, because they have unbound variables. For each, determine whether it is satisfied in the model by variable assignment <m>a</m>.</p></introduction>
+<exercise>
+<statement>
+<p><m>Px</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>Py</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>Rxy</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>Ryx</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>Px \eand \enot Py</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>Rzy \eor Rzx</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>Pz \eif Rzx</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>\enot Ryz \eand Pz</m></p></statement></exercise>
+</subexercises>
+<subexercises xml:id="pr-varass2">
+<title>Part B</title>
+<introduction>
+<p>Using the same model from Part <xref ref="pr-varass1" text="custom">A</xref>, give a variable assignment that satisfies each of the following wffs, if there is one. If no such assignment exists, explain why.</p></introduction>
+<exercise>
+<statement>
+<p><m>Pz</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>\enot Py</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>Rxy</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>Px \eand Rxy</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>Px \eand \enot Py \eand Rxy</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>Rxy \eand Rzx</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>Rxy \eand Ryx</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>Px \eand \enot Px</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>\exists x Px</m></p></statement></exercise>
+</subexercises>
+<subexercises xml:id="pr-TorF1">
+<title>Part C</title>
+<introduction>
+<p>Determine whether each sentence is true or false in the model given.</p>
+<tabular><col halign="right"/><col halign="center"/><col halign="left"/>
+<row><cell>UD</cell><cell>=</cell><cell>{Corwin, Benedict}</cell></row>
+<row><cell><m>\extension{A}</m></cell><cell>=</cell><cell>{Corwin, Benedict}</cell></row>
+<row><cell><m>\extension{B}</m></cell><cell>=</cell><cell>{Benedict}</cell></row>
+<row><cell><m>\extension{N}</m></cell><cell>=</cell><cell><m>\emptyset</m></cell></row>
+<row><cell><m>\referent{c}</m></cell><cell>=</cell><cell>Corwin</cell></row></tabular></introduction>
+<exercise>
+<statement>
+<p><m>Bc</m></p></statement><choices><choice>
+<statement>
+<p>True in the model</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice><choice correct="yes">
+<statement>
+<p>False in the model</p></statement><feedback>
+<p>Correct.</p></feedback></choice></choices>
+<solution>
+<p>False in the model.</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>Ac \eiff \enot Nc</m></p></statement><choices><choice correct="yes">
+<statement>
+<p>True in the model</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>False in the model</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>True in the model.</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>Nc \eif (Ac \eor Bc)</m></p></statement><choices><choice correct="yes">
+<statement>
+<p>True in the model</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>False in the model</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>True in the model.</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>\forall x Ax</m></p></statement><choices><choice correct="yes">
+<statement>
+<p>True in the model</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>False in the model</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>True in the model.</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>\forall x \enot Bx</m></p></statement><choices><choice>
+<statement>
+<p>True in the model</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice><choice correct="yes">
+<statement>
+<p>False in the model</p></statement><feedback>
+<p>Correct.</p></feedback></choice></choices>
+<solution>
+<p>False in the model.</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>\exists x(Ax \eand Bx)</m></p></statement><choices><choice correct="yes">
+<statement>
+<p>True in the model</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>False in the model</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>True in the model.</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>\exists x(Ax \eif Nx)</m></p></statement><choices><choice>
+<statement>
+<p>True in the model</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice><choice correct="yes">
+<statement>
+<p>False in the model</p></statement><feedback>
+<p>Correct.</p></feedback></choice></choices>
+<solution>
+<p>False in the model.</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>\forall x(Nx \eor \enot Nx)</m></p></statement><choices><choice correct="yes">
+<statement>
+<p>True in the model</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>False in the model</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>True in the model.</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>\exists x Bx \eif \forall x Ax</m></p></statement><choices><choice correct="yes">
+<statement>
+<p>True in the model</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>False in the model</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>True in the model.</p></solution></exercise>
+</subexercises>
+<subexercises xml:id="pr-TorF2">
+<title>Part D</title>
+<exercise>
+<statement>
+<p>Determine whether each sentence is true or false in the model given.</p>
+<tabular><col halign="right"/><col halign="center"/><col halign="left"/>
+<row><cell>UD</cell><cell>=</cell><cell>{Waylan, Willy, Johnny}</cell></row>
+<row><cell><m>\extension{H}</m></cell><cell>=</cell><cell>{Waylan, Willy, Johnny}</cell></row>
+<row><cell><m>\extension{W}</m></cell><cell>=</cell><cell>{Waylan, Willy}</cell></row>
+<row><cell><m>\extension{R}</m></cell><cell>=</cell><cell>{<m>\ntuple{Waylan, Willy}</m>,<m>\ntuple{Willy, Johnny}</m>,<m>\ntuple{Johnny, Waylan}</m>}</cell></row>
+<row><cell><m>\referent{m}</m></cell><cell>=</cell><cell>Johnny</cell></row></tabular>
+<p>
+<ol>
+<li><m>\exists x(Rxm \eand Rmx)</m></li>
+<li><m>\forall x(Rxm \eor Rmx)</m></li>
+<li><m>\forall x(Hx \eiff Wx)</m></li>
+<li><m>\forall x(Rxm \eif Wx)</m></li>
+<li><m>\forall x\bigl[Wx \eif(Hx \eand Wx)\bigr]</m></li>
+<li><m>\exists x Rxx</m></li>
+<li><m>\exists x\exists y Rxy</m></li>
+<li><m>\forall x \forall y Rxy</m></li>
+<li><m>\forall x \forall y (Rxy \eor Ryx)</m></li>
+<li><m>\forall x \forall y \forall z\bigl[(Rxy \eand Ryz) \eif Rxz\bigr]</m></li></ol></p></statement>
+<solution>
+<p>4, 
+5, 
+and 7 
+are true in the model.</p></solution></exercise>
+</subexercises>
+<subexercises xml:id="pr-TorF3">
+<title>Part E</title>
+<introduction>
+<p>Determine whether each sentence is true or false in the model given.</p>
+<tabular><col halign="right"/><col halign="center"/><col halign="left"/>
+<row><cell>UD</cell><cell>=</cell><cell>{Lemmy, Courtney, Eddy}</cell></row>
+<row><cell><m>\extension{G}</m></cell><cell>=</cell><cell>{Lemmy, Courtney, Eddy}</cell></row>
+<row><cell><m>\extension{H}</m></cell><cell>=</cell><cell>{Courtney}</cell></row>
+<row><cell><m>\extension{M}</m></cell><cell>=</cell><cell>{Lemmy, Eddy}</cell></row>
+<row><cell><m>\referent{c}</m></cell><cell>=</cell><cell>Courtney</cell></row>
+<row><cell><m>\referent{e}</m></cell><cell>=</cell><cell>Eddy</cell></row></tabular></introduction>
+<exercise>
+<statement>
+<p><m>Hc</m></p></statement><choices><choice correct="yes">
+<statement>
+<p>True in the model</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>False in the model</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>True in the model.</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>He</m></p></statement><choices><choice>
+<statement>
+<p>True in the model</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice><choice correct="yes">
+<statement>
+<p>False in the model</p></statement><feedback>
+<p>Correct.</p></feedback></choice></choices>
+<solution>
+<p>False in the model.</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>Mc \eor Me</m></p></statement><choices><choice correct="yes">
+<statement>
+<p>True in the model</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>False in the model</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>True in the model.</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>Gc \eor \enot Gc</m></p></statement><choices><choice correct="yes">
+<statement>
+<p>True in the model</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>False in the model</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>True in the model.</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>Mc \eif Gc</m></p></statement><choices><choice correct="yes">
+<statement>
+<p>True in the model</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>False in the model</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>True in the model.</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>\exists x Hx</m></p></statement><choices><choice correct="yes">
+<statement>
+<p>True in the model</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>False in the model</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>True in the model.</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>\forall x Hx</m></p></statement><choices><choice>
+<statement>
+<p>True in the model</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice><choice correct="yes">
+<statement>
+<p>False in the model</p></statement><feedback>
+<p>Correct.</p></feedback></choice></choices>
+<solution>
+<p>False in the model.</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>\exists x \enot Mx</m></p></statement><choices><choice correct="yes">
+<statement>
+<p>True in the model</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>False in the model</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>True in the model.</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>\exists x(Hx \eand Gx)</m></p></statement><choices><choice correct="yes">
+<statement>
+<p>True in the model</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>False in the model</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>True in the model.</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>\exists x(Mx \eand Gx)</m></p></statement><choices><choice correct="yes">
+<statement>
+<p>True in the model</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>False in the model</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>True in the model.</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>\forall x(Hx \eor Mx)</m></p></statement><choices><choice correct="yes">
+<statement>
+<p>True in the model</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>False in the model</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>True in the model.</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>\exists x Hx \eand \exists x Mx</m></p></statement><choices><choice correct="yes">
+<statement>
+<p>True in the model</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>False in the model</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>True in the model.</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>\forall x(Hx \eiff \enot Mx)</m></p></statement><choices><choice correct="yes">
+<statement>
+<p>True in the model</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>False in the model</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>True in the model.</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>\exists x Gx \eand \exists x \enot Gx</m></p></statement><choices><choice>
+<statement>
+<p>True in the model</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice><choice correct="yes">
+<statement>
+<p>False in the model</p></statement><feedback>
+<p>Correct.</p></feedback></choice></choices>
+<solution>
+<p>False in the model.</p></solution></exercise>
+<exercise>
+<statement>
+<p><m>\forall x\exists y(Gx \eand Hy)</m></p></statement><choices><choice correct="yes">
+<statement>
+<p>True in the model</p></statement><feedback>
+<p>Correct.</p></feedback></choice><choice>
+<statement>
+<p>False in the model</p></statement><feedback>
+<p>Not quite. Try again, or reread the relevant section.</p></feedback></choice></choices>
+<solution>
+<p>True in the model.</p></solution></exercise>
+</subexercises>
+<subexercises xml:id="pr-InterpretationToModel">
+<title>Part F</title>
+<exercise>
+<statement>
+<p>Write out the model that corresponds to the interpretation given.</p>
+<tabular><col halign="right"/><col halign="left"/>
+<row><cell>UD:</cell><cell>natural numbers from 10 to 13</cell></row>
+<row><cell>Ox:</cell><cell><m>x</m> is odd.</cell></row>
+<row><cell>Sx:</cell><cell><m>x</m> is less than 7.</cell></row>
+<row><cell>Tx:</cell><cell><m>x</m> is a two-digit number.</cell></row>
+<row><cell>Ux:</cell><cell><m>x</m> is thought to be unlucky.</cell></row>
+<row><cell>Nxy:</cell><cell><m>x</m> is the next number after <m>y</m>.</cell></row></tabular></statement>
+<solution>
+<tabular><col halign="right"/><col halign="center"/><col halign="left"/>
+<row><cell>UD</cell><cell>=</cell><cell>{10,11,12,13}</cell></row>
+<row><cell><m>\extension{O}</m></cell><cell>=</cell><cell>{11,13}</cell></row>
+<row><cell><m>\extension{S}</m></cell><cell>=</cell><cell><m>\emptyset</m></cell></row>
+<row><cell><m>\extension{T}</m></cell><cell>=</cell><cell>{10,11,12,13}</cell></row>
+<row><cell><m>\extension{U}</m></cell><cell>=</cell><cell>{13}</cell></row>
+<row><cell><m>\extension{N}</m></cell><cell>=</cell><cell>{<m>\ntuple{11,10}</m>,<m>\ntuple{12,11}</m>,<m>\ntuple{13,12}</m>}</cell></row></tabular></solution></exercise>
+</subexercises>
+<subexercises xml:id="pr-Contingent">
+<title>Part G</title>
+<introduction>
+<p>Show that each of the following is contingent.</p></introduction>
+<exercise>
+<statement>
+<p><m>Da \eand Db</m></p></statement>
+<solution>
+<p>The sentence is true in this model:</p>
+<tabular><col halign="right"/><col halign="center"/><col halign="left"/>
+<row><cell>UD</cell><cell>=</cell><cell>{Stan}</cell></row>
+<row><cell><m>\extension{D}</m></cell><cell>=</cell><cell>{Stan}</cell></row>
+<row><cell><m>\referent{a}</m></cell><cell>=</cell><cell>Stan</cell></row>
+<row><cell><m>\referent{b}</m></cell><cell>=</cell><cell>Stan</cell></row></tabular>
+<p>And it is false in this model:</p>
+<tabular><col halign="right"/><col halign="center"/><col halign="left"/>
+<row><cell>UD</cell><cell>=</cell><cell>{Stan}</cell></row>
+<row><cell><m>\extension{D}</m></cell><cell>=</cell><cell><m>\emptyset</m></cell></row>
+<row><cell><m>\referent{a}</m></cell><cell>=</cell><cell>Stan</cell></row>
+<row><cell><m>\referent{b}</m></cell><cell>=</cell><cell>Stan</cell></row></tabular></solution></exercise>
+<exercise>
+<statement>
+<p><m>\exists x Txh</m></p></statement>
+<solution>
+<p>The sentence is true in this model:</p>
+<tabular><col halign="right"/><col halign="center"/><col halign="left"/>
+<row><cell>UD</cell><cell>=</cell><cell>{Stan}</cell></row>
+<row><cell><m>\extension{T}</m></cell><cell>=</cell><cell>{<m>\ntuple{Stan, Stan}</m>}</cell></row>
+<row><cell><m>\referent{h}</m></cell><cell>=</cell><cell>Stan</cell></row></tabular>
+<p>And it is false in this model:</p>
+<tabular><col halign="right"/><col halign="center"/><col halign="left"/>
+<row><cell>UD</cell><cell>=</cell><cell>{Stan}</cell></row>
+<row><cell><m>\extension{T}</m></cell><cell>=</cell><cell><m>\emptyset</m></cell></row>
+<row><cell><m>\referent{h}</m></cell><cell>=</cell><cell>Stan</cell></row></tabular></solution></exercise>
+<exercise>
+<statement>
+<p><m>Pm \eand \enot\forall x Px</m></p></statement>
+<solution>
+<p>The sentence is true in this model:</p>
+<tabular><col halign="right"/><col halign="center"/><col halign="left"/>
+<row><cell>UD</cell><cell>=</cell><cell>{Stan, Ollie}</cell></row>
+<row><cell><m>\extension{P}</m></cell><cell>=</cell><cell>{Stan}</cell></row>
+<row><cell><m>\referent{m}</m></cell><cell>=</cell><cell>Stan</cell></row></tabular>
+<p>And it is false in this model:</p>
+<tabular><col halign="right"/><col halign="center"/><col halign="left"/>
+<row><cell>UD</cell><cell>=</cell><cell>{Stan}</cell></row>
+<row><cell><m>\extension{P}</m></cell><cell>=</cell><cell><m>\emptyset</m></cell></row>
+<row><cell><m>\referent{m}</m></cell><cell>=</cell><cell>Stan</cell></row></tabular></solution></exercise>
+<exercise>
+<statement>
+<p><m>\forall z Jz \eiff \exists y Jy</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>\forall x (Wxmn \eor \exists yLxy)</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>\exists x (Gx \eif \forall y My)</m></p></statement></exercise>
+</subexercises>
+<subexercises xml:id="pr-NotEquiv">
+<title>Part H</title>
+<introduction>
+<p>Show that the following pairs of sentences are not logically equivalent.</p></introduction>
+<exercise>
+<statement>
+<p><m>Ja</m>, <m>Ka</m></p></statement>
+<solution>
+<p>There are many possible correct answers. Here are some:</p>
+<p>Making the first sentence true and the second false:</p>
+<tabular><col halign="right"/><col halign="center"/><col halign="left"/>
+<row><cell>UD</cell><cell>=</cell><cell>{alpha}</cell></row>
+<row><cell><m>\extension{J}</m></cell><cell>=</cell><cell>{alpha}</cell></row>
+<row><cell><m>\extension{K}</m></cell><cell>=</cell><cell><m>\emptyset</m></cell></row>
+<row><cell><m>\referent{a}</m></cell><cell>=</cell><cell>alpha</cell></row></tabular></solution></exercise>
+<exercise>
+<statement>
+<p><m>\exists x Jx</m>, <m>Jm</m></p></statement>
+<solution>
+<p>There are many possible correct answers. Here are some:</p>
+<p>Making the first sentence true and the second false:</p>
+<tabular><col halign="right"/><col halign="center"/><col halign="left"/>
+<row><cell>UD</cell><cell>=</cell><cell>{alpha, omega}</cell></row>
+<row><cell><m>\extension{J}</m></cell><cell>=</cell><cell>{alpha}</cell></row>
+<row><cell><m>\referent{m}</m></cell><cell>=</cell><cell>omega</cell></row></tabular></solution></exercise>
+<exercise>
+<statement>
+<p><m>\forall x Rxx</m>, <m>\exists x Rxx</m></p></statement>
+<solution>
+<p>There are many possible correct answers. Here are some:</p>
+<p>Making the first sentence false and the second true:</p>
+<tabular><col halign="right"/><col halign="center"/><col halign="left"/>
+<row><cell>UD</cell><cell>=</cell><cell>{alpha, omega}</cell></row>
+<row><cell><m>\extension{R}</m></cell><cell>=</cell><cell>{<m>\ntuple{alpha, alpha}</m>}</cell></row></tabular></solution></exercise>
+<exercise>
+<statement>
+<p><m>\exists x Px \eif Qc</m>, <m>\exists x (Px \eif Qc)</m></p></statement>
+<solution>
+<p>There are many possible correct answers. Here are some:</p>
+<p>Making the first sentence false and the second true:</p>
+<tabular><col halign="right"/><col halign="center"/><col halign="left"/>
+<row><cell>UD</cell><cell>=</cell><cell>{alpha, omega}</cell></row>
+<row><cell><m>\extension{P}</m></cell><cell>=</cell><cell>{alpha}</cell></row>
+<row><cell><m>\extension{Q}</m></cell><cell>=</cell><cell><m>\emptyset</m></cell></row>
+<row><cell><m>\referent{c}</m></cell><cell>=</cell><cell>alpha</cell></row></tabular></solution></exercise>
+<exercise>
+<statement>
+<p><m>\forall x(Px \eif \enot Qx)</m>, <m>\exists x(Px \eand \enot Qx)</m></p></statement>
+<solution>
+<p>There are many possible correct answers. Here are some:</p>
+<p>Making the first sentence true and the second false:</p>
+<tabular><col halign="right"/><col halign="center"/><col halign="left"/>
+<row><cell>UD</cell><cell>=</cell><cell>{iota}</cell></row>
+<row><cell><m>\extension{P}</m></cell><cell>=</cell><cell><m>\emptyset</m></cell></row>
+<row><cell><m>\extension{Q}</m></cell><cell>=</cell><cell><m>\emptyset</m></cell></row></tabular></solution></exercise>
+<exercise>
+<statement>
+<p><m>\exists x(Px \eand Qx)</m>, <m>\exists x(Px \eif Qx)</m></p></statement>
+<solution>
+<p>There are many possible correct answers. Here are some:</p>
+<p>Making the first sentence false and the second true:</p>
+<tabular><col halign="right"/><col halign="center"/><col halign="left"/>
+<row><cell>UD</cell><cell>=</cell><cell>{iota}</cell></row>
+<row><cell><m>\extension{P}</m></cell><cell>=</cell><cell><m>\emptyset</m></cell></row>
+<row><cell><m>\extension{Q}</m></cell><cell>=</cell><cell>{iota}</cell></row></tabular></solution></exercise>
+<exercise>
+<statement>
+<p><m>\forall x(Px\eif Qx)</m>, <m>\forall x(Px \eand Qx)</m></p></statement>
+<solution>
+<p>There are many possible correct answers. Here are some:</p>
+<p>Making the first sentence true and the second false:</p>
+<tabular><col halign="right"/><col halign="center"/><col halign="left"/>
+<row><cell>UD</cell><cell>=</cell><cell>{iota}</cell></row>
+<row><cell><m>\extension{P}</m></cell><cell>=</cell><cell><m>\emptyset</m></cell></row>
+<row><cell><m>\extension{Q}</m></cell><cell>=</cell><cell>{iota}</cell></row></tabular></solution></exercise>
+<exercise>
+<statement>
+<p><m>\forall x\exists y Rxy</m>, <m>\exists x\forall y Rxy</m></p></statement>
+<solution>
+<p>There are many possible correct answers. Here are some:</p>
+<p>Making the first sentence true and the second false:</p>
+<tabular><col halign="right"/><col halign="center"/><col halign="left"/>
+<row><cell>UD</cell><cell>=</cell><cell>{alpha, omega}</cell></row>
+<row><cell><m>\extension{R}</m></cell><cell>=</cell><cell>{<m>\ntuple{alpha, omega}</m>, <m>\ntuple{omega, alpha}</m>}</cell></row></tabular></solution></exercise>
+<exercise>
+<statement>
+<p><m>\forall x\exists y Rxy</m>, <m>\forall x\exists y Ryx</m></p></statement>
+<solution>
+<p>There are many possible correct answers. Here are some:</p>
+<p>Making the first sentence false and the second true:</p>
+<tabular><col halign="right"/><col halign="center"/><col halign="left"/>
+<row><cell>UD</cell><cell>=</cell><cell>{alpha, omega}</cell></row>
+<row><cell><m>\extension{R}</m></cell><cell>=</cell><cell>{<m>\ntuple{alpha, alpha}</m>, <m>\ntuple{alpha, omega}</m>}</cell></row></tabular></solution></exercise>
+</subexercises>
+<subexercises xml:id="ql-models-part-i">
+<title>Part I</title>
+<introduction>
+<p>Show that the following sets of sentences are consistent.</p></introduction>
+<exercise>
+<statement>
+<p>{Ma, <m>\enot</m> Na, Pa, <m>\enot</m> Qa}</p></statement></exercise>
+<exercise>
+<statement>
+<p>{<m>Lee</m>, <m>Lef</m>, <m>\enot Lfe</m>, <m>\enot Lff</m>}</p></statement></exercise>
+<exercise>
+<statement>
+<p>{<m>\enot (Ma \eand \exists x Ax)</m>, <m>Ma \eor Fa</m>, <m>\forall x(Fx \eif Ax)</m>}</p></statement></exercise>
+<exercise>
+<statement>
+<p>{<m>Ma \eor Mb</m>, <m>Ma \eif \forall x \enot Mx</m>}</p></statement></exercise>
+<exercise>
+<statement>
+<p>{<m>\forall y Gy</m>, <m>\forall x (Gx \eif Hx)</m>, <m>\exists y \enot Iy</m>}</p></statement></exercise>
+<exercise>
+<statement>
+<p>{<m>\exists x(Bx \eor Ax)</m>, <m>\forall x \enot Cx</m>, <m>\forall x\bigl[(Ax \eand Bx) \eif Cx\bigr]</m>}</p></statement></exercise>
+<exercise>
+<statement>
+<p>{<m>\exists x Xx</m>, <m>\exists x Yx</m>, <m>\forall x(Xx \eiff \enot Yx)</m>}</p></statement></exercise>
+<exercise>
+<statement>
+<p>{<m>\forall x(Px \eor Qx)</m>, <m>\exists x\enot(Qx \eand Px)</m>}</p></statement></exercise>
+<exercise>
+<statement>
+<p>{<m>\exists z(Nz \eand Ozz)</m>, <m>\forall x\forall y(Oxy \eif Oyx)</m>}</p></statement></exercise>
+<exercise>
+<statement>
+<p>{<m>\enot \exists x \forall y Rxy</m>, <m>\forall x \exists y Rxy</m>}</p></statement></exercise>
+</subexercises>
+<subexercises xml:id="ql-models-part-j">
+<title>Part J</title>
+<introduction>
+<p>Construct models to show that the following arguments are invalid.</p></introduction>
+<exercise>
+<statement>
+<p><m>\forall x(Ax \eif Bx)</m>, ∴ <m>\exists x Bx</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>\forall x(Rx \eif Dx)</m>, <m>\forall x(Rx \eif Fx)</m>, ∴ <m>\exists x(Dx \eand Fx)</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>\exists x(Px\eif Qx)</m>, ∴ <m>\exists x Px</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>Na \eand Nb \eand Nc</m>, ∴ <m>\forall x Nx</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>Rde</m>, <m>\exists x Rxd</m>, ∴ <m>Red</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>\exists x(Ex \eand Fx)</m>, <m>\exists x Fx \eif \exists x Gx</m>, ∴ <m>\exists x(Ex \eand Gx)</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>\forall x Oxc</m>, <m>\forall x Ocx</m>, ∴ <m>\forall x Oxx</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>\exists x(Jx \eand Kx)</m>, <m>\exists x \enot Kx</m>, <m>\exists x \enot Jx</m>, ∴ <m>\exists x(\enot Jx \eand \enot Kx)</m></p></statement></exercise>
+<exercise>
+<statement>
+<p><m>Lab \eif \forall x Lxb</m>, <m>\exists x Lxb</m>, ∴ <m>Lbb</m></p></statement></exercise>
+</subexercises>
+<subexercises xml:id="pr-SemanticsEssay">
+<title>Part K</title>
+<exercise>
+<statement>
+<p>Many logic books define consistency and inconsistency in this way:
+“ A set <m>\{\metaA{}_1,\metaA{}_2,\metaA{}_3,\cdots\}</m> is inconsistent if and only if <m>\{\metaA{}_1,\metaA{}_2,\metaA{}_3,\cdots\}\models(\metaB{}\eand\enot\metaB{})</m> for some sentence <m>\metaB{}</m>. A set is consistent if it is not inconsistent.”</p>
+<p>Does this definition lead to any different sets being consistent than the definition in <xref ref="slmodels-defining-concepts-in-terms-of-entailment" text="type-global"/>? Explain your answer.</p></statement>
+<solution>
+<p>No, it would not make any difference. The satisfaction of a formula with one or more free variables depends on what the variable assignment does for those variables. Because a sentence has no free variables, however, its satisfaction does not depend on the variable assignment. So a sentence that is satisfied by <em>some</em> variable assignment is satisfied by <em>every</em> other variable assignment as well.</p></solution></exercise>
+<exercise>
+<statement>
+<p>Our definition of truth says that a sentence <m>\metaA{}</m> is <term>true in</term> <m>\model{M}</m> if and only if some variable assignment satisfies <m>\metaA{}</m> in <m>M</m>. Would it make any difference if we said instead that <m>\metaA{}</m> is <term>true in</term> <m>\model{M}</m> if and only if <em>every</em> variable assignment satisfies <m>\metaA{}</m> in <m>M</m>? Explain your answer.</p></statement></exercise>
+</subexercises>
+<conclusion>
+<note component="genai">
+<title>GenAI prompts for further practice</title>
+<p>Here are some potential GenAI prompts you might use to generate further practice problems, in case you find that helpful.</p>
+<p>
+<ul>
+<li>Give me a small QL model with a universe of discourse, extensions for some one-place and two-place predicates, and referents for some constants. Give me QL sentences one at a time and ask me whether each is true or false in the model. Check my answer and explain any mistakes.</li>
+<li>Give me a small QL model and a variable assignment. Give me open wffs one at a time and ask me whether each is satisfied by that variable assignment. After I answer, explain how the model and variable assignment determine the answer.</li>
+<li>Give me a small QL model and an open wff containing one or more free variables. Ask me to provide a variable assignment that satisfies the wff, or explain why no such assignment exists.</li>
+<li>Give me QL sentences that are not tautologies. Present them one at a time and ask me to construct a model in which each sentence is false. Check whether my model works.</li>
+<li>Give me QL sentences that are not contradictions. Present them one at a time and ask me to construct a model in which each sentence is true. Check whether my model works.</li>
+<li>Give me pairs of QL sentences that are not logically equivalent. Ask me to construct a model in which they have different truth values. Do not give me a countermodel until I have attempted one.</li>
+<li>Give me invalid QL argument forms. Ask me to construct a model in which all the premises are true and the conclusion is false. After I provide a model, check each premise and the conclusion individually.</li>
+<li>Give me a QL model and several variable assignments. Ask me which assignments satisfy a given open wff. Include some examples where changing the assignment of a variable makes no difference because that variable does not occur free in the wff.</li></ul></p></note></conclusion>
+</exercises>
+</chapter>
