@@ -32,7 +32,9 @@ concurrency:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    # Pinned: the trees and proofs were verified with Ubuntu 24.04's TeX Live
+    # 2023. ubuntu-latest (26.04, TeX Live 2025) fails on one proof.
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
@@ -52,6 +54,15 @@ jobs:
             texlive-latex-base texlive-latex-recommended texlive-latex-extra \
             texlive-pictures texlive-fonts-recommended
 
+      # Reuse previously typeset trees and proofs; only changed ones are
+      # re-run through LaTeX.  The key includes the LaTeX support files, so
+      # editing them re-typesets everything.
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: pretext/.cache
+          key: pretext-images-${{ hashFiles('pretext/latex/**') }}-${{ github.sha }}
+          restore-keys: pretext-images-${{ hashFiles('pretext/latex/**') }}-
+
       - name: Convert and build
         run: ./pretext/build.sh images
 
@@ -64,7 +75,7 @@ jobs:
   deploy:
     if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     environment:
       name: cloudflare
       url: https://fax.minegahara.net
